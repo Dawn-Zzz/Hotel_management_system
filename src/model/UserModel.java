@@ -1,4 +1,4 @@
-package View;
+package model;
 
 public class UserModel {
 	private String userName;
@@ -14,5 +14,4 @@ public class UserModel {
 	public String getPassword() {
 		return password;
 	}
-	
 }

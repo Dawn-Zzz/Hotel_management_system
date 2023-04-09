@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,15 +17,17 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-public class Login extends JFrame{
-	public Login() {
-		this.Init();
-	}
+import controller.LoginListener;
+import model.UserModel;
+
+public class LoginView extends JFrame{
+	private UserModel userModel = new UserModel("", "");
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
 	private JLabel labelLeft = new JLabel();
@@ -39,11 +41,20 @@ public class Login extends JFrame{
 	private JLabel labelBotLine = new JLabel();
 	private JButton signup_button = new JButton();
 	
+	public LoginView() {
+		this.Init();
+		this.setVisible(true);
+	}
+	
 	public void Init() {
 		ImageIcon image = new ImageIcon("./Images/Logo.png"); // set icon for app
 		this.setIconImage(image.getImage()); //set icon for app
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
+		
+		ActionListener ac = new LoginListener(this);
+		login_button.addActionListener(ac);
+		signup_button.addActionListener(ac);
 		
 		leftPanel.setBounds(0, 0, 600, 800);
 		
@@ -107,7 +118,6 @@ public class Login extends JFrame{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
 		
 		rightPanel.add(labelHeadLine);
 		rightPanel.add(labelUser);
@@ -124,15 +134,21 @@ public class Login extends JFrame{
 		this.add(leftPanel);
 		this.add(rightPanel);
 	}
-	public UserModel getUser() {
-		String user = userTextField.getText();
+	
+//	public UserModel getUser() {
+//		String user = new String(userTextField.getText());
+//		String pass = new String(userPassWord.getPassword());
+//		return new UserModel(user, pass);
+//	} 
+	public void LoginAction() {
+		String user = new String(userTextField.getText());
 		String pass = new String(userPassWord.getPassword());
-		return new UserModel(user, pass);
-	} 
-	public void addLoginAction(ActionListener action){
-		login_button.addActionListener(action);
+		if (user.equals("admin") && pass.equals("admin"))
+			JOptionPane.showMessageDialog(this, "Success");
+		else 
+			JOptionPane.showMessageDialog(this, "Fail");
 	}
-//	public void switchSignUpWD(ActionListener action1) {
-//		signup_button.addActionListener(action1);
-//	}
+	public void SwitchSignUpAction (SignupView sv) {
+		sv = new SignupView();
+	}
 }
