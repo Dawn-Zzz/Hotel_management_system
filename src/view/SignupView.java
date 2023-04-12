@@ -1,7 +1,8 @@
-package View;
+package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -12,9 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Signup extends JFrame{
-	public Signup() {
+import controller.SignupListener;
+
+public class SignupView extends JFrame{
+	public SignupView() {
 		this.Init();
+		this.setVisible(false);
 	}
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
@@ -40,6 +44,10 @@ public class Signup extends JFrame{
 		this.setIconImage(image.getImage()); //set icon for app
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
+		
+		ActionListener ac = new SignupListener(this);
+		login_button.addActionListener(ac);
+		signup_button.addActionListener(ac);
 		
 		leftPanel.setBounds(0, 0, 600, 800);
 		
@@ -128,9 +136,7 @@ public class Signup extends JFrame{
 		this.setSize(1100,800);
 		this.setLayout(null);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
 		
 		rightPanel.add(labelHeadLine);
 		rightPanel.add(labelFirstName);
@@ -152,6 +158,10 @@ public class Signup extends JFrame{
 		
 		this.add(leftPanel);
 		this.add(rightPanel);	
+	}
+	
+	public void SignupAction() {
+		this.dispose();
 	}
 }
 
