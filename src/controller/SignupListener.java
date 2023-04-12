@@ -16,7 +16,8 @@ public class SignupListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String src = e.getActionCommand();
-		if (src.equals("Sign Up"))
+		if (src.equals("Sign Up")) {
 			signupView.SignupAction();
+		}
 	}
 }

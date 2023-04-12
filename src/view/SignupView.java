@@ -9,17 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controller.LoginListener;
 import controller.SignupListener;
 
 public class SignupView extends JFrame{
 	public SignupView() {
 		this.Init();
+		this.setVisible(false);
 	}
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
@@ -137,9 +136,7 @@ public class SignupView extends JFrame{
 		this.setSize(1100,800);
 		this.setLayout(null);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
 		
 		rightPanel.add(labelHeadLine);
 		rightPanel.add(labelFirstName);
@@ -164,7 +161,7 @@ public class SignupView extends JFrame{
 	}
 	
 	public void SignupAction() {
-		this.dispose();	
+		this.dispose();
 	}
 }
 

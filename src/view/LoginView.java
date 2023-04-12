@@ -1,33 +1,22 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
 import controller.LoginListener;
-import model.UserModel;
 
 public class LoginView extends JFrame{
-	private UserModel userModel = new UserModel("", "");
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
 	private JLabel labelLeft = new JLabel();
@@ -40,6 +29,9 @@ public class LoginView extends JFrame{
 	private JButton login_button = new JButton();// bien toan cuc
 	private JLabel labelBotLine = new JLabel();
 	private JButton signup_button = new JButton();
+	private MouseListener mouseListener = new LoginListener(this);
+	
+	private boolean checkSignUp_button = false;
 	
 	public LoginView() {
 		this.Init();
@@ -52,9 +44,8 @@ public class LoginView extends JFrame{
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
-		ActionListener ac = new LoginListener(this);
-		login_button.addActionListener(ac);
-		signup_button.addActionListener(ac);
+		login_button.addMouseListener(mouseListener);
+		signup_button.addMouseListener(mouseListener);
 		
 		leftPanel.setBounds(0, 0, 600, 800);
 		
@@ -148,7 +139,28 @@ public class LoginView extends JFrame{
 		else 
 			JOptionPane.showMessageDialog(this, "Fail");
 	}
-	public void SwitchSignUpAction (SignupView sv) {
-		sv = new SignupView();
+
+	public JButton getLogin_button() {
+		return login_button;
+	}
+
+	public void setLogin_button(JButton login_button) {
+		this.login_button = login_button;
+	}
+
+	public JButton getSignup_button() {
+		return signup_button;
+	}
+
+	public void setSignup_button(JButton signup_button) {
+		this.signup_button = signup_button;
+	}
+
+	public boolean isCheckSignUp_button() {
+		return checkSignUp_button;
+	}
+
+	public void setCheckSignUp_button(boolean checkSignUp_button) {
+		this.checkSignUp_button = checkSignUp_button;
 	}
 }
