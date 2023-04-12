@@ -47,42 +47,42 @@ public class LoginView extends JFrame{
 		login_button.addMouseListener(mouseListener);
 		signup_button.addMouseListener(mouseListener);
 		
-		leftPanel.setBounds(0, 0, 600, 800);
+		leftPanel.setBounds(0, 0, 520, 720);
 		
-		rightPanel.setBounds(600,0, 500, 800);
+		rightPanel.setBounds(520,0, 500, 720);
 		rightPanel.setLayout(null);
 		
 		labelLeft.setIcon(image2);
-		labelLeft.setBounds(0,0,600,800);
+		labelLeft.setBounds(0,0,520,720);
 		
 		labelRight.setBackground(Color.white);
 		labelRight.setOpaque(true);
-		labelRight.setBounds(0,0,500,800);
+		labelRight.setBounds(0,0,500,720);
 		
 		labelHeadLine.setText("Log In");
 		labelHeadLine.setForeground(new Color(85,85,85));
 		labelHeadLine.setFont(new Font("Arial",Font.BOLD,40));
-		labelHeadLine.setBounds(50,160,150,50);
+		labelHeadLine.setBounds(50,120,150,50);
 		
 		labelUser.setText("User Name");
 		labelUser.setForeground(new Color(85,85,85));
 		labelUser.setFont(new Font("Arial",Font.BOLD,16));
-		labelUser.setBounds(50,292,100,40);//set x,y position within frame as well 
+		labelUser.setBounds(50,220,100,40);//set x,y position within frame as well 
 		
 		userTextField.setFont(new Font("Arial",Font.PLAIN,16));
 		userTextField.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
-		userTextField.setBounds(50,320,400,40);
+		userTextField.setBounds(50,248,400,40);
 		
 		labelPassword.setText("Password");
 		labelPassword.setForeground(new Color(85,85,85));
 		labelPassword.setFont(new Font("Arial",Font.BOLD,16));
-		labelPassword.setBounds(50,392, 100,40);//set x,y position within frame as well
+		labelPassword.setBounds(50,320, 100,40);//set x,y position within frame as well
 		
 		userPassWord.setFont(new Font("Arial",Font.PLAIN,16));
 		userPassWord.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
-		userPassWord.setBounds(50,420,400,40);
+		userPassWord.setBounds(50,348,400,40);
 		
-		login_button.setBounds(180,520,140,40);
+		login_button.setBounds(180,448,140,40);
 		login_button.setText("Log In");
 		login_button.setFont(new Font("Arial",Font.BOLD,20));
 		login_button.setFocusable(false);
@@ -93,9 +93,9 @@ public class LoginView extends JFrame{
 		labelBotLine.setText("Don't have an account?");
 		labelBotLine.setForeground(new Color(85,85,85));
 		labelBotLine.setFont(new Font("Arial",Font.BOLD,12));
-		labelBotLine.setBounds(50,650,140,100);
+		labelBotLine.setBounds(50,576,140,100);
 		
-		signup_button.setBounds(200,690,60,20);
+		signup_button.setBounds(200,616,60,20);
 		signup_button.setText("Sign Up");
 		signup_button.setFont(new Font("Arial",Font.BOLD,12));
 		signup_button.setFocusable(false);
@@ -104,7 +104,7 @@ public class LoginView extends JFrame{
 		signup_button.setBorder(BorderFactory.createEmptyBorder());
 		
 		this.setTitle("HOTEL MANAGEMENT");
-		this.setSize(1100,800);
+		this.setSize(1020,720);
 		this.setLayout(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
