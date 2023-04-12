@@ -35,9 +35,7 @@ public class SignupView extends JFrame{
 	private JPasswordField userPassWord = new JPasswordField();
 	private JLabel labelConFirmPassword = new JLabel();
 	private JPasswordField userConFirmPassWord = new JPasswordField();
-	private JLabel labelBotLine = new JLabel();
 	private JButton signup_button = new JButton();
-	private JButton login_button = new JButton();
 	
 	public void Init() {
 		ImageIcon image = new ImageIcon("./Images/Logo.png"); // set icon for app
@@ -46,20 +44,19 @@ public class SignupView extends JFrame{
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
 		ActionListener ac = new SignupListener(this);
-		login_button.addActionListener(ac);
 		signup_button.addActionListener(ac);
 		
-		leftPanel.setBounds(0, 0, 600, 800);
+		leftPanel.setBounds(0, 0, 520, 720);
 		
-		rightPanel.setBounds(600,0, 500, 800);
+		rightPanel.setBounds(520,0, 500, 720);
 		rightPanel.setLayout(null);
 		
 		labelLeft.setIcon(image2);
-		labelLeft.setBounds(0,0,600,800);
+		labelLeft.setBounds(0,0,520,720);
 		
 		labelRight.setBackground(Color.white);
 		labelRight.setOpaque(true);
-		labelRight.setBounds(0,0,500,800);
+		labelRight.setBounds(0,0,500,720);
 		
 		labelHeadLine.setText("Sign Up");
 		labelHeadLine.setForeground(new Color(85,85,85));
@@ -119,21 +116,8 @@ public class SignupView extends JFrame{
 		signup_button.setBackground(new Color(39,162,187));
 		signup_button.setBorder(BorderFactory.createEmptyBorder());
 		
-		labelBotLine.setText("Already have an account?");
-		labelBotLine.setForeground(new Color(85,85,85));
-		labelBotLine.setFont(new Font("Arial",Font.BOLD,12));
-		labelBotLine.setBounds(50,650,150,100);
-	
-		login_button.setBounds(200,690,60,20);
-		login_button.setText("Log In");
-		login_button.setFont(new Font("Arial",Font.BOLD,12));
-		login_button.setFocusable(false);
-		login_button.setForeground(new Color(39,162,187));
-		login_button.setBackground(Color.white);
-		login_button.setBorder(BorderFactory.createEmptyBorder());
-		
 		this.setTitle("HOTEL MANAGEMENT");
-		this.setSize(1100,800);
+		this.setSize(1020,720);
 		this.setLayout(null);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -149,9 +133,7 @@ public class SignupView extends JFrame{
 		rightPanel.add(userPassWord);
 		rightPanel.add(labelConFirmPassword);
 		rightPanel.add(userConFirmPassWord);
-		rightPanel.add(labelBotLine);
 		rightPanel.add(signup_button);
-		rightPanel.add(login_button);
 		rightPanel.add(labelRight);
 		
 		leftPanel.add(labelLeft);
