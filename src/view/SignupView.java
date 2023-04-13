@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -17,7 +18,7 @@ import controller.SignupListener;
 
 public class SignupView extends JFrame{
 	public SignupView() {
-		this.Init();
+		this.init();
 		this.setVisible(false);
 	}
 	private JPanel leftPanel = new JPanel();
@@ -26,9 +27,9 @@ public class SignupView extends JFrame{
 	private JLabel labelRight = new JLabel();
 	private JLabel labelHeadLine = new JLabel();
 	private JLabel labelFirstName = new JLabel();
-	private JTextField firstnameTextField = new JTextField();
+	private JTextField firstNameTextField = new JTextField();
 	private JLabel labelLasttName = new JLabel();
-	private JTextField lastnameTextField = new JTextField();
+	private JTextField lastNameTextField = new JTextField();
 	private JLabel labelUser = new JLabel();
 	private JTextField userTextField = new JTextField();
 	private JLabel labelPassword = new JLabel();
@@ -37,14 +38,14 @@ public class SignupView extends JFrame{
 	private JPasswordField userConFirmPassWord = new JPasswordField();
 	private JButton signup_button = new JButton();
 	
-	public void Init() {
+	public void init() {
 		ImageIcon image = new ImageIcon("./Images/Logo.png"); // set icon for app
 		this.setIconImage(image.getImage()); //set icon for app
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
-		ActionListener ac = new SignupListener(this);
-		signup_button.addActionListener(ac);
+		ActionListener actionListener = new SignupListener(this);
+		signup_button.addActionListener(actionListener);
 		
 		leftPanel.setBounds(0, 0, 520, 720);
 		
@@ -68,18 +69,18 @@ public class SignupView extends JFrame{
 		labelFirstName.setFont(new Font("Arial",Font.BOLD,16));
 		labelFirstName.setBounds(50,142,100,40);//set x,y position within frame as well
 		
-		firstnameTextField.setFont(new Font("Arial",Font.PLAIN,18));
-		firstnameTextField.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
-		firstnameTextField.setBounds(50,170,180,40);
+		firstNameTextField.setFont(new Font("Arial",Font.PLAIN,18));
+		firstNameTextField.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
+		firstNameTextField.setBounds(50,170,180,40);
 		
 		labelLasttName.setText("Last Name");
 		labelLasttName.setForeground(new Color(85,85,85));
 		labelLasttName.setFont(new Font("Arial",Font.BOLD,16));
 		labelLasttName.setBounds(280,142,100,40);//set x,y position within frame as well
 		
-		lastnameTextField.setFont(new Font("Arial",Font.PLAIN,18));
-		lastnameTextField.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
-		lastnameTextField.setBounds(270,170,180,40);
+		lastNameTextField.setFont(new Font("Arial",Font.PLAIN,18));
+		lastNameTextField.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
+		lastNameTextField.setBounds(270,170,180,40);
 		
 		labelUser.setText("User Name");
 		labelUser.setForeground(new Color(85,85,85));
@@ -124,8 +125,8 @@ public class SignupView extends JFrame{
 		
 		rightPanel.add(labelHeadLine);
 		rightPanel.add(labelFirstName);
-		rightPanel.add(firstnameTextField);
-		rightPanel.add(lastnameTextField);
+		rightPanel.add(firstNameTextField);
+		rightPanel.add(lastNameTextField);
 		rightPanel.add(labelLasttName);
 		rightPanel.add(labelUser);
 		rightPanel.add(userTextField);
@@ -142,8 +143,29 @@ public class SignupView extends JFrame{
 		this.add(rightPanel);	
 	}
 	
-	public void SignupAction() {
-		this.dispose();
+	public void signupAction() {
+		String firstName = new String(firstNameTextField.getText());
+		String lastName = new String(lastNameTextField.getText());
+		String user = new String(userTextField.getText());
+		String pass = new String(userPassWord.getPassword());
+		String confirmPass = new String(userConFirmPassWord.getPassword());
+		if (firstName.isEmpty() || lastName.isEmpty() || user.isEmpty() || pass.isEmpty() || confirmPass.isEmpty())
+			JOptionPane.showMessageDialog(this, "Fail");
+		else if (!pass.equals(confirmPass)) {
+			JOptionPane.showMessageDialog(this, "Mật khẩu không trùng");
+		} 
+		else {
+			JOptionPane.showMessageDialog(this, "Success");
+			this.dispose();
+		}
+	}
+	
+	public void resetFormSignup() {
+		firstNameTextField.setText("");
+		lastNameTextField.setText("");
+		userTextField.setText("");
+		userPassWord.setText("");
+		userConFirmPassWord.setText("");
 	}
 }
 

@@ -2,7 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,7 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import DAO.UserDAO;
 import controller.LoginListener;
+import model.UserModel;
 
 public class LoginView extends JFrame{
 	private JPanel leftPanel = new JPanel();
@@ -29,23 +32,22 @@ public class LoginView extends JFrame{
 	private JButton login_button = new JButton();// bien toan cuc
 	private JLabel labelBotLine = new JLabel();
 	private JButton signup_button = new JButton();
-	private MouseListener mouseListener = new LoginListener(this);
 	
-	private boolean checkSignUp_button = false;
+	private ActionListener actionListener = new LoginListener(this);
 	
 	public LoginView() {
-		this.Init();
+		this.init();
 		this.setVisible(true);
 	}
 	
-	public void Init() {
+	public void init() {
 		ImageIcon image = new ImageIcon("./Images/Logo.png"); // set icon for app
 		this.setIconImage(image.getImage()); //set icon for app
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
-		login_button.addMouseListener(mouseListener);
-		signup_button.addMouseListener(mouseListener);
+		login_button.addActionListener(actionListener);
+		signup_button.addActionListener(actionListener);
 		
 		leftPanel.setBounds(0, 0, 520, 720);
 		
@@ -131,36 +133,19 @@ public class LoginView extends JFrame{
 //		String pass = new String(userPassWord.getPassword());
 //		return new UserModel(user, pass);
 //	} 
-	public void LoginAction() {
+	public void loginAction() {
+		ArrayList<UserModel> arr = UserDAO.getInstance().selectAll();
 		String user = new String(userTextField.getText());
 		String pass = new String(userPassWord.getPassword());
-		if (user.equals("admin") && pass.equals("admin"))
+		boolean check = false;
+		for (UserModel userModel : arr) 
+			if (user.equals(userModel.getUserName()) && pass.equals(userModel.getPassword())) {
+				check = true;
+				break;
+			}
+		if (check) 
 			JOptionPane.showMessageDialog(this, "Success");
 		else 
 			JOptionPane.showMessageDialog(this, "Fail");
-	}
-
-	public JButton getLogin_button() {
-		return login_button;
-	}
-
-	public void setLogin_button(JButton login_button) {
-		this.login_button = login_button;
-	}
-
-	public JButton getSignup_button() {
-		return signup_button;
-	}
-
-	public void setSignup_button(JButton signup_button) {
-		this.signup_button = signup_button;
-	}
-
-	public boolean isCheckSignUp_button() {
-		return checkSignUp_button;
-	}
-
-	public void setCheckSignUp_button(boolean checkSignUp_button) {
-		this.checkSignUp_button = checkSignUp_button;
 	}
 }
