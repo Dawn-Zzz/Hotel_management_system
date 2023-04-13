@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import DAO.UserDAO;
 import controller.SignupListener;
 
 public class SignupView extends JFrame{
@@ -150,11 +151,16 @@ public class SignupView extends JFrame{
 		String pass = new String(userPassWord.getPassword());
 		String confirmPass = new String(userConFirmPassWord.getPassword());
 		if (firstName.isEmpty() || lastName.isEmpty() || user.isEmpty() || pass.isEmpty() || confirmPass.isEmpty())
-			JOptionPane.showMessageDialog(this, "Fail");
+			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+		else if (pass.length() < 8 | pass.length() > 16)
+			JOptionPane.showMessageDialog(this, "Mật khẩu phải có độ dài từ 8 - 16");
+		else if (user.matches(".*"+" "+".*"))
+			JOptionPane.showMessageDialog(this, "Tài khoản không được có khoảng trắng");
 		else if (!pass.equals(confirmPass)) {
 			JOptionPane.showMessageDialog(this, "Mật khẩu không trùng");
 		} 
 		else {
+			UserDAO.getInstance().insert(user, pass);
 			JOptionPane.showMessageDialog(this, "Success");
 			this.dispose();
 		}

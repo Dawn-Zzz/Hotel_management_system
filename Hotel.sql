@@ -6,4 +6,4 @@ CREATE TABLE `user` (
     userPassword VARCHAR(50) NOT NULL
 );
 
-INSERT INTO `user` (userName,userPassword) VALUES ('admin','admin');
+INSERT INTO `user` (userName,userPassword) VALUES ('adminhotel','khongmatkhau');
