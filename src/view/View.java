@@ -97,7 +97,7 @@ public class View extends JFrame{
 		dashBoardButton.setBorder(null);
 		dashBoardButton.setBackground(new Color(39,162,187));
 		dashBoardButton.setForeground(new Color(39,162,187));
-		dashBoardButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(Guest_View.class.getResource("../icon_image/stats1.png"))));
+		dashBoardButton.setIcon(new ImageIcon("./Images/stats1.png"));
 		dashBoardButton.setHorizontalTextPosition(0);
 		dashBoardButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		dashBoardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -109,7 +109,7 @@ public class View extends JFrame{
 		guestButton.setBorder(null);
 		guestButton.setBackground(new Color(39,162,187));
 		guestButton.setForeground(new Color(39,162,187));
-		guestButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(Guest_View.class.getResource("../icon_image/users.png"))));
+		guestButton.setIcon(new ImageIcon("./Images/users.png"));
 		guestButton.setHorizontalTextPosition(0);
 		guestButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		guestButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -125,7 +125,7 @@ public class View extends JFrame{
 		roomButton.setBorder(null);
 		roomButton.setBackground(new Color(39,162,187));
 		roomButton.setForeground(new Color(39,162,187));
-		roomButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(Guest_View.class.getResource("../icon_image/bed2.png"))));
+		roomButton.setIcon(new ImageIcon("./Images/bed2.png"));
 		roomButton.setHorizontalTextPosition(0);
 		roomButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		roomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -138,7 +138,7 @@ public class View extends JFrame{
 		serviceButton.setBorder(null);
 		serviceButton.setBackground(new Color(39,162,187));
 		serviceButton.setForeground(new Color(39,162,187));
-		serviceButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(Guest_View.class.getResource("../icon_image/service2.png"))));
+		serviceButton.setIcon(new ImageIcon("./Images/service2.png"));
 		serviceButton.setHorizontalTextPosition(0);
 		serviceButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		serviceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -150,7 +150,7 @@ public class View extends JFrame{
 		billButton.setBorder(null);
 		billButton.setBackground(new Color(39,162,187));
 		billButton.setForeground(new Color(39,162,187));
-		billButton.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(Guest_View.class.getResource("../icon_image/bill2.png"))));
+		billButton.setIcon(new ImageIcon("./Images/bill2.png"));
 		billButton.setHorizontalTextPosition(0);
 		billButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		billButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
