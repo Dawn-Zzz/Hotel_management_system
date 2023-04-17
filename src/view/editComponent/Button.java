@@ -44,7 +44,7 @@ public class Button extends JButton {
 //        return rippleEffect.getRippleColor();
 //    }
 
-    private int round = 10;
+    private int round = 20;
     private Color shadowColor = new Color(170, 170, 170);
     private BufferedImage imageShadow;
     private final Insets shadowSize = new Insets(2, 5, 8, 5);

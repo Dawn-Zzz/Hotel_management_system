@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -11,17 +12,18 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import view.editComponent.Button;
+import view.editComponent.Table;
 import view.editComponent.TextField;
 
 public class Bill_View extends JPanel{
 	public Bill_View() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
-//		subBarSection();
-//		mainSection();
 		this.add(subBar);
 		this.add(mainContent);
 		
@@ -119,6 +121,7 @@ public class Bill_View extends JPanel{
 		mainContent.setLayout(null);
 		mainContent.setBackground(Color.WHITE);
 		mainContent.add(searchBar);
+		mainContent.add(mainBillTable);
 		
 		searchBar.setBounds(0,0,1020-174,85);
 		searchBar.setLayout(null);
@@ -137,6 +140,49 @@ public class Bill_View extends JPanel{
 //				logOutButton.setBorder(new RoundedBorder(10));
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
+		
+		mainBillTable.setBounds(0,85,1020-150-84,720-130);
+		mainBillTable.setBorder(null);
+		mainBillTable.setLayout(new BorderLayout());
+		mainBillTable.setBackground(Color.WHITE);
+		mainBillTable.add(billTable.getTableHeader(), BorderLayout.NORTH);
+		mainBillTable.add(billTable, BorderLayout.CENTER);
+		JScrollPane jScrollPane2 = new JScrollPane(billTable);
+		billTable.fixTable(jScrollPane2);
+		mainBillTable.add(jScrollPane2);
+		
+		billTable.setBounds(0,0,1020,720-120);
+		billTable.getTableHeader().setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(204,204,204)));
+//		billTable.setShowGrid(false);
+//		billTable.setShowHorizontalLines(false);
+		billTable.setShowVerticalLines(false);
+		billTable.setGridColor(new Color(204,204,204));
+		billTable.setBorder(null);
+        billTable.setColumnAlignment(0, JLabel.CENTER);
+        billTable.setCellAlignment(0, JLabel.CENTER);
+        billTable.setColumnAlignment(1, JLabel.CENTER);
+        billTable.setCellAlignment(1, JLabel.CENTER);
+        billTable.setColumnAlignment(2, JLabel.CENTER);
+        billTable.setCellAlignment(2, JLabel.CENTER);
+        billTable.setColumnAlignment(3, JLabel.CENTER);
+        billTable.setCellAlignment(3, JLabel.CENTER);
+        billTable.setColumnAlignment(4, JLabel.CENTER);
+        billTable.setCellAlignment(4, JLabel.CENTER);
+        billTable.setFont(new Font("Arial",Font.BOLD,12));
+		billTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Bill ID", "Guest", "Date", "Total Money", "Invoicing Staff"}
+	        ) {
+	            boolean[] canEdit = new boolean [] {
+	                false, false, false, false, false
+	            };
+
+	            public boolean isCellEditable(int rowIndex, int columnIndex) {
+	                return canEdit [columnIndex];
+	            }
+	        });
+		DefaultTableModel mode = (DefaultTableModel) billTable.getModel();
+		for (int i = 1; i <= 10; i++) {
+            mode.addRow(new Object[]{"B" + i, "Phúc" , "2/2/2022", "500000", "NV"});
+        }
 	}
 	String StaffList[] = {"All", "nv1", "nv2", "nv3", "nv4"};
 	int nDay;
@@ -146,23 +192,17 @@ public class Bill_View extends JPanel{
 	public void setDateList(String YearList[], String MonthList[], String DayList[]) {
 		nDay = 31;
 		for(int i = 1; i < 51; i++) {
-//			ArrayYearList.add((2023 - i) + "");
 			YearList[i] = (2023 - i + 1) + "";
 		}
 		YearList[0] = "All";
-//		YearList = ArrayYearList.toArray(new String[0]);
 		for(int i = 1; i < 13; i++) {
-//			ArrayMonthList.add("" + (i + 1));
 			MonthList[i] = (i + 1 - 1) + "";
 		}
 		MonthList[0] = "All";
-//		MonthList = ArrayMonthList.toArray(new String[0]);
 		for(int i = 1; i < nDay + 1; i++) {
 			DayList[i] = (i + 1 - 1) + "";
-//			ArrayDayList.add("" + (i + 1));
 		}
 		DayList[0] = "All";
-//		DayList = ArrayDayList.toArray(new String[0]);
 	}
 	
 	//sub bar
@@ -176,12 +216,13 @@ public class Bill_View extends JPanel{
 	private	JLabel searchYear = new JLabel();
 	private	JLabel searchMonth = new JLabel();
 	private	JLabel searchDay = new JLabel();
-//	private JComboBox yearList = new JComboBox(YearList);
-//	private JComboBox monthList = new JComboBox(MonthList);
-//	private JComboBox dayList = new JComboBox(DayList);
 	
 	//main section
 	private JPanel mainContent = new JPanel();
+	private JPanel mainBillTable = new JPanel();
+	private Table billTable = new Table();
+	private JScrollPane jScrollPane1 = new JScrollPane();
+	
 	private JPanel searchBar = new JPanel();
 	private JButton logOutButton = new Button();
 	private JTextField searchBox = new TextField();

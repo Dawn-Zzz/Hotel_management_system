@@ -18,6 +18,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
@@ -26,11 +28,8 @@ import view.editComponent.TextField;
 
 public class Room_View extends JPanel{
 	public Room_View() {
-//		this.Init();
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
-//		subBarSection();
-//		mainSection();
 		this.add(subBar);
 		this.add(mainContent);
 		
@@ -39,6 +38,7 @@ public class Room_View extends JPanel{
 		subBar.setBackground(new Color(241,243,255));
 		subBar.setBorder(BorderFactory.createMatteBorder(0,1,1,1,new Color(204,204,204)));
 		subBar.add(editRoomButton);
+		subBar.add(historyRoomButton);
 		subBar.add(roomSearch);
 		subBar.add(statusSearch);
 
@@ -50,7 +50,16 @@ public class Room_View extends JPanel{
 		editRoomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		editRoomButton.setFocusable(false);
 		
-		roomSearch.setBounds(10,85,129,120);
+		historyRoomButton.setBounds(10,80,129,40);
+		historyRoomButton.setText("Room History");
+		historyRoomButton.setForeground(Color.WHITE);
+		historyRoomButton.setBackground(new Color(39,162,187));
+		historyRoomButton.setLayout(null);
+		historyRoomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		historyRoomButton.setFocusable(false);
+		
+		
+		roomSearch.setBounds(10,135,129,120);
 		roomSearch.setForeground(Color.WHITE);
 		roomSearch.setBackground(new Color(241,243,255));
 		roomSearch.setBorder(null);
@@ -79,7 +88,7 @@ public class Room_View extends JPanel{
 		bedList.setPreferredSize(new Dimension(129,25));
 		bedList.setBackground(Color.WHITE);
 		
-		statusSearch.setBounds(10, 210, 129, 150);
+		statusSearch.setBounds(10, 270, 129, 150);
 		statusSearch.setForeground(Color.WHITE);
 		statusSearch.setBackground(new Color(241,243,255));
 		statusSearch.setBorder(null);
@@ -117,7 +126,7 @@ public class Room_View extends JPanel{
 		searchBar.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
 		searchBar.add(searchBox);
 		searchBar.add(logOutButton);
-//				logOutButton.setFont(new Font("Arial",Font.BOLD,14));
+
 		logOutButton.setText("Log Out");
 		logOutButton.setForeground(Color.WHITE);
 		logOutButton.setBounds(1020-174-150,25,80,40);
@@ -125,7 +134,7 @@ public class Room_View extends JPanel{
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
-//				logOutButton.setBorder(new RoundedBorder(10));
+		
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
 		
@@ -137,6 +146,7 @@ public class Room_View extends JPanel{
 	//sub bar
 	private JPanel subBar = new JPanel();
 	private JButton editRoomButton = new Button();
+	private JButton historyRoomButton = new Button();
 	private JPanel roomSearch = new JPanel();
 	private JLabel roomType = new JLabel();
 	private JCheckBox vipRoom = new JCheckBox("Vip");
@@ -146,9 +156,6 @@ public class Room_View extends JPanel{
 	private JPanel statusSearch = new JPanel();
 	private JLabel currentsStatus = new JLabel();
 	private JComboBox statusList = new JComboBox(statusType);
-//	private JComboBox yearList = new JComboBox(YearList);
-//	private JComboBox monthList = new JComboBox(MonthList);
-//	private JComboBox dayList = new JComboBox(DayList);
 	
 	//main section
 	private JPanel mainContent = new JPanel();
