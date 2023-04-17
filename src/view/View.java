@@ -4,48 +4,29 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
-import controller.BTLController;
-import model.BTLModel;
-import test.Test;
-import view.editComponent.Button;
-import view.editComponent.TextField;
+import controller.NavController;
 
 public class View extends JFrame{
 	
-	private BTLModel btlModel;
+//	private BTLModel btlModel;
+	private DashBoard_View dv = new DashBoard_View();
+	private Guest_View gv = new Guest_View();
+	private Room_View rv = new Room_View();
+	private Service_View sv = new Service_View();
+	private Bill_View bv = new Bill_View();
+	private NavController btlController = new NavController(this, dv, gv, rv, sv, bv);
 	
 	public View() {
-		this.btlModel = new BTLModel();
 		initView();
-		dv.setVisible(true);
-		gv.setVisible(false);
-		rv.setVisible(false);
-		sv.setVisible(false);
-		bv.setVisible(false);
 	}
 	
-	
-//	
 	public void initView( ) {
 		ImageIcon image = new ImageIcon("./Images/Logo.png");
 		this.setIconImage(image.getImage());
@@ -62,25 +43,19 @@ public class View extends JFrame{
 		this.add(leftBar);
 		this.add(otherBar);
 	}
-	private BTLModel buttonModel;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public JPanel leftBar = new JPanel();
-	public JPanel otherBar = new JPanel();
-	public JButton dashBoardButton = new JButton("1");
-	public JButton guestButton = new JButton("2");
-	public JButton roomButton = new JButton("3");
-	public JButton serviceButton = new JButton("4");
-	public JButton billButton = new JButton("5");
-	BTLController btlController = new BTLController(this);
+	private JPanel leftBar = new JPanel();
+	private JPanel otherBar = new JPanel();
+	private JButton dashBoardButton = new JButton("1");
+	private JButton guestButton = new JButton("2");
+	private JButton roomButton = new JButton("3");
+	private JButton serviceButton = new JButton("4");
+	private JButton billButton = new JButton("5");
 
-	public int temp = 1;
+	private int temp = 1;
 
-	public DashBoard_View dv = new DashBoard_View();
-	public Guest_View gv = new Guest_View();
-	public Room_View rv = new Room_View();
-	public Service_View sv = new Service_View();
-	public Bill_View bv = new Bill_View();
+	
 	
 	public void leftBarSection() {
 		//Left bar section
@@ -92,7 +67,7 @@ public class View extends JFrame{
 		leftBar.add(roomButton);
 		leftBar.add(serviceButton);
 		leftBar.add(billButton);
-		
+
 		dashBoardButton.setBounds(0, 30, 64, 40);
 		dashBoardButton.setLayout(null);
 		dashBoardButton.setBorder(null);
@@ -153,30 +128,6 @@ public class View extends JFrame{
 		billButton.setFocusable(false);
 		billButton.addActionListener(btlController);
 	}
-	
-	public void changToDashboard() {
-		this.btlModel.setInterface_1();
-	}
-	
-	public void changToGuest() {
-		this.btlModel.setInterface_2();
-		temp = 2;
-	}
-	public void changToRoom() {
-		this.btlModel.setInterface_3();
-		temp = 3;
-	}
-	
-	public void changToService() {
-		this.btlModel.setInterface_4();
-		temp = 4;
-	}
-	
-	public void changToBill() {
-		this.btlModel.setInterface_5();
-		temp = 5;
-	}
-	
 	
 	public void otherSection() {
 		otherBar.setVisible(true);

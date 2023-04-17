@@ -5,22 +5,13 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
 import view.editComponent.Button;
@@ -137,7 +128,8 @@ public class Room_View extends JPanel{
 		
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
-		
+
+		this.setVisible(false);
 	}
 	
 	String bedType[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};

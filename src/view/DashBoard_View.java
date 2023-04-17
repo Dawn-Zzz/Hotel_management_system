@@ -6,10 +6,8 @@ import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import view.editComponent.Button;
-import view.editComponent.TextField;
 
 public class DashBoard_View extends JPanel{
 	public DashBoard_View() {
@@ -33,6 +31,8 @@ public class DashBoard_View extends JPanel{
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
+		
+		this.setVisible(true);
 	}
 	
 	private JPanel mainContent = new JPanel();

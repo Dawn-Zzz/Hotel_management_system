@@ -8,7 +8,6 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -145,6 +144,8 @@ public class Service_View extends JPanel {
 		for (int i = 1; i <= 10; i++) {
             mode.addRow(new Object[]{"301", "Service" + i , "SV" + i, "1", ""});
         }
+
+		this.setVisible(false);
 	}
 	String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
 	String ServiceList[] = {"All"};

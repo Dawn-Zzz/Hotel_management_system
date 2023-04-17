@@ -8,7 +8,6 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -114,9 +113,6 @@ public class Bill_View extends JPanel{
 		dayList.setBackground(Color.WHITE);
 		dayList.setPreferredSize(new Dimension(129,25));
 		
-		
-		
-		
 		mainContent.setBounds(150,0,1020-150-64,690);
 		mainContent.setLayout(null);
 		mainContent.setBackground(Color.WHITE);
@@ -129,7 +125,7 @@ public class Bill_View extends JPanel{
 		searchBar.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
 		searchBar.add(searchBox);
 		searchBar.add(logOutButton);
-//				logOutButton.setFont(new Font("Arial",Font.BOLD,14));
+
 		logOutButton.setText("Log Out");
 		logOutButton.setForeground(Color.WHITE);
 		logOutButton.setBounds(1020-174-150,25,80,40);
@@ -137,7 +133,7 @@ public class Bill_View extends JPanel{
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
-//				logOutButton.setBorder(new RoundedBorder(10));
+
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
 		
@@ -183,6 +179,8 @@ public class Bill_View extends JPanel{
 		for (int i = 1; i <= 10; i++) {
             mode.addRow(new Object[]{"B" + i, "Phúc" , "2/2/2022", "500000", "NV"});
         }
+
+		this.setVisible(false);
 	}
 	String StaffList[] = {"All", "nv1", "nv2", "nv3", "nv4"};
 	int nDay;
