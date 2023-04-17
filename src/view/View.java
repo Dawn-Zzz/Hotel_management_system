@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.NavController;
+import view.editComponent.Button;
 
 public class View extends JFrame{
 	
@@ -47,6 +48,7 @@ public class View extends JFrame{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private JPanel leftBar = new JPanel();
 	private JPanel otherBar = new JPanel();
+	private JButton logOutButton = new Button();
 	private JButton dashBoardButton = new JButton("1");
 	private JButton guestButton = new JButton("2");
 	private JButton roomButton = new JButton("3");
@@ -133,10 +135,20 @@ public class View extends JFrame{
 		otherBar.setVisible(true);
 		otherBar.setBounds(64,0,1020-84,720);
 		otherBar.setLayout(null);
+		otherBar.add(logOutButton);
 		otherBar.add(dv);
 		otherBar.add(gv);
 		otherBar.add(rv);
 		otherBar.add(sv);
 		otherBar.add(bv);
+
+		
+		logOutButton.setText("Log Out");
+		logOutButton.setForeground(Color.WHITE);
+		logOutButton.setBounds(1020-174,25,80,40);
+		logOutButton.setLayout(null);
+		logOutButton.setBackground(new Color(39,162,187));
+		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		logOutButton.setFocusable(false);
 	}
 }

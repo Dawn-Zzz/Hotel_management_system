@@ -124,15 +124,6 @@ public class Bill_View extends JPanel{
 		searchBar.setBackground(new Color(241,243,255));
 		searchBar.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
 		searchBar.add(searchBox);
-		searchBar.add(logOutButton);
-
-		logOutButton.setText("Log Out");
-		logOutButton.setForeground(Color.WHITE);
-		logOutButton.setBounds(1020-174-150,25,80,40);
-		logOutButton.setLayout(null);
-		logOutButton.setBackground(new Color(39,162,187));
-		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		logOutButton.setFocusable(false);
 
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
@@ -222,7 +213,6 @@ public class Bill_View extends JPanel{
 	private JScrollPane jScrollPane1 = new JScrollPane();
 	
 	private JPanel searchBar = new JPanel();
-	private JButton logOutButton = new Button();
 	private JTextField searchBox = new TextField();
 	
 }

@@ -23,19 +23,10 @@ public class DashBoard_View extends JPanel{
 		searchBar.setLayout(null);
 		searchBar.setBackground(new Color(241,243,255));
 		searchBar.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
-		searchBar.add(logOutButton);
-		logOutButton.setText("Log Out");
-		logOutButton.setForeground(Color.WHITE);
-		logOutButton.setBounds(1020-174,25,80,40);
-		logOutButton.setLayout(null);
-		logOutButton.setBackground(new Color(39,162,187));
-		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		logOutButton.setFocusable(false);
 		
 		this.setVisible(true);
 	}
 	
 	private JPanel mainContent = new JPanel();
 	private JPanel searchBar = new JPanel();
-	private JButton logOutButton = new Button();
 }
