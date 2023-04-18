@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import view.editComponent.Button;
 import view.editComponent.TextField;
 
-public class Room_View extends JPanel{
-	public Room_View() {
+public class RoomView extends JPanel{
+	public RoomView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);

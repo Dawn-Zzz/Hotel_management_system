@@ -3,23 +3,23 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.Bill_View;
-import view.DashBoard_View;
-import view.Guest_View;
-import view.Room_View;
-import view.Service_View;
+import view.BillView;
+import view.DashBoardView;
+import view.GuestView;
+import view.RoomView;
+import view.ServiceView;
 import view.View;
 
 public class NavController implements ActionListener{
 	
 	private View buttonView;
-	private DashBoard_View dv;
-	private Guest_View gv;
-	private Room_View rv;
-	private Service_View sv;
-	private Bill_View bv;
+	private DashBoardView dv;
+	private GuestView gv;
+	private RoomView rv;
+	private ServiceView sv;
+	private BillView bv;
 
-	public NavController(View buttonView, DashBoard_View dv, Guest_View gv, Room_View rv, Service_View sv, Bill_View bv) {
+	public NavController(View buttonView, DashBoardView dv, GuestView gv, RoomView rv, ServiceView sv, BillView bv) {
 		this.buttonView = buttonView;
 		this.dv = dv;
 		this.gv = gv;

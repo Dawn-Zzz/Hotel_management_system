@@ -17,11 +17,11 @@ import view.editComponent.Button;
 public class View extends JFrame{
 	
 //	private BTLModel btlModel;
-	private DashBoard_View dv = new DashBoard_View();
-	private Guest_View gv = new Guest_View();
-	private Room_View rv = new Room_View();
-	private Service_View sv = new Service_View();
-	private Bill_View bv = new Bill_View();
+	private DashBoardView dv = new DashBoardView();
+	private GuestView gv = new GuestView();
+	private RoomView rv = new RoomView();
+	private ServiceView sv = new ServiceView();
+	private BillView bv = new BillView();
 	private NavController btlController = new NavController(this, dv, gv, rv, sv, bv);
 	
 	public View() {

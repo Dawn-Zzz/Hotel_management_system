@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 import view.editComponent.Button;
 
-public class DashBoard_View extends JPanel{
-	public DashBoard_View() {
+public class DashBoardView extends JPanel{
+	public DashBoardView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(mainContent);

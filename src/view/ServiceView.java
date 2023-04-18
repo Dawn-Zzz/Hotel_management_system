@@ -19,8 +19,8 @@ import view.editComponent.Button;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
-public class Service_View extends JPanel {
-	public Service_View() {
+public class ServiceView extends JPanel {
+	public ServiceView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
