@@ -16,6 +16,17 @@ import controller.NavController;
 import view.editComponent.Button;
 
 public class View extends JFrame{	
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private JPanel leftBar = new JPanel();
+	private JPanel otherBar = new JPanel();
+	private JButton logOutButton = new Button();
+	private JButton dashBoardButton = new JButton("1");
+	private JButton guestButton = new JButton("2");
+	private JButton roomButton = new JButton("3");
+	private JButton serviceButton = new JButton("4");
+	private JButton billButton = new JButton("5");
+	private ActionListener actionListener;
+	
 	public View() {
 		initView();
 	}
@@ -23,8 +34,8 @@ public class View extends JFrame{
 	public void initView( ) {
 		ImageIcon image = new ImageIcon("./Images/Logo.png");
 		this.setIconImage(image.getImage());
-		leftBarSection();
 		otherSection();
+		leftBarSection();
 		
 		this.setTitle("HOTEL MANAGEMENT");
 		this.setSize(1020, 720);
@@ -37,23 +48,17 @@ public class View extends JFrame{
 		this.add(otherBar);
 	}
 	
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private JPanel leftBar = new JPanel();
-	private JPanel otherBar = new JPanel();
-	private JButton logOutButton = new Button();
-	private JButton dashBoardButton = new JButton("1");
-	private JButton guestButton = new JButton("2");
-	private JButton roomButton = new JButton("3");
-	private JButton serviceButton = new JButton("4");
-	private JButton billButton = new JButton("5");
-	
-	private ActionListener actionListener = new NavController(this);
 	public JPanel getOtherBar() {
 		return otherBar;
 	}
 
+	public void setOtherBar(JPanel otherBar) {
+		this.otherBar = otherBar;
+	}
+
 	public void leftBarSection() {
 		//Left bar section
+
 		leftBar.setBounds(0,0,64,720);
 		leftBar.setLayout(null);
 		leftBar.setBackground(new Color(39,162,187));
@@ -126,10 +131,9 @@ public class View extends JFrame{
 	
 	public void otherSection() {
 		otherBar.setVisible(true);
-		otherBar.setBounds(64,0,1020-84,720);
 		otherBar.setLayout(null);
-		otherBar.add(logOutButton);
-
+		otherBar.setBounds(64,0,1020-84,720);
+		
 		logOutButton.setText("Log Out");
 		logOutButton.setForeground(Color.WHITE);
 		logOutButton.setBounds(1020-174,25,80,40);
@@ -137,5 +141,8 @@ public class View extends JFrame{
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
+		
+		otherBar.add(logOutButton);
+		actionListener = new NavController(this);
 	}
 }
