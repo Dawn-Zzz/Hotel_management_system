@@ -39,13 +39,14 @@ public class SignupView extends JFrame{
 	private JPasswordField userConFirmPassWord = new JPasswordField();
 	private JButton signup_button = new JButton();
 	
+	private ActionListener actionListener = new SignupController(this);
+	
 	public void init() {
 		ImageIcon image = new ImageIcon("./Images/Logo.png"); // set icon for app
 		this.setIconImage(image.getImage()); //set icon for app
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
-		ActionListener actionListener = new SignupController(this);
 		signup_button.addActionListener(actionListener);
 		
 		leftPanel.setBounds(0, 0, 520, 720);
@@ -151,13 +152,13 @@ public class SignupView extends JFrame{
 		String pass = new String(userPassWord.getPassword());
 		String confirmPass = new String(userConFirmPassWord.getPassword());
 		if (firstName.isEmpty() || lastName.isEmpty() || user.isEmpty() || pass.isEmpty() || confirmPass.isEmpty())
-			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+			JOptionPane.showMessageDialog(this, "Khong duoc bo trong");
 		else if (pass.length() < 8 | pass.length() > 16)
-			JOptionPane.showMessageDialog(this, "Mật khẩu phải có độ dài từ 8 - 16");
+			JOptionPane.showMessageDialog(this, "Do dai mat khau phai tu 8 - 16");
 		else if (user.matches(".*"+" "+".*"))
-			JOptionPane.showMessageDialog(this, "Tài khoản không được có khoảng trắng");
+			JOptionPane.showMessageDialog(this, "Tai khoang khong duoc co khoang trang");
 		else if (!pass.equals(confirmPass)) {
-			JOptionPane.showMessageDialog(this, "Mật khẩu không trùng");
+			JOptionPane.showMessageDialog(this, "Mat khau khong trung");
 		} 
 		else {
 			UserDAO.getInstance().insert(user, pass);
