@@ -15,7 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import DAO.UserDAO;
-import controller.SignupListener;
+import controller.SignupController;
 
 public class SignupView extends JFrame{
 	public SignupView() {
@@ -45,7 +45,7 @@ public class SignupView extends JFrame{
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
-		ActionListener actionListener = new SignupListener(this);
+		ActionListener actionListener = new SignupController(this);
 		signup_button.addActionListener(actionListener);
 		
 		leftPanel.setBounds(0, 0, 520, 720);

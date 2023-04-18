@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import view.SignupView;
 
-public class SignupListener implements ActionListener {
+public class SignupController implements ActionListener {
 	private SignupView signupView;
 	
-	public SignupListener(SignupView signupView) {
+	public SignupController(SignupView signupView) {
 		super();
 		this.signupView = signupView;
 	}

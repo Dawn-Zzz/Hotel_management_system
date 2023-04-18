@@ -8,11 +8,11 @@ import java.awt.event.MouseListener;
 import view.LoginView;
 import view.SignupView;
 
-public class LoginListener implements ActionListener{
+public class LoginController implements ActionListener{
 	private LoginView loginView;
 	private SignupView signupView = new SignupView();
 	
-	public LoginListener(LoginView loginView) {
+	public LoginController(LoginView loginView) {
 		super();
 		this.loginView = loginView;
 	}

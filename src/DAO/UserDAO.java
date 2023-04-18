@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.ConnectDatabase;
-import model.UserModel;
+import model.User;
 
 public class UserDAO {
 	public static UserDAO getInstance () {
@@ -31,8 +31,8 @@ public class UserDAO {
 		return result;
 	}
 	
-	public ArrayList<UserModel> selectAll () {
-		ArrayList<UserModel> arrResult = new ArrayList<>();
+	public ArrayList<User> selectAll () {
+		ArrayList<User> arrResult = new ArrayList<>();
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT * FROM `user`";
@@ -41,7 +41,7 @@ public class UserDAO {
 			while (resultSet.next()) {
 				String userName = resultSet.getString("userName");
 				String userPassword = resultSet.getString("userPassword");
-				UserModel userModel = new UserModel(userName, userPassword);
+				User userModel = new User(userName, userPassword);
 				arrResult.add(userModel);
 			}
 			ConnectDatabase.Disconnection(connection);

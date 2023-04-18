@@ -16,8 +16,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import DAO.UserDAO;
-import controller.LoginListener;
-import model.UserModel;
+import controller.LoginController;
+import model.User;
 
 public class LoginView extends JFrame{
 	private JPanel leftPanel = new JPanel();
@@ -33,7 +33,7 @@ public class LoginView extends JFrame{
 	private JLabel labelBotLine = new JLabel();
 	private JButton signup_button = new JButton();
 	
-	private ActionListener actionListener = new LoginListener(this);
+	private ActionListener actionListener = new LoginController(this);
 	
 	public LoginView() {
 		this.init();
@@ -134,11 +134,11 @@ public class LoginView extends JFrame{
 //		return new UserModel(user, pass);
 //	} 
 	public void loginAction() {
-		ArrayList<UserModel> arr = UserDAO.getInstance().selectAll();
+		ArrayList<User> arr = UserDAO.getInstance().selectAll();
 		String user = new String(userTextField.getText());
 		String pass = new String(userPassWord.getPassword());
 		boolean check = false;
-		for (UserModel userModel : arr) 
+		for (User userModel : arr) 
 			if (user.equals(userModel.getUserName()) && pass.equals(userModel.getPassword())) {
 				check = true;
 				break;
