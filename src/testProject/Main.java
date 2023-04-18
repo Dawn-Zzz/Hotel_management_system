@@ -1,3 +1,4 @@
+package testProject;
 //package test;
 //
 //import view.LoginView;

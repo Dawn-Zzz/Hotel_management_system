@@ -1,4 +1,4 @@
-package test;
+package testProject;
 
 import view.View;
 
