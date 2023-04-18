@@ -128,11 +128,6 @@ public class LoginView extends JFrame{
 		this.add(rightPanel);
 	}
 	
-//	public UserModel getUser() {
-//		String user = new String(userTextField.getText());
-//		String pass = new String(userPassWord.getPassword());
-//		return new UserModel(user, pass);
-//	} 
 	public void loginAction() {
 		ArrayList<User> arr = UserDAO.getInstance().selectAll();
 		String user = new String(userTextField.getText());

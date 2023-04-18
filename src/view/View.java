@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,20 +15,11 @@ import javax.swing.JPanel;
 import controller.NavController;
 import view.editComponent.Button;
 
-public class View extends JFrame{
-	
-//	private BTLModel btlModel;
-	private DashBoardView dv = new DashBoardView();
-	private GuestView gv = new GuestView();
-	private RoomView rv = new RoomView();
-	private ServiceView sv = new ServiceView();
-	private BillView bv = new BillView();
-	private NavController btlController = new NavController(this, dv, gv, rv, sv, bv);
-	
+public class View extends JFrame{	
 	public View() {
 		initView();
 	}
-	
+
 	public void initView( ) {
 		ImageIcon image = new ImageIcon("./Images/Logo.png");
 		this.setIconImage(image.getImage());
@@ -54,11 +46,12 @@ public class View extends JFrame{
 	private JButton roomButton = new JButton("3");
 	private JButton serviceButton = new JButton("4");
 	private JButton billButton = new JButton("5");
-
-	private int temp = 1;
-
 	
-	
+	private ActionListener actionListener = new NavController(this);
+	public JPanel getOtherBar() {
+		return otherBar;
+	}
+
 	public void leftBarSection() {
 		//Left bar section
 		leftBar.setBounds(0,0,64,720);
@@ -80,7 +73,7 @@ public class View extends JFrame{
 		dashBoardButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		dashBoardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		dashBoardButton.setFocusable(false);
-		dashBoardButton.addActionListener(btlController);
+		dashBoardButton.addActionListener(actionListener);
 		
 		guestButton.setBounds(0, 90, 64, 40);
 		guestButton.setLayout(null);
@@ -92,7 +85,7 @@ public class View extends JFrame{
 		guestButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		guestButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		guestButton.setFocusable(false);
-		guestButton.addActionListener(btlController);
+		guestButton.addActionListener(actionListener);
 		
 		roomButton.setBounds(0, 150, 64, 40);
 		roomButton.setLayout(null);
@@ -104,7 +97,7 @@ public class View extends JFrame{
 		roomButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		roomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		roomButton.setFocusable(false);
-		roomButton.addActionListener(btlController);
+		roomButton.addActionListener(actionListener);
 		
 		serviceButton.setBounds(0, 210, 64, 40);
 		serviceButton.setLayout(null);
@@ -116,7 +109,7 @@ public class View extends JFrame{
 		serviceButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		serviceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		serviceButton.setFocusable(false);
-		serviceButton.addActionListener(btlController);
+		serviceButton.addActionListener(actionListener);
 		
 		billButton.setBounds(0, 270, 64, 40);
 		billButton.setLayout(null);
@@ -128,7 +121,7 @@ public class View extends JFrame{
 		billButton.setFont(new Font("Arial", Font.PLAIN, 0));
 		billButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		billButton.setFocusable(false);
-		billButton.addActionListener(btlController);
+		billButton.addActionListener(actionListener);
 	}
 	
 	public void otherSection() {
@@ -136,13 +129,7 @@ public class View extends JFrame{
 		otherBar.setBounds(64,0,1020-84,720);
 		otherBar.setLayout(null);
 		otherBar.add(logOutButton);
-		otherBar.add(dv);
-		otherBar.add(gv);
-		otherBar.add(rv);
-		otherBar.add(sv);
-		otherBar.add(bv);
 
-		
 		logOutButton.setText("Log Out");
 		logOutButton.setForeground(Color.WHITE);
 		logOutButton.setBounds(1020-174,25,80,40);
