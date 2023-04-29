@@ -168,8 +168,6 @@ public class RoomView extends JPanel{
 			else {
 				RoomList[i] = new JButton("60" + (i-30+1));
 			}
-		}
-		for(int i = 0; i < 36; i++) {
 			RoomList[i].setBackground(new Color(241,243,255));
 			RoomList[i].setBorder(BorderFactory.createMatteBorder(0,0,1,1,new Color(221,221,221)));
 			RoomList[i].setForeground(new Color(102,0,204));

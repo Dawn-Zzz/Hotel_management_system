@@ -2,12 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,21 +15,37 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import view.editComponent.Button;
+import controller.BillController;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
 public class BillView extends JPanel{
+	private ActionListener actionListener = new BillController(this);
+	private Calendar calendar;
 	public BillView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
 		this.add(mainContent);
 		
-		setDateList(YearList, MonthList, DayList);
-		JComboBox yearList = new JComboBox(YearList);
-		JComboBox monthList = new JComboBox(MonthList);
-		JComboBox dayList = new JComboBox(DayList);
+		yearList = new JComboBox<>();
+		calendar = Calendar.getInstance();
+		int currentYear = calendar.get(Calendar.YEAR);
+        for (int year = currentYear - 10; year <= currentYear; year++) {
+            yearList.addItem(year);
+        }
+        yearList.setSelectedIndex(-1);
+        yearList.addActionListener(actionListener);
+        
+		monthList = new JComboBox<>();
+		for (int month = 1; month <= 12; month++) {
+			monthList.addItem(month);
+	    }
+	    monthList.setSelectedIndex(-1);
+		monthList.addActionListener(actionListener);
+		
+		dayList = new JComboBox<>();
+		dayList.addActionListener(actionListener);
 		
 		subBar.setBounds(0,0,150,690);
 		subBar.setLayout(null);
@@ -100,6 +116,7 @@ public class BillView extends JPanel{
 		monthList.setBounds(0, 210, 32, 100);
 		monthList.setBackground(Color.WHITE);
 		monthList.setPreferredSize(new Dimension(129,25));
+		monthList.setEnabled(false);
 		
 		searchDay.setBounds(0, 260, 32, 100);
 		searchDay.setText("Day:");
@@ -112,6 +129,7 @@ public class BillView extends JPanel{
 		dayList.setBounds(0, 320, 32, 100);
 		dayList.setBackground(Color.WHITE);
 		dayList.setPreferredSize(new Dimension(129,25));
+		dayList.setEnabled(false);
 		
 		mainContent.setBounds(150,0,1020-150-64,690);
 		mainContent.setLayout(null);
@@ -174,26 +192,16 @@ public class BillView extends JPanel{
 		this.setVisible(false);
 	}
 	String StaffList[] = {"All", "nv1", "nv2", "nv3", "nv4"};
-	int nDay;
-	String YearList[] = new String[51];
-	String MonthList[] = new String[13];
-	String DayList[] = new String[32];
-	public void setDateList(String YearList[], String MonthList[], String DayList[]) {
-		nDay = 31;
-		for(int i = 1; i < 51; i++) {
-			YearList[i] = (2023 - i + 1) + "";
-		}
-		YearList[0] = "All";
-		for(int i = 1; i < 13; i++) {
-			MonthList[i] = (i + 1 - 1) + "";
-		}
-		MonthList[0] = "All";
-		for(int i = 1; i < nDay + 1; i++) {
-			DayList[i] = (i + 1 - 1) + "";
-		}
-		DayList[0] = "All";
-	}
 	
+	public JComboBox<Integer> getYearList() {
+		return yearList;
+	}
+	public JComboBox<Integer> getMonthList() {
+		return monthList;
+	}
+	public JComboBox<Integer> getDayList() {
+		return dayList;
+	}
 	//sub bar
 	private JPanel subBar = new JPanel();
 	private JPanel staffSearch = new JPanel();
@@ -206,6 +214,9 @@ public class BillView extends JPanel{
 	private	JLabel searchMonth = new JLabel();
 	private	JLabel searchDay = new JLabel();
 	
+	private JComboBox<Integer> yearList;
+	private JComboBox<Integer> monthList; 
+	private JComboBox<Integer> dayList;
 	//main section
 	private JPanel mainContent = new JPanel();
 	private JPanel mainBillTable = new JPanel();
