@@ -1,8 +1,7 @@
-/DAO/
 /GraphicsUtilities/
 /controller/
 /database/
 /model/
 /testProject/
 /view/
-/.gitignore
+/DAO/

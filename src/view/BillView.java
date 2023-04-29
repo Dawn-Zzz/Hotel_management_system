@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.BillDAO;
 import controller.BillController;
 import view.editComponent.Table;
 import view.editComponent.TextField;
@@ -184,11 +185,7 @@ public class BillView extends JPanel{
 	                return canEdit [columnIndex];
 	            }
 	        });
-		DefaultTableModel mode = (DefaultTableModel) billTable.getModel();
-		for (int i = 1; i <= 10; i++) {
-            mode.addRow(new Object[]{"B" + i, "Phúc" , "2/2/2022", "500000", "NV"});
-        }
-
+		BillDAO.getInstance().selectAll(billTable);
 		this.setVisible(false);
 	}
 	String StaffList[] = {"All", "nv1", "nv2", "nv3", "nv4"};
