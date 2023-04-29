@@ -1,11 +1,11 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
+import java.text.DecimalFormat;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,20 +21,20 @@ public class BillDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT kh.MaKhachHang, kh.LoaiKhachHang, kh.TenKhachHang, kh.SoDienThoai, ptp.ThoiGianNhanPhong  FROM KhachHang kh "
-					+ "INNER JOIN PhieuThuePhong ptp ON kh.MaKhachHang = ptp.MaKhachHang";
+			String sql = "SELECT hd.MaHoaDon, hd.NgayLapHoaDon, kh.TenKhachHang, hd.TongTien, nv.TenNhanVien FROM HoaDon hd "
+					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
+					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				String idGuest = resultSet.getString("MaKhachHang");
-				String typeGuest = resultSet.getString("LoaiKhachHang");
+				String idBill = resultSet.getString("MaHoaDon");
+				Date typeGuest = resultSet.getDate("NgayLapHoaDon");
 				String nameGuest = resultSet.getString("TenKhachHang");
-				String phoneGuest = resultSet.getString("SoDienThoai");
-				Timestamp timestamp = resultSet.getTimestamp("ThoiGianNhanPhong");
-
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-				String timeCheckIn = timestamp.toLocalDateTime().format(formatter);
-				Object[] object = {nameGuest,idGuest,typeGuest,timeCheckIn,phoneGuest};
+				String nameStaff = resultSet.getString("TenNhanVien");
+				DecimalFormat df = new DecimalFormat("#,###");
+				String total = df.format(resultSet.getFloat("TongTien"));
+				
+				Object[] object = {idBill,typeGuest,nameGuest,total,nameStaff};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
