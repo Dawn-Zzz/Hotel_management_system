@@ -31,7 +31,7 @@ public class GuestController implements ActionListener {
 			updateDayComboBox();
 			guestView.getDayList().setSelectedIndex(-1);
 	        guestView.getDayList().setEnabled(true);
-		}
+		} 
     }
 	
 	private void updateDayComboBox() {

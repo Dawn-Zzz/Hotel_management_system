@@ -7,7 +7,7 @@ import view.BillView;
 import view.DashBoardView;
 import view.GuestView;
 import view.RoomView;
-import view.ServiceView;
+import view.EquipmentView;
 import view.View;
 
 public class NavController implements ActionListener{
@@ -16,7 +16,7 @@ public class NavController implements ActionListener{
 	private DashBoardView dashBoardView = new DashBoardView();
 	private GuestView guestView = new GuestView();
 	private RoomView roomView = new RoomView();
-	private ServiceView serviceView = new ServiceView();
+	private EquipmentView serviceView = new EquipmentView();
 	private BillView billView = new BillView();
 
 	public NavController(View buttonView) {

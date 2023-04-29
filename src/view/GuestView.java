@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.GuestDAO;
 import controller.GuestController;
 import view.editComponent.Button;
 import view.editComponent.Table;
@@ -195,11 +196,8 @@ public class GuestView extends JPanel {
 	                return canEdit [columnIndex];
 	            }
 	        });
-		DefaultTableModel mode = (DefaultTableModel) guestTable.getModel();
-		for (int i = 1; i <= 30; i++) {
-            mode.addRow(new Object[]{"Phuc", i , "VIP", "1/1/2023", "0123456789"});
-        }
-
+		
+		GuestDAO.getInstance().selectAll(guestTable);
 		this.setVisible(false);
 	}
 	
