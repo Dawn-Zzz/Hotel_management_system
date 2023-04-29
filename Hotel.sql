@@ -1,4 +1,5 @@
 CREATE DATABASE hotel;
+Drop DATABASE hotel;
 use hotel;
 
 CREATE TABLE `user` (

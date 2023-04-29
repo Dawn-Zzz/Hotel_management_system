@@ -121,8 +121,7 @@ public class ServiceView extends JPanel {
         serviceTable.setColumnAlignment(4, JLabel.CENTER);
         serviceTable.setCellAlignment(4, JLabel.CENTER);
         serviceTable.setFont(new Font("Arial",Font.BOLD,12));
-		serviceTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Service", "Service ID", "Quantity", "Note"}
-	        ) {
+		serviceTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Service", "Service ID", "Quantity", "Note"}) {
 	            boolean[] canEdit = new boolean [] {
 	                false, false, false, false, false
 	            };

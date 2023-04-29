@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,22 +17,38 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import controller.GuestController;
 import view.editComponent.Button;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
 public class GuestView extends JPanel {
+	private ActionListener actionListener = new GuestController(this);
+	private Calendar calendar;
 	public GuestView() {
-		
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
 		this.add(mainContent);
 
-		setDateList(YearList, MonthList, DayList);
-		JComboBox yearList = new JComboBox(YearList);
-		JComboBox monthList = new JComboBox(MonthList);
-		JComboBox dayList = new JComboBox(DayList);
+		yearList = new JComboBox<>();
+		calendar = Calendar.getInstance();
+		int currentYear = calendar.get(Calendar.YEAR);
+        for (int year = currentYear - 10; year <= currentYear; year++) {
+            yearList.addItem(year);
+        }
+        yearList.setSelectedIndex(-1);
+        yearList.addActionListener(actionListener);
+        
+		monthList = new JComboBox<>();
+		for (int month = 1; month <= 12; month++) {
+			monthList.addItem(month);
+	    }
+	    monthList.setSelectedIndex(-1);
+		monthList.addActionListener(actionListener);
+		
+		dayList = new JComboBox<>();
+		dayList.addActionListener(actionListener);
 		
 		subBar.setBounds(0,0,150,690);
 		subBar.setLayout(null);
@@ -111,6 +129,7 @@ public class GuestView extends JPanel {
 		monthList.setBounds(0, 210, 32, 100);
 		monthList.setBackground(Color.WHITE);
 		monthList.setPreferredSize(new Dimension(129,25));
+		monthList.setEnabled(false);
 		
 		searchDay.setBounds(0, 260, 32, 100);
 		searchDay.setText("Day:");
@@ -123,6 +142,7 @@ public class GuestView extends JPanel {
 		dayList.setBounds(0, 320, 32, 100);
 		dayList.setBackground(Color.WHITE);
 		dayList.setPreferredSize(new Dimension(129,25));
+		dayList.setEnabled(false);
 		
 //		//Main section
 		mainContent.setBounds(150,0,1020-150-64,690);
@@ -166,8 +186,7 @@ public class GuestView extends JPanel {
         guestTable.setColumnAlignment(4, JLabel.CENTER);
         guestTable.setCellAlignment(4, JLabel.CENTER);
         guestTable.setFont(new Font("Arial",Font.BOLD,12));
-		guestTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Guest ID", "Guest Type", "Check In", "Phone Number"}
-	        ) {
+		guestTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Guest ID", "Guest Type", "Check In", "Phone Number"}) {
 	            boolean[] canEdit = new boolean [] {
 	                false, false, false, false, false
 	            };
@@ -183,26 +202,17 @@ public class GuestView extends JPanel {
 
 		this.setVisible(false);
 	}
-	String GuestType[] = {"All", "VIP", "Popularly"};
-	int nDay;
-	String YearList[] = new String[51];
-	String MonthList[] = new String[13];
-	String DayList[] = new String[32];
-	public void setDateList(String YearList[], String MonthList[], String DayList[]) {
-		nDay = 31;
-		for(int i = 0; i < 51; i++) {
-			YearList[i] = (2023 - i + 1) + "";
-		}
-		YearList[0] = "All";
-		for(int i = 1; i < 13; i++) {
-			MonthList[i] = (i + 1 - 1) + "";
-		}
-		MonthList[0] = "All";
-		for(int i = 1; i < nDay + 1; i++) {
-			DayList[i] = (i + 1 - 1) + "";
-		}
-		DayList[0] = "All";
+	
+	public JComboBox<Integer> getYearList() {
+		return yearList;
 	}
+	public JComboBox<Integer> getMonthList() {
+		return monthList;
+	}
+	public JComboBox<Integer> getDayList() {
+		return dayList;
+	}
+	String GuestType[] = {"All", "VIP", "Popularly"};
 
 //	//sub bar
 	JPanel subBar = new JPanel();
@@ -218,6 +228,9 @@ public class GuestView extends JPanel {
 	JLabel searchYear = new JLabel();
 	JLabel searchMonth = new JLabel();
 	JLabel searchDay = new JLabel();
+	private JComboBox<Integer> yearList;
+	private JComboBox<Integer> monthList; 
+	private JComboBox<Integer> dayList;
 	
 //	
 //	//main section

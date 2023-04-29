@@ -18,12 +18,12 @@ public class UserDAO {
 		int result = 0;
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "INSERT INTO `user`(userName,userPassWord) VALUES (?,?)";
+			String sql = "INSERT INTO `user`(ID,Pass) VALUES (?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, userPassword);
 			result = preparedStatement.executeUpdate();
-			ConnectDatabase.Disconnection(connection);
+			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,12 +39,12 @@ public class UserDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				String userName = resultSet.getString("userName");
-				String userPassword = resultSet.getString("userPassword");
+				String userName = resultSet.getString("ID");
+				String userPassword = resultSet.getString("Pass");
 				User userModel = new User(userName, userPassword);
 				arrResult.add(userModel);
 			}
-			ConnectDatabase.Disconnection(connection);
+			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
