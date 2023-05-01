@@ -6,10 +6,12 @@ import java.util.Calendar;
 
 import javax.swing.JComboBox;
 
+import view.AddGuestView;
 import view.GuestView;
 
 public class GuestController implements ActionListener {
 	private GuestView guestView;
+	private AddGuestView addGuestView =new AddGuestView();
 	private Calendar calendar;
 
 	public GuestController(GuestView guestView) {
@@ -26,12 +28,15 @@ public class GuestController implements ActionListener {
 			guestView.getDayList().setSelectedIndex(-1);
 			guestView.getMonthList().setEnabled(true);
 	        guestView.getDayList().setEnabled(false);
-		} 
+		}
 		else if (e.getSource() == guestView.getMonthList() && guestView.getMonthList().getSelectedIndex() != -1) {
 			updateDayComboBox();
 			guestView.getDayList().setSelectedIndex(-1);
 	        guestView.getDayList().setEnabled(true);
 		} 
+		if(e.getActionCommand().equals("Add Guest")) {
+			addGuestView.setVisible(true);
+		}
     }
 	
 	private void updateDayComboBox() {

@@ -66,6 +66,7 @@ public class GuestView extends JPanel {
 		addGuestButton.setLayout(null);
 		addGuestButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		addGuestButton.setFocusable(false);
+		addGuestButton.addActionListener(actionListener);
 		
 		guestSearch.setBounds(10,85,129,60);
 		guestSearch.setForeground(Color.WHITE);
