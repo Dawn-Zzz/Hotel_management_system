@@ -15,11 +15,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import view.editComponent.Button;
-//import view.editComponent.DateChooser;
 
 public class AddGuestView extends JDialog{
-	//private JDialog this = new JDialog();
-	//JPanel titleSection = new JPanel();
 	private JLabel guestInfor = new JLabel();
 	
 	private JLabel guestName = new JLabel();
@@ -31,8 +28,7 @@ public class AddGuestView extends JDialog{
 	private JLabel guestID = new JLabel();
 	private JTextField guestIDField = new JTextField();
 	
-	private JLabel guestBirth = new JLabel();
-	//DateChooser guestBirthChooser = new DateChooser();
+	private JLabel guestBirth = new JLabel();;
 	
 	private JLabel guestGender = new JLabel();
 	private JPanel genderGroup = new JPanel();
@@ -44,8 +40,7 @@ public class AddGuestView extends JDialog{
 	
 	public AddGuestView() {
 		this.getContentPane().setBackground(Color.WHITE);
-		this.setBounds(0,85,1020-150-84,720-130);
-		//this.setBorder(null);
+		this.setBounds(0,85,1020,720);
 		this.setLayout(null);
 		this.add(guestInfor);
 		this.add(guestName);
@@ -60,14 +55,8 @@ public class AddGuestView extends JDialog{
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
 		this.setVisible(false);
-		//this.add(guestBirthChooser);
 		
-//		titleSection.setBounds(30,50,250,30);
-//		titleSection.setBorder(null);
-//		titleSection.setBackground(Color.WHITE);
-//		titleSection.add(guestInfor);
-		
-		guestInfor.setBounds(30,50,250,30);
+		guestInfor.setBounds(50,50,250,30);
 		guestInfor.setText("Guest Information");
 		guestInfor.setPreferredSize(new Dimension(250,30));
 		guestInfor.setFont(new Font("Arial",Font.BOLD,24));
@@ -75,36 +64,36 @@ public class AddGuestView extends JDialog{
 		guestInfor.setBackground(Color.WHITE);
 		guestInfor.setBorder(null);
 		
-		guestName.setBounds(30,100,60,30);
+		guestName.setBounds(50,100,60,30);
 		guestName.setText("Name");
 		guestName.setFont(new Font("Arial",Font.BOLD,14));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
 		guestName.setBorder(null);
 		
-		guestNameField.setBounds(30,130,720,30);
+		guestNameField.setBounds(50,130,910,30);
 		guestNameField.setBackground(Color.WHITE);
 		guestNameField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		guestPhone.setBounds(30,180,150,30);
+		guestPhone.setBounds(50,180,150,30);
 		guestPhone.setText("Phone number");
 		guestPhone.setFont(new Font("Arial",Font.BOLD,14));
 		guestPhone.setForeground(Color.BLACK);
 		guestPhone.setBackground(Color.WHITE);
 		guestPhone.setBorder(null);
 		
-		guestPhoneField.setBounds(30,210,720,30);
+		guestPhoneField.setBounds(50,210,910,30);
 		guestPhoneField.setBackground(Color.WHITE);
 		guestPhoneField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		guestID.setBounds(30,260,150,30);
+		guestID.setBounds(50,260,150,30);
 		guestID.setText("Guest ID");
 		guestID.setFont(new Font("Arial",Font.BOLD,14));
 		guestID.setForeground(Color.BLACK);
 		guestID.setBackground(Color.WHITE);
 		guestID.setBorder(null);
 		
-		guestIDField.setBounds(30,290,720,30);
+		guestIDField.setBounds(50,290,910,30);
 		guestIDField.setBackground(Color.WHITE);
 		guestIDField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 
@@ -115,18 +104,17 @@ public class AddGuestView extends JDialog{
 		guestBirth.setBackground(Color.blue);
 		guestBirth.setBorder(null);
 		
-		//guestBirthChooser.setBounds(478,380,280,220);
 		guestID.setForeground(Color.BLACK);
 		guestID.setBackground(Color.WHITE);
 		
-		guestGender.setBounds(30,340,70,30);
+		guestGender.setBounds(50,340,70,30);
 		guestGender.setText("Gender");
 		guestGender.setFont(new Font("Arial",Font.BOLD,14));
 		guestGender.setForeground(Color.BLACK);
 		guestGender.setBackground(Color.WHITE);
 		guestGender.setBorder(null);
 		
-		genderGroup.setBounds(23,370,128,30);
+		genderGroup.setBounds(50,370,128,30);
 		genderGroup.setForeground(Color.BLACK);
 		genderGroup.setBackground(Color.WHITE);
 		genderGroup.setBorder(null);
@@ -144,7 +132,7 @@ public class AddGuestView extends JDialog{
 		genderFemale.setText("Female");
 		genderFemale.setBackground(Color.WHITE);
 		
-		submitButton.setBounds(30, 490, 80, 40);
+		submitButton.setBounds(50, 600, 80, 40);
 		submitButton.setText("Submit");
 		submitButton.setFont(new Font("Arial",Font.BOLD,14));
 		submitButton.setForeground(Color.WHITE);

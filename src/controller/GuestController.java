@@ -11,7 +11,7 @@ import view.GuestView;
 
 public class GuestController implements ActionListener {
 	private GuestView guestView;
-	private AddGuestView addGuestView =new AddGuestView();
+	private AddGuestView addGuestView = new AddGuestView();
 	private Calendar calendar;
 
 	public GuestController(GuestView guestView) {
