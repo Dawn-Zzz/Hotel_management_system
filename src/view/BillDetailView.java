@@ -55,7 +55,7 @@ public class BillDetailView extends JDialog {
 		this.add(advanceReceived);
 		this.add(refund);
 		this.setLocationRelativeTo(null);
-		this.setVisible(false);
+		this.setVisible(true);
 		
 		billID.setBounds(50,50,250,30);
 		billID.setText("Bill ID: ...");
@@ -80,7 +80,7 @@ public class BillDetailView extends JDialog {
 		guestName.setBorder(null);
 		
 		date.setBounds(50,130,150,30);
-		date.setText("Guest: 10/04/2022");
+		date.setText("Date: 10/04/2022");
 		date.setFont(new Font("Arial",Font.BOLD,14));
 		date.setForeground(Color.BLACK);
 		date.setBackground(Color.WHITE);
@@ -109,7 +109,6 @@ public class BillDetailView extends JDialog {
 		roomInforTable.fixTable(jScrollPane);
 		mainTable1.add(jScrollPane);
 		
-		roomInforTable.setBounds(30,290,720,500);
 		roomInforTable.setBackground(Color.WHITE);
 		roomInforTable.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		roomInforTable.getTableHeader().setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
@@ -155,7 +154,7 @@ public class BillDetailView extends JDialog {
 		serviceInforTable.fixTable(jScrollPane2);
 		mainTable2.add(jScrollPane2);
 		
-		serviceInforTable.setBounds(30,290,720,500);
+		//serviceInforTable.setBounds(30,290,720,500);
 		serviceInforTable.setBackground(Color.WHITE);
 		serviceInforTable.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		serviceInforTable.getTableHeader().setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));

@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -25,10 +28,12 @@ public class AddGuestView extends JDialog{
 	private JLabel guestPhone = new JLabel();
 	private JTextField guestPhoneField = new JTextField();
 	
-	private JLabel guestID = new JLabel();
-	private JTextField guestIDField = new JTextField();
+	private JLabel identificationNumber = new JLabel();
+	private JTextField identificationNumberField = new JTextField();
 	
-	private JLabel guestBirth = new JLabel();;
+	private JLabel guestBirth = new JLabel();
+	DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	JFormattedTextField dateField = new JFormattedTextField(format);
 	
 	private JLabel guestGender = new JLabel();
 	private JPanel genderGroup = new JPanel();
@@ -47,11 +52,12 @@ public class AddGuestView extends JDialog{
 		this.add(guestNameField);
 		this.add(guestPhone);
 		this.add(guestPhoneField);
-		this.add(guestID);
-		this.add(guestIDField);
+		this.add(identificationNumber);
+		this.add(identificationNumberField);
 		this.add(guestGender);
 		this.add(genderGroup);
 		this.add(guestBirth);
+		this.add(dateField);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
 		this.setVisible(false);
@@ -86,35 +92,36 @@ public class AddGuestView extends JDialog{
 		guestPhoneField.setBackground(Color.WHITE);
 		guestPhoneField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		guestID.setBounds(50,260,150,30);
-		guestID.setText("Guest ID");
-		guestID.setFont(new Font("Arial",Font.BOLD,14));
-		guestID.setForeground(Color.BLACK);
-		guestID.setBackground(Color.WHITE);
-		guestID.setBorder(null);
+		identificationNumber.setBounds(50,260,150,30);
+		identificationNumber.setText("Identification Number");
+		identificationNumber.setFont(new Font("Arial",Font.BOLD,14));
+		identificationNumber.setForeground(Color.BLACK);
+		identificationNumber.setBackground(Color.WHITE);
+		identificationNumber.setBorder(null);
 		
-		guestIDField.setBounds(50,290,910,30);
-		guestIDField.setBackground(Color.WHITE);
-		guestIDField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		identificationNumberField.setBounds(50,290,910,30);
+		identificationNumberField.setBackground(Color.WHITE);
+		identificationNumberField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 
-		guestBirth.setBounds(478,340,150,30);
+		guestBirth.setBounds(50,350,150,30);
 		guestBirth.setText("Birthday");
 		guestBirth.setFont(new Font("Arial",Font.BOLD,14));
 		guestBirth.setForeground(Color.BLACK);
 		guestBirth.setBackground(Color.blue);
 		guestBirth.setBorder(null);
 		
-		guestID.setForeground(Color.BLACK);
-		guestID.setBackground(Color.WHITE);
+		dateField.setBounds(50,380,460,30);
+		dateField.setBackground(Color.WHITE);
+		dateField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		guestGender.setBounds(50,340,70,30);
+		guestGender.setBounds(50,420,70,30);
 		guestGender.setText("Gender");
 		guestGender.setFont(new Font("Arial",Font.BOLD,14));
 		guestGender.setForeground(Color.BLACK);
 		guestGender.setBackground(Color.WHITE);
 		guestGender.setBorder(null);
 		
-		genderGroup.setBounds(50,370,128,30);
+		genderGroup.setBounds(50,450,128,30);
 		genderGroup.setForeground(Color.BLACK);
 		genderGroup.setBackground(Color.WHITE);
 		genderGroup.setBorder(null);
@@ -127,10 +134,12 @@ public class AddGuestView extends JDialog{
 		genderMale.setBounds(0,0,10,30);
 		genderMale.setText("Male");
 		genderMale.setBackground(Color.WHITE);
+		genderMale.setFocusable(false);
 		
 		genderFemale.setBounds(0,80,10,30);
 		genderFemale.setText("Female");
 		genderFemale.setBackground(Color.WHITE);
+		genderFemale.setFocusable(false);
 		
 		submitButton.setBounds(50, 600, 80, 40);
 		submitButton.setText("Submit");
