@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,10 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.RoomController;
 import view.editComponent.Button;
 import view.editComponent.TextField;
 
 public class RoomView extends JPanel{
+	private ActionListener actionListener = new RoomController(this);
+	
 	public RoomView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
@@ -40,6 +44,7 @@ public class RoomView extends JPanel{
 		editRoomButton.setLayout(null);
 		editRoomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		editRoomButton.setFocusable(false);
+		editRoomButton.addActionListener(actionListener);
 		
 		historyRoomButton.setBounds(10,80,129,40);
 		historyRoomButton.setText("Room History");
@@ -48,7 +53,6 @@ public class RoomView extends JPanel{
 		historyRoomButton.setLayout(null);
 		historyRoomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		historyRoomButton.setFocusable(false);
-		
 		
 		roomSearch.setBounds(10,135,129,120);
 		roomSearch.setForeground(Color.WHITE);
@@ -125,7 +129,7 @@ public class RoomView extends JPanel{
 	
 	String bedType[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
 	String statusType[] = {"All", "Vacant", "Occupied", "Room off" , "Book in advance"};
-	
+
 	//sub bar
 	private JPanel subBar = new JPanel();
 	private JButton editRoomButton = new Button();

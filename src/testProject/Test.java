@@ -1,5 +1,6 @@
 package testProject;
 
+import view.AddRoomView;
 import view.LoginView;
 import view.View;
 
@@ -8,5 +9,6 @@ public class Test {
 //		LoginView loginView = new LoginView();
 		View v = new View();
 //		System.out.println(v.temp);
+//		new AddRoomView();
 	}
 }

@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import DAO.GuestDAO;
 import controller.GuestController;
@@ -45,7 +44,6 @@ public class GuestView extends JPanel {
 		for (int month = 1; month <= 12; month++) {
 			monthList.addItem(month);
 	    }
-	    monthList.setSelectedIndex(-1);
 		monthList.addActionListener(actionListener);
 		
 		dayList = new JComboBox<>();
@@ -58,7 +56,7 @@ public class GuestView extends JPanel {
 		subBar.add(addGuestButton);
 		subBar.add(guestSearch);
 		subBar.add(dateSearch);
-//
+
 		addGuestButton.setBounds(10,25,129,40);
 		addGuestButton.setText("Add Guest");
 		addGuestButton.setForeground(Color.WHITE);
@@ -66,6 +64,7 @@ public class GuestView extends JPanel {
 		addGuestButton.setLayout(null);
 		addGuestButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		addGuestButton.setFocusable(false);
+		addGuestButton.addActionListener(actionListener);
 		
 		guestSearch.setBounds(10,85,129,60);
 		guestSearch.setForeground(Color.WHITE);
@@ -85,6 +84,7 @@ public class GuestView extends JPanel {
 		guestList.setBounds(0, 40, 20, 100);
 		guestList.setBackground(Color.WHITE);
 		guestList.setPreferredSize(new Dimension(129,25));
+		guestList.addActionListener(actionListener);
 		
 		dateSearch.setBounds(10, 180, 129, 250);
 		dateSearch.setForeground(Color.WHITE);
@@ -210,9 +210,31 @@ public class GuestView extends JPanel {
 	public JComboBox<Integer> getDayList() {
 		return dayList;
 	}
-	String GuestType[] = {"All", "VIP", "Popularly"};
+	
+	public JTextField getSearchBox() {
+		return searchBox;
+	}
+	
+	public Table getGuestTable() {
+		return guestTable;
+	}
+	
+	public JComboBox getGuestList() {
+		return guestList;
+	}
 
-//	//sub bar
+	public void setIndexComboBox () {
+		guestList.setSelectedIndex(-1);
+		yearList.setSelectedIndex(-1);
+		monthList.setSelectedIndex(-1);
+		dayList.setSelectedIndex(-1);
+		monthList.setEnabled(false);
+		dayList.setEnabled(false);
+	}
+	
+	String GuestType[] = {"All","Vip"};
+
+	//	//sub bar
 	JPanel subBar = new JPanel();
 	JButton addGuestButton = new Button();
 	

@@ -42,6 +42,7 @@ public class NavController implements ActionListener{
 		else if(nguonSuKien.equals("2")) {
 			dashBoardView.setVisible(false);
 			guestView.setVisible(true);
+			guestView.setIndexComboBox();
 			roomView.setVisible(false);
 			serviceView.setVisible(false);
 			billView.setVisible(false);
