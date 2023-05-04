@@ -22,6 +22,7 @@ import view.editComponent.Button;
 import view.editComponent.Table;
 
 public class AddRoomView extends JDialog{
+	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 	private JLabel registrationForm = new JLabel();
 	
 	private JLabel dateTime = new JLabel();
@@ -50,14 +51,14 @@ public class AddRoomView extends JDialog{
 	private JLabel deposit = new JLabel();
 	private JRadioButton depositTick = new JRadioButton();
 	private JTextField depositfield = new JTextField();
+	private JLabel currencyUnit = new JLabel();
 	
 	private JButton submitButton = new Button();
 	
 	public AddRoomView() {
-		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
-		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
-		this.setBounds(0,85,1020,720);
+		this.setBounds(0,85,900,600);
+		this.setIconImage(image.getImage());
 		this.setLayout(null);
 		this.add(registrationForm);
 		this.add(dateTime);
@@ -78,8 +79,10 @@ public class AddRoomView extends JDialog{
 		this.add(deposit);
 		this.add(depositTick);
 		this.add(depositfield);
+		this.add(currencyUnit);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
+		this.setModal(true);
 		this.setVisible(false);
 		
 		registrationForm.setBounds(50,50,250,30);
@@ -90,7 +93,7 @@ public class AddRoomView extends JDialog{
 		registrationForm.setBackground(Color.WHITE);
 		registrationForm.setBorder(null);
 		
-		dateTime.setBounds(920,50,250,30);
+		dateTime.setBounds(800,50,250,30);
 		dateTime.setText("5/2/2023");
 		dateTime.setPreferredSize(new Dimension(250,30));
 		dateTime.setFont(new Font("Arial",Font.BOLD,14));
@@ -123,70 +126,77 @@ public class AddRoomView extends JDialog{
 		rentalTypeBox.setBackground(Color.WHITE);
 		rentalTypeBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		room.setBounds(520,180,120,30);
+		room.setBounds(500,100,120,30);
 		room.setText("Room");
 		room.setFont(new Font("Arial",Font.BOLD,14));
 		room.setForeground(Color.BLACK);
 		room.setBackground(Color.WHITE);
 		room.setBorder(null);
 		
-		roomBox.setBounds(520,210,150,30);
+		roomBox.setBounds(500,130,150,30);
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		identificationNumber.setBounds(50,260,150,30);
+		identificationNumber.setBounds(500,180,150,30);
 		identificationNumber.setText("Identification Number");
 		identificationNumber.setFont(new Font("Arial",Font.BOLD,14));
 		identificationNumber.setForeground(Color.BLACK);
 		identificationNumber.setBackground(Color.WHITE);
 		
-		identificationNumberField.setBounds(50,290,150,30);
+		identificationNumberField.setBounds(500,210,150,30);
 		identificationNumberField.setBackground(Color.WHITE);
 		identificationNumberField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		checkIn.setBounds(50,340,150,30);
+		checkIn.setBounds(50,260,150,30);
 		checkIn.setText("Check In");
 		checkIn.setFont(new Font("Arial",Font.BOLD,14));
 		checkIn.setForeground(Color.BLACK);
 		checkIn.setBackground(Color.WHITE);
 		
-		hourCIn.setBounds(50,370,100,30);
+		hourCIn.setBounds(50,290,100,30);
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		dayCIn.setBounds(180,370,130,30);
+		dayCIn.setBounds(200,290,130,30);
 		dayCIn.setBackground(Color.WHITE);
 		dayCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		checkOut.setBounds(520,340,150,30);
+		checkOut.setBounds(500,260,150,30);
 		checkOut.setText("Check Out");
 		checkOut.setFont(new Font("Arial",Font.BOLD,14));
 		checkOut.setForeground(Color.BLACK);
 		checkOut.setBackground(Color.WHITE);
 		
-		hourCOut.setBounds(520,370,100,30);
+		hourCOut.setBounds(500,290,100,30);
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		dayCOut.setBounds(650,370,130,30);
+		dayCOut.setBounds(650,290,130,30);
 		dayCOut.setBackground(Color.WHITE);
 		dayCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		deposit.setBounds(50,420,150,30);
+		deposit.setBounds(50,340,80,30);
 		deposit.setText("Deposit");
 		deposit.setFont(new Font("Arial",Font.BOLD,14));
 		deposit.setForeground(Color.BLACK);
 		deposit.setBackground(Color.WHITE);
 		
-		depositTick.setBounds(50,450,20,30);
+		depositTick.setBounds(120,340,20,30);
 		depositTick.setBackground(Color.WHITE);
 		depositTick.setFocusable(false);
 		
-		depositfield.setBounds(50,480,150,30);
+		depositfield.setBounds(50,370,150,30);
 		depositfield.setBackground(Color.WHITE);
 		depositfield.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		
+		currencyUnit.setBounds(205,370,150,30);
+		currencyUnit.setText("VND");
+		currencyUnit.setFont(new Font("Arial",Font.BOLD,16));
+		currencyUnit.setForeground(Color.BLACK);
+		currencyUnit.setBackground(Color.WHITE);
+		registrationForm.setBorder(null);
             
-		submitButton.setBounds(50, 600, 80, 40);
+		submitButton.setBounds(50, 470, 80, 40);
 		submitButton.setText("Submit");
 		submitButton.setFont(new Font("Arial",Font.BOLD,14));
 		submitButton.setForeground(Color.WHITE);
