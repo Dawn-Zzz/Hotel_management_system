@@ -31,17 +31,9 @@ public class EquipmentView extends JPanel {
 		subBar.setLayout(null);
 		subBar.setBackground(new Color(241,243,255));
 		subBar.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		subBar.add(editEquipmentButton);
 		subBar.add(roomSearch);
 		subBar.add(equipmentTypeSearch);
-
-		editEquipmentButton.setBounds(10,25,129,40);
-		editEquipmentButton.setText("Edit Equipment");
-		editEquipmentButton.setForeground(Color.WHITE);
-		editEquipmentButton.setBackground(new Color(39,162,187));
-		editEquipmentButton.setLayout(null);
-		editEquipmentButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		editEquipmentButton.setFocusable(false);
+		subBar.add(equipmentStatusSearch);
 		
 		roomSearch.setBounds(10,85,129,60);
 		roomSearch.setForeground(Color.WHITE);
@@ -51,7 +43,7 @@ public class EquipmentView extends JPanel {
 		roomSearch.add(bedList);
 		
 		roomType.setBounds(0,0,32,100);
-		roomType.setText("Room Type");
+		roomType.setText("Room");
 		roomType.setPreferredSize(new Dimension(129,25));
 		roomType.setFont(new Font("Arial",Font.BOLD,14));
 		roomType.setForeground(Color.BLACK);
@@ -62,7 +54,7 @@ public class EquipmentView extends JPanel {
 		bedList.setPreferredSize(new Dimension(129,25));
 		bedList.setBackground(Color.WHITE);
 		
-		equipmentTypeSearch.setBounds(10, 150, 129, 150);
+		equipmentTypeSearch.setBounds(10, 150, 129, 70);
 		equipmentTypeSearch.setForeground(Color.WHITE);
 		equipmentTypeSearch.setBackground(new Color(241,243,255));
 		equipmentTypeSearch.setBorder(null);
@@ -81,6 +73,25 @@ public class EquipmentView extends JPanel {
 		equipmentList.setPreferredSize(new Dimension(129,25));
 		equipmentList.setBackground(Color.WHITE);
 		
+		equipmentStatusSearch.setBounds(10, 215, 129, 150);
+		equipmentStatusSearch.setForeground(Color.WHITE);
+		equipmentStatusSearch.setBackground(new Color(241,243,255));
+		equipmentStatusSearch.setBorder(null);
+		equipmentStatusSearch.add(equipmentStatusList);
+		equipmentStatusSearch.add(statusList);
+		
+		equipmentStatusList.setBounds(0,0,32,100);
+		equipmentStatusList.setText("Status");
+		equipmentStatusList.setPreferredSize(new Dimension(129,25));
+		equipmentStatusList.setFont(new Font("Arial",Font.BOLD,14));
+		equipmentStatusList.setForeground(Color.BLACK);
+		equipmentStatusList.setBackground(new Color(241,243,255));
+		equipmentStatusList.setBorder(null);
+		
+		statusList.setBounds(0,20,32,20);
+		statusList.setPreferredSize(new Dimension(129,25));
+		statusList.setBackground(Color.WHITE);
+		
 		mainContent.setBounds(150,0,1020-150-64,690);
 		mainContent.setLayout(null);
 		mainContent.setBackground(Color.WHITE);
@@ -91,10 +102,6 @@ public class EquipmentView extends JPanel {
 		searchBar.setLayout(null);
 		searchBar.setBackground(new Color(241,243,255));
 		searchBar.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
-		searchBar.add(searchBox);
-		
-		searchBox.setBounds(30,25,300,40);	
-		searchBox.setBackground(Color.WHITE);
 		
 		mainEquipmentTable.setBounds(0,85,1020-150-84,720-130);
 		mainEquipmentTable.setBorder(null);
@@ -135,11 +142,11 @@ public class EquipmentView extends JPanel {
 		this.setVisible(false);
 	}
 	String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
-	String EquipmentList[] = {"All"};
+	String EquipmentList[] = {"All", "Tủ lạnh", "Tivi", "Máy Lạnh"};
+	String StatusList[] = {"All","Tốt", "Hỏng"};
 	
 	//sub bar
 	private JPanel subBar = new JPanel();
-	private JButton editEquipmentButton = new Button();
 	private JPanel roomSearch = new JPanel();
 	private JLabel roomType = new JLabel();
 	private JComboBox bedList = new JComboBox(RoomList);
@@ -147,6 +154,10 @@ public class EquipmentView extends JPanel {
 	private JPanel equipmentTypeSearch = new JPanel();
 	private JLabel equipmentTypeList = new JLabel();
 	private JComboBox equipmentList = new JComboBox(EquipmentList);
+	
+	private JPanel equipmentStatusSearch = new JPanel();
+	private JLabel equipmentStatusList = new JLabel();
+	private JComboBox statusList = new JComboBox(StatusList);
 	//main section
 	private JPanel mainContent = new JPanel();
 	private JPanel mainEquipmentTable = new JPanel();
@@ -154,6 +165,5 @@ public class EquipmentView extends JPanel {
 	private JScrollPane jScrollPane1 = new JScrollPane();
 	
 	private JPanel searchBar = new JPanel();
-	private JTextField searchBox = new TextField();
 	
 }

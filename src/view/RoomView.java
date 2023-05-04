@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -8,15 +9,19 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import controller.RoomController;
 import view.editComponent.Button;
+import view.editComponent.Table;
 import view.editComponent.TextField;
 
 public class RoomView extends JPanel{
@@ -38,7 +43,7 @@ public class RoomView extends JPanel{
 		subBar.add(statusSearch);
 
 		editRoomButton.setBounds(10,25,129,40);
-		editRoomButton.setText("Edit Room");
+		editRoomButton.setText("Book Room");
 		editRoomButton.setForeground(Color.WHITE);
 		editRoomButton.setBackground(new Color(39,162,187));
 		editRoomButton.setLayout(null);
@@ -53,6 +58,7 @@ public class RoomView extends JPanel{
 		historyRoomButton.setLayout(null);
 		historyRoomButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		historyRoomButton.setFocusable(false);
+		historyRoomButton.addActionListener(actionListener);
 		
 		roomSearch.setBounds(10,135,129,120);
 		roomSearch.setForeground(Color.WHITE);
@@ -62,6 +68,7 @@ public class RoomView extends JPanel{
 		roomSearch.add(vipRoom);
 		roomSearch.add(popularRoom);
 		roomSearch.add(bedList);
+		roomSearch.setVisible(false);
 		
 		roomType.setBounds(0,0,32,100);
 		roomType.setText("Room Type");
@@ -89,6 +96,7 @@ public class RoomView extends JPanel{
 		statusSearch.setBorder(null);
 		statusSearch.add(currentsStatus);
 		statusSearch.add(statusList);
+		statusSearch.setVisible(false);
 		
 		currentsStatus.setBounds(0,0,32,100);
 		currentsStatus.setText("Current Status");
@@ -104,16 +112,76 @@ public class RoomView extends JPanel{
 		
 		addRoom(mainRoomList);
 		
-		
 		mainContent.setBounds(150,0,1020-150-64,720);
 		mainContent.setLayout(null);
 		mainContent.setBackground(Color.WHITE);
 		mainContent.add(mainRoomList);
+		mainContent.add(historyRoomList);
+		mainContent.add(buttonPanel);
 		mainContent.add(searchBar);
 		
 		mainRoomList.setBounds(0,85,1020-150-84,720-120);
 		mainRoomList.setLayout(new GridLayout(6,6));
 		mainRoomList.setBorder(null);
+		mainRoomList.setVisible(true);
+		
+		backButton.setBounds(0,0,60,40);
+		backButton.setIcon(new ImageIcon("./Images/backButton2.png"));
+		backButton.setFont(new Font("Arial", Font.PLAIN, 0));
+		backButton.setForeground(Color.BLACK);
+		backButton.setBackground(Color.WHITE);
+		backButton.setBorder(null);
+		backButton.setLayout(null);
+		backButton.setFocusable(false);
+		backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		backButton.addActionListener(actionListener);
+		
+		buttonPanel.setBounds(0,85,1020-150-84,40);
+//		buttonPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(204,204,204)));
+		buttonPanel.setLayout(null);
+		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.add(backButton);
+		
+		historyRoomList.setBounds(0,125,1020-150-84,720-120);
+		historyRoomList.setBorder(BorderFactory.createMatteBorder(2,0,0,0,new Color(204,204,204)));
+		historyRoomList.setLayout(new BorderLayout());
+//		historyRoomList.setBackground(Color.WHITE);
+		historyRoomList.add(roomTable.getTableHeader(), BorderLayout.NORTH);
+		historyRoomList.add(roomTable, BorderLayout.CENTER);
+		JScrollPane jScrollPane = new JScrollPane(roomTable);
+		roomTable.fixTable(jScrollPane);
+		historyRoomList.add(jScrollPane);
+		historyRoomList.setVisible(false);
+		
+		roomTable.setBounds(0,40,1020,720-120);
+		roomTable.getTableHeader().setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(204,204,204)));
+		roomTable.setShowVerticalLines(false);
+		roomTable.setGridColor(new Color(204,204,204));
+		roomTable.setBorder(null);
+        roomTable.setColumnAlignment(0, JLabel.CENTER);
+        roomTable.setCellAlignment(0, JLabel.CENTER);
+        roomTable.setColumnAlignment(1, JLabel.CENTER);
+        roomTable.setCellAlignment(1, JLabel.CENTER);
+        roomTable.setColumnAlignment(2, JLabel.CENTER);
+        roomTable.setCellAlignment(2, JLabel.CENTER);
+        roomTable.setColumnAlignment(3, JLabel.CENTER);
+        roomTable.setCellAlignment(3, JLabel.CENTER);
+        roomTable.setColumnAlignment(4, JLabel.CENTER);
+        roomTable.setCellAlignment(4, JLabel.CENTER);
+        roomTable.setFont(new Font("Arial",Font.BOLD,12));
+		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Status", "Date", "Time", "Note"}) {
+	            boolean[] canEdit = new boolean [] {
+	                false, false, false, false, false
+	            };
+
+	            public boolean isCellEditable(int rowIndex, int columnIndex) {
+	                return canEdit [columnIndex];
+	            }
+	        });
+		DefaultTableModel mode = (DefaultTableModel) roomTable.getModel();
+        for (int i = 1; i <= 4; i++) {
+            mode.addRow(new Object[]{"101", "OK" , "1/1/2021", "7am", ""});
+        }
 		
 		searchBar.setBounds(0,0,1020-150-64,85);
 		searchBar.setLayout(null);
@@ -123,6 +191,7 @@ public class RoomView extends JPanel{
 		
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
+		searchBox.setVisible(false);
 
 		this.setVisible(false);
 	}
@@ -149,6 +218,12 @@ public class RoomView extends JPanel{
 	private JPanel mainRoomList = new JPanel();
 	private JPanel searchBar = new JPanel();
 	private JTextField searchBox = new TextField();
+	
+	private JPanel historyRoomList = new JPanel();
+	private JPanel buttonPanel = new JPanel();
+	private JButton backButton = new JButton("Back Button");
+	private Table roomTable = new Table();
+	JScrollPane jScrollPane1 = new JScrollPane();
 	
 	private JButton RoomList[] = new JButton[36];
 	
@@ -178,7 +253,49 @@ public class RoomView extends JPanel{
 			RoomList[i].setFont(new Font("Inter", Font.BOLD, 16));
 			RoomList[i].setFocusable(false);
 			RoomList[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+			RoomList[i].addActionListener(actionListener);
 			mainRoomList.add(RoomList[i]);
 		}
 	}
+
+	public JPanel getMainRoomList() {
+		return mainRoomList;
+	}
+
+	public void setMainRoomList(JPanel mainRoomList) {
+		this.mainRoomList = mainRoomList;
+	}
+
+	public JPanel getHistoryRoomList() {
+		return historyRoomList;
+	}
+
+	public void setHistoryRoomList(JPanel historyRoomList) {
+		this.historyRoomList = historyRoomList;
+	}
+
+	public JPanel getRoomSearch() {
+		return roomSearch;
+	}
+
+	public void setRoomSearch(JPanel roomSearch) {
+		this.roomSearch = roomSearch;
+	}
+
+	public JPanel getStatusSearch() {
+		return statusSearch;
+	}
+
+	public void setStatusSearch(JPanel statusSearch) {
+		this.statusSearch = statusSearch;
+	}
+
+	public JTextField getSearchBox() {
+		return searchBox;
+	}
+
+	public void setSearchBox(JTextField searchBox) {
+		this.searchBox = searchBox;
+	}
+	
 }
