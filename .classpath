@@ -5,7 +5,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="test/" kind="src" path="src"/>
+	<classpathentry excluding="test/|lib/" kind="src" path="src"/>
 	<classpathentry kind="lib" path="src/lib/mysql-connector-java-8.0.30.jar"/>
+	<classpathentry kind="lib" path="src/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
