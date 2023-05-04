@@ -2,16 +2,23 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import view.GuestView;
 
 public class GuestController implements ActionListener {
 	private GuestView guestView;
 	private Calendar calendar;
-
 	public GuestController(GuestView guestView) {
 		super();
 		this.guestView = guestView;
@@ -31,7 +38,8 @@ public class GuestController implements ActionListener {
 			updateDayComboBox();
 			guestView.getDayList().setSelectedIndex(-1);
 	        guestView.getDayList().setEnabled(true);
-		} 
+		}
+		searchEvent(guestView.getGuestTable(),guestView.getSearchBox());
     }
 	
 	private void updateDayComboBox() {
@@ -48,4 +56,59 @@ public class GuestController implements ActionListener {
         	guestView.getDayList().addItem(day);
         }
     }
+	
+	private void searchEvent(JTable table, JTextField textField) {
+		String time = "";
+		Integer year;
+		if (guestView.getYearList().getSelectedItem() != null) {
+			year = (Integer) guestView.getYearList().getSelectedItem();
+			time = time + year.toString();
+		}
+		Integer month;
+		if (guestView.getMonthList().getSelectedItem() != null) {
+			month = (Integer) guestView.getMonthList().getSelectedItem();
+			if (month < 10)
+				time = time + "-0" + month.toString();
+			else
+				time = time + "-" + month.toString();
+		}
+		Integer day;
+		if (guestView.getDayList().getSelectedItem() != null) {
+			day = (Integer) guestView.getDayList().getSelectedItem();
+			if (day < 10)
+				time = time + "-0" + day.toString();
+			else
+				time = time + "-" + day.toString();
+		}
+		
+		String type = "";
+		if (guestView.getGuestList().getSelectedItem() != null) {
+			if (guestView.getGuestList().getSelectedItem() == "All")
+				type = "";
+			else
+				type = (String) guestView.getGuestList().getSelectedItem();
+		}
+		
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(sorter);
+        List<RowFilter<Object,Object>> filters = new ArrayList<>();
+        
+        RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + type,2);
+		RowFilter<Object,Object> filter2 = RowFilter.regexFilter("(?i)" + time,3);
+		filters.add(filter1);
+		filters.add(filter2);
+		sorter.setRowFilter(RowFilter.andFilter(filters));
+		textField.setText("");
+		textField.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				String input = textField.getText().trim();
+	            filters.clear();
+	            RowFilter<Object,Object> filter3 = RowFilter.regexFilter("(?i)" + input, 0, 1, 4);
+	            filters.add(filter1);
+	            filters.add(filter2);
+	            filters.add(filter3);
+	            sorter.setRowFilter(RowFilter.andFilter(filters));
+			}
+      });
+	}
 }
