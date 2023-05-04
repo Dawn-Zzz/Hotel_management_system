@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.toedter.calendar.JDateChooser;
+
 import view.editComponent.Button;
 
 public class AddGuestView extends JDialog{
@@ -32,8 +34,7 @@ public class AddGuestView extends JDialog{
 	private JTextField identificationNumberField = new JTextField();
 	
 	private JLabel guestBirth = new JLabel();
-	DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-	JFormattedTextField dateField = new JFormattedTextField(format);
+	private JDateChooser birthDay = new JDateChooser();
 	
 	private JLabel guestGender = new JLabel();
 	private JPanel genderGroup = new JPanel();
@@ -57,7 +58,7 @@ public class AddGuestView extends JDialog{
 		this.add(guestGender);
 		this.add(genderGroup);
 		this.add(guestBirth);
-		this.add(dateField);
+		this.add(birthDay);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
 		this.setVisible(false);
@@ -110,9 +111,9 @@ public class AddGuestView extends JDialog{
 		guestBirth.setBackground(Color.blue);
 		guestBirth.setBorder(null);
 		
-		dateField.setBounds(50,380,460,30);
-		dateField.setBackground(Color.WHITE);
-		dateField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		birthDay.setBounds(50,380,460,30);
+		birthDay.setBackground(Color.WHITE);
+		birthDay.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
 		guestGender.setBounds(50,420,70,30);
 		guestGender.setText("Gender");
