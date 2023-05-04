@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -53,6 +54,8 @@ public class AddRoomView extends JDialog{
 	private JButton submitButton = new Button();
 	
 	public AddRoomView() {
+		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
+		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setBounds(0,85,1020,720);
 		this.setLayout(null);

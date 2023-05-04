@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
@@ -45,6 +46,8 @@ public class AddGuestView extends JDialog{
 	private JButton submitButton = new Button();
 	
 	public AddGuestView() {
+		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
+		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setBounds(0,85,1020,720);
 		this.setLayout(null);
