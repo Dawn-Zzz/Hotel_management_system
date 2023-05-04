@@ -77,7 +77,7 @@ public class AddRoomView extends JDialog{
 		this.add(depositfield);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		this.setVisible(false);
 		
 		registrationForm.setBounds(50,50,250,30);
 		registrationForm.setText("Registration Form");
