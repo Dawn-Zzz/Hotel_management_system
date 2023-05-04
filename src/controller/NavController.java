@@ -70,6 +70,7 @@ public class NavController implements ActionListener{
 			roomView.setVisible(false);
 			serviceView.setVisible(false);
 			billView.setVisible(true);
+			billView.setIndexComboBox();
 			System.out.println("5");
 		}
 	}

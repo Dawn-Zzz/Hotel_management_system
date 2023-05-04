@@ -72,6 +72,7 @@ public class BillView extends JPanel{
 		staffList.setBounds(0,30,20,20);
 		staffList.setPreferredSize(new Dimension(129,25));
 		staffList.setBackground(Color.WHITE);
+		staffList.addActionListener(actionListener);
 		
 		dateSearch.setBounds(10, 180, 129, 250);
 		dateSearch.setForeground(Color.WHITE);
@@ -188,16 +189,39 @@ public class BillView extends JPanel{
 		BillDAO.getInstance().selectAll(billTable);
 		this.setVisible(false);
 	}
-	String StaffList[] = {"All", "nv1", "nv2", "nv3", "nv4"};
+	String StaffList[] = {"All", "Hồ Minh Hải", "Lê Thanh Hoa", "Lê Trung Kiên", "Nguyễn Linh Chi", "Nguyễn Thanh Tùng", "Phạm Hoài Sơn", "Phạm Minh Hùng", "Trương Tịnh Nghi", "Trần Thanh Khoa", "Trần Thị Linh"};
 	
 	public JComboBox<Integer> getYearList() {
 		return yearList;
 	}
+	
 	public JComboBox<Integer> getMonthList() {
 		return monthList;
 	}
+	
 	public JComboBox<Integer> getDayList() {
 		return dayList;
+	}
+	
+	public JComboBox getStaffList() {
+		return staffList;
+	}
+
+	public JTextField getSearchBox() {
+		return searchBox;
+	}
+	
+	public Table getBillTable() {
+		return billTable;
+	}
+	
+	public void setIndexComboBox () {
+		staffList.setSelectedIndex(-1);
+		yearList.setSelectedIndex(-1);
+		monthList.setSelectedIndex(-1);
+		dayList.setSelectedIndex(-1);
+		monthList.setEnabled(false);
+		dayList.setEnabled(false);
 	}
 	//sub bar
 	private JPanel subBar = new JPanel();
