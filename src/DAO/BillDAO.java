@@ -28,13 +28,13 @@ public class BillDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String idBill = resultSet.getString("MaHoaDon");
-				Date typeGuest = resultSet.getDate("NgayLapHoaDon");
+				Date dateBill = resultSet.getDate("NgayLapHoaDon");
 				String nameGuest = resultSet.getString("TenKhachHang");
 				String nameStaff = resultSet.getString("TenNhanVien");
 				DecimalFormat df = new DecimalFormat("#,###");
 				String total = df.format(resultSet.getFloat("TongTien"));
 				
-				Object[] object = {idBill,typeGuest,nameGuest,total,nameStaff};
+				Object[] object = {idBill,nameGuest,dateBill,total,nameStaff};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
