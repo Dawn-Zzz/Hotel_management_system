@@ -20,6 +20,7 @@ import view.editComponent.Table;
 
 public class RoomInfor extends JDialog{
 	public RoomInfor(String number, String type, String bed, String status, String guest) {
+		this.setUndecorated(true);
 		this.setNumber(number);
 		this.setType(type);
 		this.setBed(bed);
@@ -45,6 +46,7 @@ public class RoomInfor extends JDialog{
 		this.add(guestId);
 		this.add(guestPhone);
 		this.add(exitButton);
+		getRootPane().setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		this.setModal(true);
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");

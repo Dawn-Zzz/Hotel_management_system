@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -49,7 +50,7 @@ public class BookRoomView extends JDialog{
 	private JTextField dayCOut = new JTextField();
 	
 	private JLabel deposit = new JLabel();
-	private JRadioButton depositTick = new JRadioButton();
+	private JCheckBox depositTick = new JCheckBox();
 	private JTextField depositfield = new JTextField();
 	private JLabel currencyUnit = new JLabel();
 	
@@ -57,7 +58,7 @@ public class BookRoomView extends JDialog{
 	
 	public BookRoomView() {
 		this.getContentPane().setBackground(Color.WHITE);
-		this.setBounds(0,85,900,600);
+		this.setBounds(0,0,900,600);
 		this.setIconImage(image.getImage());
 		this.setLayout(null);
 		this.add(registrationForm);
@@ -85,7 +86,7 @@ public class BookRoomView extends JDialog{
 		this.setModal(true);
 		this.setVisible(false);
 		
-		registrationForm.setBounds(50,50,250,30);
+		registrationForm.setBounds(50,10,250,30);
 		registrationForm.setText("Registration Form");
 		registrationForm.setPreferredSize(new Dimension(250,30));
 		registrationForm.setFont(new Font("Arial",Font.BOLD,24));
@@ -93,22 +94,22 @@ public class BookRoomView extends JDialog{
 		registrationForm.setBackground(Color.WHITE);
 		registrationForm.setBorder(null);
 		
-		dateTime.setBounds(800,50,250,30);
+		dateTime.setBounds(785,10,70,30);
 		dateTime.setText("5/2/2023");
 		dateTime.setPreferredSize(new Dimension(250,30));
-		dateTime.setFont(new Font("Arial",Font.BOLD,14));
+		dateTime.setFont(new Font("Arial",Font.BOLD,16));
 		dateTime.setForeground(Color.BLACK);
 		dateTime.setBackground(Color.WHITE);
 		dateTime.setBorder(null);
 		
 		questQuantity.setBounds(50,100,150,30);
 		questQuantity.setText("Quest Quantity");
-		questQuantity.setFont(new Font("Arial",Font.BOLD,14));
+		questQuantity.setFont(new Font("Arial",Font.BOLD,16));
 		questQuantity.setForeground(Color.BLACK);
 		questQuantity.setBackground(Color.WHITE);
 		questQuantity.setBorder(null);
 		
-		questQuantityBox.setBounds(50,130,150,30);
+		questQuantityBox.setBounds(50,130,380,30);
 		questQuantityBox.setBackground(Color.WHITE);
 		questQuantityBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		for(int i = 1; i <= 3 ; i++) {
@@ -117,88 +118,88 @@ public class BookRoomView extends JDialog{
 		
 		rentalType.setBounds(50,180,120,30);
 		rentalType.setText("Rental Type");
-		rentalType.setFont(new Font("Arial",Font.BOLD,14));
+		rentalType.setFont(new Font("Arial",Font.BOLD,16));
 		rentalType.setForeground(Color.BLACK);
 		rentalType.setBackground(Color.WHITE);
 		rentalType.setBorder(null);
 		
-		rentalTypeBox.setBounds(50,210,150,30);
+		rentalTypeBox.setBounds(50,210,380,30);
 		rentalTypeBox.setBackground(Color.WHITE);
 		rentalTypeBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		room.setBounds(500,100,120,30);
+		identificationNumber.setBounds(470,100,180,30);
+		identificationNumber.setText("Identification Number");
+		identificationNumber.setFont(new Font("Arial",Font.BOLD,16));
+		identificationNumber.setForeground(Color.BLACK);
+		identificationNumber.setBackground(Color.WHITE);
+		
+		identificationNumberField.setBounds(470,130,380,30);
+		identificationNumberField.setBackground(Color.WHITE);
+		identificationNumberField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		
+		room.setBounds(470,180,150,30);
 		room.setText("Room");
-		room.setFont(new Font("Arial",Font.BOLD,14));
+		room.setFont(new Font("Arial",Font.BOLD,16));
 		room.setForeground(Color.BLACK);
 		room.setBackground(Color.WHITE);
 		room.setBorder(null);
 		
-		roomBox.setBounds(500,130,150,30);
+		roomBox.setBounds(470,210,380,30);
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		identificationNumber.setBounds(500,180,150,30);
-		identificationNumber.setText("Identification Number");
-		identificationNumber.setFont(new Font("Arial",Font.BOLD,14));
-		identificationNumber.setForeground(Color.BLACK);
-		identificationNumber.setBackground(Color.WHITE);
-		
-		identificationNumberField.setBounds(500,210,150,30);
-		identificationNumberField.setBackground(Color.WHITE);
-		identificationNumberField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		
 		checkIn.setBounds(50,260,150,30);
 		checkIn.setText("Check In");
-		checkIn.setFont(new Font("Arial",Font.BOLD,14));
+		checkIn.setFont(new Font("Arial",Font.BOLD,16));
 		checkIn.setForeground(Color.BLACK);
 		checkIn.setBackground(Color.WHITE);
 		
-		hourCIn.setBounds(50,290,100,30);
+		hourCIn.setBounds(50,290,180,30);
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		dayCIn.setBounds(200,290,130,30);
+		dayCIn.setBounds(250,290,180,30);
 		dayCIn.setBackground(Color.WHITE);
 		dayCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		checkOut.setBounds(500,260,150,30);
+		checkOut.setBounds(470,260,150,30);
 		checkOut.setText("Check Out");
-		checkOut.setFont(new Font("Arial",Font.BOLD,14));
+		checkOut.setFont(new Font("Arial",Font.BOLD,16));
 		checkOut.setForeground(Color.BLACK);
 		checkOut.setBackground(Color.WHITE);
 		
-		hourCOut.setBounds(500,290,100,30);
+		hourCOut.setBounds(470,290,180,30);
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		dayCOut.setBounds(650,290,130,30);
+		dayCOut.setBounds(670,290,180,30);
 		dayCOut.setBackground(Color.WHITE);
 		dayCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		deposit.setBounds(50,340,80,30);
-		deposit.setText("Deposit");
-		deposit.setFont(new Font("Arial",Font.BOLD,14));
+		deposit.setBounds(50,340,150,30);
+		deposit.setText("Deposit (Tiền Cọc)");
+		deposit.setFont(new Font("Arial",Font.BOLD,16));
 		deposit.setForeground(Color.BLACK);
 		deposit.setBackground(Color.WHITE);
 		
-		depositTick.setBounds(120,340,20,30);
+		depositTick.setBounds(210,340,20,30);
 		depositTick.setBackground(Color.WHITE);
 		depositTick.setFocusable(false);
 		
-		depositfield.setBounds(50,370,150,30);
+		depositfield.setBounds(50,390,180,30);
 		depositfield.setBackground(Color.WHITE);
 		depositfield.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		currencyUnit.setBounds(205,370,150,30);
+		currencyUnit.setBounds(235,390,150,30);
 		currencyUnit.setText("VND");
 		currencyUnit.setFont(new Font("Arial",Font.BOLD,16));
 		currencyUnit.setForeground(Color.BLACK);
 		currencyUnit.setBackground(Color.WHITE);
 		registrationForm.setBorder(null);
             
-		submitButton.setBounds(50, 470, 80, 40);
+		submitButton.setBounds(50, 480, 100, 40);
 		submitButton.setText("Submit");
-		submitButton.setFont(new Font("Arial",Font.BOLD,14));
+		submitButton.setFont(new Font("Arial",Font.BOLD,16));
 		submitButton.setForeground(Color.WHITE);
 		submitButton.setBackground(new Color(39,162,187));
 		submitButton.setFocusable(false);
