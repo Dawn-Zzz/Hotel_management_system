@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import view.editComponent.Button;
 import view.editComponent.Table;
 
-public class AddRoomView extends JDialog{
+public class BookRoomView extends JDialog{
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 	private JLabel registrationForm = new JLabel();
 	
@@ -55,7 +55,7 @@ public class AddRoomView extends JDialog{
 	
 	private JButton submitButton = new Button();
 	
-	public AddRoomView() {
+	public BookRoomView() {
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setBounds(0,85,900,600);
 		this.setIconImage(image.getImage());

@@ -11,13 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import view.AddRoomView;
+import view.BookRoomView;
 import view.RoomInfor;
 import view.RoomView;
 
 public class RoomController implements ActionListener {
 	private RoomView roomView;
-	private AddRoomView addRoomView = new AddRoomView();
+	private BookRoomView addRoomView = new BookRoomView();
 //	private RoomInfor roomInfor = new RoomInfor("aa");
 	
 	public RoomController(RoomView roomView){

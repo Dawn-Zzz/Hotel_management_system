@@ -66,6 +66,7 @@ public class AddGuestView extends JDialog{
 		this.add(birthDay);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
+		this.setModal(true);
 		this.setVisible(false);
 		
 		guestInfor.setBounds(50,20,220,30);

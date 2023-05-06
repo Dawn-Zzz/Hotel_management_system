@@ -1,6 +1,6 @@
 package testProject;
 
-import view.AddRoomView;
+import view.BookRoomView;
 import view.LoginView;
 import view.View;
 

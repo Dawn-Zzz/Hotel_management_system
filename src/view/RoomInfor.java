@@ -45,8 +45,7 @@ public class RoomInfor extends JDialog{
 		this.add(guestId);
 		this.add(guestPhone);
 		this.add(exitButton);
-//		this.add(guestListSection);
-//		this.setVisible(true);
+		this.setModal(true);
 		
 		ImageIcon image2 = new ImageIcon("./Images/Background.jpg");
 		
@@ -154,51 +153,6 @@ public class RoomInfor extends JDialog{
 		exitButton.setLayout(null);
 		exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		exitButton.setFocusable(false);
-//		exitButton.setVisible(true);
-//		exitButton.addActionListener(actionListener);
-		
-//		guestListSection.setBounds(400,300,910,37+cell*30);
-//		guestListSection.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-//		guestListSection.setLayout(new BorderLayout());
-//		guestListSection.add(guestInforTable.getTableHeader(), BorderLayout.NORTH);
-//		guestListSection.add(guestInforTable, BorderLayout.CENTER);
-//		JScrollPane jScrollPane = new JScrollPane(guestInforTable);
-//		guestInforTable.fixTable(jScrollPane);
-//		guestListSection.add(jScrollPane);
-//		
-//		guestInforTable.setBounds(400,300,720,100);
-//		guestInforTable.setBackground(Color.WHITE);
-//		guestInforTable.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
-//		guestInforTable.getTableHeader().setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
-//		guestInforTable.setShowVerticalLines(true);
-//		guestInforTable.setGridColor(new Color(204,204,204));
-//		guestInforTable.setColumnAlignment(0, JLabel.CENTER);
-//		guestInforTable.setCellAlignment(0, JLabel.CENTER);
-//		guestInforTable.setColumnAlignment(1, JLabel.CENTER);
-//		guestInforTable.setCellAlignment(1, JLabel.CENTER);
-//		guestInforTable.setColumnAlignment(2, JLabel.CENTER);
-//		guestInforTable.setCellAlignment(2, JLabel.CENTER);
-//		guestInforTable.setColumnAlignment(3, JLabel.CENTER);
-//		guestInforTable.setCellAlignment(3, JLabel.CENTER);
-//		guestInforTable.setColumnAlignment(4, JLabel.CENTER);
-//		guestInforTable.setCellAlignment(4, JLabel.CENTER);
-//		guestInforTable.setColumnAlignment(5, JLabel.CENTER);
-//		guestInforTable.setCellAlignment(5, JLabel.CENTER);
-//		guestInforTable.setFont(new Font("Arial",Font.BOLD,12));
-//		guestInforTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Name", "Phone Number", "Guest ID", "Birthday", "Gender", "Check In"}) {
-//            boolean[] canEdit = new boolean [] {
-//                false, false, false, false, false, false
-//            };
-//
-//            public boolean isCellEditable(int rowIndex, int columnIndex) {
-//                return canEdit [columnIndex];
-//            }
-//        });
-//		
-//		DefaultTableModel mode = (DefaultTableModel) guestInforTable.getModel();
-//        for (int i = 1; i <= cell; i++) {
-//            mode.addRow(new Object[]{"Phuc", i , "VIP", "1/1/2023", "0123456789","12/04/2022"});
-//        }
 		this.setVisible(false);
 	}
 	
