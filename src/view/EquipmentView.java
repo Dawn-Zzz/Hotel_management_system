@@ -102,6 +102,10 @@ public class EquipmentView extends JPanel {
 		searchBar.setLayout(null);
 		searchBar.setBackground(new Color(241,243,255));
 		searchBar.setBorder(BorderFactory.createMatteBorder(1,0,1,0,new Color(204,204,204)));
+		searchBar.add(searchBox);
+
+		searchBox.setBounds(30,25,300,40);	
+		searchBox.setBackground(Color.WHITE);
 		
 		mainEquipmentTable.setBounds(0,85,1020-150-84,720-130);
 		mainEquipmentTable.setBorder(null);
@@ -142,8 +146,8 @@ public class EquipmentView extends JPanel {
 		this.setVisible(false);
 	}
 	String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
-	String EquipmentList[] = {"All", "Tủ lạnh", "Tivi", "Máy Lạnh"};
-	String StatusList[] = {"All","Tốt", "Hỏng"};
+	String EquipmentList[] = {"All", "Tá»§ láº¡nh", "Tivi", "MÃ¡y Láº¡nh"};
+	String StatusList[] = {"All","Tá»‘t", "Há»�ng"};
 	
 	//sub bar
 	private JPanel subBar = new JPanel();
@@ -164,6 +168,6 @@ public class EquipmentView extends JPanel {
 	private Table equipmentTable = new Table();
 	private JScrollPane jScrollPane1 = new JScrollPane();
 	
-	private JPanel searchBar = new JPanel();
-	
+	JPanel searchBar = new JPanel();
+	JTextField searchBox = new TextField();	
 }
