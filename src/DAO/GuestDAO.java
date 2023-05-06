@@ -23,12 +23,12 @@ public class GuestDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT kh.MaKhachHang, kh.LoaiKhachHang, kh.TenKhachHang, kh.SoDienThoai, ptp.ThoiGianNhanPhong  FROM KhachHang kh "
-					+ "INNER JOIN PhieuThuePhong ptp ON kh.MaKhachHang = ptp.MaKhachHang";
+			String sql = "SELECT kh.CCCD, kh.LoaiKhachHang, kh.TenKhachHang, kh.SoDienThoai, ptp.ThoiGianNhanPhong  FROM KhachHang kh "
+					+ "INNER JOIN PhieuThuePhong ptp ON kh.CCCD = ptp.CCCD";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				String idGuest = resultSet.getString("MaKhachHang");
+				String idGuest = resultSet.getString("CCCD");
 				String typeGuest = resultSet.getString("LoaiKhachHang");
 				String nameGuest = resultSet.getString("TenKhachHang");
 				String phoneGuest = resultSet.getString("SoDienThoai");

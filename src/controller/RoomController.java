@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import view.AddRoomView;
-//import view.RoomInfor;
+import view.RoomInfor;
 import view.RoomView;
 
 public class RoomController implements ActionListener {
@@ -30,32 +30,32 @@ public class RoomController implements ActionListener {
 		if(e.getActionCommand().equals("Book Room")) {
 			addRoomView.setVisible(true);
 		}	
-//		for(int i = 0; i < 36; i++) {
-//			if(e.getActionCommand().equals("10" + (i+1))) {
-//				RoomInfor roomInfor = new RoomInfor("10" + (i+1),null,null,null,null);
-//				roomInfor.setVisible(true);
-//			}
-//			else if(e.getActionCommand().equals("20" + (i-6+1))) {
-//				RoomInfor roomInfor = new RoomInfor("20" + (i-6+1),null,null,null,null);
-//				roomInfor.setVisible(true);
-//			}
-//			else if(e.getActionCommand().equals("30" + (i-12+1))) {
-//				RoomInfor roomInfor = new RoomInfor("30" + (i-12+1),null,null,null,null);
-//				roomInfor.setVisible(true);
-//			}
-//			else if(e.getActionCommand().equals("40" + (i-18+1))) {
-//				RoomInfor roomInfor = new RoomInfor("40" + (i-18+1),null,null,null,null);
-//				roomInfor.setVisible(true);
-//			}
-//			else if(e.getActionCommand().equals("50" + (i-24+1))) {
-//				RoomInfor roomInfor = new RoomInfor("50" + (i-24+1),null,null,null,null);
-//				roomInfor.setVisible(true);
-//			}
-//			else if(e.getActionCommand().equals("60" + (i-30+1))) {
-//				RoomInfor roomInfor = new RoomInfor("60" + (i-30+1),null,null,null,null);
-//				roomInfor.setVisible(true);
-//			}
-//		}
+		for(int i = 0; i < 36; i++) {
+			if(e.getActionCommand().equals("10" + (i+1))) {
+				RoomInfor roomInfor = new RoomInfor("10" + (i+1),null,null,null,null);
+				roomInfor.setVisible(true);
+			}
+			else if(e.getActionCommand().equals("20" + (i-6+1))) {
+				RoomInfor roomInfor = new RoomInfor("20" + (i-6+1),null,null,null,null);
+				roomInfor.setVisible(true);
+			}
+			else if(e.getActionCommand().equals("30" + (i-12+1))) {
+				RoomInfor roomInfor = new RoomInfor("30" + (i-12+1),null,null,null,null);
+				roomInfor.setVisible(true);
+			}
+			else if(e.getActionCommand().equals("40" + (i-18+1))) {
+				RoomInfor roomInfor = new RoomInfor("40" + (i-18+1),null,null,null,null);
+				roomInfor.setVisible(true);
+			}
+			else if(e.getActionCommand().equals("50" + (i-24+1))) {
+				RoomInfor roomInfor = new RoomInfor("50" + (i-24+1),null,null,null,null);
+				roomInfor.setVisible(true);
+			}
+			else if(e.getActionCommand().equals("60" + (i-30+1))) {
+				RoomInfor roomInfor = new RoomInfor("60" + (i-30+1),null,null,null,null);
+				roomInfor.setVisible(true);
+			}
+		}
 		JPanel historyTemp = roomView.getHistoryRoomList();
 		JPanel mainTemp = roomView.getMainRoomList();
 		JPanel roomSearchTemp = roomView.getRoomSearch();

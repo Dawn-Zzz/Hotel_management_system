@@ -22,7 +22,7 @@ public class BillDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT hd.MaHoaDon, hd.NgayLapHoaDon, kh.TenKhachHang, hd.TongTien, nv.TenNhanVien FROM HoaDon hd "
-					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
+					+ "INNER JOIN KhachHang kh ON kh.CCCD = hd.CCCD "
 					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();

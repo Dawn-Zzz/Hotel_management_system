@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -152,5 +154,12 @@ public class AddGuestView extends JDialog{
 		submitButton.setForeground(Color.WHITE);
 		submitButton.setBackground(new Color(39,162,187));
 		submitButton.setFocusable(false);
+		submitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+					dispose();
+			}
+		});
 	}
 }
