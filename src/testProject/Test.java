@@ -1,5 +1,6 @@
 package testProject;
 
+import view.BillDetailView;
 import view.BookRoomView;
 import view.LoginView;
 import view.View;
@@ -9,6 +10,6 @@ public class Test {
 //		LoginView loginView = new LoginView();
 		View v = new View();
 //		System.out.println(v.temp);
-//		new AddRoomView();
+		//new BillDetailView();
 	}
 }

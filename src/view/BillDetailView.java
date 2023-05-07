@@ -37,7 +37,7 @@ public class BillDetailView extends JDialog {
 	
 	public BillDetailView() {
 		this.getContentPane().setBackground(Color.WHITE);
-		this.setBounds(0,85,900,600);
+		this.setBounds(0,85,800,700);
 		this.setIconImage(image.getImage());
 		this.setLayout(null);
 		this.add(billID);
@@ -55,49 +55,49 @@ public class BillDetailView extends JDialog {
 		this.setVisible(true);
 		
 		billID.setBounds(50,50,250,30);
-		billID.setText("Bill ID: ...");
+		billID.setText("Bill ID: BO1");
 		billID.setPreferredSize(new Dimension(250,30));
-		billID.setFont(new Font("Arial",Font.BOLD,24));
+		billID.setFont(new Font("Arial",Font.BOLD,36));
 		billID.setForeground(Color.BLACK);
 		billID.setBackground(Color.WHITE);
 		billID.setBorder(null);
 		
-		exportPDFButton.setBounds(750, 50, 110, 40);
+		exportPDFButton.setBounds(640, 50, 110, 40);
 		exportPDFButton.setText("Export PDF");
 		exportPDFButton.setFont(new Font("Arial",Font.BOLD,14));
 		exportPDFButton.setForeground(Color.WHITE);
 		exportPDFButton.setBackground(new Color(39,162,187));
 		exportPDFButton.setFocusable(false);
 		
-		guestName.setBounds(50,100,200,30);
+		guestName.setBounds(50,140,206,30);
 		guestName.setText("Guest: Nguyen Van B");
-		guestName.setFont(new Font("Arial",Font.BOLD,14));
+		guestName.setFont(new Font("Arial",Font.BOLD,20));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
 		guestName.setBorder(null);
 		
-		date.setBounds(50,130,150,30);
+		date.setBounds(50,200,160,30);
 		date.setText("Date: 10/04/2022");
-		date.setFont(new Font("Arial",Font.BOLD,14));
+		date.setFont(new Font("Arial",Font.BOLD,20));
 		date.setForeground(Color.BLACK);
 		date.setBackground(Color.WHITE);
 		date.setBorder(null);
 		
-		invoicingStaff.setBounds(400,100,250,30);
+		invoicingStaff.setBounds(440,140,290,30);
 		invoicingStaff.setText("Invoicing Staff: Nguyen Van A");
-		invoicingStaff.setFont(new Font("Arial",Font.BOLD,14));
+		invoicingStaff.setFont(new Font("Arial",Font.BOLD,20));
 		invoicingStaff.setForeground(Color.BLACK);
 		invoicingStaff.setBackground(Color.WHITE);
 		invoicingStaff.setBorder(null);
 		
-		totalMoney.setBounds(400,130,250,30);
+		totalMoney.setBounds(440,200,233,30);
 		totalMoney.setText("Total Money: 1.000.000");
-		totalMoney.setFont(new Font("Arial",Font.BOLD,14));
+		totalMoney.setFont(new Font("Arial",Font.BOLD,20));
 		totalMoney.setForeground(Color.BLACK);
 		totalMoney.setBackground(Color.WHITE);
 		totalMoney.setBorder(null);
 	
-		mainTable1.setBounds(50,190,800,128);
+		mainTable1.setBounds(50,280,710,128);
 		mainTable1.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		mainTable1.setLayout(new BorderLayout());
 		mainTable1.add(roomInforTable.getTableHeader(), BorderLayout.NORTH);
@@ -135,14 +135,14 @@ public class BillDetailView extends JDialog {
             mode1.addRow(new Object[]{"10"+ i, "1/1/2023","12/04/2022", "200.000"});
         }
         
-        toTal1.setBounds(750,325,150,30);
+        toTal1.setBounds(610,415,150,30);
         toTal1.setText("Total: 600.000");
-        toTal1.setFont(new Font("Arial",Font.BOLD,14));
+        toTal1.setFont(new Font("Arial",Font.BOLD,20));
         toTal1.setForeground(Color.BLACK);
         toTal1.setBackground(Color.WHITE);
         
         //service
-        mainTable2.setBounds(50,385,800,95);
+        mainTable2.setBounds(50,490,710,95);
 		mainTable2.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		mainTable2.setLayout(new BorderLayout());
 		mainTable2.add(serviceInforTable.getTableHeader(), BorderLayout.NORTH);
@@ -181,9 +181,9 @@ public class BillDetailView extends JDialog {
             mode2.addRow(new Object[]{i, "3","100.000", "100.000"});
         }
         
-        toTal2.setBounds(750,475,150,30);
+        toTal2.setBounds(610,595,150,30);
         toTal2.setText("Total: 200.000");
-        toTal2.setFont(new Font("Arial",Font.BOLD,14));
+        toTal2.setFont(new Font("Arial",Font.BOLD,20));
         toTal2.setForeground(Color.BLACK);
         toTal2.setBackground(Color.WHITE);
 	}
