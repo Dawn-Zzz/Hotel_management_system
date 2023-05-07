@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import DAO.GuestDAO;
 import controller.GuestController;
@@ -199,6 +202,11 @@ public class GuestView extends JPanel {
 		
 		GuestDAO.getInstance().selectAll(guestTable);
 		this.setVisible(false);
+	}
+	
+	public void resetGuestTable() {
+		((DefaultTableModel) guestTable.getModel()).setRowCount(0);
+		GuestDAO.getInstance().selectAll(guestTable);
 	}
 	
 	public JComboBox<Integer> getYearList() {

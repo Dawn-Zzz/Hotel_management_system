@@ -20,17 +20,23 @@ import view.GuestView;
 public class GuestController implements ActionListener {
 	private GuestView guestView;
 	private Calendar calendar;
-	private AddGuestView addGuestView = new AddGuestView();
+	private AddGuestView addGuestView;
+
 	public GuestController(GuestView guestView) {
 		super();
 		this.guestView = guestView;
 		calendar = Calendar.getInstance();
 	}
 	
+	public AddGuestView getAddGuestView() {
+		return addGuestView;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("Add Guest")) {
+			addGuestView = new AddGuestView(guestView);
 			addGuestView.setVisible(true);
 		}
 		else {

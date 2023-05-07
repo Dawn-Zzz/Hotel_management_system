@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Handler;
@@ -22,9 +24,13 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import DAO.GuestDAO;
+import controller.AddGuestController;
 import view.editComponent.Button;
 
 public class AddGuestView extends JDialog{
+	private GuestView parentView;
+	
 	private JLabel guestInfor = new JLabel();
 	
 	private JLabel guestName = new JLabel();
@@ -47,7 +53,10 @@ public class AddGuestView extends JDialog{
 	
 	private JButton submitButton = new Button();
 	
-	public AddGuestView() {
+	private ActionListener actionListener = new AddGuestController(this);
+	
+	public AddGuestView(GuestView parentView) {
+		this.parentView = parentView;
 		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
@@ -155,5 +164,18 @@ public class AddGuestView extends JDialog{
 		submitButton.setBackground(new Color(39,162,187));
 		submitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		submitButton.setFocusable(false);
+		submitButton.addActionListener(actionListener);
+	}
+	
+	public GuestView getParentView() {
+		return parentView;
+	}
+
+	public void addGuestAction () {
+		String id = new String(identificationNumberField.getText());
+		String name = new String(guestNameField.getText());
+		String phoneNumber = new String(guestPhoneField.getText());
+		Date birth = new Date(birthDay.getDate().getTime());
+		GuestDAO.getInstance().insert(id, name, birth, phoneNumber);
 	}
 }
