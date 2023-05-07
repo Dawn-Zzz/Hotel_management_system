@@ -93,7 +93,7 @@ public class GuestView extends JPanel {
 		dateSearch.setForeground(Color.WHITE);
 		dateSearch.setBackground(new Color(241,243,255));
 		dateSearch.setBorder(null);
-		dateSearch.add(dateCheckIn);
+		dateSearch.add(birthDay);
 		dateSearch.add(searchYear);
 		dateSearch.add(yearList);
 		dateSearch.add(searchMonth);
@@ -101,13 +101,13 @@ public class GuestView extends JPanel {
 		dateSearch.add(searchDay);
 		dateSearch.add(dayList);
 		
-		dateCheckIn.setBounds(0,0,32,100);
-		dateCheckIn.setText("Check In");
-		dateCheckIn.setPreferredSize(new Dimension(129,25));
-		dateCheckIn.setFont(new Font("Arial",Font.BOLD,14));
-		dateCheckIn.setForeground(Color.BLACK);
-		dateCheckIn.setBackground(new Color(241,243,255));
-		dateCheckIn.setBorder(null);
+		birthDay.setBounds(0,0,32,100);
+		birthDay.setText("Birthday");
+		birthDay.setPreferredSize(new Dimension(129,25));
+		birthDay.setFont(new Font("Arial",Font.BOLD,14));
+		birthDay.setForeground(Color.BLACK);
+		birthDay.setBackground(new Color(241,243,255));
+		birthDay.setBorder(null);
 		
 		searchYear.setBounds(0, 60, 32, 100);
 		searchYear.setText("Year:");
@@ -190,7 +190,7 @@ public class GuestView extends JPanel {
         guestTable.setColumnAlignment(4, JLabel.CENTER);
         guestTable.setCellAlignment(4, JLabel.CENTER);
         guestTable.setFont(new Font("Arial",Font.BOLD,12));
-		guestTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Guest ID", "Guest Type", "Check In", "Phone Number"}) {
+		guestTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Guest ID", "Guest Type", "Birthday", "Phone Number"}) {
 	            boolean[] canEdit = new boolean [] {
 	                false, false, false, false, false
 	            };
@@ -252,7 +252,7 @@ public class GuestView extends JPanel {
 //
 //	
 	JPanel dateSearch = new JPanel();
-	JLabel dateCheckIn = new JLabel();
+	JLabel birthDay = new JLabel();
 	JLabel searchYear = new JLabel();
 	JLabel searchMonth = new JLabel();
 	JLabel searchDay = new JLabel();

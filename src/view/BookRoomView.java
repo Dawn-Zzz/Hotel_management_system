@@ -1,11 +1,11 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,13 +14,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 import view.editComponent.Button;
-import view.editComponent.Table;
 
 public class BookRoomView extends JDialog{
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
@@ -32,7 +30,7 @@ public class BookRoomView extends JDialog{
 	private JComboBox<Integer> questQuantityBox = new JComboBox<>();
 	
 	private JLabel rentalType = new JLabel();
-	String RentalType[] = {"", "Direct Booking", "Book in Advance"}; 
+	String RentalType[] = {"", "Rent For The Day", "Overnight Rental"}; 
 	private JComboBox<String> rentalTypeBox = new JComboBox<>(RentalType);
 	
 	private JLabel room = new JLabel();
@@ -42,15 +40,23 @@ public class BookRoomView extends JDialog{
 	private JTextField identificationNumberField = new JTextField();
 	
 	private JLabel checkIn = new JLabel();
-	private JTextField hourCIn = new JTextField();
-	private JTextField dayCIn = new JTextField();
+	private JComboBox<Integer> hourCIn = new JComboBox<>();
+	private JLabel decorationThing1 = new JLabel();
+	private JComboBox<Integer> minuteCIn = new JComboBox<>();
+	private JDateChooser dayCIn = new JDateChooser();
 	
 	private JLabel checkOut = new JLabel();
-	private JTextField hourCOut = new JTextField();
-	private JTextField dayCOut = new JTextField();
+	private JComboBox<Integer> hourCOut = new JComboBox<>();
+	private JLabel decorationThing2 = new JLabel();
+	private JComboBox<Integer> minuteCOut = new JComboBox<>();
+	private JDateChooser dayCOut = new JDateChooser();
 	
+	private JPanel bookingGroup1 = new JPanel();
+	private JPanel bookingGroup2 = new JPanel();
+	private ButtonGroup groupRadioButton = new ButtonGroup();
+	private JRadioButton directBooking = new JRadioButton();
+	private JRadioButton advanceBooking = new JRadioButton();
 	private JLabel deposit = new JLabel();
-	private JCheckBox depositTick = new JCheckBox();
 	private JTextField depositfield = new JTextField();
 	private JLabel currencyUnit = new JLabel();
 	
@@ -73,12 +79,17 @@ public class BookRoomView extends JDialog{
 		this.add(identificationNumberField);
 		this.add(checkIn);
 		this.add(hourCIn);
+		this.add(decorationThing1);
+		this.add(minuteCIn);
 		this.add(dayCIn);
 		this.add(checkOut);
 		this.add(hourCOut);
+		this.add(decorationThing2);
+		this.add(minuteCOut);
 		this.add(dayCOut);
+		this.add(bookingGroup1);
+		this.add(bookingGroup2);
 		this.add(deposit);
-		this.add(depositTick);
 		this.add(depositfield);
 		this.add(currencyUnit);
 		this.add(submitButton);
@@ -150,13 +161,23 @@ public class BookRoomView extends JDialog{
 		
 		checkIn.setBounds(50,240,150,30);
 		checkIn.setText("Check In");
-		checkIn.setFont(new Font("Arial",Font.BOLD,16));
+		checkIn.setFont(new Font("Arial",Font.BOLD,14));
 		checkIn.setForeground(Color.BLACK);
 		checkIn.setBackground(Color.WHITE);
 		
-		hourCIn.setBounds(50,270,160,30);
+		hourCIn.setBounds(50,270,70,30);
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		
+		decorationThing1.setBounds(128,270,10,30);
+		decorationThing1.setText(":");
+		decorationThing1.setFont(new Font("Arial",Font.BOLD,18));
+		decorationThing1.setForeground(Color.BLACK);
+		decorationThing1.setBackground(Color.WHITE);
+		
+		minuteCIn.setBounds(140,270,70,30);
+		minuteCIn.setBackground(Color.WHITE);
+		minuteCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
 		dayCIn.setBounds(230,270,160,30);
 		dayCIn.setBackground(Color.WHITE);
@@ -168,29 +189,61 @@ public class BookRoomView extends JDialog{
 		checkOut.setForeground(Color.BLACK);
 		checkOut.setBackground(Color.WHITE);
 		
-		hourCOut.setBounds(420,270,160,30);
+		hourCOut.setBounds(420,270,70,30);
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		
+		decorationThing2.setBounds(498,270,10,30);
+		decorationThing2.setText(":");
+		decorationThing2.setFont(new Font("Arial",Font.BOLD,18));
+		decorationThing2.setForeground(Color.BLACK);
+		decorationThing2.setBackground(Color.WHITE);
+		
+		minuteCOut.setBounds(510,270,70,30);
+		minuteCOut.setBackground(Color.WHITE);
+		minuteCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
 		dayCOut.setBounds(600,270,160,30);
 		dayCOut.setBackground(Color.WHITE);
 		dayCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		deposit.setBounds(50,320,150,30);
-		deposit.setText("Deposit (Tiền Cọc)");
+		bookingGroup1.setBounds(45,340,110,30);
+		bookingGroup1.setForeground(Color.BLACK);
+		bookingGroup1.setBackground(Color.WHITE);
+		bookingGroup1.setBorder(null);
+		bookingGroup1.add(directBooking);
+		
+		bookingGroup2.setBounds(230,340,120,30);
+		bookingGroup2.setForeground(Color.BLACK);
+		bookingGroup2.setBackground(Color.WHITE);
+		bookingGroup2.setBorder(null);
+		bookingGroup2.add(advanceBooking);
+		
+		groupRadioButton.add(directBooking);
+		groupRadioButton.add(advanceBooking);
+		
+		directBooking.setBounds(0,0,10,10);
+		directBooking.setText("Direct Booking");
+		directBooking.setBackground(Color.WHITE);
+		directBooking.setFocusable(false);
+		directBooking.setSelected(true);
+		
+		advanceBooking.setBounds(0,0,10,10);
+		advanceBooking.setText("Advance Booking");
+		advanceBooking.setBackground(Color.WHITE);
+		advanceBooking.setFocusable(false);
+		
+		deposit.setBounds(420,340,60,30);
+		deposit.setText("Deposit");
 		deposit.setFont(new Font("Arial",Font.BOLD,14));
 		deposit.setForeground(Color.BLACK);
 		deposit.setBackground(Color.WHITE);
 		
-		depositTick.setBounds(210,320,20,30);
-		depositTick.setBackground(Color.WHITE);
-		depositTick.setFocusable(false);
-		
-		depositfield.setBounds(50,370,180,30);
+		depositfield.setBounds(480,340,180,30);
 		depositfield.setBackground(Color.WHITE);
 		depositfield.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		currencyUnit.setBounds(235,370,150,30);
+		currencyUnit.setBounds(665,340,150,30);
 		currencyUnit.setText("VND");
 		currencyUnit.setFont(new Font("Arial",Font.BOLD,16));
 		currencyUnit.setForeground(Color.BLACK);
