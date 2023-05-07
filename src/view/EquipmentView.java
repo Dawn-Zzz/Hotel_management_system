@@ -128,14 +128,14 @@ public class EquipmentView extends JPanel {
         equipmentTable.setCellAlignment(1, JLabel.CENTER);
         equipmentTable.setColumnAlignment(2, JLabel.CENTER);
         equipmentTable.setCellAlignment(2, JLabel.CENTER);
-        equipmentTable.setColumnAlignment(3, JLabel.CENTER);
-        equipmentTable.setCellAlignment(3, JLabel.CENTER);
-        equipmentTable.setColumnAlignment(4, JLabel.CENTER);
-        equipmentTable.setCellAlignment(4, JLabel.CENTER);
+//        equipmentTable.setColumnAlignment(3, JLabel.CENTER);
+//        equipmentTable.setCellAlignment(3, JLabel.CENTER);
+//        equipmentTable.setColumnAlignment(4, JLabel.CENTER);
+//        equipmentTable.setCellAlignment(4, JLabel.CENTER);
         equipmentTable.setFont(new Font("Arial",Font.BOLD,12));
-		equipmentTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Equipment", "Equipment ID", "Status"}) {
+		equipmentTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Equipment","Status"}) {
 	            boolean[] canEdit = new boolean [] {
-	                false, false, false, false
+	                false, false, false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {

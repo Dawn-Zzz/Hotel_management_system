@@ -21,7 +21,7 @@ public class EquipmentDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT p.MaPhong, tb.TenThietBi, tb.MaThietBi, tb.HienTrang FROM PhongCoThietBi pctb "
+			String sql = "SELECT p.MaPhong, tb.TenThietBi, tb.HienTrang FROM PhongCoThietBi pctb "
 					+ "INNER JOIN Phong p ON p.MaPhong = pctb.MaPhong "
 					+ "INNER JOIN ThietBi tb ON tb.MaThietBi = pctb.MaThietBi ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -29,9 +29,9 @@ public class EquipmentDAO {
 			while (resultSet.next()) {
 				String idRoom = resultSet.getString("MaPhong");
 				String nameEquipment = resultSet.getString("TenThietBi");
-				String idEquipment = resultSet.getString("MaThietBi");
+				//String idEquipment = resultSet.getString("MaThietBi");
 				String statusEquipment = resultSet.getString("HienTrang");
-				Object[] object = {idRoom,nameEquipment,idEquipment,statusEquipment};
+				Object[] object = {idRoom,nameEquipment,statusEquipment};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
