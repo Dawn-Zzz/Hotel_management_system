@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,6 +21,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import controller.BookRoomController;
 import view.editComponent.Button;
 
 public class BookRoomView extends JDialog{
@@ -57,10 +61,13 @@ public class BookRoomView extends JDialog{
 	private JRadioButton directBooking = new JRadioButton();
 	private JRadioButton advanceBooking = new JRadioButton();
 	private JLabel deposit = new JLabel();
-	private JTextField depositfield = new JTextField();
+	private JTextField depositField = new JTextField();
 	private JLabel currencyUnit = new JLabel();
 	
 	private JButton submitButton = new Button();
+	
+	private ActionListener actionListener = new BookRoomController(this);
+	private ItemListener itemListener = new BookRoomController(this);
 	
 	public BookRoomView() {
 		this.getContentPane().setBackground(Color.WHITE);
@@ -90,7 +97,7 @@ public class BookRoomView extends JDialog{
 		this.add(bookingGroup1);
 		this.add(bookingGroup2);
 		this.add(deposit);
-		this.add(depositfield);
+		this.add(depositField);
 		this.add(currencyUnit);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
@@ -232,6 +239,7 @@ public class BookRoomView extends JDialog{
 		advanceBooking.setText("Advance Booking");
 		advanceBooking.setBackground(Color.WHITE);
 		advanceBooking.setFocusable(false);
+		advanceBooking.addItemListener(itemListener);
 		
 		deposit.setBounds(420,340,60,30);
 		deposit.setText("Deposit");
@@ -239,9 +247,11 @@ public class BookRoomView extends JDialog{
 		deposit.setForeground(Color.BLACK);
 		deposit.setBackground(Color.WHITE);
 		
-		depositfield.setBounds(480,340,180,30);
-		depositfield.setBackground(Color.WHITE);
-		depositfield.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		depositField.setBounds(480,340,180,30);
+		depositField.setBackground(Color.WHITE);
+		depositField.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		depositField.setEnabled(false);
+		depositField.setBackground(new Color(240, 240, 240));
 		
 		currencyUnit.setBounds(665,340,150,30);
 		currencyUnit.setText("VND");
@@ -257,4 +267,13 @@ public class BookRoomView extends JDialog{
 		submitButton.setBackground(new Color(39,162,187));
 		submitButton.setFocusable(false);
 	}
+
+	public JTextField getDepositField() {
+		return depositField;
+	}
+
+	public JRadioButton getAdvanceBooking() {
+		return advanceBooking;
+	}
+	
 }

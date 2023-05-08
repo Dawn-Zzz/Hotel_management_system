@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,14 +16,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import DAO.EquipmentDAO;
+import controller.EquipmentController;
 import view.editComponent.Button;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
 public class EquipmentView extends JPanel {
+	private ActionListener actionListener = new EquipmentController(this);
 	public EquipmentView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
@@ -53,6 +61,7 @@ public class EquipmentView extends JPanel {
 		bedList.setBounds(0,30,20,20);
 		bedList.setPreferredSize(new Dimension(129,25));
 		bedList.setBackground(Color.WHITE);
+		bedList.addActionListener(actionListener);
 		
 		equipmentTypeSearch.setBounds(10, 150, 129, 70);
 		equipmentTypeSearch.setForeground(Color.WHITE);
@@ -72,6 +81,7 @@ public class EquipmentView extends JPanel {
 		equipmentList.setBounds(0,20,32,20);
 		equipmentList.setPreferredSize(new Dimension(129,25));
 		equipmentList.setBackground(Color.WHITE);
+		equipmentList.addActionListener(actionListener);
 		
 		equipmentStatusSearch.setBounds(10, 215, 129, 150);
 		equipmentStatusSearch.setForeground(Color.WHITE);
@@ -91,6 +101,7 @@ public class EquipmentView extends JPanel {
 		statusList.setBounds(0,20,32,20);
 		statusList.setPreferredSize(new Dimension(129,25));
 		statusList.setBackground(Color.WHITE);
+		statusList.addActionListener(actionListener);
 		
 		mainContent.setBounds(150,0,1020-150-64,690);
 		mainContent.setLayout(null);
@@ -143,11 +154,39 @@ public class EquipmentView extends JPanel {
 	            }
 	        });
 		EquipmentDAO.getInstance().selectAll(equipmentTable);
+		
 		this.setVisible(false);
 	}
+	
+	public JComboBox getBedList() {
+		return bedList;
+	}
+
+	public JComboBox getEquipmentList() {
+		return equipmentList;
+	}
+
+	public JComboBox getStatusList() {
+		return statusList;
+	}
+
+	public JTextField getSearchBox() {
+		return searchBox;
+	}
+
+	public Table getEquipmentTable() {
+		return equipmentTable;
+	}
+
+	public void selcetIndexCombobox() {
+		bedList.setSelectedIndex(0);
+		equipmentList.setSelectedIndex(0);
+		statusList.setSelectedIndex(0);
+	}
+	
 	String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
-	String EquipmentList[] = {"All", "Tá»§ láº¡nh", "Tivi", "MÃ¡y Láº¡nh"};
-	String StatusList[] = {"All","Tá»‘t", "Há»�ng"};
+	String EquipmentList[] = {"All", "Tủ lạnh", "Ti vi", "Máy lạnh"};
+	String StatusList[] = {"All","Tốt", "Hỏng"};
 	
 	//sub bar
 	private JPanel subBar = new JPanel();

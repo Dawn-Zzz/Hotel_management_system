@@ -55,7 +55,7 @@ public class BillDetailView extends JDialog {
 		this.setVisible(true);
 		
 		billID.setBounds(50,50,250,30);
-		billID.setText("Bill ID: BO1");
+//		billID.setText("Bill ID: BO1");
 		billID.setPreferredSize(new Dimension(250,30));
 		billID.setFont(new Font("Arial",Font.BOLD,36));
 		billID.setForeground(Color.BLACK);
@@ -70,14 +70,14 @@ public class BillDetailView extends JDialog {
 		exportPDFButton.setFocusable(false);
 		
 		guestName.setBounds(50,140,206,30);
-		guestName.setText("Guest: Nguyen Van B");
+//		guestName.setText("Guest: Nguyen Van B");
 		guestName.setFont(new Font("Arial",Font.BOLD,20));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
 		guestName.setBorder(null);
 		
 		date.setBounds(50,200,160,30);
-		date.setText("Date: 10/04/2022");
+//		date.setText("Date: 10/04/2022");
 		date.setFont(new Font("Arial",Font.BOLD,20));
 		date.setForeground(Color.BLACK);
 		date.setBackground(Color.WHITE);
@@ -187,4 +187,25 @@ public class BillDetailView extends JDialog {
         toTal2.setForeground(Color.BLACK);
         toTal2.setBackground(Color.WHITE);
 	}
+
+	public JLabel getBillID() {
+		return billID;
+	}
+
+	public JLabel getGuestName() {
+		return guestName;
+	}
+
+	public JLabel getDate() {
+		return date;
+	}
+
+	public JLabel getInvoicingStaff() {
+		return invoicingStaff;
+	}
+
+	public JLabel getTotalMoney() {
+		return totalMoney;
+	}
+	
 }

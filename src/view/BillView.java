@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -22,6 +23,7 @@ import view.editComponent.TextField;
 
 public class BillView extends JPanel{
 	private ActionListener actionListener = new BillController(this);
+	private MouseListener mouseListener = new BillController(this);
 	private Calendar calendar;
 	public BillView() {
 		this.setBounds(0,0,1020-84,720);
@@ -187,6 +189,7 @@ public class BillView extends JPanel{
 	            }
 	        });
 		BillDAO.getInstance().selectAll(billTable);
+		billTable.addMouseListener(mouseListener);
 		this.setVisible(false);
 	}
 	String StaffList[] = {"All", "Hồ Minh Hải", "Lê Thanh Hoa", "Lê Trung Kiên", "Nguyễn Linh Chi", "Nguyễn Thanh Tùng", "Phạm Hoài Sơn", "Phạm Minh Hùng", "Trương Tịnh Nghi", "Trần Thanh Khoa", "Trần Thị Linh"};

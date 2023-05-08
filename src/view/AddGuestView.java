@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Handler;
 
 import javax.swing.BorderFactory;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -172,10 +174,36 @@ public class AddGuestView extends JDialog{
 	}
 
 	public void addGuestAction () {
-		String id = new String(identificationNumberField.getText());
-		String name = new String(guestNameField.getText());
-		String phoneNumber = new String(guestPhoneField.getText());
-		Date birth = new Date(birthDay.getDate().getTime());
-		GuestDAO.getInstance().insert(id, name, birth, phoneNumber);
+		String id = identificationNumberField.getText();
+		String name = guestNameField.getText();
+		String phoneNumber = guestPhoneField.getText();
+		Date birth = null;
+		if (birthDay.getDate() != null) { 
+			birth = new Date(birthDay.getDate().getTime());
+		}
+		
+		if (id.isEmpty() || name.isEmpty() || phoneNumber.isEmpty() || birth == null) 
+			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+		else if (!id.matches("\\d{12}")) 
+	        JOptionPane.showMessageDialog(this, "ID phải có đúng 12 số");
+		else if (GuestDAO.getInstance().getGuestById(id) != null) 
+	        JOptionPane.showMessageDialog(this, "ID đã tồn tại");
+		else if (!phoneNumber.matches("\\d{10}")) 
+	        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		else {
+	        Calendar dob = Calendar.getInstance();
+	        dob.setTime(birth);
+
+	        Calendar now = Calendar.getInstance();
+	        int age = now.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+	        if (now.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+	            age--;
+	        }
+	        if (age < 18) {
+	            JOptionPane.showMessageDialog(this, "Khách hàng phải đủ 18 tuổi", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	        } else {
+	            GuestDAO.getInstance().insert(id, name, birth, phoneNumber);
+	        }
+		}
 	}
 }
