@@ -16,7 +16,7 @@ public class NavController implements ActionListener{
 	private DashBoardView dashBoardView = new DashBoardView();
 	private GuestView guestView = new GuestView();
 	private RoomView roomView = new RoomView();
-	private EquipmentView serviceView = new EquipmentView();
+	private EquipmentView equipmentView = new EquipmentView();
 	private BillView billView = new BillView();
 
 	public NavController(View buttonView) {
@@ -24,7 +24,7 @@ public class NavController implements ActionListener{
 		this.buttonView.getOtherBar().add(dashBoardView);
 		this.buttonView.getOtherBar().add(guestView);
 		this.buttonView.getOtherBar().add(roomView);
-		this.buttonView.getOtherBar().add(serviceView);
+		this.buttonView.getOtherBar().add(equipmentView);
 		this.buttonView.getOtherBar().add(billView);
 	}
 
@@ -35,7 +35,7 @@ public class NavController implements ActionListener{
 			dashBoardView.setVisible(true);
 			guestView.setVisible(false);
 			roomView.setVisible(false);
-			serviceView.setVisible(false);
+			equipmentView.setVisible(false);
 			billView.setVisible(false);
 			System.out.println("1");
 		}
@@ -44,7 +44,7 @@ public class NavController implements ActionListener{
 			guestView.setVisible(true);
 			guestView.setIndexComboBox();
 			roomView.setVisible(false);
-			serviceView.setVisible(false);
+			equipmentView.setVisible(false);
 			billView.setVisible(false);
 			System.out.println("2");
 		}
@@ -52,7 +52,7 @@ public class NavController implements ActionListener{
 			dashBoardView.setVisible(false);
 			guestView.setVisible(false);
 			roomView.setVisible(true);
-			serviceView.setVisible(false);
+			equipmentView.setVisible(false);
 			billView.setVisible(false);
 			System.out.println("3");
 		}
@@ -60,7 +60,8 @@ public class NavController implements ActionListener{
 			dashBoardView.setVisible(false);
 			guestView.setVisible(false);
 			roomView.setVisible(false);
-			serviceView.setVisible(true);
+			equipmentView.setVisible(true);
+			equipmentView.selcetIndexCombobox();
 			billView.setVisible(false);
 			System.out.println("4");
 		}
@@ -68,7 +69,7 @@ public class NavController implements ActionListener{
 			dashBoardView.setVisible(false);
 			guestView.setVisible(false);
 			roomView.setVisible(false);
-			serviceView.setVisible(false);
+			equipmentView.setVisible(false);
 			billView.setVisible(true);
 			billView.setIndexComboBox();
 			System.out.println("5");

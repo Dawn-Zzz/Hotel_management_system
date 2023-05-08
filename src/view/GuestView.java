@@ -232,7 +232,6 @@ public class GuestView extends JPanel {
 	}
 
 	public void setIndexComboBox () {
-		guestList.setSelectedIndex(-1);
 		yearList.setSelectedIndex(-1);
 		monthList.setSelectedIndex(-1);
 		dayList.setSelectedIndex(-1);

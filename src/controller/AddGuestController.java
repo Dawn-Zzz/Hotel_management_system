@@ -18,8 +18,5 @@ public class AddGuestController implements ActionListener {
 		// TODO Auto-generated method stub
 		this.addGuestView.addGuestAction();
 		this.addGuestView.getParentView().resetGuestTable();
-		this.addGuestView.dispose();
-	}
-	
-	
+	}		
 }

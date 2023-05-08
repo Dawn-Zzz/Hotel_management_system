@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -14,10 +16,12 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import view.BillDetailView;
 import view.BillView;
 
-public class BillController implements ActionListener{
+public class BillController implements ActionListener, MouseListener{
 	private BillView billView;
+	private BillDetailView billDetailView;
 	private Calendar calendar;
 
 	public BillController(BillView billView) {
@@ -111,5 +115,44 @@ public class BillController implements ActionListener{
 	            sorter.setRowFilter(RowFilter.andFilter(filters));
 			}
       });
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getClickCount() == 2) {
+            // Lấy ra dòng được chọn trong JTable
+            int row = billView.getBillTable().getSelectedRow();
+            billDetailView = new BillDetailView();
+            billDetailView.getBillID().setText("ID Bill: " + billView.getBillTable().getValueAt(row, 0));
+            billDetailView.getGuestName().setText("Guest: " + billView.getBillTable().getValueAt(row, 1));
+            billDetailView.getDate().setText("Date: " + billView.getBillTable().getValueAt(row, 2));
+            billDetailView.getTotalMoney().setText("Total Money: " + billView.getBillTable().getValueAt(row, 3));
+            billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + billView.getBillTable().getValueAt(row, 4));
+        }
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

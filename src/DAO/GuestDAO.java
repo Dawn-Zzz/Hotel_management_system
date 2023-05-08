@@ -8,7 +8,7 @@ import java.sql.SQLException;
 //import java.sql.Timestamp;
 //import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;
-
+import model.Guest;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -64,5 +64,27 @@ public class GuestDAO {
 			e.printStackTrace();
 		}
 		return table;
+	}
+	
+	public Guest getGuestById(String id) {
+	    Guest guest = null;
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT * FROM KhachHang WHERE CCCD = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, id);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        if (resultSet.next()) {
+	            String name = resultSet.getString("TenKhachHang");
+	            Date birth = resultSet.getDate("NgaySinh");
+	            String phoneNumber = resultSet.getString("SoDienThoai");
+	            String type = resultSet.getString("LoaiKhachHang");
+	            guest = new Guest(id, name, phoneNumber, birth, type);
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return guest;
 	}
 }
