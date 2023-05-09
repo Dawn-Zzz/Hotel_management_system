@@ -29,11 +29,11 @@ public class BillDetailView extends JDialog {
 	
 	private JPanel mainTable1 = new JPanel();
 	private Table roomInforTable = new Table();
-	private JLabel toTal1 = new JLabel();
+	private JLabel totalRoom = new JLabel();
 	
 	private JPanel mainTable2 = new JPanel();
 	private Table serviceInforTable = new Table();
-	private JLabel toTal2 = new JLabel();
+	private JLabel totalService = new JLabel();
 	
 	public BillDetailView() {
 		this.getContentPane().setBackground(Color.WHITE);
@@ -47,12 +47,13 @@ public class BillDetailView extends JDialog {
 		this.add(invoicingStaff);
 		this.add(totalMoney);
 		this.add(mainTable1);
-		this.add(toTal1);
+		this.add(totalRoom);
 		this.add(mainTable2);
-		this.add(toTal2);
-		//this.setModal(true);
+		this.add(totalService);
+		this.setModal(true);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		this.setVisible(false);
+		
 		
 		billID.setBounds(50,50,250,30);
 //		billID.setText("Bill ID: BO1");
@@ -84,14 +85,14 @@ public class BillDetailView extends JDialog {
 		date.setBorder(null);
 		
 		invoicingStaff.setBounds(440,140,290,30);
-		invoicingStaff.setText("Invoicing Staff: Nguyen Van A");
+//		invoicingStaff.setText("Invoicing Staff: Nguyen Van A");
 		invoicingStaff.setFont(new Font("Arial",Font.BOLD,20));
 		invoicingStaff.setForeground(Color.BLACK);
 		invoicingStaff.setBackground(Color.WHITE);
 		invoicingStaff.setBorder(null);
 		
 		totalMoney.setBounds(440,200,233,30);
-		totalMoney.setText("Total Money: 1.000.000");
+//		totalMoney.setText("Total Money: 1.000.000");
 		totalMoney.setFont(new Font("Arial",Font.BOLD,20));
 		totalMoney.setForeground(Color.BLACK);
 		totalMoney.setBackground(Color.WHITE);
@@ -135,11 +136,11 @@ public class BillDetailView extends JDialog {
             mode1.addRow(new Object[]{"10"+ i, "1/1/2023","12/04/2022", "200.000"});
         }
         
-        toTal1.setBounds(610,415,150,30);
-        toTal1.setText("Total: 600.000");
-        toTal1.setFont(new Font("Arial",Font.BOLD,20));
-        toTal1.setForeground(Color.BLACK);
-        toTal1.setBackground(Color.WHITE);
+        totalRoom.setBounds(610,415,150,30);
+//        toTal1.setText("Total: 600.000");
+        totalRoom.setFont(new Font("Arial",Font.BOLD,20));
+        totalRoom.setForeground(Color.BLACK);
+        totalRoom.setBackground(Color.WHITE);
         
         //service
         mainTable2.setBounds(50,490,710,95);
@@ -176,16 +177,16 @@ public class BillDetailView extends JDialog {
             }
         });
 		
-		DefaultTableModel mode2 = (DefaultTableModel) serviceInforTable.getModel();
-        for (int i = 1; i <= 30; i++) {
-            mode2.addRow(new Object[]{i, "3","100.000", "100.000"});
-        }
+//		DefaultTableModel mode2 = (DefaultTableModel) serviceInforTable.getModel();
+//        for (int i = 1; i <= 30; i++) {
+//            mode2.addRow(new Object[]{i, "3","100.000", "100.000"});
+//        }
         
-        toTal2.setBounds(610,595,150,30);
-        toTal2.setText("Total: 200.000");
-        toTal2.setFont(new Font("Arial",Font.BOLD,20));
-        toTal2.setForeground(Color.BLACK);
-        toTal2.setBackground(Color.WHITE);
+        totalService.setBounds(610,595,150,30);
+//      toTal2.setText("Total: 200.000");
+        totalService.setFont(new Font("Arial",Font.BOLD,20));
+        totalService.setForeground(Color.BLACK);
+        totalService.setBackground(Color.WHITE);
 	}
 
 	public JLabel getBillID() {
@@ -207,5 +208,16 @@ public class BillDetailView extends JDialog {
 	public JLabel getTotalMoney() {
 		return totalMoney;
 	}
-	
+
+	public JLabel getTotalRoom() {
+		return totalRoom;
+	}
+
+	public JLabel getTotalService() {
+		return totalService;
+	}
+
+	public Table getServiceInforTable() {
+		return serviceInforTable;
+	}
 }

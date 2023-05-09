@@ -52,7 +52,6 @@ public class GuestDAO {
 				String phoneGuest = resultSet.getString("SoDienThoai");
 				Date birth = resultSet.getDate("NgaySinh");
 //				Timestamp timestamp = resultSet.getTimestamp("NgaySinh");
-				
 //				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //				String birth = timestamp.toLocalDateTime().format(formatter);
 				Object[] object = {nameGuest,idGuest,typeGuest,birth,phoneGuest};

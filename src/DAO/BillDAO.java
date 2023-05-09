@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConnectDatabase;
+import model.Bill;
 
 public class BillDAO {
 	public static BillDAO getInstance () {
@@ -43,5 +44,37 @@ public class BillDAO {
 			e.printStackTrace();
 		}
 		return table;
+	}
+	
+	public Bill selectBillByID (String id) {
+		Bill bill = null;
+		try {
+			Connection connection = ConnectDatabase.connection();
+			String sql = "SELECT kh.TenKhachHang, nv.TenNhanVien, hd.TongTien, hd.TongTienPhong, hd.TongTienDichVu, hd.NgayLapHoaDon FROM HoaDon hd "
+					+ "INNER JOIN KhachHang kh ON kh.CCCD = hd.CCCD "
+					+ "INNER JOIN NhanVien nv ON nv.CCCD_NV = hd.CCCD_NV "
+					+ "WHERE hd.MaHoaDon = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+//				DecimalFormat df = new DecimalFormat("#,###");
+				String nameGuest = resultSet.getString("TenKhachHang");
+				String nameStaff = resultSet.getString("TenNhanVien");
+//				String total = df.format(resultSet.getFloat("TongTien"));
+//				String totalRoom = df.format(resultSet.getFloat("TongTienPhong"));
+//				String totalService = df.format(resultSet.getFloat("TongTienDichVu"));
+				Double total = (double) resultSet.getFloat("TongTien");
+				Double totalRoom = (double) resultSet.getFloat("TongTienPhong");
+				Double totalService = (double) resultSet.getFloat("TongTienDichVu");
+				Date dateBill = resultSet.getDate("NgayLapHoaDon");
+				bill = new Bill(nameGuest, nameStaff,total, totalRoom, totalService, dateBill);
+			}
+			ConnectDatabase.disconnection(connection);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bill;
 	}
 }
