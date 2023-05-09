@@ -37,7 +37,7 @@ public class BillDetailView extends JDialog {
 	
 	public BillDetailView() {
 		this.getContentPane().setBackground(Color.WHITE);
-		this.setBounds(0,85,800,700);
+		this.setBounds(0,85,700,600);
 		this.setIconImage(image.getImage());
 		this.setLayout(null);
 		this.add(billID);
@@ -50,54 +50,54 @@ public class BillDetailView extends JDialog {
 		this.add(toTal1);
 		this.add(mainTable2);
 		this.add(toTal2);
-		//this.setModal(true);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		this.setModal(true);
+		this.setVisible(false);
 		
-		billID.setBounds(50,50,250,30);
+		billID.setBounds(50,20,250,30);
 //		billID.setText("Bill ID: BO1");
 		billID.setPreferredSize(new Dimension(250,30));
-		billID.setFont(new Font("Arial",Font.BOLD,36));
+		billID.setFont(new Font("Arial",Font.BOLD,24));
 		billID.setForeground(Color.BLACK);
 		billID.setBackground(Color.WHITE);
 		billID.setBorder(null);
 		
-		exportPDFButton.setBounds(640, 50, 110, 40);
+		exportPDFButton.setBounds(540, 20, 100, 40);
 		exportPDFButton.setText("Export PDF");
-		exportPDFButton.setFont(new Font("Arial",Font.BOLD,14));
+		exportPDFButton.setFont(new Font("Arial",Font.BOLD,12));
 		exportPDFButton.setForeground(Color.WHITE);
 		exportPDFButton.setBackground(new Color(39,162,187));
 		exportPDFButton.setFocusable(false);
 		
-		guestName.setBounds(50,140,206,30);
+		guestName.setBounds(50,90,220,30);
 //		guestName.setText("Guest: Nguyen Van B");
-		guestName.setFont(new Font("Arial",Font.BOLD,20));
+		guestName.setFont(new Font("Arial",Font.BOLD,14));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
 		guestName.setBorder(null);
 		
-		date.setBounds(50,200,160,30);
+		date.setBounds(50,130,180,30);
 //		date.setText("Date: 10/04/2022");
-		date.setFont(new Font("Arial",Font.BOLD,20));
+		date.setFont(new Font("Arial",Font.BOLD,14));
 		date.setForeground(Color.BLACK);
 		date.setBackground(Color.WHITE);
 		date.setBorder(null);
 		
-		invoicingStaff.setBounds(440,140,290,30);
-		invoicingStaff.setText("Invoicing Staff: Nguyen Van A");
-		invoicingStaff.setFont(new Font("Arial",Font.BOLD,20));
+		invoicingStaff.setBounds(400,90,320,30);
+//		invoicingStaff.setText("Invoicing Staff: Nguyen Van A");
+		invoicingStaff.setFont(new Font("Arial",Font.BOLD,14));
 		invoicingStaff.setForeground(Color.BLACK);
 		invoicingStaff.setBackground(Color.WHITE);
 		invoicingStaff.setBorder(null);
 		
-		totalMoney.setBounds(440,200,233,30);
-		totalMoney.setText("Total Money: 1.000.000");
-		totalMoney.setFont(new Font("Arial",Font.BOLD,20));
+		totalMoney.setBounds(400,130,250,30);
+//		totalMoney.setText("Total Money: 1.000.000");
+		totalMoney.setFont(new Font("Arial",Font.BOLD,14));
 		totalMoney.setForeground(Color.BLACK);
 		totalMoney.setBackground(Color.WHITE);
 		totalMoney.setBorder(null);
 	
-		mainTable1.setBounds(50,280,710,128);
+		mainTable1.setBounds(50,190,600,127);
 		mainTable1.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		mainTable1.setLayout(new BorderLayout());
 		mainTable1.add(roomInforTable.getTableHeader(), BorderLayout.NORTH);
@@ -135,14 +135,14 @@ public class BillDetailView extends JDialog {
             mode1.addRow(new Object[]{"10"+ i, "1/1/2023","12/04/2022", "200.000"});
         }
         
-        toTal1.setBounds(610,415,150,30);
+        toTal1.setBounds(510,320,150,30);
         toTal1.setText("Total: 600.000");
-        toTal1.setFont(new Font("Arial",Font.BOLD,20));
+        toTal1.setFont(new Font("Arial",Font.BOLD,14));
         toTal1.setForeground(Color.BLACK);
         toTal1.setBackground(Color.WHITE);
         
         //service
-        mainTable2.setBounds(50,490,710,95);
+        mainTable2.setBounds(50,370,600,127);
 		mainTable2.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		mainTable2.setLayout(new BorderLayout());
 		mainTable2.add(serviceInforTable.getTableHeader(), BorderLayout.NORTH);
@@ -181,9 +181,9 @@ public class BillDetailView extends JDialog {
             mode2.addRow(new Object[]{i, "3","100.000", "100.000"});
         }
         
-        toTal2.setBounds(610,595,150,30);
+        toTal2.setBounds(510,500,150,30);
         toTal2.setText("Total: 200.000");
-        toTal2.setFont(new Font("Arial",Font.BOLD,20));
+        toTal2.setFont(new Font("Arial",Font.BOLD,14));
         toTal2.setForeground(Color.BLACK);
         toTal2.setBackground(Color.WHITE);
 	}

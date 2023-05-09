@@ -129,6 +129,7 @@ public class BillController implements ActionListener, MouseListener{
             billDetailView.getDate().setText("Date: " + billView.getBillTable().getValueAt(row, 2));
             billDetailView.getTotalMoney().setText("Total Money: " + billView.getBillTable().getValueAt(row, 3));
             billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + billView.getBillTable().getValueAt(row, 4));
+            billDetailView.setVisible(true);
         }
 	}
 
