@@ -214,13 +214,13 @@ public class BookRoomView extends JDialog{
 		dayCOut.setBackground(Color.WHITE);
 		dayCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		bookingGroup1.setBounds(45,340,110,30);
+		bookingGroup1.setBounds(45,340,140,30);
 		bookingGroup1.setForeground(Color.BLACK);
 		bookingGroup1.setBackground(Color.WHITE);
 		bookingGroup1.setBorder(null);
 		bookingGroup1.add(directBooking);
 		
-		bookingGroup2.setBounds(230,340,120,30);
+		bookingGroup2.setBounds(230,340,140,30);
 		bookingGroup2.setForeground(Color.BLACK);
 		bookingGroup2.setBackground(Color.WHITE);
 		bookingGroup2.setBorder(null);
@@ -230,12 +230,15 @@ public class BookRoomView extends JDialog{
 		groupRadioButton.add(advanceBooking);
 		
 		directBooking.setBounds(0,0,10,10);
+		
 		directBooking.setText("Direct Booking");
+		directBooking.setFont(new Font("Arial",Font.BOLD,14));
 		directBooking.setBackground(Color.WHITE);
 		directBooking.setFocusable(false);
 		directBooking.setSelected(true);
 		
 		advanceBooking.setBounds(0,0,10,10);
+		advanceBooking.setFont(new Font("Arial",Font.BOLD,14));
 		advanceBooking.setText("Advance Booking");
 		advanceBooking.setBackground(Color.WHITE);
 		advanceBooking.setFocusable(false);
