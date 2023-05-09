@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -16,6 +17,9 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import DAO.BillDAO;
+import DAO.OrderServiceDAO;
+import model.Bill;
 import view.BillDetailView;
 import view.BillView;
 
@@ -121,14 +125,26 @@ public class BillController implements ActionListener, MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) {
-            // Lấy ra dòng được chọn trong JTable
+			// Lấy ra dòng được chọn trong JTable
             int row = billView.getBillTable().getSelectedRow();
             billDetailView = new BillDetailView();
+            Bill bill = BillDAO.getInstance().selectBillByID((String) billView.getBillTable().getValueAt(row, 0));
+            
+            DecimalFormat df = new DecimalFormat("#,###");
+            
             billDetailView.getBillID().setText("ID Bill: " + billView.getBillTable().getValueAt(row, 0));
-            billDetailView.getGuestName().setText("Guest: " + billView.getBillTable().getValueAt(row, 1));
-            billDetailView.getDate().setText("Date: " + billView.getBillTable().getValueAt(row, 2));
-            billDetailView.getTotalMoney().setText("Total Money: " + billView.getBillTable().getValueAt(row, 3));
-            billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + billView.getBillTable().getValueAt(row, 4));
+            billDetailView.getGuestName().setText("Guest: " + bill.getNameGuest());
+	        billDetailView.getDate().setText("Date: " + bill.getDateCreate());
+	        billDetailView.getTotalMoney().setText("Total Money: " + df.format(bill.getTotal()));
+	        billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + bill.getNameStaff());
+	        billDetailView.getTotalRoom().setText("Total: " + df.format(bill.getTotalRoom()));
+	        billDetailView.getTotalService().setText("Total: " + df.format(bill.getTotalService()));
+	        OrderServiceDAO.getInstance().selectOrderServiceByID((String) billView.getBillTable().getValueAt(row, 0), billDetailView.getServiceInforTable());
+//          billDetailView.getGuestName().setText("Guest: " + billView.getBillTable().getValueAt(row, 1));
+//          billDetailView.getDate().setText("Date: " + billView.getBillTable().getValueAt(row, 2));
+//          billDetailView.getTotalMoney().setText("Total Money: " + billView.getBillTable().getValueAt(row, 3));
+//          billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + billView.getBillTable().getValueAt(row, 4));
+            
             billDetailView.setVisible(true);
         }
 	}
