@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,10 +17,12 @@ import javax.swing.JTextField;
 
 import DAO.UserDAO;
 import controller.SignupController;
+import view.editComponent.Button;
 
-public class SignupView extends JFrame{
+public class SignupView extends JDialog{
 	public SignupView() {
 		this.init();
+		this.setModal(true);
 		this.setVisible(false);
 	}
 	private JPanel leftPanel = new JPanel();
@@ -37,7 +40,7 @@ public class SignupView extends JFrame{
 	private JPasswordField userPassWord = new JPasswordField();
 	private JLabel labelConFirmPassword = new JLabel();
 	private JPasswordField userConFirmPassWord = new JPasswordField();
-	private JButton signup_button = new JButton();
+	private Button signup_button = new Button();
 	
 	private ActionListener actionListener = new SignupController(this);
 	
@@ -111,13 +114,12 @@ public class SignupView extends JFrame{
 		userConFirmPassWord.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
 		userConFirmPassWord.setBounds(50,470,400,40);
 		
-		signup_button.setBounds(180,570,140,40);
+		signup_button.setBounds(180,570,140,50);
 		signup_button.setText("Sign Up");
 		signup_button.setFont(new Font("Arial",Font.BOLD,20));
 		signup_button.setFocusable(false);
 		signup_button.setForeground(Color.white);
 		signup_button.setBackground(new Color(39,162,187));
-		signup_button.setBorder(BorderFactory.createEmptyBorder());
 		
 		this.setTitle("HOTEL MANAGEMENT");
 		this.setSize(1020,720);

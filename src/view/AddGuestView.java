@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -47,11 +48,13 @@ public class AddGuestView extends JDialog{
 	private JLabel guestBirth = new JLabel();
 	private JDateChooser birthDay = new JDateChooser();
 	
-	private JLabel guestGender = new JLabel();
-	private JPanel genderGroup = new JPanel();
-	private ButtonGroup groupRadioButton = new ButtonGroup();
-	private JRadioButton genderMale = new JRadioButton();
-	private JRadioButton genderFemale = new JRadioButton();
+//	private JLabel guestGender = new JLabel();
+//	private JPanel genderGroup = new JPanel();
+//	private ButtonGroup groupRadioButton = new ButtonGroup();
+//	private JRadioButton genderMale = new JRadioButton();
+//	private JRadioButton genderFemale = new JRadioButton();
+	
+	private JCheckBox vipCheckBox = new JCheckBox("VIP");
 	
 	private JButton submitButton = new Button();
 	
@@ -71,8 +74,9 @@ public class AddGuestView extends JDialog{
 		this.add(guestPhoneField);
 		this.add(identificationNumber);
 		this.add(identificationNumberField);
-		this.add(guestGender);
-		this.add(genderGroup);
+//		this.add(guestGender);
+//		this.add(genderGroup);
+		this.add(vipCheckBox);
 		this.add(guestBirth);
 		this.add(birthDay);
 		this.add(submitButton);
@@ -132,32 +136,39 @@ public class AddGuestView extends JDialog{
 		birthDay.setBackground(Color.WHITE);
 		birthDay.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
-		guestGender.setBounds(50,310,70,30);
-		guestGender.setText("Gender");
-		guestGender.setFont(new Font("Arial",Font.BOLD,14));
-		guestGender.setForeground(Color.BLACK);
-		guestGender.setBackground(Color.WHITE);
-		guestGender.setBorder(null);
+		vipCheckBox.setBounds(50,310,70,30);
+		vipCheckBox.setFont(new Font("Arial",Font.BOLD,14));
+		vipCheckBox.setForeground(Color.BLACK);
+		vipCheckBox.setBackground(Color.WHITE);
+		vipCheckBox.setFocusable(false);
+		vipCheckBox.setBorder(null);
 		
-		genderGroup.setBounds(45,330,128,30);
-		genderGroup.setForeground(Color.BLACK);
-		genderGroup.setBackground(Color.WHITE);
-		genderGroup.setBorder(null);
-		genderGroup.add(genderMale);
-		genderGroup.add(genderFemale);
-		
-		groupRadioButton.add(genderMale);
-		groupRadioButton.add(genderFemale);
-		
-		genderMale.setBounds(0,0,10,30);
-		genderMale.setText("Male");
-		genderMale.setBackground(Color.WHITE);
-		genderMale.setFocusable(false);
-		
-		genderFemale.setBounds(0,80,10,30);
-		genderFemale.setText("Female");
-		genderFemale.setBackground(Color.WHITE);
-		genderFemale.setFocusable(false);
+//		guestGender.setBounds(50,310,70,30);
+//		guestGender.setText("Gender");
+//		guestGender.setFont(new Font("Arial",Font.BOLD,14));
+//		guestGender.setForeground(Color.BLACK);
+//		guestGender.setBackground(Color.WHITE);
+//		guestGender.setBorder(null);
+//		
+//		genderGroup.setBounds(45,330,128,30);
+//		genderGroup.setForeground(Color.BLACK);
+//		genderGroup.setBackground(Color.WHITE);
+//		genderGroup.setBorder(null);
+//		genderGroup.add(genderMale);
+//		genderGroup.add(genderFemale);
+//		
+//		groupRadioButton.add(genderMale);
+//		groupRadioButton.add(genderFemale);
+//		
+//		genderMale.setBounds(0,0,10,30);
+//		genderMale.setText("Male");
+//		genderMale.setBackground(Color.WHITE);
+//		genderMale.setFocusable(false);
+//		
+//		genderFemale.setBounds(0,80,10,30);
+//		genderFemale.setText("Female");
+//		genderFemale.setBackground(Color.WHITE);
+//		genderFemale.setFocusable(false);
 		
 		submitButton.setBounds(50, 400, 80, 40);
 		submitButton.setText("Submit");

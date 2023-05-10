@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -47,7 +49,7 @@ public class BookRoomView extends JDialog{
 	private JComboBox<String> rentalTypeBox = new JComboBox<>(RentalType);
 	
 	private JLabel room = new JLabel();
-	private JComboBox<Integer> roomBox = new JComboBox<>();
+	private JComboBox roomBox;
 	
 	private JLabel identificationNumber = new JLabel();
 	private JTextField identificationNumberField = new JTextField();
@@ -76,6 +78,13 @@ public class BookRoomView extends JDialog{
 	private JButton submitButton = new Button();
 	
 	public BookRoomView() {
+		//khởi tạo giá trị các phòng
+		List<String> roomValues = new ArrayList<>();
+		for (int i = 1; i <= 6; i++) {
+		    for (int j = 1; j <= 6; j++) {
+		    	roomValues.add(i + "0" + j);
+		    }
+		}
 		
 		// Khởi tạo mảng giờ
 		String[] hours = new String[24];
@@ -147,6 +156,8 @@ public class BookRoomView extends JDialog{
 		room.setBackground(Color.WHITE);
 		room.setBorder(null);
 		
+		roomBox = new JComboBox(roomValues.toArray(new String[0]));
+		roomBox.setMaximumRowCount(4);
 		roomBox.setBounds(420,190,340,30);
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
@@ -158,7 +169,7 @@ public class BookRoomView extends JDialog{
 		checkIn.setBackground(Color.WHITE);
 		
 		hourCIn =  new JComboBox<>(hours);
-		hourCIn.setMaximumRowCount(3);
+		hourCIn.setMaximumRowCount(4);
 		hourCIn.setBounds(50,270,70,30);
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
@@ -170,7 +181,7 @@ public class BookRoomView extends JDialog{
 		decorationThing1.setBackground(Color.WHITE);
 		
 		minuteCIn = new JComboBox<>(minutes);
-		minuteCIn.setMaximumRowCount(3);
+		minuteCIn.setMaximumRowCount(4);
 		minuteCIn.setBounds(140,270,70,30);
 		minuteCIn.setBackground(Color.WHITE);
 		minuteCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
@@ -186,7 +197,7 @@ public class BookRoomView extends JDialog{
 		checkOut.setBackground(Color.WHITE);
 		
 		hourCOut =  new JComboBox<>(hours);
-		hourCOut.setMaximumRowCount(3);
+		hourCOut.setMaximumRowCount(4);
 		hourCOut.setBounds(420,270,70,30);
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
@@ -197,8 +208,8 @@ public class BookRoomView extends JDialog{
 		decorationThing2.setForeground(Color.BLACK);
 		decorationThing2.setBackground(Color.WHITE);
 		
-		minuteCOut =  new JComboBox<>(hours);
-		minuteCOut.setMaximumRowCount(3);
+		minuteCOut =  new JComboBox<>(minutes);
+		minuteCOut.setMaximumRowCount(4);
 		minuteCOut.setBounds(510,270,70,30);
 		minuteCOut.setBackground(Color.WHITE);
 		minuteCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
