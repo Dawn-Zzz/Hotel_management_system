@@ -18,6 +18,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import DAO.BillDAO;
+import DAO.OrderRoomDAO;
 import DAO.OrderServiceDAO;
 import model.Bill;
 import view.BillDetailView;
@@ -128,7 +129,8 @@ public class BillController implements ActionListener, MouseListener{
 			// Lấy ra dòng được chọn trong JTable
             int row = billView.getBillTable().getSelectedRow();
             billDetailView = new BillDetailView();
-            Bill bill = BillDAO.getInstance().selectBillByID((String) billView.getBillTable().getValueAt(row, 0));
+            String id = (String) billView.getBillTable().getValueAt(row, 0);
+            Bill bill = BillDAO.getInstance().selectBillByID(id);
             
             DecimalFormat df = new DecimalFormat("#,###");
             
@@ -139,7 +141,8 @@ public class BillController implements ActionListener, MouseListener{
 	        billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + bill.getNameStaff());
 	        billDetailView.getTotalRoom().setText("Total: " + df.format(bill.getTotalRoom()));
 	        billDetailView.getTotalService().setText("Total: " + df.format(bill.getTotalService()));
-	        OrderServiceDAO.getInstance().selectOrderServiceByID((String) billView.getBillTable().getValueAt(row, 0), billDetailView.getServiceInforTable());
+	        OrderServiceDAO.getInstance().selectOrderServiceByID(id, billDetailView.getServiceInforTable());
+	        OrderRoomDAO.getInstance().selectOrderRoomByID(id, billDetailView.getRoomInforTable());
 //          billDetailView.getGuestName().setText("Guest: " + billView.getBillTable().getValueAt(row, 1));
 //          billDetailView.getDate().setText("Date: " + billView.getBillTable().getValueAt(row, 2));
 //          billDetailView.getTotalMoney().setText("Total Money: " + billView.getBillTable().getValueAt(row, 3));
