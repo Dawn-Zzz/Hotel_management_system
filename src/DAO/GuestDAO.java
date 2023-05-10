@@ -19,16 +19,17 @@ public class GuestDAO {
 		return new GuestDAO();
 	}
 	
-	public int insert(String ID, String name, Date birth, String phoneNumber) {
+	public int insert(String ID, String name, Date birth, String phoneNumber, String type) {
 		int result = 0;
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "INSERT INTO KhachHang (CCCD,TenKhachHang,NgaySinh,SoDienThoai) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO KhachHang (CCCD,TenKhachHang,NgaySinh,SoDienThoai,LoaiKhachHang) VALUES (?,?,?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, ID);
 			preparedStatement.setString(2, name);
 			preparedStatement.setDate(3, birth);
 			preparedStatement.setString(4, phoneNumber);
+			preparedStatement.setString(5, type);
 			result = preparedStatement.executeUpdate();
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
@@ -85,5 +86,24 @@ public class GuestDAO {
 	        e.printStackTrace();
 	    }
 	    return guest;
+	}
+	
+	public int updateGuest (String id, String name, Date birth, String phoneNumber, String type) {
+		int result = 0;
+		try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "UPDATE KhachHang SET TenKhachHang = ?, NgaySinh = ?, SoDienThoai = ?, LoaiKhachHang = ? WHERE CCCD = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, name);
+	        preparedStatement.setDate(2, birth);
+	        preparedStatement.setString(3, phoneNumber);
+	        preparedStatement.setString(4, type);
+	        preparedStatement.setString(5, id);
+	        result = preparedStatement.executeUpdate();
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return result;
 	}
 }

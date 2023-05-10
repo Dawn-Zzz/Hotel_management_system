@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -27,6 +28,7 @@ import view.editComponent.TextField;
 
 public class GuestView extends JPanel {
 	private ActionListener actionListener = new GuestController(this);
+	private MouseListener mouseListener = new GuestController(this);
 	private Calendar calendar;
 	public GuestView() {
 		this.setBounds(0,0,1020-84,720);
@@ -201,6 +203,7 @@ public class GuestView extends JPanel {
 	        });
 		
 		GuestDAO.getInstance().selectAll(guestTable);
+		guestTable.addMouseListener(mouseListener);
 		this.setVisible(false);
 	}
 	

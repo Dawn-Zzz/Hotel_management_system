@@ -180,6 +180,26 @@ public class AddGuestView extends JDialog{
 		submitButton.addActionListener(actionListener);
 	}
 	
+	public JTextField getGuestNameField() {
+		return guestNameField;
+	}
+
+	public JTextField getGuestPhoneField() {
+		return guestPhoneField;
+	}
+
+	public JTextField getIdentificationNumberField() {
+		return identificationNumberField;
+	}
+
+	public JDateChooser getBirthDay() {
+		return birthDay;
+	}
+	
+	public JCheckBox getVipCheckBox() {
+		return vipCheckBox;
+	}
+
 	public GuestView getParentView() {
 		return parentView;
 	}
@@ -188,6 +208,7 @@ public class AddGuestView extends JDialog{
 		String id = identificationNumberField.getText();
 		String name = guestNameField.getText();
 		String phoneNumber = guestPhoneField.getText();
+		boolean vip = vipCheckBox.isSelected();
 		Date birth = null;
 		if (birthDay.getDate() != null) { 
 			birth = new Date(birthDay.getDate().getTime());
@@ -197,10 +218,18 @@ public class AddGuestView extends JDialog{
 			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
 		else if (!id.matches("\\d{12}")) 
 	        JOptionPane.showMessageDialog(this, "ID phải có đúng 12 số");
-		else if (GuestDAO.getInstance().getGuestById(id) != null) 
-	        JOptionPane.showMessageDialog(this, "ID đã tồn tại");
 		else if (!phoneNumber.matches("\\d{10}")) 
 	        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		else if (GuestDAO.getInstance().getGuestById(id) != null && identificationNumberField.isEnabled()==true) 
+	        JOptionPane.showMessageDialog(this, "ID đã tồn tại");
+		else if (identificationNumberField.isEnabled()==false) {
+			if (vip)
+				GuestDAO.getInstance().updateGuest(id, name, birth, phoneNumber,"Vip");
+			else
+				GuestDAO.getInstance().updateGuest(id, name, birth, phoneNumber,null);
+			JOptionPane.showMessageDialog(this, "Sửa thành công");
+			this.dispose();
+		}
 		else {
 	        Calendar dob = Calendar.getInstance();
 	        dob.setTime(birth);
@@ -213,7 +242,12 @@ public class AddGuestView extends JDialog{
 	        if (age < 18) {
 	            JOptionPane.showMessageDialog(this, "Khách hàng phải đủ 18 tuổi", "Lỗi", JOptionPane.ERROR_MESSAGE);
 	        } else {
-	            GuestDAO.getInstance().insert(id, name, birth, phoneNumber);
+	        	if (vip)
+	            	GuestDAO.getInstance().insert(id, name, birth, phoneNumber,"Vip");
+	        	else
+	            	GuestDAO.getInstance().insert(id, name, birth, phoneNumber,null);
+	            JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
+	            this.dispose();
 	        }
 		}
 	}
