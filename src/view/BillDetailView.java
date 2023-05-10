@@ -119,10 +119,12 @@ public class BillDetailView extends JDialog {
 		roomInforTable.setCellAlignment(2, JLabel.CENTER);
 		roomInforTable.setColumnAlignment(3, JLabel.CENTER);
 		roomInforTable.setCellAlignment(3, JLabel.CENTER);
+		roomInforTable.setColumnAlignment(4, JLabel.CENTER);
+		roomInforTable.setCellAlignment(4, JLabel.CENTER);
 		roomInforTable.setFont(new Font("Arial",Font.BOLD,12));
-		roomInforTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Check In", "Check Out", "Room Fee"}) {
+		roomInforTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Rental Option", "Check In", "Check Out", "Room Fee"}) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,10 +132,10 @@ public class BillDetailView extends JDialog {
             }
         });
 		
-		DefaultTableModel mode1 = (DefaultTableModel) roomInforTable.getModel();
-        for (int i = 1; i <= 30; i++) {
-            mode1.addRow(new Object[]{"10"+ i, "1/1/2023","12/04/2022", "200.000"});
-        }
+//		DefaultTableModel mode1 = (DefaultTableModel) roomInforTable.getModel();
+//        for (int i = 1; i <= 30; i++) {
+//            mode1.addRow(new Object[]{"10"+ i, "1/1/2023","12/04/2022", "200.000"});
+//        }
         
         totalRoom.setBounds(510,320,150,30);
         totalRoom.setText("Total: 600.000");
@@ -214,6 +216,10 @@ public class BillDetailView extends JDialog {
 
 	public JLabel getTotalService() {
 		return totalService;
+	}
+	
+	public Table getRoomInforTable() {
+		return roomInforTable;
 	}
 
 	public Table getServiceInforTable() {
