@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import DAO.UserDAO;
 import controller.LoginController;
 import model.User;
+import view.editComponent.Button;
 
 public class LoginView extends JFrame{
 	private JPanel leftPanel = new JPanel();
@@ -29,7 +30,7 @@ public class LoginView extends JFrame{
 	private JTextField userTextField = new JTextField();
 	private JLabel labelPassword = new JLabel();
 	private JPasswordField userPassWord = new JPasswordField();
-	private JButton login_button = new JButton();// bien toan cuc
+	private Button login_button = new Button();
 	private JLabel labelBotLine = new JLabel();
 	private JButton signup_button = new JButton();
 	
@@ -84,13 +85,12 @@ public class LoginView extends JFrame{
 		userPassWord.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(85,85,85)));
 		userPassWord.setBounds(50,348,400,40);
 		
-		login_button.setBounds(180,448,140,40);
+		login_button.setBounds(180,448,140,50);
 		login_button.setText("Log In");
 		login_button.setFont(new Font("Arial",Font.BOLD,20));
 		login_button.setFocusable(false);
 		login_button.setForeground(Color.white);
 		login_button.setBackground(new Color(39,162,187));
-		login_button.setBorder(BorderFactory.createEmptyBorder());
 		
 		labelBotLine.setText("Don't have an account?");
 		labelBotLine.setForeground(new Color(85,85,85));
