@@ -4,24 +4,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import view.AddGuestView;
 import view.GuestView;
 
-public class GuestController implements ActionListener {
+public class GuestController implements ActionListener, MouseListener {
 	private GuestView guestView;
 	private Calendar calendar;
 	private AddGuestView addGuestView;
-
+	
 	public GuestController(GuestView guestView) {
 		super();
 		this.guestView = guestView;
@@ -122,5 +128,55 @@ public class GuestController implements ActionListener {
 	            sorter.setRowFilter(RowFilter.andFilter(filters));
 			}
       });
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (SwingUtilities.isRightMouseButton(e)) { // kiểm tra chuột phải
+		      int row = guestView.getGuestTable().rowAtPoint(e.getPoint()); // lấy chỉ số dòng được nhấn chuột
+		      guestView.getGuestTable().setRowSelectionInterval(row, row); // chọn dòng được nhấn chuột
+		      JPopupMenu popupMenu = new JPopupMenu();
+		      JMenuItem menuItem = new JMenuItem("Chỉnh sửa thông tin");
+		      menuItem.addActionListener(new ActionListener() {
+		         public void actionPerformed(ActionEvent e) {
+		        	 AddGuestView addGuestView = new AddGuestView(guestView);
+		        	 addGuestView.getGuestNameField().setText((String) guestView.getGuestTable().getValueAt(row, 0));
+		        	 addGuestView.getIdentificationNumberField().setText((String) guestView.getGuestTable().getValueAt(row, 1));
+		        	 addGuestView.getIdentificationNumberField().setEnabled(false);
+		        	 addGuestView.getBirthDay().setDate((Date) guestView.getGuestTable().getValueAt(row, 3));
+		        	 addGuestView.getGuestPhoneField().setText((String) guestView.getGuestTable().getValueAt(row, 4));
+		        	 if (guestView.getGuestTable().getValueAt(row, 2) != null) 
+		        		 addGuestView.getVipCheckBox().setSelected(true);
+		        	 addGuestView.setVisible(true);
+		         }
+		      });
+		      popupMenu.add(menuItem);
+		      popupMenu.show(guestView.getGuestTable(), e.getX(), e.getY()); // hiển thị menu
+		   }
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
