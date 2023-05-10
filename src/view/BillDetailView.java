@@ -131,11 +131,11 @@ public class BillDetailView extends JDialog {
                 return canEdit [columnIndex];
             }
         });
-		
-//		DefaultTableModel mode1 = (DefaultTableModel) roomInforTable.getModel();
-//        for (int i = 1; i <= 30; i++) {
-//            mode1.addRow(new Object[]{"10"+ i, "1/1/2023","12/04/2022", "200.000"});
-//        }
+		roomInforTable.setColumnWidth(0,100);
+		roomInforTable.setColumnWidth(1,100);
+		roomInforTable.setColumnWidth(2,150);
+		roomInforTable.setColumnWidth(3,150);
+		roomInforTable.setColumnWidth(4,100);
         
         totalRoom.setBounds(510,320,150,30);
         totalRoom.setText("Total: 600.000");
@@ -177,11 +177,6 @@ public class BillDetailView extends JDialog {
                 return canEdit [columnIndex];
             }
         });
-		
-//		DefaultTableModel mode2 = (DefaultTableModel) serviceInforTable.getModel();
-//        for (int i = 1; i <= 30; i++) {
-//            mode2.addRow(new Object[]{i, "3","100.000", "100.000"});
-//        }
         
         totalService.setBounds(510,500,150,30);
         totalService.setText("Total: 200.000");

@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.Timer;
+
 import view.BookRoomView;
 
 public class BookRoomController implements ActionListener, ItemListener  {
 	private BookRoomView bookRoomView;
-	
+
 	public BookRoomController(BookRoomView bookRoomView) {
 		super();
 		this.bookRoomView = bookRoomView;
@@ -19,7 +21,6 @@ public class BookRoomController implements ActionListener, ItemListener  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
