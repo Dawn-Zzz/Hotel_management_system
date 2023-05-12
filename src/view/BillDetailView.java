@@ -2,8 +2,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,11 +22,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import controller.AddGuestController;
+import controller.BillDetailController;
 import view.editComponent.Button;
 import view.editComponent.Table;
 
 public class BillDetailView extends JDialog {
+	private ActionListener actionListener = new BillDetailController(this);
+	
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
+	public static JPanel panel = new JPanel();
 	private JLabel billID = new JLabel();
 	private JButton exportPDFButton = new Button();
 	
@@ -36,23 +54,9 @@ public class BillDetailView extends JDialog {
 	private JLabel totalService = new JLabel();
 	
 	public BillDetailView() {
-		this.getContentPane().setBackground(Color.WHITE);
-		this.setBounds(0,85,700,600);
-		this.setIconImage(image.getImage());
-		this.setLayout(null);
-		this.add(billID);
-		this.add(exportPDFButton);
-		this.add(guestName);
-		this.add(date);
-		this.add(invoicingStaff);
-		this.add(totalMoney);
-		this.add(mainTable1);
-		this.add(totalRoom);
-		this.add(mainTable2);
-		this.add(totalService);
-		this.setLocationRelativeTo(null);
-		this.setModal(true);
-		this.setVisible(false);
+		
+		panel.setBounds(0,0,700,600);
+		panel.setBackground(Color.WHITE);
 		
 		billID.setBounds(50,20,250,30);
 //		billID.setText("Bill ID: BO1");
@@ -68,6 +72,7 @@ public class BillDetailView extends JDialog {
 		exportPDFButton.setForeground(Color.WHITE);
 		exportPDFButton.setBackground(new Color(39,162,187));
 		exportPDFButton.setFocusable(false);
+		exportPDFButton.addActionListener(actionListener);
 		
 		guestName.setBounds(50,90,220,30);
 //		guestName.setText("Guest: Nguyen Van B");
@@ -183,6 +188,27 @@ public class BillDetailView extends JDialog {
         totalService.setFont(new Font("Arial",Font.BOLD,14));
         totalService.setForeground(Color.BLACK);
         totalService.setBackground(Color.WHITE);
+        
+        //this.getContentPane().setBackground(Color.WHITE);
+        this.setSize(700,600);
+		//this.setBounds(0,0,700,600);
+		this.setIconImage(image.getImage());
+		this.setLayout(null);
+		panel.add(billID);
+		panel.add(exportPDFButton);
+		panel.add(guestName);
+		panel.add(date);
+		panel.add(invoicingStaff);
+		panel.add(totalMoney);
+		panel.add(mainTable1);
+		panel.add(totalRoom);
+		panel.add(mainTable2);
+		panel.add(totalService);
+		panel.setLayout(null);
+		this.setLocationRelativeTo(null);
+		this.setModal(true);
+		this.add(panel);
+		this.setVisible(false);
 	}
 
 	public JLabel getBillID() {
@@ -220,5 +246,4 @@ public class BillDetailView extends JDialog {
 	public Table getServiceInforTable() {
 		return serviceInforTable;
 	}
-	
 }

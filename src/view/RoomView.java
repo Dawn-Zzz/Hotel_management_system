@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.ReservationDAO;
 import controller.RoomController;
 import view.editComponent.Button;
 import view.editComponent.Table;
@@ -168,20 +169,29 @@ public class RoomView extends JPanel{
         roomTable.setCellAlignment(3, JLabel.CENTER);
         roomTable.setColumnAlignment(4, JLabel.CENTER);
         roomTable.setCellAlignment(4, JLabel.CENTER);
+        roomTable.setColumnAlignment(5, JLabel.CENTER);
+        roomTable.setCellAlignment(5, JLabel.CENTER);
+        roomTable.setColumnAlignment(6, JLabel.CENTER);
+        roomTable.setCellAlignment(6, JLabel.CENTER);
         roomTable.setFont(new Font("Arial",Font.BOLD,12));
-		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Status", "Date", "Time", "Note"}) {
+		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Room", "Rental Type", "Check In", "Check Out", "Room Occupancy","Status"}) {
 	            boolean[] canEdit = new boolean [] {
-	                false, false, false, false, false
+	                false, false, false, false, false,false,false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
 	                return canEdit [columnIndex];
 	            }
 	        });
-		DefaultTableModel mode = (DefaultTableModel) roomTable.getModel();
-        for (int i = 1; i <= 4; i++) {
-            mode.addRow(new Object[]{"101", "OK" , "1/1/2021", "7am", ""});
-        }
+		roomTable.setColumnWidth(0,220);
+		roomTable.setColumnWidth(1,60);
+		roomTable.setColumnWidth(2,100);
+		roomTable.setColumnWidth(3,180);
+		roomTable.setColumnWidth(4,180);
+		roomTable.setColumnWidth(5,140);
+		roomTable.setColumnWidth(6,140);
+		
+		ReservationDAO.getInstance().selectAll(roomTable);
 		
 		searchBar.setBounds(0,0,1020-150-64,85);
 		searchBar.setLayout(null);
