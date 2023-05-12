@@ -21,6 +21,7 @@ public class BookRoomController implements ActionListener, ItemListener  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		this.bookRoomView.addGuestAction();
 	}
 
 	@Override

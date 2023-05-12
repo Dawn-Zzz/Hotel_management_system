@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,12 +20,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import DAO.GuestDAO;
 import controller.BookRoomController;
 import view.editComponent.Button;
 
@@ -45,7 +48,7 @@ public class BookRoomView extends JDialog{
 	private JComboBox<Integer> questQuantityBox = new JComboBox<>();
 	
 	private JLabel rentalType = new JLabel();
-	String RentalType[] = {"","Rent By The Hour" , "Rent For The Day", "Overnight Rental"}; 
+	String RentalType[] = {"Rent By The Hour" , "Rent For The Day", "Overnight Rental"}; 
 	private JComboBox<String> rentalTypeBox = new JComboBox<>(RentalType);
 	
 	private JLabel room = new JLabel();
@@ -127,6 +130,7 @@ public class BookRoomView extends JDialog{
 		for(int i = 1; i <= 3 ; i++) {
 			questQuantityBox.addItem(i);
 		}
+		questQuantityBox.setSelectedIndex(-1);
 		
 		rentalType.setBounds(50,160,120,30);
 		rentalType.setText("Rental Type");
@@ -138,6 +142,7 @@ public class BookRoomView extends JDialog{
 		rentalTypeBox.setBounds(50,190,340,30);
 		rentalTypeBox.setBackground(Color.WHITE);
 		rentalTypeBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		rentalTypeBox.setSelectedIndex(-1);
 		
 		identificationNumber.setBounds(420,80,180,30);
 		identificationNumber.setText("Identification Number");
@@ -161,6 +166,7 @@ public class BookRoomView extends JDialog{
 		roomBox.setBounds(420,190,340,30);
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		roomBox.setSelectedIndex(-1);
 		
 		checkIn.setBounds(50,240,150,30);
 		checkIn.setText("Check In");
@@ -173,6 +179,7 @@ public class BookRoomView extends JDialog{
 		hourCIn.setBounds(50,270,70,30);
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		hourCIn.setSelectedIndex(-1);
 		
 		decorationThing1.setBounds(128,270,10,30);
 		decorationThing1.setText(":");
@@ -185,6 +192,7 @@ public class BookRoomView extends JDialog{
 		minuteCIn.setBounds(140,270,70,30);
 		minuteCIn.setBackground(Color.WHITE);
 		minuteCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		minuteCIn.setSelectedIndex(-1);
 		
 		dayCIn.setBounds(230,270,160,30);
 		dayCIn.setBackground(Color.WHITE);
@@ -201,6 +209,7 @@ public class BookRoomView extends JDialog{
 		hourCOut.setBounds(420,270,70,30);
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		hourCOut.setSelectedIndex(-1);
 		
 		decorationThing2.setBounds(498,270,10,30);
 		decorationThing2.setText(":");
@@ -213,6 +222,7 @@ public class BookRoomView extends JDialog{
 		minuteCOut.setBounds(510,270,70,30);
 		minuteCOut.setBackground(Color.WHITE);
 		minuteCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		minuteCOut.setSelectedIndex(-1);
 		
 		dayCOut.setBounds(600,270,160,30);
 		dayCOut.setBackground(Color.WHITE);
@@ -273,6 +283,7 @@ public class BookRoomView extends JDialog{
 		submitButton.setForeground(Color.WHITE);
 		submitButton.setBackground(new Color(39,162,187));
 		submitButton.setFocusable(false);
+		submitButton.addActionListener(actionListener);
 		
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setBounds(0,0,800,560);
@@ -308,7 +319,11 @@ public class BookRoomView extends JDialog{
 		this.setModal(true);
 		this.setVisible(false);
 	}
-
+	
+	public JTextField getidentificationNumberField() {
+		return identificationNumberField;
+	}
+	
 	public JTextField getDepositField() {
 		return depositField;
 	}
@@ -316,5 +331,18 @@ public class BookRoomView extends JDialog{
 	public JRadioButton getAdvanceBooking() {
 		return advanceBooking;
 	}
+	
+	public void addGuestAction () {
+		String id = identificationNumberField.getText();
+		
+		if (id.isEmpty() || questQuantityBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null || roomBox.getSelectedItem() == null) 
+			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+		else if (!id.matches("\\d{12}")) 
+	        JOptionPane.showMessageDialog(this, "ID phải có đúng 12 số");
+		else if (GuestDAO.getInstance().getGuestById(id) != null && identificationNumberField.isEnabled()==true) 
+	        JOptionPane.showMessageDialog(this, "ID đã tồn tại");
+
+			//this.dispose();
+		}
 	
 }
