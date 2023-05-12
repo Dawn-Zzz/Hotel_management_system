@@ -23,8 +23,8 @@ public class BillDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT hd.MaHoaDon, hd.NgayLapHoaDon, kh.TenKhachHang, hd.TongTien, nv.TenNhanVien FROM HoaDon hd "
-					+ "INNER JOIN KhachHang kh ON kh.CCCD = hd.CCCD "
-					+ "INNER JOIN NhanVien nv ON nv.CCCD_NV = hd.CCCD_NV ";
+					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
+					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -51,8 +51,8 @@ public class BillDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT kh.TenKhachHang, nv.TenNhanVien, hd.TongTien, hd.TongTienPhong, hd.TongTienDichVu, hd.NgayLapHoaDon FROM HoaDon hd "
-					+ "INNER JOIN KhachHang kh ON kh.CCCD = hd.CCCD "
-					+ "INNER JOIN NhanVien nv ON nv.CCCD_NV = hd.CCCD_NV "
+					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
+					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien "
 					+ "WHERE hd.MaHoaDon = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
