@@ -14,13 +14,14 @@ CREATE TABLE ChucDanh(
 );
 
 CREATE TABLE NhanVien(
-	CCCD_NV CHAR(12) NOT NULL,
+	MaNhanVien INT AUTO_INCREMENT,
+	CCCD CHAR(12) NOT NULL,
     SoDienThoai CHAR (10),
     TenNhanVien NVARCHAR(50) NOT NULL,
     NgaySinh DATE,
     ID NVARCHAR(50) NOT NULL,
     MaChucDanh CHAR(10) NOT NULL,
-    PRIMARY KEY (CCCD_NV)
+    PRIMARY KEY (MaNhanVien)
 );
 
 CREATE TABLE LoaiPhong(
@@ -33,12 +34,13 @@ CREATE TABLE LoaiPhong(
 );
 
 CREATE TABLE KhachHang(
+	MaKhachHang INT AUTO_INCREMENT,
 	CCCD CHAR(12) NOT NULL,
     TenKhachHang NVARCHAR(50) NOT NULL,
     LoaiKhachHang NVARCHAR(50),
     NgaySinh DATE,
     SoDienThoai CHAR(10),
-    PRIMARY KEY (CCCD)
+    PRIMARY KEY (MaKhachHang)
 );
 
 CREATE TABLE Phong(
@@ -51,7 +53,6 @@ CREATE TABLE Phong(
 CREATE TABLE ThietBi(
 	MaThietBi CHAR(10) NOT NULL,
     TenThietBi NVARCHAR(50) NOT NULL,
-    HienTrang NVARCHAR(20) NOT NULL,
     PRIMARY KEY (MaThietBi)
 );
 
@@ -68,14 +69,15 @@ CREATE TABLE HoaDon(
     TongTienPhong FLOAT NOT NULL,
     TongTienDichVu FLOAT,
     TongTien FLOAT NOT NULL,
-    CCCD CHAR(12) NOT NULL,
-    CCCD_NV CHAR(12) NOT NULL,
+    MaKhachHang INT NOT NULL,
+    MaNhanVien INT NOT NULL,
     PRIMARY KEY (MaHoaDon)
 );
 
 CREATE TABLE PhongCoThietBi(
 	MaThietBi CHAR(10) NOT NULL,
-    MaPhong CHAR(10) NOT NULL
+    MaPhong CHAR(10) NOT NULL,
+    HienTrang NVARCHAR(20) NOT NULL
 );
 
 CREATE TABLE PhieuThuePhong(
@@ -86,8 +88,8 @@ CREATE TABLE PhieuThuePhong(
     SoNguoiO INT NOT NULL,
     TienCoc FLOAT,
     HinhThucThue NVARCHAR(50) NOT NULL,
-    CCCD CHAR(12) NOT NULL,
-    CCCD_NV CHAR(12) NOT NULL, 
+    MaKhachHang INT NOT NULL,
+    MaNhanVien INT NOT NULL, 
     MaPhong CHAR(10) NOT NULL, 
     PRIMARY KEY (MaPhieu)
 );
@@ -119,17 +121,17 @@ ADD FOREIGN KEY (MaChucDanh) REFERENCES ChucDanh(MaChucDanh);
 ALTER TABLE Phong 
 ADD FOREIGN KEY (MaLoaiPhong) REFERENCES LoaiPhong(MaLoaiPhong);
 ALTER TABLE HoaDon 
-ADD FOREIGN KEY (CCCD) REFERENCES KhachHang(CCCD);
+ADD FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 ALTER TABLE HoaDon 
-ADD FOREIGN KEY (CCCD_NV) REFERENCES NhanVien(CCCD_NV);
+ADD FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien);
 ALTER TABLE PhongCoThietBi
 ADD FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi);
 ALTER TABLE PhongCoThietBi
 ADD FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong);
 ALTER TABLE PhieuThuePhong 
-ADD FOREIGN KEY (CCCD) REFERENCES KhachHang(CCCD);
+ADD FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 ALTER TABLE PhieuThuePhong 
-ADD FOREIGN KEY (CCCD_NV) REFERENCES NhanVien(CCCD_NV);
+ADD FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien);
 ALTER TABLE PhieuThuePhong
 ADD FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong);
 ALTER TABLE HoaDonDichVu
@@ -169,16 +171,16 @@ INSERT INTO ChucDanh (MaChucDanh, TenChucDanh) VALUE ('CD002', 'Nhân viên lễ
 INSERT INTO ChucDanh (MaChucDanh, TenChucDanh) VALUE ('CD003', 'Nhân viên phục vụ');
 INSERT INTO ChucDanh (MaChucDanh, TenChucDanh) VALUE ('CD004', 'Nhân viên kế toán');
 
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('312848541545', '0384845484', 'Nguyễn Thanh Tùng', '2014-12-03','TK001', 'CD001');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('325484544487', '0352819756', 'Nguyễn Linh Chi', '2001-11-09','TK002', 'CD002');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('338897894465', '0335852676', 'Lê Trung Kiên', '2002-10-08','TK002', 'CD002');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('348784867879', '0359518415', 'Trần Thị Linh', '2003-07-11','TK002', 'CD002');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('358998746564', '0341595625', 'Lê Thanh Hoa', '2002-07-12','TK003', 'CD003');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('368965568995', '0348485156', 'Trương Tịnh Nghi', '1987-04-04','TK003', 'CD003');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('374556446545', '0384876557', 'Hồ Minh Hải', '1997-01-14','TK003', 'CD003');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('386262316515', '0347847846', 'Phạm Hoài Sơn', '1999-05-03','TK004', 'CD004');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('394985151561', '0359597166', 'Trần Thanh Khoa', '2000-09-11','TK004', 'CD004');
-INSERT INTO NhanVien (CCCD_NV, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('303265315155', '0384898448', 'Phạm Minh Hùng', '2000-08-07','TK004', 'CD004');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('312848541545', '0384845484', 'Nguyễn Thanh Tùng', '2014-12-03','TK001', 'CD001');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('325484544487', '0352819756', 'Nguyễn Linh Chi', '2001-11-09','TK002', 'CD002');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('338897894465', '0335852676', 'Lê Trung Kiên', '2002-10-08','TK002', 'CD002');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('348784867879', '0359518415', 'Trần Thị Linh', '2003-07-11','TK002', 'CD002');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('358998746564', '0341595625', 'Lê Thanh Hoa', '2002-07-12','TK003', 'CD003');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('368965568995', '0348485156', 'Trương Tịnh Nghi', '1987-04-04','TK003', 'CD003');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('374556446545', '0384876557', 'Hồ Minh Hải', '1997-01-14','TK003', 'CD003');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('386262316515', '0347847846', 'Phạm Hoài Sơn', '1999-05-03','TK004', 'CD004');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('394985151561', '0359597166', 'Trần Thanh Khoa', '2000-09-11','TK004', 'CD004');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('303265315155', '0384898448', 'Phạm Minh Hùng', '2000-08-07','TK004', 'CD004');
 
 INSERT INTO LoaiPhong (MaLoaiPhong, TenLoaiPhong, GiaTheoGio, GiaTheoNgay, GiaQuaDem) VALUES ('LP001', 'Phòng đơn', '150000', '350000', '270000');
 INSERT INTO LoaiPhong (MaLoaiPhong, TenLoaiPhong, GiaTheoGio, GiaTheoNgay, GiaQuaDem) VALUES ('LP002', 'Phòng đơn cao câp', '225000', '525000', '405000');
@@ -261,15 +263,15 @@ INSERT INTO Phong (MaPhong, HienTrang, MaLoaiPhong) VALUES ('604', '1', 'LP008')
 INSERT INTO Phong (MaPhong, HienTrang, MaLoaiPhong) VALUES ('605', '0', 'LP010');
 INSERT INTO Phong (MaPhong, HienTrang, MaLoaiPhong) VALUES ('606', '1', 'LP012');
 
-INSERT INTO ThietBi (MaThietBi, TenThietBi, HienTrang) VALUES ('TB001', 'Tủ lạnh', 'Tốt');
-INSERT INTO ThietBi (MaThietBi, TenThietBi, HienTrang) VALUES ('TB002', 'Ti vi', 'Tốt');
-INSERT INTO ThietBi (MaThietBi, TenThietBi, HienTrang) VALUES ('TB003', 'Máy lạnh', 'Tốt');
+INSERT INTO ThietBi (MaThietBi, TenThietBi) VALUES ('TB001', 'Tủ lạnh');
+INSERT INTO ThietBi (MaThietBi, TenThietBi) VALUES ('TB002', 'Ti vi');
+INSERT INTO ThietBi (MaThietBi, TenThietBi) VALUES ('TB003', 'Máy lạnh');
 
 INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV001', 'Nhà Hàng','300000');
 INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV002', 'Spa','200000');
 INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV003', 'Hồ Bơi','50000');
 INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV004', 'Gym','50000');
-INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV005', 'Giặc, ủi','100000');
+INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV005', 'Giặt, ủi','100000');
 
 
 -- INSERT INTO HinhThucThue (MaHinhThucThue, TenHinhThucThue, Gia, MaLoaiPhong) VALUES ('HTT001', 'Phòng đơn, giờ', '150000', 'LP001');
@@ -310,176 +312,176 @@ INSERT INTO DichVu (MaDichVu, TenDichVu, GiaDichVu) VALUES ('DV005', 'Giặc, �
 -- INSERT INTO HinhThucThue (MaHinhThucThue, TenHinhThucThue, Gia, MaLoaiPhong) VALUES ('HTT036', 'Phòng bốn giường đôi cao cấp, đêm', '1800000', 'LP012');
 
 
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('101', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('101', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('101', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('102', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('102', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('102', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('103', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('103', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('103', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('104', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('104', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('104', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('105', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('105', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('105', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('106', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('106', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('106', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('201', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('201', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('201', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('202', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('202', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('202', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('203', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('203', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('203', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('204', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('204', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('204', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('205', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('205', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('205', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('206', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('206', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('206', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('301', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('301', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('301', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('302', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('302', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('302', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('303', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('303', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('303', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('304', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('304', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('304', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('305', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('305', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('305', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('306', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('306', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('306', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('401', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('401', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('401', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('402', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('402', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('402', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('403', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('403', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('403', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('404', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('404', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('404', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('405', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('405', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('405', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('406', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('406', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('406', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('501', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('501', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('501', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('502', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('502', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('502', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('503', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('503', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('503', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('504', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('504', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('504', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('505', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('505', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('505', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('506', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('506', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('506', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('601', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('601', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('601', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('602', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('602', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('602', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('603', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('603', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('603', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('604', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('604', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('604', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('605', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('605', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('605', 'TB003');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('606', 'TB001');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('606', 'TB002');
-INSERT INTO PhongCoThietBi (MaPhong, MaThietBi) VALUES ('606', 'TB003');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('101', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('101', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('101', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('102', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('102', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('102', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('103', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('103', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('103', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('104', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('104', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('104', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('105', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('105', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('105', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('106', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('106', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('106', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('201', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('201', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('201', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('202', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('202', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('202', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('203', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('203', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('203', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('204', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('204', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('204', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('205', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('205', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('205', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('206', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('206', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('206', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('301', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('301', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('301', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('302', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('302', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('302', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('303', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('303', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('303', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('304', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('304', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('304', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('305', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('305', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('305', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('306', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('306', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('306', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('401', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('401', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('401', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('402', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('402', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('402', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('403', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('403', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('403', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('404', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('404', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('404', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('405', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('405', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('405', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('406', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('406', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('406', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('501', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('501', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('501', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('502', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('502', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('502', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('503', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('503', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('503', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('504', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('504', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('504', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('505', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('505', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('505', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('506', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('506', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('506', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('601', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('601', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('601', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('602', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('602', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('602', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('603', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('603', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('603', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('604', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('604', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('604', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('605', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('605', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('605', 'TB003', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('606', 'TB001', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('606', 'TB002', 'Tốt');
+INSERT INTO PhongCoThietBi (MaPhong, MaThietBi, HienTrang) VALUES ('606', 'TB003', 'Tốt');
 
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT001', '2023-05-16', '2023-05-16 07:00:00', '2023-05-18 07:00:00', '1', NULL, 'Ngày', '012303010263', '325484544487', '101');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT002', '2023-05-14', '2023-05-15 08:00:00', '2023-05-20 08:00:00', '2', NULL, 'Ngày', '027816492584', '338897894465', '103');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT003', '2023-05-12', '2023-05-18 21:00:00', '2023-05-19 12:00:00', '1', NULL, 'Đêm', '031682494279', '325484544487', '201');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT004', '2023-05-15', '2023-05-16 09:00:00', '2023-05-16 12:00:00', '5', NULL, 'Giờ', '044388592546', '348784867879', '205');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT005', '2023-05-14', '2023-05-13 13:00:00', '2023-05-19 13:00:00', '2', NULL, 'Ngày', '051953595761', '325484544487', '302');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT006', '2023-05-13', '2023-05-16 07:30:00', '2023-05-16 10:30:00', '8', NULL, 'Giờ', '064481545465', '348784867879', '306');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT007', '2023-05-16', '2023-05-16 21:00:00', '2023-05-17 12:00:00', '1', NULL, 'Đêm', '076565456654', '338897894465', '401');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT008', '2023-05-15', '2023-05-15 21:00:00', '2023-05-16 12:00:00', '1', NULL, 'Đêm', '084448489454', '348784867879', '501');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT009', '2023-05-14', '2023-05-10 13:00:00', '2023-05-20 13:00:00', '2', '200000', 'Ngày', '098854542254', '325484544487', '602');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT010', '2023-05-12', '2023-05-08 16:00:00', '2023-05-17 16:00:00', '3', '300000', 'Ngày', '018451541369', '325484544487', '604');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT011', '2023-05-10', '2023-05-16 16:00:00', '2023-05-16 20:00:00', '2', '100000', 'Giờ', '158956568895', '348784867879', '502');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT012', '2023-05-08', '2023-05-15 05:00:00', '2023-05-22 05:00:00', '4', '500000', 'Ngày', '185925485565', '338897894465', '104');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT013', '2023-05-09', '2023-05-14 08:00:00', '2023-05-19 08:00:00', '7', '100000', 'Ngày', '145856295959', '325484544487', '506');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT014', '2023-05-10', '2023-05-12 10:00:00', '2023-05-18 10:00:00', '1', NULL, 'Ngày', '118482959262', '338897894465', '303');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT015', '2023-05-14', '2023-05-24 21:00:00', '2023-05-25 12:00:00', '2', NULL, 'Đêm', '128958598958', '348784867879', '203');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT016', '2023-05-15', '2023-05-16 20:00:00', '2023-05-16 22:00:00', '8', NULL, 'Giờ', '138865689484', '338897894465', '406');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT017', '2023-05-16', '2023-05-16 20:00:00', '2023-05-16 23:00:00', '2', NULL, 'Giờ', '168948565859', '325484544487', '603');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT018', '2023-05-12', '2023-05-16 21:00:00', '2023-05-16 23:00:00', '3', NULL, 'Giờ', '179895625265', '348784867879', '404');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT019', '2023-05-13', '2023-05-10 07:30:00', '2023-05-17 07:30:00', '7', NULL, 'Ngày', '198482589562', '338897894465', '106');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT020', '2023-05-11', '2023-05-21 21:00:00', '2023-05-22 12:00:00', '4', NULL, 'Đêm', '104856489598', '325484544487', '504');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT021', '2023-05-10', '2023-05-18 21:00:00', '2023-05-19 12:00:00', '3', '100000', 'Đêm', '201848848948', '338897894465', '304');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT022', '2023-05-14', '2023-05-16 21:00:00', '2023-05-17 12:00:00', '4', NULL, 'Đêm', '218565265659', '348784867879', '204');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT023', '2023-05-13', '2023-05-16 20:00:00', '2023-05-28 20:00:00', '7', '500000', 'Ngày', '228764988949', '325484544487', '606');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT024', '2023-05-12', '2023-05-14 14:00:00', '2023-05-26 14:00:00', '2', NULL, 'Ngày', '234848994878', '338897894465', '403');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT025', '2023-05-10', '2023-05-13 07:00:00', '2023-05-20 07:00:00', '2', NULL, 'Ngày', '249856265988', '325484544487', '202');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT026', '2023-05-09', '2023-05-16 10:00:00', '2023-05-16 14:00:00', '1', NULL, 'Giờ', '254845164896', '348784867879', '503');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT027', '2023-05-08', '2023-05-16 11:00:00', '2023-05-16 14:00:00', '2', NULL, 'Giờ', '268598565896', '338897894465', '102');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT028', '2023-05-07', '2023-05-16 18:00:00', '2023-05-16 23:00:00', '5', NULL, 'Giờ', '279598561959', '348784867879', '505');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT029', '2023-05-15', '2023-05-16 19:00:00', '2023-05-16 22:00:00', '2', NULL, 'Giờ', '289859844894', '325484544487', '402');
-INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, CCCD, CCCD_NV, MaPhong) VALUES ('PT030', '2023-05-14', '2023-05-10 16:00:00', '2023-05-21 16:00:00', '6', NULL, 'Ngày', '298978489496', '338897894465', '305');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT001', '2023-05-16', '2023-05-16 07:00:00', '2023-05-18 07:00:00', '1', NULL, 'Ngày', '1', '2', '101');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT002', '2023-05-14', '2023-05-15 08:00:00', '2023-05-20 08:00:00', '2', NULL, 'Ngày', '2', '3', '103');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT003', '2023-05-12', '2023-05-18 21:00:00', '2023-05-19 12:00:00', '1', NULL, 'Đêm', '3', '2', '201');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT004', '2023-05-15', '2023-05-16 09:00:00', '2023-05-16 12:00:00', '5', NULL, 'Giờ', '4', '4', '205');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT005', '2023-05-14', '2023-05-13 13:00:00', '2023-05-19 13:00:00', '2', NULL, 'Ngày', '5', '2', '302');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT006', '2023-05-13', '2023-05-16 07:30:00', '2023-05-16 10:30:00', '8', NULL, 'Giờ', '6', '4', '306');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT007', '2023-05-16', '2023-05-16 21:00:00', '2023-05-17 12:00:00', '1', NULL, 'Đêm', '7', '3', '401');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT008', '2023-05-15', '2023-05-15 21:00:00', '2023-05-16 12:00:00', '1', NULL, 'Đêm', '8', '4', '501');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT009', '2023-05-14', '2023-05-10 13:00:00', '2023-05-20 13:00:00', '2', '200000', 'Ngày', '9', '2', '602');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT010', '2023-05-12', '2023-05-08 16:00:00', '2023-05-17 16:00:00', '3', '300000', 'Ngày', '10', '2', '604');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT011', '2023-05-10', '2023-05-16 16:00:00', '2023-05-16 20:00:00', '2', '100000', 'Giờ', '11', '4', '502');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT012', '2023-05-08', '2023-05-15 05:00:00', '2023-05-22 05:00:00', '4', '500000', 'Ngày', '12', '3', '104');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT013', '2023-05-09', '2023-05-14 08:00:00', '2023-05-19 08:00:00', '7', '100000', 'Ngày', '13', '2', '506');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT014', '2023-05-10', '2023-05-12 10:00:00', '2023-05-18 10:00:00', '1', NULL, 'Ngày', '14', '3', '303');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT015', '2023-05-14', '2023-05-24 21:00:00', '2023-05-25 12:00:00', '2', NULL, 'Đêm', '15', '4', '203');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT016', '2023-05-15', '2023-05-16 20:00:00', '2023-05-16 22:00:00', '8', NULL, 'Giờ', '16', '3', '406');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT017', '2023-05-16', '2023-05-16 20:00:00', '2023-05-16 23:00:00', '2', NULL, 'Giờ', '17', '2', '603');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT018', '2023-05-12', '2023-05-16 21:00:00', '2023-05-16 23:00:00', '3', NULL, 'Giờ', '18', '4', '404');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT019', '2023-05-13', '2023-05-10 07:30:00', '2023-05-17 07:30:00', '7', NULL, 'Ngày', '19', '3', '106');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT020', '2023-05-11', '2023-05-21 21:00:00', '2023-05-22 12:00:00', '4', NULL, 'Đêm', '20', '2', '504');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT021', '2023-05-10', '2023-05-18 21:00:00', '2023-05-19 12:00:00', '3', '100000', 'Đêm', '21', '3', '304');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT022', '2023-05-14', '2023-05-16 21:00:00', '2023-05-17 12:00:00', '4', NULL, 'Đêm', '22', '4', '204');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT023', '2023-05-13', '2023-05-16 20:00:00', '2023-05-28 20:00:00', '7', '500000', 'Ngày', '23', '2', '606');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT024', '2023-05-12', '2023-05-14 14:00:00', '2023-05-26 14:00:00', '2', NULL, 'Ngày', '24', '3', '403');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT025', '2023-05-10', '2023-05-13 07:00:00', '2023-05-20 07:00:00', '2', NULL, 'Ngày', '25', '2', '202');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT026', '2023-05-09', '2023-05-16 10:00:00', '2023-05-16 14:00:00', '1', NULL, 'Giờ', '26', '4', '503');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT027', '2023-05-08', '2023-05-16 11:00:00', '2023-05-16 14:00:00', '2', NULL, 'Giờ', '27', '3', '102');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT028', '2023-05-07', '2023-05-16 18:00:00', '2023-05-16 23:00:00', '5', NULL, 'Giờ', '28', '4', '505');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT029', '2023-05-15', '2023-05-16 19:00:00', '2023-05-16 22:00:00', '2', NULL, 'Giờ', '29', '2', '402');
+INSERT INTO PhieuThuePhong (MaPhieu, NgayLap, ThoiGianNhanPhong, ThoiGianTraPhong, SoNguoiO, TienCoc, HinhThucThue, MaKhachHang, MaNhanVien, MaPhong) VALUES ('PT030', '2023-05-14', '2023-05-10 16:00:00', '2023-05-21 16:00:00', '6', NULL, 'Ngày', '30', '3', '305');
 
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD001', '2023-05-18', '700000', '600000', '1300000', '012303010263', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD002', '2023-05-20', '3250000', '50000', '3300000', '027816492584', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD003', '2023-05-19', '405000', '300000', '705000', '031682494279', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD004', '2023-05-16', '3240000', '350000', '3590000', '044388592546', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD005', '2023-05-19', '3900000', '450000', '4350000', '051953595761', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD006', '2023-05-16', '2400000', '300000', '2700000', '064481545465', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD007', '2023-05-17', '405000', '50000', '455000', '076565456654', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD008', '2023-05-16', '270000', '50000', '320000', '084448489454', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD009', '2023-05-20', '9750000', NULL, '9550000', '098854542254', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD010', '2023-05-17', '16200000', '300000', '16200000', '018451541369', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD011', '2023-05-16', '1160000', '100000', '1160000', '158956568895', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD012', '2023-05-22', '8400000', '100000', '8000000', '185925485565', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD013', '2023-05-19', '8000000', '300000', '8200000', '145856295959', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD014', '2023-05-18', '3900000', NULL, '3900000', '118482959262', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD015', '2023-05-25', '750000', NULL, '750000', '128958598958', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD016', '2023-05-16', '2400000', NULL, '2400000', '138865689484', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD017', '2023-05-16', '1305000', NULL, '1305000', '168948565859', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD018', '2023-05-16', '1620000', '600000', '2220000', '179895625265', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD019', '2023-05-17', '11200000', NULL, '11200000', '198482589562', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD020', '2023-05-22', '700000', '400000', '1100000', '104856489598', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD021', '2023-05-19', '700000', '50000', '650000', '201848848948', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD022', '2023-05-17', '1050000', '300000', '1350000', '218565265659', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD023', '2023-05-28', '28800000', '1000000', '29300000', '228764988949', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD024', '2023-05-26', '11700000', '300000', '12000000', '234848994878', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD025', '2023-05-20', '6825000', '200000', '7025000', '249856265988', '394985151561');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD026', '2023-05-16', '1160000', '100000', '1260000', '254845164896', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD027', '2023-05-16', '870000', NULL, '870000', '268598565896', '303265315155');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD028', '2023-05-16', '3600000', NULL, '3600000', '279598561959', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD029', '2023-05-16', '1305000', NULL, '1305000', '289859844894', '386262316515');
-INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, CCCD, CCCD_NV) VALUES ('HD030', '2023-05-21', '16500000', '500000', '17000000', '298978489496', '394985151561');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD001', '2023-05-18', '700000', '600000', '1300000', '1', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD002', '2023-05-20', '3250000', '50000', '3300000', '2', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD003', '2023-05-19', '405000', '300000', '705000', '3', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD004', '2023-05-16', '3240000', '350000', '3590000', '4', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD005', '2023-05-19', '3900000', '450000', '4350000', '5', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD006', '2023-05-16', '2400000', '300000', '2700000', '6', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD007', '2023-05-17', '405000', '50000', '455000', '7', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD008', '2023-05-16', '270000', '50000', '320000', '8', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD009', '2023-05-20', '9750000', NULL, '9550000', '9', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD010', '2023-05-17', '16200000', '300000', '16200000', '10', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD011', '2023-05-16', '1160000', '100000', '1160000', '11', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD012', '2023-05-22', '8400000', '100000', '8000000', '12', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD013', '2023-05-19', '8000000', '300000', '8200000', '13', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD014', '2023-05-18', '3900000', NULL, '3900000', '14', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD015', '2023-05-25', '750000', NULL, '750000', '15', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD016', '2023-05-16', '2400000', NULL, '2400000', '16', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD017', '2023-05-16', '1305000', NULL, '1305000', '17', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD018', '2023-05-16', '1620000', '600000', '2220000', '18', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD019', '2023-05-17', '11200000', NULL, '11200000', '19', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD020', '2023-05-22', '700000', '400000', '1100000', '20', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD021', '2023-05-19', '700000', '50000', '650000', '21', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD022', '2023-05-17', '1050000', '300000', '1350000', '22', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD023', '2023-05-28', '28800000', '1000000', '29300000', '23', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD024', '2023-05-26', '11700000', '300000', '12000000', '24', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD025', '2023-05-20', '6825000', '200000', '7025000', '25', '9');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD026', '2023-05-16', '1160000', '100000', '1260000', '26', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD027', '2023-05-16', '870000', NULL, '870000', '27', '10');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD028', '2023-05-16', '3600000', NULL, '3600000', '28', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD029', '2023-05-16', '1305000', NULL, '1305000', '29', '8');
+INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien) VALUES ('HD030', '2023-05-21', '16500000', '500000', '17000000', '30', '9');
 
 INSERT INTO HoaDonPhong (MaHoaDon, MaPhong) VALUES ('HD001', '101');
 INSERT INTO HoaDonPhong (MaHoaDon, MaPhong) VALUES ('HD002', '103');

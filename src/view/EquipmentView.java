@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,6 +30,7 @@ import view.editComponent.TextField;
 
 public class EquipmentView extends JPanel {
 	private ActionListener actionListener = new EquipmentController(this);
+	private MouseListener mouseListener = new EquipmentController(this);
 	public EquipmentView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
@@ -154,7 +156,7 @@ public class EquipmentView extends JPanel {
 	            }
 	        });
 		EquipmentDAO.getInstance().selectAll(equipmentTable);
-		
+		equipmentTable.addMouseListener(mouseListener);
 		this.setVisible(false);
 	}
 	

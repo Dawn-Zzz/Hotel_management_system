@@ -4,18 +4,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import DAO.EquipmentDAO;
+import DAO.GuestDAO;
+import view.AddGuestView;
 import view.EquipmentView;
 
-public class EquipmentController implements ActionListener {
+public class EquipmentController implements ActionListener,MouseListener {
 	private EquipmentView equipmentView;
 
 	public EquipmentController(EquipmentView equipmentView) {
@@ -66,5 +76,59 @@ public class EquipmentController implements ActionListener {
 	            sorter.setRowFilter(RowFilter.andFilter(filters));
 			}
       });
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (SwingUtilities.isRightMouseButton(e)) { // kiểm tra chuột phải
+		      int row = equipmentView.getEquipmentTable().rowAtPoint(e.getPoint()); // lấy chỉ số dòng được nhấn chuột
+		      equipmentView.getEquipmentTable().setRowSelectionInterval(row, row); // chọn dòng được nhấn chuột
+		      String id =  (String) equipmentView.getEquipmentTable().getValueAt(row, 0);
+		      String nameService =  (String) equipmentView.getEquipmentTable().getValueAt(row, 1);
+		      JPopupMenu popupMenu = new JPopupMenu();
+		      JMenuItem menuItem;
+		      if (equipmentView.getEquipmentTable().getValueAt(row, 2).equals("Tốt"))
+		    	  menuItem = new JMenuItem("Xác nhận thiết bị hỏng");
+		      else
+		    	  menuItem = new JMenuItem("Xác nhận thiết bị tốt");
+		      menuItem.addActionListener(new ActionListener() {
+		         public void actionPerformed(ActionEvent e) {
+		        	 if (equipmentView.getEquipmentTable().getValueAt(row, 2).equals("Tốt")) {
+		        		 EquipmentDAO.getInstance().updateStatusEquipment(id, nameService, "Hỏng");
+		        	 }	
+		        	 else
+		        		 EquipmentDAO.getInstance().updateStatusEquipment(id, nameService, "Tốt");
+		        	 ((DefaultTableModel) equipmentView.getEquipmentTable().getModel()).setRowCount(0);
+		        	 EquipmentDAO.getInstance().selectAll(equipmentView.getEquipmentTable());
+		         }
+		      });
+		      popupMenu.add(menuItem);
+		      popupMenu.show(equipmentView.getEquipmentTable(), e.getX(), e.getY()); // hiển thị menu
+		   }
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
