@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import DAO.ReservationDAO;
 import controller.RoomController;
 import view.editComponent.Button;
+import view.editComponent.Combobox;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
@@ -88,8 +90,10 @@ public class RoomView extends JPanel{
 		popularRoom.setPreferredSize(new Dimension(137,25));
 		
 		bedList.setBounds(0,30,20,20);
+		bedList.setModel(new DefaultComboBoxModel(bedType));
 		bedList.setPreferredSize(new Dimension(129,25));
 		bedList.setBackground(Color.WHITE);
+		bedList.setFocusable(false);
 		
 		statusSearch.setBounds(10, 270, 129, 150);
 		statusSearch.setForeground(Color.WHITE);
@@ -108,8 +112,10 @@ public class RoomView extends JPanel{
 		currentsStatus.setBorder(null);
 		
 		statusList.setBounds(0,20,32,20);
+		statusList.setModel(new DefaultComboBoxModel(statusType));
 		statusList.setPreferredSize(new Dimension(129,25));
 		statusList.setBackground(Color.WHITE);
+		statusList.setFocusable(false);
 		
 		addRoom(mainRoomList);
 		
@@ -217,11 +223,11 @@ public class RoomView extends JPanel{
 	private JLabel roomType = new JLabel();
 	private JCheckBox vipRoom = new JCheckBox("Vip");
 	private JCheckBox popularRoom = new JCheckBox("Popular");
-	private JComboBox bedList = new JComboBox(bedType);
+	private JComboBox bedList = new Combobox();
 	
 	private JPanel statusSearch = new JPanel();
 	private JLabel currentsStatus = new JLabel();
-	private JComboBox statusList = new JComboBox(statusType);
+	private JComboBox statusList = new Combobox();
 	
 	//main section
 	private JPanel mainContent = new JPanel();

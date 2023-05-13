@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DAO.BillDAO;
 import controller.BillController;
+import view.editComponent.Combobox;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
@@ -31,7 +33,7 @@ public class BillView extends JPanel{
 		this.add(subBar);
 		this.add(mainContent);
 		
-		yearList = new JComboBox<>();
+		yearList = new Combobox<>();
 		calendar = Calendar.getInstance();
 		int currentYear = calendar.get(Calendar.YEAR);
         for (int year = currentYear - 10; year <= currentYear; year++) {
@@ -40,14 +42,14 @@ public class BillView extends JPanel{
         yearList.setSelectedIndex(-1);
         yearList.addActionListener(actionListener);
         
-		monthList = new JComboBox<>();
+		monthList = new Combobox<>();
 		for (int month = 1; month <= 12; month++) {
 			monthList.addItem(month);
 	    }
 	    monthList.setSelectedIndex(-1);
 		monthList.addActionListener(actionListener);
 		
-		dayList = new JComboBox<>();
+		dayList = new Combobox<>();
 		dayList.addActionListener(actionListener);
 		
 		subBar.setBounds(0,0,150,690);
@@ -72,8 +74,10 @@ public class BillView extends JPanel{
 		invoicingStaff.setBorder(null);
 		
 		staffList.setBounds(0,30,20,20);
+		staffList.setModel(new DefaultComboBoxModel(StaffList));
 		staffList.setPreferredSize(new Dimension(129,25));
 		staffList.setBackground(Color.WHITE);
+		staffList.setFocusable(false);
 		staffList.addActionListener(actionListener);
 		
 		dateSearch.setBounds(10, 180, 129, 250);
@@ -230,7 +234,7 @@ public class BillView extends JPanel{
 	private JPanel subBar = new JPanel();
 	private JPanel staffSearch = new JPanel();
 	private JLabel invoicingStaff = new JLabel("Invoicing Staff");
-	private JComboBox staffList = new JComboBox(StaffList);
+	private JComboBox staffList = new Combobox();
 	//	
 	private	JPanel dateSearch = new JPanel();
 	private	JLabel dateCheckIn = new JLabel();
@@ -238,9 +242,9 @@ public class BillView extends JPanel{
 	private	JLabel searchMonth = new JLabel();
 	private	JLabel searchDay = new JLabel();
 	
-	private JComboBox<Integer> yearList;
-	private JComboBox<Integer> monthList; 
-	private JComboBox<Integer> dayList;
+	private Combobox<Integer> yearList;
+	private Combobox<Integer> monthList; 
+	private Combobox<Integer> dayList;
 	//main section
 	private JPanel mainContent = new JPanel();
 	private JPanel mainBillTable = new JPanel();

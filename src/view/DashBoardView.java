@@ -135,7 +135,7 @@ public class DashBoardView extends JPanel{
 		inforTableBottom.setLayout(null);
 		inforTableBottom.add(dateCalendar);
 		
-		dateCalendar.setBounds(17,20,280,220);
+		dateCalendar.setBounds(17,20,275,220);
 		dateCalendar.setBackground(Color.WHITE);
 		
 		this.setVisible(true);
