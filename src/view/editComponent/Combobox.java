@@ -28,6 +28,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
+//import ScrollBarCustom;
 
 public class Combobox<E> extends JComboBox<E> {
 
@@ -48,12 +49,12 @@ public class Combobox<E> extends JComboBox<E> {
     }
 
     private String labeText = "";
-    private Color lineColor = new Color(3, 155, 216);
+    private Color lineColor = new Color(39,162,187);
     private boolean mouseOver;
 
     public Combobox() {
         setBackground(Color.WHITE);
-        setBorder(new EmptyBorder(15, 3, 5, 3));
+        setBorder(new EmptyBorder(1, 3, 1, 3));
         setUI(new ComboUI(this));
         setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -91,29 +92,29 @@ public class Combobox<E> extends JComboBox<E> {
                     repaint();
                 }
             });
-//            addFocusListener(new FocusAdapter() {
-//                @Override
-//                public void focusGained(FocusEvent fe) {
-//                    showing(false);
-//                }
-//
-//                @Override
-//                public void focusLost(FocusEvent fe) {
-//                    showing(true);
-//                }
-//            });
-//            addItemListener(new ItemListener() {
-//                @Override
-//                public void itemStateChanged(ItemEvent ie) {
-//                    if (!isFocusOwner()) {
-//                        if (getSelectedIndex() == -1) {
-//                            showing(true);
-//                        } else {
-//                            showing(false);
-//                        }
-//                    }
-//                }
-//            });
+            addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent fe) {
+                    showing(false);
+                }
+
+                @Override
+                public void focusLost(FocusEvent fe) {
+                    showing(true);
+                }
+            });
+            addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent ie) {
+                    if (!isFocusOwner()) {
+                        if (getSelectedIndex() == -1) {
+                            showing(true);
+                        } else {
+                            showing(false);
+                        }
+                    }
+                }
+            });
             addPopupMenuListener(new PopupMenuListener() {
                 @Override
                 public void popupMenuWillBecomeVisible(PopupMenuEvent pme) {
@@ -164,11 +165,11 @@ public class Combobox<E> extends JComboBox<E> {
             BasicComboPopup pop = new BasicComboPopup(comboBox) {
                 @Override
                 protected JScrollPane createScroller() {
-                    list.setFixedCellHeight(30);
+                    list.setFixedCellHeight(25);
                     JScrollPane scroll = new JScrollPane(list);
                     scroll.setBackground(Color.WHITE);
                     ScrollBarCustom sb = new ScrollBarCustom();
-                    sb.setUnitIncrement(30);
+                    sb.setUnitIncrement(20);
                     sb.setForeground(new Color(180, 180, 180));
                     scroll.setVerticalScrollBar(sb);
                     return scroll;
@@ -189,7 +190,7 @@ public class Combobox<E> extends JComboBox<E> {
             if (mouseOver) {
                 g2.setColor(lineColor);
             } else {
-                g2.setColor(new Color(150, 150, 150));
+                g2.setColor(new Color(39,162,187));
             }
             g2.fillRect(2, height - 1, width - 4, 1);
             createHintText(g2);
@@ -221,7 +222,7 @@ public class Combobox<E> extends JComboBox<E> {
             if (isFocusOwner()) {
                 double width = getWidth() - 4;
                 int height = getHeight();
-                g2.setColor(lineColor);
+                g2.setColor(new Color(39,162,187));
                 double size;
                 if (show) {
                     size = width * (1 - location);
@@ -233,7 +234,7 @@ public class Combobox<E> extends JComboBox<E> {
             }
         }
 
-//        private void showing(boolean action) {
+        private void showing(boolean action) {
 //            if (animator.isRunning()) {
 //                animator.stop();
 //            } else {
@@ -243,7 +244,7 @@ public class Combobox<E> extends JComboBox<E> {
 //            show = action;
 //            location = 1f - location;
 //            animator.start();
-//        }
+        }
 
         private class ArrowButton extends JButton {
 
@@ -264,7 +265,7 @@ public class Combobox<E> extends JComboBox<E> {
                 int x = (width - size) / 2;
                 int y = (height - size) / 2 + 5;
                 int px[] = {x, x + size, x + size / 2};
-                int py[] = {y, y, y + size};
+                int py[] = {y, y, y + size/2};
                 g2.setColor(getBackground());
                 g2.fillPolygon(px, py, px.length);
                 g2.dispose();

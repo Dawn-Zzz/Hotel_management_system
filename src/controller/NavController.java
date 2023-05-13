@@ -14,7 +14,7 @@ public class NavController implements ActionListener{
 	
 	private View buttonView;
 	private DashBoardView dashBoardView = new DashBoardView();
-	private GuestView guestView = new GuestView();
+	private GuestView guestView = GuestView.getInstance();
 	private RoomView roomView = new RoomView();
 	private EquipmentView equipmentView = new EquipmentView();
 	private BillView billView = new BillView();
@@ -32,6 +32,7 @@ public class NavController implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String nguonSuKien = e.getActionCommand();
 		if(nguonSuKien.equals("1")) {
+			dashBoardView.resetDashBoard();
 			dashBoardView.setVisible(true);
 			guestView.setVisible(false);
 			roomView.setVisible(false);

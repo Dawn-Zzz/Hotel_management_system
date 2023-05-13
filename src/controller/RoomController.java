@@ -32,27 +32,27 @@ public class RoomController implements ActionListener {
 		}	
 		for(int i = 0; i < 36; i++) {
 			if(e.getActionCommand().equals("10" + (i+1))) {
-				RoomInfor roomInfor = new RoomInfor("10" + (i+1),null,null,null,null);
+				RoomInfor roomInfor = new RoomInfor("10" + (i+1),null,null,roomView.getCurrentStatus()[i],null);
 				roomInfor.setVisible(true);
 			}
 			else if(e.getActionCommand().equals("20" + (i-6+1))) {
-				RoomInfor roomInfor = new RoomInfor("20" + (i-6+1),null,null,null,null);
+				RoomInfor roomInfor = new RoomInfor("20" + (i-6+1),null,null,roomView.getCurrentStatus()[i],null);
 				roomInfor.setVisible(true);
 			}
 			else if(e.getActionCommand().equals("30" + (i-12+1))) {
-				RoomInfor roomInfor = new RoomInfor("30" + (i-12+1),null,null,null,null);
+				RoomInfor roomInfor = new RoomInfor("30" + (i-12+1),null,null,roomView.getCurrentStatus()[i],null);
 				roomInfor.setVisible(true);
 			}
 			else if(e.getActionCommand().equals("40" + (i-18+1))) {
-				RoomInfor roomInfor = new RoomInfor("40" + (i-18+1),null,null,null,null);
+				RoomInfor roomInfor = new RoomInfor("40" + (i-18+1),null,null,roomView.getCurrentStatus()[i],null);
 				roomInfor.setVisible(true);
 			}
 			else if(e.getActionCommand().equals("50" + (i-24+1))) {
-				RoomInfor roomInfor = new RoomInfor("50" + (i-24+1),null,null,null,null);
+				RoomInfor roomInfor = new RoomInfor("50" + (i-24+1),null,null,roomView.getCurrentStatus()[i],null);
 				roomInfor.setVisible(true);
 			}
 			else if(e.getActionCommand().equals("60" + (i-30+1))) {
-				RoomInfor roomInfor = new RoomInfor("60" + (i-30+1),null,null,null,null);
+				RoomInfor roomInfor = new RoomInfor("60" + (i-30+1),roomView.getCurrentStatus()[i],null,null,null);
 				roomInfor.setVisible(true);
 			}
 		}
