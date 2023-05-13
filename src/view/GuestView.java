@@ -6,10 +6,10 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,36 +23,49 @@ import javax.swing.table.TableModel;
 import DAO.GuestDAO;
 import controller.GuestController;
 import view.editComponent.Button;
+import view.editComponent.Combobox;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
 public class GuestView extends JPanel {
 	private ActionListener actionListener = new GuestController(this);
-	private MouseListener mouseListener = new GuestController(this);
 	private Calendar calendar;
+	private static GuestView instance;
+	public static GuestView getInstance() {
+		if (instance==null) {
+			instance = new GuestView();
+		}
+		return instance;
+	}
+	private int guestsCount;
+	
 	public GuestView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
 		this.add(mainContent);
 
-		yearList = new JComboBox<>();
+		yearList = new Combobox<>();
 		calendar = Calendar.getInstance();
 		int currentYear = calendar.get(Calendar.YEAR);
-        for (int year = currentYear - 10; year <= currentYear; year++) {
+//        yearList.addItem("All");
+        for (int year = currentYear - 80; year <= currentYear - 18; year++) {
             yearList.addItem(year);
         }
         yearList.setSelectedIndex(-1);
         yearList.addActionListener(actionListener);
+        yearList.setFocusable(false);
         
-		monthList = new JComboBox<>();
+		monthList = new Combobox<>();
 		for (int month = 1; month <= 12; month++) {
 			monthList.addItem(month);
 	    }
 		monthList.addActionListener(actionListener);
+		monthList.setFocusable(false);
 		
-		dayList = new JComboBox<>();
+		dayList = new Combobox<>();
 		dayList.addActionListener(actionListener);
+		dayList.setFocusable(false);
 		
 		subBar.setBounds(0,0,150,690);
 		subBar.setLayout(null);
@@ -86,10 +99,13 @@ public class GuestView extends JPanel {
 		guestType.setBackground(new Color(241,243,255));
 		guestType.setBorder(null);
 		
-		guestList.setBounds(0, 40, 20, 100);
+		guestList.setLocation(0, 40);
+		guestList.setModel(new DefaultComboBoxModel(GuestType));
+		guestList.setSelectedIndex(0);
 		guestList.setBackground(Color.WHITE);
 		guestList.setPreferredSize(new Dimension(129,25));
 		guestList.addActionListener(actionListener);
+		guestList.setFocusable(false);
 		
 		dateSearch.setBounds(10, 180, 129, 250);
 		dateSearch.setForeground(Color.WHITE);
@@ -203,22 +219,29 @@ public class GuestView extends JPanel {
 	        });
 		
 		GuestDAO.getInstance().selectAll(guestTable);
-		guestTable.addMouseListener(mouseListener);
+		guestsCount = guestTable.getModel().getRowCount();
 		this.setVisible(false);
+	}
+	
+	public int getCountGuests() {
+		return guestsCount;
 	}
 	
 	public void resetGuestTable() {
 		((DefaultTableModel) guestTable.getModel()).setRowCount(0);
 		GuestDAO.getInstance().selectAll(guestTable);
+		guestsCount = guestTable.getModel().getRowCount();
+		System.out.println("Abc " + guestsCount);
+		System.out.println(getCountGuests());
 	}
 	
-	public JComboBox<Integer> getYearList() {
+	public Combobox<Integer> getYearList() {
 		return yearList;
 	}
-	public JComboBox<Integer> getMonthList() {
+	public Combobox<Integer> getMonthList() {
 		return monthList;
 	}
-	public JComboBox<Integer> getDayList() {
+	public Combobox<Integer> getDayList() {
 		return dayList;
 	}
 	
@@ -250,7 +273,7 @@ public class GuestView extends JPanel {
 	
 	JPanel guestSearch = new JPanel();
 	JLabel guestType = new JLabel();
-	JComboBox guestList = new JComboBox(GuestType);
+	JComboBox guestList = new Combobox();
 //
 //	
 	JPanel dateSearch = new JPanel();
@@ -258,9 +281,9 @@ public class GuestView extends JPanel {
 	JLabel searchYear = new JLabel();
 	JLabel searchMonth = new JLabel();
 	JLabel searchDay = new JLabel();
-	private JComboBox<Integer> yearList;
-	private JComboBox<Integer> monthList; 
-	private JComboBox<Integer> dayList;
+	private Combobox<Integer> yearList;
+	private Combobox<Integer> monthList; 
+	private Combobox<Integer> dayList;
 	
 //	
 //	//main section

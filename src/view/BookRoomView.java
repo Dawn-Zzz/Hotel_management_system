@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -30,6 +31,7 @@ import com.toedter.calendar.JDateChooser;
 import DAO.GuestDAO;
 import controller.BookRoomController;
 import view.editComponent.Button;
+import view.editComponent.Combobox;
 
 public class BookRoomView extends JDialog{
 	private ActionListener actionListener = new BookRoomController(this);
@@ -38,35 +40,35 @@ public class BookRoomView extends JDialog{
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 	private JLabel registrationForm = new JLabel();
 	
-	private LocalDate toDay = LocalDate.now();//lấy ngày hiện tại
-	//định dạng ngày tháng năm
+	private LocalDate toDay = LocalDate.now();//láº¥y ngÃ y hiá»‡n táº¡i
+	//Ä‘á»‹nh dáº¡ng ngÃ y thÃ¡ng nÄƒm
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	String Date = toDay.format(formatter);
 	private JLabel dateTime = new JLabel();
 	
 	private JLabel questQuantity = new JLabel();
-	private JComboBox<Integer> questQuantityBox = new JComboBox<>();
+	private Combobox<Integer> questQuantityBox = new Combobox<>();
 	
 	private JLabel rentalType = new JLabel();
 	String RentalType[] = {"Rent By The Hour" , "Rent For The Day", "Overnight Rental"}; 
-	private JComboBox<String> rentalTypeBox = new JComboBox<>(RentalType);
+	private Combobox<String> rentalTypeBox = new Combobox<>();
 	
 	private JLabel room = new JLabel();
-	private JComboBox roomBox;
+	private Combobox roomBox;
 	
 	private JLabel identificationNumber = new JLabel();
 	private JTextField identificationNumberField = new JTextField();
 	
 	private JLabel checkIn = new JLabel();
-	private JComboBox<String> hourCIn ;
+	private Combobox<String> hourCIn ;
 	private JLabel decorationThing1 = new JLabel();
-	private JComboBox<String> minuteCIn ;
+	private Combobox<String> minuteCIn ;
 	private JDateChooser dayCIn = new JDateChooser();
 	
 	private JLabel checkOut = new JLabel();
-	private JComboBox<String> hourCOut;
+	private Combobox<String> hourCOut;
 	private JLabel decorationThing2 = new JLabel();
-	private JComboBox<String> minuteCOut;
+	private Combobox<String> minuteCOut;
 	private JDateChooser dayCOut = new JDateChooser();
 	
 	private JPanel bookingGroup1 = new JPanel();
@@ -81,7 +83,7 @@ public class BookRoomView extends JDialog{
 	private JButton submitButton = new Button();
 	
 	public BookRoomView() {
-		//khởi tạo giá trị các phòng
+		//khá»Ÿi táº¡o giÃ¡ trá»‹ cÃ¡c phÃ²ng
 		List<String> roomValues = new ArrayList<>();
 		for (int i = 1; i <= 6; i++) {
 		    for (int j = 1; j <= 6; j++) {
@@ -89,13 +91,13 @@ public class BookRoomView extends JDialog{
 		    }
 		}
 		
-		// Khởi tạo mảng giờ
+		// Khá»Ÿi táº¡o máº£ng giá»�
 		String[] hours = new String[24];
 		for (int i = 0; i < 24; i++) {
 		    hours[i] = String.format("%02d", i);
 		}
 
-		// Khởi tạo mảng phút
+		// Khá»Ÿi táº¡o máº£ng phÃºt
 		String[] minutes = new String[60];
 		for (int i = 0; i < 60; i++) {
 		    minutes[i] = String.format("%02d", i);
@@ -140,9 +142,11 @@ public class BookRoomView extends JDialog{
 		rentalType.setBorder(null);
 		
 		rentalTypeBox.setBounds(50,190,340,30);
+		rentalTypeBox.setModel(new DefaultComboBoxModel(RentalType));
 		rentalTypeBox.setBackground(Color.WHITE);
 		rentalTypeBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		rentalTypeBox.setSelectedIndex(-1);
+		rentalTypeBox.setFocusable(false);
 		
 		identificationNumber.setBounds(420,80,180,30);
 		identificationNumber.setText("Identification Number");
@@ -161,12 +165,14 @@ public class BookRoomView extends JDialog{
 		room.setBackground(Color.WHITE);
 		room.setBorder(null);
 		
-		roomBox = new JComboBox(roomValues.toArray(new String[0]));
+		roomBox = new Combobox();
 		roomBox.setMaximumRowCount(4);
 		roomBox.setBounds(420,190,340,30);
+		roomBox.setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		roomBox.setSelectedIndex(-1);
+		roomBox.setFocusable(false);
 		
 		checkIn.setBounds(50,240,150,30);
 		checkIn.setText("Check In");
@@ -174,12 +180,14 @@ public class BookRoomView extends JDialog{
 		checkIn.setForeground(Color.BLACK);
 		checkIn.setBackground(Color.WHITE);
 		
-		hourCIn =  new JComboBox<>(hours);
+		hourCIn =  new Combobox();
 		hourCIn.setMaximumRowCount(4);
 		hourCIn.setBounds(50,270,70,30);
+		hourCIn.setModel(new DefaultComboBoxModel(hours));
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		hourCIn.setSelectedIndex(-1);
+		hourCIn.setFocusable(false);
 		
 		decorationThing1.setBounds(128,270,10,30);
 		decorationThing1.setText(":");
@@ -187,12 +195,14 @@ public class BookRoomView extends JDialog{
 		decorationThing1.setForeground(Color.BLACK);
 		decorationThing1.setBackground(Color.WHITE);
 		
-		minuteCIn = new JComboBox<>(minutes);
+		minuteCIn = new Combobox<>();
 		minuteCIn.setMaximumRowCount(4);
 		minuteCIn.setBounds(140,270,70,30);
+		minuteCIn.setModel(new DefaultComboBoxModel(minutes));
 		minuteCIn.setBackground(Color.WHITE);
 		minuteCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		minuteCIn.setSelectedIndex(-1);
+		minuteCIn.setFocusable(false);
 		
 		dayCIn.setBounds(230,270,160,30);
 		dayCIn.setBackground(Color.WHITE);
@@ -204,12 +214,14 @@ public class BookRoomView extends JDialog{
 		checkOut.setForeground(Color.BLACK);
 		checkOut.setBackground(Color.WHITE);
 		
-		hourCOut =  new JComboBox<>(hours);
+		hourCOut =  new Combobox();
 		hourCOut.setMaximumRowCount(4);
 		hourCOut.setBounds(420,270,70,30);
+		hourCOut.setModel(new DefaultComboBoxModel(hours));
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		hourCOut.setSelectedIndex(-1);
+		hourCOut.setFocusable(false);
 		
 		decorationThing2.setBounds(498,270,10,30);
 		decorationThing2.setText(":");
@@ -217,12 +229,14 @@ public class BookRoomView extends JDialog{
 		decorationThing2.setForeground(Color.BLACK);
 		decorationThing2.setBackground(Color.WHITE);
 		
-		minuteCOut =  new JComboBox<>(minutes);
+		minuteCOut =  new Combobox<>();
 		minuteCOut.setMaximumRowCount(4);
 		minuteCOut.setBounds(510,270,70,30);
+		minuteCOut.setModel(new DefaultComboBoxModel(minutes));
 		minuteCOut.setBackground(Color.WHITE);
 		minuteCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		minuteCOut.setSelectedIndex(-1);
+		minuteCOut.setFocusable(false);
 		
 		dayCOut.setBounds(600,270,160,30);
 		dayCOut.setBackground(Color.WHITE);
@@ -336,11 +350,11 @@ public class BookRoomView extends JDialog{
 		String id = identificationNumberField.getText();
 		
 		if (id.isEmpty() || questQuantityBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null || roomBox.getSelectedItem() == null) 
-			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+			JOptionPane.showMessageDialog(this, "KhÃ´ng Ä‘Æ°á»£c bá»� trá»‘ng");
 		else if (!id.matches("\\d{12}")) 
-	        JOptionPane.showMessageDialog(this, "ID phải có đúng 12 số");
+	        JOptionPane.showMessageDialog(this, "ID pháº£i cÃ³ Ä‘Ãºng 12 sá»‘");
 		else if (GuestDAO.getInstance().getGuestById(id) != null && identificationNumberField.isEnabled()==true) 
-	        JOptionPane.showMessageDialog(this, "ID đã tồn tại");
+	        JOptionPane.showMessageDialog(this, "ID Ä‘Ã£ tá»“n táº¡i");
 
 			//this.dispose();
 		}

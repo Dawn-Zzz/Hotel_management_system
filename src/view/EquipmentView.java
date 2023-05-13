@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import javax.swing.table.TableRowSorter;
 import DAO.EquipmentDAO;
 import controller.EquipmentController;
 import view.editComponent.Button;
+import view.editComponent.Combobox;
 import view.editComponent.Table;
 import view.editComponent.TextField;
 
@@ -61,6 +63,7 @@ public class EquipmentView extends JPanel {
 		roomType.setBorder(null);
 		
 		bedList.setBounds(0,30,20,20);
+		bedList.setModel(new DefaultComboBoxModel(RoomList));
 		bedList.setPreferredSize(new Dimension(129,25));
 		bedList.setBackground(Color.WHITE);
 		bedList.addActionListener(actionListener);
@@ -81,8 +84,10 @@ public class EquipmentView extends JPanel {
 		equipmentTypeList.setBorder(null);
 		
 		equipmentList.setBounds(0,20,32,20);
+		equipmentList.setModel(new DefaultComboBoxModel(EquipmentList));
 		equipmentList.setPreferredSize(new Dimension(129,25));
 		equipmentList.setBackground(Color.WHITE);
+		equipmentList.setFocusable(false);
 		equipmentList.addActionListener(actionListener);
 		
 		equipmentStatusSearch.setBounds(10, 215, 129, 150);
@@ -101,8 +106,10 @@ public class EquipmentView extends JPanel {
 		equipmentStatusList.setBorder(null);
 		
 		statusList.setBounds(0,20,32,20);
+		statusList.setModel(new DefaultComboBoxModel(StatusList));
 		statusList.setPreferredSize(new Dimension(129,25));
 		statusList.setBackground(Color.WHITE);
+		statusList.setFocusable(false);
 		statusList.addActionListener(actionListener);
 		
 		mainContent.setBounds(150,0,1020-150-64,690);
@@ -194,15 +201,15 @@ public class EquipmentView extends JPanel {
 	private JPanel subBar = new JPanel();
 	private JPanel roomSearch = new JPanel();
 	private JLabel roomType = new JLabel();
-	private JComboBox bedList = new JComboBox(RoomList);
+	private JComboBox bedList = new Combobox();
 	
 	private JPanel equipmentTypeSearch = new JPanel();
 	private JLabel equipmentTypeList = new JLabel();
-	private JComboBox equipmentList = new JComboBox(EquipmentList);
+	private JComboBox equipmentList = new Combobox();
 	
 	private JPanel equipmentStatusSearch = new JPanel();
 	private JLabel equipmentStatusList = new JLabel();
-	private JComboBox statusList = new JComboBox(StatusList);
+	private JComboBox statusList = new Combobox();
 	//main section
 	private JPanel mainContent = new JPanel();
 	private JPanel mainEquipmentTable = new JPanel();
