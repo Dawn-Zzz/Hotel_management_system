@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.AddGuestView;
+import view.GuestView;
 
 public class AddGuestController implements ActionListener {
 	private AddGuestView addGuestView;
+	private GuestView guestView = GuestView.getInstance();
 	
 	public AddGuestController(AddGuestView addGuestView) {
 		super();
@@ -17,6 +19,6 @@ public class AddGuestController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		this.addGuestView.addGuestAction();
-		this.addGuestView.getParentView().resetGuestTable();
+		this.guestView.resetGuestTable();
 	}		
 }

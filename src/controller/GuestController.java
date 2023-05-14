@@ -42,15 +42,23 @@ public class GuestController implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("Add Guest")) {
-			addGuestView = new AddGuestView(guestView);
+			addGuestView = new AddGuestView();
 			addGuestView.setVisible(true);
 		}
 		else {
 			if (e.getSource() == guestView.getYearList()) {
-				guestView.getMonthList().setSelectedIndex(-1);
-				guestView.getDayList().setSelectedIndex(-1);
-				guestView.getMonthList().setEnabled(true);
-		        guestView.getDayList().setEnabled(false);
+				if (guestView.getYearList().getSelectedItem() !="All") {
+					guestView.getMonthList().setSelectedIndex(-1);
+					guestView.getDayList().setSelectedIndex(-1);
+					guestView.getMonthList().setEnabled(true);
+			        guestView.getDayList().setEnabled(false);
+				} 
+				else {
+					guestView.getMonthList().setSelectedIndex(-1);
+					guestView.getDayList().setSelectedIndex(-1);
+					guestView.getMonthList().setEnabled(false);
+			        guestView.getDayList().setEnabled(false);
+				}
 			} 
 			else if (e.getSource() == guestView.getMonthList() && guestView.getMonthList().getSelectedIndex() != -1) {
 				updateDayComboBox();
@@ -78,7 +86,7 @@ public class GuestController implements ActionListener, MouseListener {
 	private void searchEvent(JTable table, JTextField textField) {
 		String time = "";
 		Integer year;
-		if (guestView.getYearList().getSelectedItem() != null) {
+		if (guestView.getYearList().getSelectedItem() != null && guestView.getYearList().getSelectedItem()!="All") {
 			year = (Integer) guestView.getYearList().getSelectedItem();
 			time = time + year.toString();
 		}
@@ -140,7 +148,7 @@ public class GuestController implements ActionListener, MouseListener {
 		      JMenuItem menuItem = new JMenuItem("Chỉnh sửa thông tin");
 		      menuItem.addActionListener(new ActionListener() {
 		         public void actionPerformed(ActionEvent e) {
-		        	 AddGuestView addGuestView = new AddGuestView(guestView);
+		        	 AddGuestView addGuestView = new AddGuestView();
 		        	 addGuestView.getGuestNameField().setText((String) guestView.getGuestTable().getValueAt(row, 0));
 		        	 addGuestView.getIdentificationNumberField().setText((String) guestView.getGuestTable().getValueAt(row, 1));
 		        	 addGuestView.getIdentificationNumberField().setEnabled(false);

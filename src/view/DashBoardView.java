@@ -148,7 +148,7 @@ public class DashBoardView extends JPanel{
 	
 	private int getCountAvailable() {
 		for(int i = 0; i < 36; i++) {
-			if(roomView.getCurrentStatus()[i] == "Vacant") {
+			if(roomView.getRoomList().get(i).getCurrentStatus().equals("0")) {
 				countAvailable++;
 			}
 		}
@@ -157,7 +157,7 @@ public class DashBoardView extends JPanel{
 	
 	private int getCountDamaged() {
 		for(int i = 0; i < 36; i++) {
-			if(roomView.getCurrentStatus()[i] == "Room Off") {
+			if(roomView.getRoomList().get(i).getCurrentStatus().equals("2")) {
 				countDamaged++;
 			}
 		}
@@ -166,7 +166,6 @@ public class DashBoardView extends JPanel{
 	
 	public void resetDashBoard() {
 		totalGuestQuantity.setText(""+guestView.getCountGuests());
-		System.out.println(guestView.getCountGuests());	
 	}
 	
 	private String AvailableQuantity = "" + getCountAvailable();

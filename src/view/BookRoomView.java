@@ -84,12 +84,12 @@ public class BookRoomView extends JDialog{
 	
 	public BookRoomView() {
 		//khá»Ÿi táº¡o giÃ¡ trá»‹ cÃ¡c phÃ²ng
-		List<String> roomValues = new ArrayList<>();
-		for (int i = 1; i <= 6; i++) {
-		    for (int j = 1; j <= 6; j++) {
-		    	roomValues.add(i + "0" + j);
-		    }
-		}
+//		List<String> roomValues = new ArrayList<>();
+//		for (int i = 1; i <= 6; i++) {
+//		    for (int j = 1; j <= 6; j++) {
+//		    	roomValues.add(i + "0" + j);
+//		    }
+//		}
 		
 		// Khá»Ÿi táº¡o máº£ng giá»�
 		String[] hours = new String[24];
@@ -129,10 +129,11 @@ public class BookRoomView extends JDialog{
 		questQuantityBox.setBounds(50,110,340,30);
 		questQuantityBox.setBackground(Color.WHITE);
 		questQuantityBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		for(int i = 1; i <= 3 ; i++) {
+		for(int i = 1; i <= 8 ; i++) {
 			questQuantityBox.addItem(i);
 		}
 		questQuantityBox.setSelectedIndex(-1);
+		questQuantityBox.addActionListener(actionListener);
 		
 		rentalType.setBounds(50,160,120,30);
 		rentalType.setText("Rental Type");
@@ -168,10 +169,10 @@ public class BookRoomView extends JDialog{
 		roomBox = new Combobox();
 		roomBox.setMaximumRowCount(4);
 		roomBox.setBounds(420,190,340,30);
-		roomBox.setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
+//		roomBox.setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		roomBox.setSelectedIndex(-1);
+		roomBox.setEnabled(false);
 		roomBox.setFocusable(false);
 		
 		checkIn.setBounds(50,240,150,30);
@@ -346,16 +347,22 @@ public class BookRoomView extends JDialog{
 		return advanceBooking;
 	}
 	
+	public Combobox<Integer> getQuestQuantityBox() {
+		return questQuantityBox;
+	}
+
+	public Combobox getRoomBox() {
+		return roomBox;
+	}
+
 	public void addGuestAction () {
 		String id = identificationNumberField.getText();
-		
 		if (id.isEmpty() || questQuantityBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null || roomBox.getSelectedItem() == null) 
-			JOptionPane.showMessageDialog(this, "KhÃ´ng Ä‘Æ°á»£c bá»� trá»‘ng");
+			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
 		else if (!id.matches("\\d{12}")) 
-	        JOptionPane.showMessageDialog(this, "ID pháº£i cÃ³ Ä‘Ãºng 12 sá»‘");
-		else if (GuestDAO.getInstance().getGuestById(id) != null && identificationNumberField.isEnabled()==true) 
-	        JOptionPane.showMessageDialog(this, "ID Ä‘Ã£ tá»“n táº¡i");
-
+	        JOptionPane.showMessageDialog(this, "ID phải có 12 số");
+		else if (GuestDAO.getInstance().getGuestById(id) == null) 
+	        JOptionPane.showMessageDialog(this, "ID khách hàng không tồn tại. Hãy thêm khách hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
 			//this.dispose();
 		}
 	

@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -29,6 +30,7 @@ import view.editComponent.TextField;
 
 public class GuestView extends JPanel {
 	private ActionListener actionListener = new GuestController(this);
+	private MouseListener mouseListener = new GuestController(this);
 	private Calendar calendar;
 	private static GuestView instance;
 	public static GuestView getInstance() {
@@ -39,7 +41,7 @@ public class GuestView extends JPanel {
 	}
 	private int guestsCount;
 	
-	public GuestView() {
+	private GuestView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
@@ -48,11 +50,10 @@ public class GuestView extends JPanel {
 		yearList = new Combobox<>();
 		calendar = Calendar.getInstance();
 		int currentYear = calendar.get(Calendar.YEAR);
-//        yearList.addItem("All");
+		yearList.addItem("All");
         for (int year = currentYear - 80; year <= currentYear - 18; year++) {
             yearList.addItem(year);
         }
-        yearList.setSelectedIndex(-1);
         yearList.addActionListener(actionListener);
         yearList.setFocusable(false);
         
@@ -220,6 +221,7 @@ public class GuestView extends JPanel {
 		
 		GuestDAO.getInstance().selectAll(guestTable);
 		guestsCount = guestTable.getModel().getRowCount();
+		guestTable.addMouseListener(mouseListener);
 		this.setVisible(false);
 	}
 	
@@ -231,8 +233,6 @@ public class GuestView extends JPanel {
 		((DefaultTableModel) guestTable.getModel()).setRowCount(0);
 		GuestDAO.getInstance().selectAll(guestTable);
 		guestsCount = guestTable.getModel().getRowCount();
-		System.out.println("Abc " + guestsCount);
-		System.out.println(getCountGuests());
 	}
 	
 	public Combobox<Integer> getYearList() {
@@ -258,7 +258,7 @@ public class GuestView extends JPanel {
 	}
 
 	public void setIndexComboBox () {
-		yearList.setSelectedIndex(-1);
+		yearList.setSelectedIndex(0);
 		monthList.setSelectedIndex(-1);
 		dayList.setSelectedIndex(-1);
 		monthList.setEnabled(false);
@@ -281,7 +281,7 @@ public class GuestView extends JPanel {
 	JLabel searchYear = new JLabel();
 	JLabel searchMonth = new JLabel();
 	JLabel searchDay = new JLabel();
-	private Combobox<Integer> yearList;
+	private Combobox yearList;
 	private Combobox<Integer> monthList; 
 	private Combobox<Integer> dayList;
 	

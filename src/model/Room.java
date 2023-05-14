@@ -7,5 +7,11 @@ public class Room {
 		super();
 		this.numberRoom = numberRoom;
 		this.currentStatus = currentStatus;
-	}	
+	}
+	public String getNumberRoom() {
+		return numberRoom;
+	}
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
 }

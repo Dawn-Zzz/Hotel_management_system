@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -21,7 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.ReservationDAO;
+import DAO.RoomDAO;
 import controller.RoomController;
+import model.Room;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
 import view.editComponent.Table;
@@ -241,75 +244,9 @@ public class RoomView extends JPanel{
 	private Table roomTable = new Table();
 	JScrollPane jScrollPane1 = new JScrollPane();
 	
-	private JButton RoomList[] = new JButton[36];
-	String CurrentStatus[] = new String[36];
-	
-
-	public String[] getCurrentStatus() {
-		return CurrentStatus;
-	}
-
-	public void setCurrentStatus(String[] CurrentStatus) {
-		this.CurrentStatus = CurrentStatus;
-	}
-
-	public void addRoom(JPanel mainRoomList) {
-		for(int i = 0; i < 36; i++) {
-			if(i < 6) {
-				CurrentStatus[i] = "Vacant";
-				RoomList[i] = new JButton("Vacant");
-				RoomList[i].setText("10" + (i+1));
-			}
-			else if(i < 12){
-				CurrentStatus[i] = "Book In Advance";
-				RoomList[i] = new JButton();
-				RoomList[i].setText("20" + (i-6+1));
-			}
-			else if(i < 18){
-				CurrentStatus[i] = "Room Off";
-				RoomList[i] = new JButton();
-				RoomList[i].setText("30" + (i-12+1));
-			}
-			else if(i < 24){
-				CurrentStatus[i] = "Vacant";
-				RoomList[i] = new JButton();
-				RoomList[i].setText("40" + (i-18+1));
-			}
-			else if(i < 30){
-				CurrentStatus[i] = "Occupied";
-				RoomList[i] = new JButton();
-				RoomList[i].setText("50" + (i-24+1));
-			}
-			else {
-				CurrentStatus[i] = "Room Off";
-				RoomList[i] = new JButton();
-				RoomList[i].setText("60" + (i-30+1));
-			}
-				
-			if(CurrentStatus[i] == "Room Off") {
-				RoomList[i].setBackground(new Color(225,185,183));
-				RoomList[i].setForeground(new Color(184,0,0));
-			}
-			else if(CurrentStatus[i] == "Occupied") {
-				RoomList[i].setBackground(new Color(216,251,219));
-				RoomList[i].setForeground(new Color(0,139,2));
-			}
-			else if(CurrentStatus[i] == "Book In Advance") {
-				RoomList[i].setBackground(new Color(253,247,218));
-				RoomList[i].setForeground(new Color(194,157,5));
-			}
-			else {
-				RoomList[i].setBackground(new Color(241,243,255));
-				RoomList[i].setForeground(new Color(102,0,204));
-			}
-			RoomList[i].setBorder(BorderFactory.createMatteBorder(0,0,1,1,new Color(221,221,221)));
-			RoomList[i].setFont(new Font("Inter", Font.BOLD, 16));
-			RoomList[i].setFocusable(false);
-			RoomList[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
-			RoomList[i].addActionListener(actionListener);
-			mainRoomList.add(RoomList[i]);
-		}
-	}
+	private JButton roomButtonList[] = new JButton[36];
+//	String CurrentStatus[] = new String[36];
+	private ArrayList<Room> roomList = new RoomDAO().getInstance().selectAll();
 
 	public JPanel getMainRoomList() {
 		return mainRoomList;
@@ -349,6 +286,42 @@ public class RoomView extends JPanel{
 
 	public void setSearchBox(JTextField searchBox) {
 		this.searchBox = searchBox;
+	}
+	
+	public JButton[] getRoomButtonList() {
+		return roomButtonList;
+	}
+
+	public ArrayList<Room> getRoomList() {
+		return roomList;
+	}
+
+	public void addRoom(JPanel mainRoomList) {
+		for(int i = 0; i < roomList.size(); i++) {
+			roomButtonList[i] = new JButton(roomList.get(i).getNumberRoom());
+			if(roomList.get(i).getCurrentStatus().equals("0")) {
+				roomButtonList[i].setBackground(new Color(241,243,255));
+				roomButtonList[i].setForeground(new Color(102,0,204));
+			}
+			else if(roomList.get(i).getCurrentStatus().equals("1")) {
+				roomButtonList[i].setBackground(new Color(216,251,219));
+				roomButtonList[i].setForeground(new Color(0,139,2));
+			}
+//			else if(CurrentStatus[i] == "Book In Advance") {
+//				RoomList[i].setBackground(new Color(253,247,218));
+//				RoomList[i].setForeground(new Color(194,157,5));
+//			}
+			else {
+				roomButtonList[i].setBackground(new Color(225,185,183));
+				roomButtonList[i].setForeground(new Color(184,0,0));
+			}
+			roomButtonList[i].setBorder(BorderFactory.createMatteBorder(0,0,1,1,new Color(221,221,221)));
+			roomButtonList[i].setFont(new Font("Inter", Font.BOLD, 16));
+			roomButtonList[i].setFocusable(false);
+			roomButtonList[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+			roomButtonList[i].addActionListener(actionListener);
+			mainRoomList.add(roomButtonList[i]);
+		}
 	}
 	
 }
