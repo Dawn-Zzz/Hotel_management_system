@@ -32,7 +32,6 @@ import controller.AddGuestController;
 import view.editComponent.Button;
 
 public class AddGuestView extends JDialog{
-	private GuestView parentView;
 	
 	private JLabel guestInfor = new JLabel();
 	
@@ -60,8 +59,8 @@ public class AddGuestView extends JDialog{
 	
 	private ActionListener actionListener = new AddGuestController(this);
 	
-	public AddGuestView(GuestView parentView) {
-		this.parentView = parentView;
+	public AddGuestView() {
+//		this.parentView = parentView;
 		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
@@ -200,9 +199,9 @@ public class AddGuestView extends JDialog{
 		return vipCheckBox;
 	}
 
-	public GuestView getParentView() {
-		return parentView;
-	}
+//	public GuestView getParentView() {
+//		return parentView;
+//	}
 
 	public void addGuestAction () {
 		String id = identificationNumberField.getText();

@@ -22,7 +22,7 @@ public class ReservationDAO {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT kh.TenKhachHang, ptp.MaPhong, ptp.HinhThucThue, ptp.ThoiGianNhanPhong, ptp.ThoiGianTraPhong, ptp.SoNguoiO "
 					+ "FROM phieuthuephong ptp "
-					+ "INNER JOIN khachhang kh ON ptp.CCCD = kh.CCCD;";
+					+ "INNER JOIN khachhang kh ON ptp.MaKhachHang = kh.MaKhachHang;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {

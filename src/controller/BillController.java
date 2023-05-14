@@ -39,10 +39,18 @@ public class BillController implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == billView.getYearList()) {
-			billView.getMonthList().setSelectedIndex(-1);
-			billView.getDayList().setSelectedIndex(-1);
-			billView.getMonthList().setEnabled(true);
-	        billView.getDayList().setEnabled(false);
+			if (billView.getYearList().getSelectedItem() !="All") {
+				billView.getMonthList().setSelectedIndex(-1);
+				billView.getDayList().setSelectedIndex(-1);
+				billView.getMonthList().setEnabled(true);
+				billView.getDayList().setEnabled(false);
+			} 
+			else {
+				billView.getMonthList().setSelectedIndex(-1);
+				billView.getDayList().setSelectedIndex(-1);
+				billView.getMonthList().setEnabled(false);
+				billView.getDayList().setEnabled(false);
+			}
 		} 
 		else if (e.getSource() == billView.getMonthList() && billView.getMonthList().getSelectedIndex() != -1) {
 			updateDayComboBox();
@@ -70,7 +78,7 @@ public class BillController implements ActionListener, MouseListener{
 	private void searchEvent(JTable table, JTextField textField) {
 		String time = "";
 		Integer year;
-		if (billView.getYearList().getSelectedItem() != null) {
+		if (billView.getYearList().getSelectedItem() != null && billView.getYearList().getSelectedItem()!="All") {
 			year = (Integer) billView.getYearList().getSelectedItem();
 			time = time + year.toString();
 		}
@@ -143,11 +151,6 @@ public class BillController implements ActionListener, MouseListener{
 	        billDetailView.getTotalService().setText("Total: " + df.format(bill.getTotalService()));
 	        OrderServiceDAO.getInstance().selectOrderServiceByID(id, billDetailView.getServiceInforTable());
 	        OrderRoomDAO.getInstance().selectOrderRoomByID(id, billDetailView.getRoomInforTable());
-//          billDetailView.getGuestName().setText("Guest: " + billView.getBillTable().getValueAt(row, 1));
-//          billDetailView.getDate().setText("Date: " + billView.getBillTable().getValueAt(row, 2));
-//          billDetailView.getTotalMoney().setText("Total Money: " + billView.getBillTable().getValueAt(row, 3));
-//          billDetailView.getInvoicingStaff().setText("Invoicing Staff: " + billView.getBillTable().getValueAt(row, 4));
-            
             billDetailView.setVisible(true);
         }
 	}

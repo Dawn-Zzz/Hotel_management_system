@@ -36,10 +36,10 @@ public class BillView extends JPanel{
 		yearList = new Combobox<>();
 		calendar = Calendar.getInstance();
 		int currentYear = calendar.get(Calendar.YEAR);
+		yearList.addItem("All");
         for (int year = currentYear - 10; year <= currentYear; year++) {
             yearList.addItem(year);
         }
-        yearList.setSelectedIndex(-1);
         yearList.addActionListener(actionListener);
         
 		monthList = new Combobox<>();
@@ -223,7 +223,7 @@ public class BillView extends JPanel{
 	}
 	
 	public void setIndexComboBox () {
-		staffList.setSelectedIndex(-1);
+		staffList.setSelectedIndex(0);
 		yearList.setSelectedIndex(-1);
 		monthList.setSelectedIndex(-1);
 		dayList.setSelectedIndex(-1);
@@ -242,7 +242,7 @@ public class BillView extends JPanel{
 	private	JLabel searchMonth = new JLabel();
 	private	JLabel searchDay = new JLabel();
 	
-	private Combobox<Integer> yearList;
+	private Combobox yearList;
 	private Combobox<Integer> monthList; 
 	private Combobox<Integer> dayList;
 	//main section

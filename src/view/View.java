@@ -25,7 +25,14 @@ public class View extends JFrame{
 	private JButton roomButton = new JButton("3");
 	private JButton serviceButton = new JButton("4");
 	private JButton billButton = new JButton("5");
-	private ActionListener actionListener;
+	private ActionListener actionListener = new NavController(this);
+	private static View instance;
+	public static View getInstance() {
+		if (instance==null) {
+			instance = new View();
+		}
+		return instance;
+	}
 	
 	public View() {
 		initView();
@@ -43,9 +50,9 @@ public class View extends JFrame{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.add(leftBar);
 		this.add(otherBar);
+		this.add(leftBar);
+		this.setVisible(true);
 	}
 	
 	public JPanel getOtherBar() {
@@ -130,10 +137,8 @@ public class View extends JFrame{
 	}
 	
 	public void otherSection() {
-		otherBar.setVisible(true);
 		otherBar.setLayout(null);
 		otherBar.setBounds(64,0,1020-84,720);
-		
 		logOutButton.setText("Log Out");
 		logOutButton.setForeground(Color.WHITE);
 		logOutButton.setBounds(1020-174,25,80,40);
@@ -142,7 +147,6 @@ public class View extends JFrame{
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
 		
-		otherBar.add(logOutButton);
-		actionListener = new NavController(this);
+		otherBar.add(logOutButton,0);
 	}
 }
