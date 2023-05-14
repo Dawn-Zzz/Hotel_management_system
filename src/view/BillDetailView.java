@@ -36,7 +36,7 @@ public class BillDetailView extends JDialog {
 	private ActionListener actionListener = new BillDetailController(this);
 	
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
-	public static JPanel panel = new JPanel();
+	//public static JPanel panel = new JPanel();
 	private JLabel billID = new JLabel();
 	private JButton exportPDFButton = new Button();
 	
@@ -55,8 +55,8 @@ public class BillDetailView extends JDialog {
 	
 	public BillDetailView() {
 		
-		panel.setBounds(0,0,700,600);
-		panel.setBackground(Color.WHITE);
+//		panel.setBounds(0,0,700,600);
+//		panel.setBackground(Color.WHITE);
 		
 		billID.setBounds(50,20,250,30);
 //		billID.setText("Bill ID: BO1");
@@ -143,7 +143,7 @@ public class BillDetailView extends JDialog {
 		roomInforTable.setColumnWidth(4,100);
         
         totalRoom.setBounds(510,320,150,30);
-        totalRoom.setText("Total: 600.000");
+        //totalRoom.setText("Total: 600.000");
         totalRoom.setFont(new Font("Arial",Font.BOLD,14));
         totalRoom.setForeground(Color.BLACK);
         totalRoom.setBackground(Color.WHITE);
@@ -184,30 +184,30 @@ public class BillDetailView extends JDialog {
         });
         
         totalService.setBounds(510,500,150,30);
-        totalService.setText("Total: 200.000");
+        //totalService.setText("Total: 200.000");
         totalService.setFont(new Font("Arial",Font.BOLD,14));
         totalService.setForeground(Color.BLACK);
         totalService.setBackground(Color.WHITE);
         
-        //this.getContentPane().setBackground(Color.WHITE);
+        this.getContentPane().setBackground(Color.WHITE);
         this.setSize(700,600);
 		//this.setBounds(0,0,700,600);
 		this.setIconImage(image.getImage());
 		this.setLayout(null);
-		panel.add(billID);
-		panel.add(exportPDFButton);
-		panel.add(guestName);
-		panel.add(date);
-		panel.add(invoicingStaff);
-		panel.add(totalMoney);
-		panel.add(mainTable1);
-		panel.add(totalRoom);
-		panel.add(mainTable2);
-		panel.add(totalService);
-		panel.setLayout(null);
+		this.add(billID);
+		this.add(exportPDFButton);
+		this.add(guestName);
+		this.add(date);
+		this.add(invoicingStaff);
+		this.add(totalMoney);
+		this.add(mainTable1);
+		this.add(totalRoom);
+		this.add(mainTable2);
+		this.add(totalService);
+		this.setLayout(null);
 		this.setLocationRelativeTo(null);
 		this.setModal(true);
-		this.add(panel);
+		//this.add(panel);
 		this.setVisible(false);
 	}
 

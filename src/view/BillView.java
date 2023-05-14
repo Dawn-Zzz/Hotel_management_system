@@ -27,7 +27,14 @@ public class BillView extends JPanel{
 	private ActionListener actionListener = new BillController(this);
 	private MouseListener mouseListener = new BillController(this);
 	private Calendar calendar;
-	public BillView() {
+	private static BillView instance;
+	public static BillView getInstance() {
+		if (instance==null) {
+			instance = new BillView();
+		}
+		return instance;
+	}
+	private BillView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
