@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -18,8 +20,12 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import DAO.ReservationDAO;
 import DAO.RoomDAO;
@@ -201,6 +207,7 @@ public class RoomView extends JPanel{
 		roomTable.setColumnWidth(6,140);
 		
 		ReservationDAO.getInstance().selectAll(roomTable);
+		SearchTable(roomTable, searchBox);
 		
 		searchBar.setBounds(0,0,1020-150-64,85);
 		searchBar.setLayout(null);
@@ -216,7 +223,7 @@ public class RoomView extends JPanel{
 	}
 	
 	String bedType[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
-	String statusType[] = {"All", "Vacant", "Occupied", "Room off" , "Book in advance"};
+	String statusType[] = {"All", "Đã Nhận Phòng", "Đã Trả Phòng", "Đã Huỷ Phòng" , "Chưa Nhận Phòng"};
 
 	//sub bar
 	private JPanel subBar = new JPanel();
@@ -248,6 +255,21 @@ public class RoomView extends JPanel{
 //	String CurrentStatus[] = new String[36];
 	private ArrayList<Room> roomList = new RoomDAO().getInstance().selectAll();
 
+	private void SearchTable(JTable table, JTextField textField) {
+		TableRowSorter<TableModel> sorter1 = new TableRowSorter<>(table.getModel());
+		table.setRowSorter(sorter1);
+		textField.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				String input = textField.getText().trim();
+				if (input.length() == 0) {
+					sorter1.setRowFilter(null);
+				} else {
+					sorter1.setRowFilter(RowFilter.regexFilter("(?i)" + input));
+				}
+			}
+		});
+	}
+	
 	public JPanel getMainRoomList() {
 		return mainRoomList;
 	}
