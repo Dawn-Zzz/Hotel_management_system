@@ -26,13 +26,13 @@ public class View extends JFrame{
 	private JButton serviceButton = new JButton("4");
 	private JButton billButton = new JButton("5");
 	private ActionListener actionListener = new NavController(this);
-	private static View instance;
-	public static View getInstance() {
-		if (instance==null) {
-			instance = new View();
-		}
-		return instance;
-	}
+//	private static View instance;
+//	public static View getInstance() {
+//		if (instance==null) {
+//			instance = new View();
+//		}
+//		return instance;
+//	}
 	
 	public View() {
 		initView();

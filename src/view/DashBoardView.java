@@ -140,7 +140,7 @@ public class DashBoardView extends JPanel{
 		
 		this.setVisible(true);
 	}
-	private RoomView roomView = new RoomView();
+	private RoomView roomView = RoomView.getInstance();
 	private GuestView guestView = GuestView.getInstance();
 	int countAvailable = 0;
 	int countDamaged = 0;
