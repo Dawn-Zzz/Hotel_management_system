@@ -14,7 +14,7 @@ public class NavController implements ActionListener{
 	private View buttonView;
 	private DashBoardView dashBoardView = new DashBoardView();
 	private GuestView guestView = GuestView.getInstance();
-	private RoomView roomView = new RoomView();
+	private RoomView roomView = RoomView.getInstance();
 	private EquipmentView equipmentView = new EquipmentView();
 	private BillView billView = BillView.getInstance();
 
