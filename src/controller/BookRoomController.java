@@ -8,7 +8,9 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 				}
 			} else {
 				bookRoomView.setComboBoxRentByTheHour();
+				bookRoomView.setInitialTime();
 				bookRoomView.updateMinuteComboBox();
 				bookRoomView.setTimeOneHourAfterCheckin();
 			}
@@ -178,7 +181,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 		}
 		if (evt.getSource() == bookRoomView.getDayCIn() || evt.getSource() == bookRoomView.getDayCOut()) {
 			Date currentDate = new Date(); // Ngày hiện tại
-			bookRoomView.getDayCIn().setMinSelectableDate(currentDate);
+			bookRoomView.getDayCIn().setMinSelectableDate(Date.from(LocalDate.now().plusDays(LocalTime.now().isAfter(LocalTime.of(23, 30)) ? 1 : 0).atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			bookRoomView.getDayCOut().setMinSelectableDate(bookRoomView.getDayCIn().getDate());
 			bookRoomView.getDayCOut().setMaxSelectableDate(null);
 			// Nếu đang là theo ngày
@@ -207,8 +210,8 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 			else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Rent By The Hour")) {
 				isSettingTime = true;
 				if (evt.getSource() == bookRoomView.getDayCIn()) {
-					bookRoomView.updateMinuteComboBox();
 					bookRoomView.setInitialTime();
+					bookRoomView.updateMinuteComboBox();
 					bookRoomView.setTimeOneHourAfterCheckin();
 				}
 				else {
