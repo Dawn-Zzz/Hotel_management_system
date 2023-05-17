@@ -32,8 +32,14 @@ import view.editComponent.TextField;
 
 public class RoomView extends JPanel{
 	private ActionListener actionListener = new RoomController(this);
-	
-	public RoomView() {
+	private static RoomView instance;
+	public static RoomView getInstance() {
+		if (instance==null) {
+			instance = new RoomView();
+		}
+		return instance;
+	}
+	private RoomView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);

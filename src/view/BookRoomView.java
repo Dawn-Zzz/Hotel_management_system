@@ -1,24 +1,25 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.sql.Date;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ import view.editComponent.Combobox;
 public class BookRoomView extends JDialog{
 	private ActionListener actionListener = new BookRoomController(this);
 	private ItemListener itemListener = new BookRoomController(this);
+	private PropertyChangeListener propertyChangeListener = new BookRoomController(this);
 	
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 	private JLabel registrationForm = new JLabel();
@@ -43,7 +45,7 @@ public class BookRoomView extends JDialog{
 	private LocalDate toDay = LocalDate.now();//láº¥y ngÃ y hiá»‡n táº¡i
 	//Ä‘á»‹nh dáº¡ng ngÃ y thÃ¡ng nÄƒm
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	String Date = toDay.format(formatter);
+	String date = toDay.format(formatter);
 	private JLabel dateTime = new JLabel();
 	
 	private JLabel questQuantity = new JLabel();
@@ -84,12 +86,6 @@ public class BookRoomView extends JDialog{
 	
 	public BookRoomView() {
 		//khá»Ÿi táº¡o giÃ¡ trá»‹ cÃ¡c phÃ²ng
-//		List<String> roomValues = new ArrayList<>();
-//		for (int i = 1; i <= 6; i++) {
-//		    for (int j = 1; j <= 6; j++) {
-//		    	roomValues.add(i + "0" + j);
-//		    }
-//		}
 		
 		// Khá»Ÿi táº¡o máº£ng giá»�
 		String[] hours = new String[24];
@@ -98,10 +94,7 @@ public class BookRoomView extends JDialog{
 		}
 
 		// Khá»Ÿi táº¡o máº£ng phÃºt
-		String[] minutes = new String[60];
-		for (int i = 0; i < 60; i++) {
-		    minutes[i] = String.format("%02d", i);
-		}
+		String[] minutes = {"00","30"};
 		
 		registrationForm.setBounds(50,10,250,30);
 		registrationForm.setText("Registration Form");
@@ -112,7 +105,7 @@ public class BookRoomView extends JDialog{
 		registrationForm.setBorder(null);
 		
 		dateTime.setBounds(675,10,90,30);
-		dateTime.setText(Date);
+		dateTime.setText(date);
 		dateTime.setPreferredSize(new Dimension(250,30));
 		dateTime.setFont(new Font("Arial",Font.BOLD,16));
 		dateTime.setForeground(Color.BLACK);
@@ -133,7 +126,6 @@ public class BookRoomView extends JDialog{
 			questQuantityBox.addItem(i);
 		}
 		questQuantityBox.setSelectedIndex(-1);
-		questQuantityBox.addActionListener(actionListener);
 		
 		rentalType.setBounds(50,160,120,30);
 		rentalType.setText("Rental Type");
@@ -146,7 +138,6 @@ public class BookRoomView extends JDialog{
 		rentalTypeBox.setModel(new DefaultComboBoxModel(RentalType));
 		rentalTypeBox.setBackground(Color.WHITE);
 		rentalTypeBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		rentalTypeBox.setSelectedIndex(-1);
 		rentalTypeBox.setFocusable(false);
 		
 		identificationNumber.setBounds(420,80,180,30);
@@ -169,7 +160,6 @@ public class BookRoomView extends JDialog{
 		roomBox = new Combobox();
 		roomBox.setMaximumRowCount(4);
 		roomBox.setBounds(420,190,340,30);
-//		roomBox.setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		roomBox.setEnabled(false);
@@ -187,7 +177,6 @@ public class BookRoomView extends JDialog{
 		hourCIn.setModel(new DefaultComboBoxModel(hours));
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		hourCIn.setSelectedIndex(-1);
 		hourCIn.setFocusable(false);
 		
 		decorationThing1.setBounds(128,270,10,30);
@@ -202,12 +191,12 @@ public class BookRoomView extends JDialog{
 		minuteCIn.setModel(new DefaultComboBoxModel(minutes));
 		minuteCIn.setBackground(Color.WHITE);
 		minuteCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		minuteCIn.setSelectedIndex(-1);
 		minuteCIn.setFocusable(false);
 		
 		dayCIn.setBounds(230,270,160,30);
 		dayCIn.setBackground(Color.WHITE);
 		dayCIn.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		dayCIn.setDate(java.sql.Date.valueOf(toDay));
 		
 		checkOut.setBounds(420,240,150,30);
 		checkOut.setText("Check Out");
@@ -221,7 +210,6 @@ public class BookRoomView extends JDialog{
 		hourCOut.setModel(new DefaultComboBoxModel(hours));
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		hourCOut.setSelectedIndex(-1);
 		hourCOut.setFocusable(false);
 		
 		decorationThing2.setBounds(498,270,10,30);
@@ -236,12 +224,12 @@ public class BookRoomView extends JDialog{
 		minuteCOut.setModel(new DefaultComboBoxModel(minutes));
 		minuteCOut.setBackground(Color.WHITE);
 		minuteCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		minuteCOut.setSelectedIndex(-1);
 		minuteCOut.setFocusable(false);
 		
 		dayCOut.setBounds(600,270,160,30);
 		dayCOut.setBackground(Color.WHITE);
 		dayCOut.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+		dayCOut.setDate(java.sql.Date.valueOf(toDay));
 		
 		bookingGroup1.setBounds(45,340,140,30);
 		bookingGroup1.setForeground(Color.BLACK);
@@ -271,7 +259,6 @@ public class BookRoomView extends JDialog{
 		advanceBooking.setText("Advance Booking");
 		advanceBooking.setBackground(Color.WHITE);
 		advanceBooking.setFocusable(false);
-		advanceBooking.addItemListener(itemListener);
 		
 		deposit.setBounds(420,340,60,30);
 		deposit.setText("Deposit");
@@ -298,7 +285,6 @@ public class BookRoomView extends JDialog{
 		submitButton.setForeground(Color.WHITE);
 		submitButton.setBackground(new Color(39,162,187));
 		submitButton.setFocusable(false);
-		submitButton.addActionListener(actionListener);
 		
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setBounds(0,0,800,560);
@@ -333,6 +319,24 @@ public class BookRoomView extends JDialog{
 		this.setLocationRelativeTo(null);
 		this.setModal(true);
 		this.setVisible(false);
+		
+		updateMinuteComboBox();
+		setInitialTime();
+		setTimeOneHourAfterCheckin();
+		
+		questQuantityBox.addActionListener(actionListener);
+		rentalTypeBox.addActionListener(actionListener);
+		
+		hourCIn.addActionListener(actionListener);
+		minuteCIn.addActionListener(actionListener);
+		dayCIn.addPropertyChangeListener(propertyChangeListener);
+		
+		hourCOut.addActionListener(actionListener);
+		minuteCOut.addActionListener(actionListener);
+		dayCOut.addPropertyChangeListener(propertyChangeListener);
+		
+		advanceBooking.addItemListener(itemListener);
+		submitButton.addActionListener(actionListener);
 	}
 	
 	public JTextField getidentificationNumberField() {
@@ -354,6 +358,38 @@ public class BookRoomView extends JDialog{
 	public Combobox getRoomBox() {
 		return roomBox;
 	}
+	
+	public JLabel getRentalType() {
+		return rentalType;
+	}
+
+	public Combobox<String> getRentalTypeBox() {
+		return rentalTypeBox;
+	}
+	
+	public Combobox<String> getHourCIn() {
+		return hourCIn;
+	}
+
+	public Combobox<String> getMinuteCIn() {
+		return minuteCIn;
+	}
+
+	public JDateChooser getDayCIn() {
+		return dayCIn;
+	}
+
+	public Combobox<String> getHourCOut() {
+		return hourCOut;
+	}
+
+	public Combobox<String> getMinuteCOut() {
+		return minuteCOut;
+	}
+	
+	public JDateChooser getDayCOut() {
+		return dayCOut;
+	}
 
 	public void addGuestAction () {
 		String id = identificationNumberField.getText();
@@ -366,4 +402,134 @@ public class BookRoomView extends JDialog{
 			//this.dispose();
 		}
 	
+	public void setInitialTime() {
+		LocalTime currentTime = LocalTime.now(); // Thời gian hiện tại
+		int currentHour = currentTime.getHour();
+		int currentMinute = currentTime.getMinute();
+
+		if (currentMinute >= 0 && currentMinute < 30) {
+			currentMinute = 30;
+		} else {
+			currentHour++;
+			currentMinute = 0;
+		}
+
+		LocalDateTime initialDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(currentHour, currentMinute));
+
+		hourCIn.setSelectedItem(String.format("%02d", initialDateTime.getHour()));
+	    minuteCIn.setSelectedItem(String.format("%02d", initialDateTime.getMinute()));
+	}
+	
+	public void setTimeOneHourAfterCheckin() {
+	    // Lấy ngày từ startDateChooser
+	    Date startDate = dayCIn.getDate();
+
+	    // Lấy giờ và phút từ combobox
+	    int hour = Integer.parseInt(hourCIn.getSelectedItem().toString());
+	    int minute = Integer.parseInt(minuteCIn.getSelectedItem().toString());
+	    
+	    
+	    // Tạo một đối tượng Calendar và thiết lập thời gian từ startDateChooser
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(startDate);
+	    calendar.set(Calendar.HOUR_OF_DAY, hour);
+	    calendar.set(Calendar.MINUTE, minute);
+
+	    // Thêm 1 tiếng vào thời gian
+	    calendar.add(Calendar.HOUR_OF_DAY, 1);
+
+	    // Lấy thời gian mới từ calendar
+	    Date endDate = calendar.getTime();
+	    
+	    hourCOut.removeAllItems();
+	    for (int h = calendar.get(Calendar.HOUR_OF_DAY); h <= 23; h++) {
+	        hourCOut.addItem(String.format("%02d", h));
+	    }
+	    
+	    // Đặt giờ và phút mới cho combobox
+	    hourCOut.setSelectedItem(String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)));
+	    minuteCOut.setSelectedItem(String.format("%02d", calendar.get(Calendar.MINUTE)));
+	    // Đặt ngày mới cho endDateChooser
+	    dayCOut.setDate(endDate);
+	}
+	
+	public void setComboBoxRentByTheHour() {
+		hourCIn.setEnabled(true);
+		minuteCIn.setEnabled(true);
+		hourCOut.setEnabled(true);
+	    minuteCOut.setEnabled(true);
+	}
+	
+	public void setComboBoxOvernightRental () {
+		hourCIn.setEnabled(true);
+		minuteCIn.setEnabled(true);
+	    hourCOut.addItem(String.format("%02d", 8));
+	    hourCOut.setSelectedItem("08");
+	    minuteCOut.setSelectedItem("00");
+	    hourCOut.setEnabled(false);
+	    minuteCOut.setEnabled(false);
+	}
+	
+	public void setComboBoxRentForTheDay() {
+		hourCIn.removeAllItems();
+	    hourCIn.addItem(String.format("%02d", 12));
+		hourCOut.removeAllItems();
+	    hourCOut.addItem(String.format("%02d", 11));
+	    hourCIn.setEnabled(false);
+		minuteCIn.setEnabled(false);
+		hourCOut.setEnabled(false);
+		minuteCOut.setEnabled(false);
+		hourCIn.setSelectedItem("12");
+		minuteCIn.setSelectedItem("00");
+		hourCOut.setSelectedItem("11");
+		minuteCOut.setSelectedItem("00");
+		dayCOut.setDate(Date.from(dayCIn.getDate().toInstant().plus(1, ChronoUnit.DAYS)));
+	}
+	
+	public void updateMinuteComboBox() {
+		if (dayCIn.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(toDay)){ 
+			LocalTime currentTime = LocalTime.now(); // Thời gian hiện tại
+			int currentHour = currentTime.getHour();
+			int currentMinute = currentTime.getMinute();
+		    
+			if (currentMinute >= 0 && currentMinute < 30) {
+				currentMinute = 30;
+			} else {
+				currentHour++;
+				currentMinute = 0;
+			}
+			
+		    int selectedHour = Integer.parseInt(hourCIn.getSelectedItem().toString());
+		    
+		    minuteCIn.removeAllItems();
+		    if (selectedHour == currentHour) {
+		    	if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(1).equals("30"))
+		    		minuteCIn.addItem("30");
+		    } else {
+		    	if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(0).equals("00"))
+		    		minuteCIn.addItem("00");
+		    	if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(1).equals("30"))
+		    		minuteCIn.addItem("30");
+		    }
+		    if (hourCIn.getItemCount() != (23-currentHour+1)) {
+			    hourCIn.removeAllItems();
+			    for (int hour = currentHour; hour <= 23; hour++) {
+				    String hourString = String.format("%02d", hour);
+				    hourCIn.addItem(hourString);
+				}
+		    }
+		}
+		else {
+			 minuteCIn.removeAllItems();
+			 minuteCIn.addItem("00");
+		     minuteCIn.addItem("30");
+		     if (hourCIn.getItemCount() < 24) {
+		     hourCIn.removeAllItems();
+			    for (int hour = 0; hour <= 23; hour++) {
+				    String hourString = String.format("%02d", hour);
+				    hourCIn.addItem(hourString);
+				}
+		     }
+		}
+	}
 }
