@@ -1,14 +1,12 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.ConnectDatabase;
-import model.Guest;
 import model.Room;
 
 public class RoomDAO {
