@@ -200,23 +200,26 @@ public class RoomView extends JPanel{
         roomTable.setCellAlignment(5, JLabel.CENTER);
         roomTable.setColumnAlignment(6, JLabel.CENTER);
         roomTable.setCellAlignment(6, JLabel.CENTER);
+        roomTable.setColumnAlignment(7, JLabel.CENTER);
+        roomTable.setCellAlignment(7, JLabel.CENTER);
         roomTable.setFont(new Font("Arial",Font.BOLD,12));
-		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Room", "Rental Type", "Check In", "Check Out", "Room Occupancy","Status"}) {
+		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"NC","Guest Name", "Room", "Rental Type", "Check In", "Check Out", "Headcount","Status"}) {
 	            boolean[] canEdit = new boolean [] {
-	                false, false, false, false, false,false,false
+	                false, false, false, false, false, false, false, false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
 	                return canEdit [columnIndex];
 	            }
 	        });
-		roomTable.setColumnWidth(0,220);
-		roomTable.setColumnWidth(1,60);
-		roomTable.setColumnWidth(2,100);
-		roomTable.setColumnWidth(3,180);
+		roomTable.setColumnWidth(0,35);
+		roomTable.setColumnWidth(1,215);
+		roomTable.setColumnWidth(2,65);
+		roomTable.setColumnWidth(3,95);
 		roomTable.setColumnWidth(4,180);
-		roomTable.setColumnWidth(5,140);
-		roomTable.setColumnWidth(6,140);
+		roomTable.setColumnWidth(5,180);
+		roomTable.setColumnWidth(6,110);
+		roomTable.setColumnWidth(7,150);
 		
 		ReservationDAO.getInstance().selectAll(roomTable);
 		roomTable.addMouseListener(mouseListener);
@@ -286,42 +289,25 @@ public class RoomView extends JPanel{
 		return mainRoomList;
 	}
 
-	public void setMainRoomList(JPanel mainRoomList) {
-		this.mainRoomList = mainRoomList;
-	}
-
 	public JPanel getHistoryRoomList() {
 		return historyRoomList;
-	}
-
-	public void setHistoryRoomList(JPanel historyRoomList) {
-		this.historyRoomList = historyRoomList;
 	}
 
 	public JPanel getRoomSearch() {
 		return roomSearch;
 	}
 
-	public void setRoomSearch(JPanel roomSearch) {
-		this.roomSearch = roomSearch;
-	}
-
 	public JPanel getStatusSearch() {
 		return statusSearch;
-	}
-
-	public void setStatusSearch(JPanel statusSearch) {
-		this.statusSearch = statusSearch;
 	}
 
 	public JTextField getSearchBox() {
 		return searchBox;
 	}
-
-	public void setSearchBox(JTextField searchBox) {
-		this.searchBox = searchBox;
-	}
 	
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
 	public JButton[] getRoomButtonList() {
 		return roomButtonList;
 	}

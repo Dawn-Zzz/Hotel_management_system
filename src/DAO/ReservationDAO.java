@@ -57,12 +57,13 @@ public class ReservationDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT kh.TenKhachHang, ptp.MaPhong, ptp.HinhThucThue, ptp.ThoiGianNhanPhong, ptp.ThoiGianTraPhong, ptp.SoNguoiO, ptp.HienTrang "
+			String sql = "SELECT ptp.MaPhieu, kh.TenKhachHang, ptp.MaPhong, ptp.HinhThucThue, ptp.ThoiGianNhanPhong, ptp.ThoiGianTraPhong, ptp.SoNguoiO, ptp.HienTrang "
 					+ "FROM phieuthuephong ptp "
 					+ "INNER JOIN khachhang kh ON ptp.MaKhachHang = kh.MaKhachHang;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
+				String idReservation = resultSet.getString("MaPhieu");
 				String guestName = resultSet.getString("TenKhachHang");
 				String room = resultSet.getString("MaPhong");
 				String rentalType = resultSet.getString("HinhThucThue");
@@ -70,7 +71,7 @@ public class ReservationDAO {
 				String checkOut = resultSet.getString("ThoiGianTraPhong");
 				String roomOccupancy = resultSet.getString("SoNguoiO");
 				String status = resultSet.getString("HienTrang");
-				Object[] object = {guestName, room,rentalType,checkIn,checkOut,roomOccupancy,status};
+				Object[] object = {idReservation,guestName, room,rentalType,checkIn,checkOut,roomOccupancy,status};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
@@ -108,6 +109,22 @@ public class ReservationDAO {
 		return arrResult;
 	}
 	
+	public int updateStatusReservation (String id, String status) {
+		int result = 0;
+		try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "UPDATE PhieuThuePhong SET HienTrang = ? WHERE MaPhieu = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, status);
+	        preparedStatement.setString(2, id);
+	        result = preparedStatement.executeUpdate();
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return result;
+	}
+	
 	public static String getMaKhachHangByCCCD(String cccd) {
 	    String id = "";
 	    try {
@@ -125,5 +142,4 @@ public class ReservationDAO {
 	    }
 	    return id;
 	}
-
 }
