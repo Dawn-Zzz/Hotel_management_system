@@ -51,6 +51,8 @@ public class NavController implements ActionListener{
 			dashBoardView.setVisible(false);
 			guestView.setVisible(false);
 			roomView.setVisible(true);
+			roomView.getMainRoomList().removeAll();
+			roomView.addRoom(roomView.getMainRoomList());
 			equipmentView.setVisible(false);
 			billView.setVisible(false);
 		}

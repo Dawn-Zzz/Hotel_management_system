@@ -259,7 +259,7 @@ public class RoomView extends JPanel{
 	JScrollPane jScrollPane1 = new JScrollPane();
 	
 	private JButton roomButtonList[] = new JButton[36];
-	private ArrayList<Room> roomList = new RoomDAO().getInstance().selectAll();
+	private ArrayList<Room> roomList;
 
 	private void SearchTable(JTable table, JTextField textField) {
 		TableRowSorter<TableModel> sorter1 = new TableRowSorter<>(table.getModel());
@@ -330,6 +330,7 @@ public class RoomView extends JPanel{
 	}
 
 	public void addRoom(JPanel mainRoomList) {
+		roomList = new RoomDAO().getInstance().selectAll();
 		for(int i = 0; i < roomList.size(); i++) {
 			roomButtonList[i] = new JButton(roomList.get(i).getNumberRoom());
 			if(roomList.get(i).getCurrentStatus().equals("0")) {
@@ -340,10 +341,10 @@ public class RoomView extends JPanel{
 				roomButtonList[i].setBackground(new Color(216,251,219));
 				roomButtonList[i].setForeground(new Color(0,139,2));
 			}
-//			else if(CurrentStatus[i] == "Book In Advance") {
-//				RoomList[i].setBackground(new Color(253,247,218));
-//				RoomList[i].setForeground(new Color(194,157,5));
-//			}
+			else if(roomList.get(i).getCurrentStatus().equals("2")) {
+				roomButtonList[i].setBackground(new Color(253,247,218));
+				roomButtonList[i].setForeground(new Color(194,157,5));
+			}
 			else {
 				roomButtonList[i].setBackground(new Color(225,185,183));
 				roomButtonList[i].setForeground(new Color(184,0,0));

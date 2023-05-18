@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -22,12 +23,14 @@ import javax.swing.table.TableRowSorter;
 
 import DAO.EquipmentDAO;
 import DAO.GuestDAO;
+import DAO.RoomDAO;
 import view.AddGuestView;
 import view.EquipmentView;
+import view.RoomView;
 
 public class EquipmentController implements ActionListener,MouseListener {
 	private EquipmentView equipmentView;
-
+//	private RoomView roomView = RoomView.getInstance();
 	public EquipmentController(EquipmentView equipmentView) {
 		super();
 		this.equipmentView = equipmentView;
@@ -95,12 +98,19 @@ public class EquipmentController implements ActionListener,MouseListener {
 		      menuItem.addActionListener(new ActionListener() {
 		         public void actionPerformed(ActionEvent e) {
 		        	 if (equipmentView.getEquipmentTable().getValueAt(row, 2).equals("Tốt")) {
-		        		 EquipmentDAO.getInstance().updateStatusEquipment(id, nameService, "Hỏng");
+		        		 if (RoomDAO.getInstance().getRoomByID(id).getCurrentStatus().equals("1"))
+		        			 JOptionPane.showMessageDialog(null, "Chỉ được chuyển thiết bị sang trạng thái 'hỏng' khi phòng đang trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		        		 else { 
+		        			 EquipmentDAO.getInstance().updateStatusEquipment(id, nameService, "Hỏng");
+		        			 ((DefaultTableModel) equipmentView.getEquipmentTable().getModel()).setRowCount(0);
+				        	 EquipmentDAO.getInstance().selectAll(equipmentView.getEquipmentTable());
+		        		 }
 		        	 }	
-		        	 else
+		        	 else {
 		        		 EquipmentDAO.getInstance().updateStatusEquipment(id, nameService, "Tốt");
-		        	 ((DefaultTableModel) equipmentView.getEquipmentTable().getModel()).setRowCount(0);
-		        	 EquipmentDAO.getInstance().selectAll(equipmentView.getEquipmentTable());
+		        		 ((DefaultTableModel) equipmentView.getEquipmentTable().getModel()).setRowCount(0);
+			        	 EquipmentDAO.getInstance().selectAll(equipmentView.getEquipmentTable());
+		        	 }
 		         }
 		      });
 		      popupMenu.add(menuItem);

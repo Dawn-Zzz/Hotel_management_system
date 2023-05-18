@@ -51,8 +51,10 @@ public class RoomController implements ActionListener {
 			        RoomInfor roomInfor;
 			        if (roomView.getRoomList().get(i).getCurrentStatus().equals("0"))
 			        	roomInfor = new RoomInfor(roomNumber, null, null, "Trống", null);
-			        else 
+			        else if (roomView.getRoomList().get(i).getCurrentStatus().equals("1"))
 			        	roomInfor = new RoomInfor(roomNumber, null, null, "Đã cho thuê", null);
+			        else
+			        	roomInfor = new RoomInfor(roomNumber, null, null, "Phòng không được phép sử dụng", null);
 			        roomInfor.setVisible(true);
 			        break;
 			    }
