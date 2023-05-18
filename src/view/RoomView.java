@@ -86,7 +86,7 @@ public class RoomView extends JPanel{
 		roomSearch.add(roomType);
 		roomSearch.add(vipRoom);
 		roomSearch.add(popularRoom);
-		roomSearch.add(bedList);
+		roomSearch.add(rentalTypeList);
 		roomSearch.setVisible(false);
 		
 		roomType.setBounds(0,0,32,100);
@@ -105,11 +105,12 @@ public class RoomView extends JPanel{
 		popularRoom.setBackground(new Color(241,243,255));
 		popularRoom.setPreferredSize(new Dimension(137,25));
 		
-		bedList.setBounds(0,30,20,20);
-		bedList.setModel(new DefaultComboBoxModel(bedType));
-		bedList.setPreferredSize(new Dimension(129,25));
-		bedList.setBackground(Color.WHITE);
-		bedList.setFocusable(false);
+		rentalTypeList.setBounds(0,30,20,20);
+		rentalTypeList.setModel(new DefaultComboBoxModel(rentalType));
+		rentalTypeList.setPreferredSize(new Dimension(129,25));
+		rentalTypeList.setBackground(Color.WHITE);
+		rentalTypeList.setFocusable(false);
+		rentalTypeList.addActionListener(actionListener);
 		
 		statusSearch.setBounds(10, 270, 129, 150);
 		statusSearch.setForeground(Color.WHITE);
@@ -132,6 +133,7 @@ public class RoomView extends JPanel{
 		statusList.setPreferredSize(new Dimension(129,25));
 		statusList.setBackground(Color.WHITE);
 		statusList.setFocusable(false);
+		statusList.addActionListener(actionListener);
 		
 		addRoom(mainRoomList);
 		
@@ -214,7 +216,7 @@ public class RoomView extends JPanel{
 		roomTable.setColumnWidth(6,140);
 		
 		ReservationDAO.getInstance().selectAll(roomTable);
-		SearchTable(roomTable, searchBox);
+		//SearchTable(roomTable, searchBox);
 		
 		searchBar.setBounds(0,0,1020-150-64,85);
 		searchBar.setLayout(null);
@@ -229,7 +231,7 @@ public class RoomView extends JPanel{
 		this.setVisible(false);
 	}
 	
-	String bedType[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
+	String rentalType[] = {"All" ,"Giờ", "Ngày", "Đêm"};
 	String statusType[] = {"All", "Đã Nhận Phòng", "Đã Trả Phòng", "Đã Huỷ Phòng" , "Chưa Nhận Phòng"};
 
 	//sub bar
@@ -240,7 +242,7 @@ public class RoomView extends JPanel{
 	private JLabel roomType = new JLabel();
 	private JCheckBox vipRoom = new JCheckBox("Vip");
 	private JCheckBox popularRoom = new JCheckBox("Popular");
-	private JComboBox bedList = new Combobox();
+	private JComboBox rentalTypeList = new Combobox();
 	
 	private JPanel statusSearch = new JPanel();
 	private JLabel currentsStatus = new JLabel();
@@ -260,27 +262,22 @@ public class RoomView extends JPanel{
 	
 	private JButton roomButtonList[] = new JButton[36];
 	private ArrayList<Room> roomList = new RoomDAO().getInstance().selectAll();
-
-	private void SearchTable(JTable table, JTextField textField) {
-		TableRowSorter<TableModel> sorter1 = new TableRowSorter<>(table.getModel());
-		table.setRowSorter(sorter1);
-		textField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-				String input = textField.getText().trim();
-				if (input.length() == 0) {
-					sorter1.setRowFilter(null);
-				} else {
-					sorter1.setRowFilter(RowFilter.regexFilter("(?i)" + input));
-				}
-			}
-		});
-	}
 	
 	public void resetRoomTable() {
 		((DefaultTableModel) roomTable.getModel()).setRowCount(0);
 		ReservationDAO.getInstance().selectAll(roomTable);
 	}
 	
+	
+	public JComboBox getRentalTypeList() {
+		return rentalTypeList;
+	}
+	public JComboBox getStatusList() {
+		return statusList;
+	}
+	public Table getRoomTable() {
+		return roomTable;
+	}
 	public JPanel getMainRoomList() {
 		return mainRoomList;
 	}
