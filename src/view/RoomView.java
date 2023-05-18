@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -39,6 +41,7 @@ import view.editComponent.TextField;
 
 public class RoomView extends JPanel{
 	private ActionListener actionListener = new RoomController(this);
+	private MouseListener mouseListener = new RoomController(this);
 	private static RoomView instance;
 	public static RoomView getInstance() {
 		if (instance==null) {
@@ -216,7 +219,7 @@ public class RoomView extends JPanel{
 		roomTable.setColumnWidth(6,140);
 		
 		ReservationDAO.getInstance().selectAll(roomTable);
-		//SearchTable(roomTable, searchBox);
+		roomTable.addMouseListener(mouseListener);
 		
 		searchBar.setBounds(0,0,1020-150-64,85);
 		searchBar.setLayout(null);
