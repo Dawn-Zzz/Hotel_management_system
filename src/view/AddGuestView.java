@@ -47,12 +47,6 @@ public class AddGuestView extends JDialog{
 	private JLabel guestBirth = new JLabel();
 	private JDateChooser birthDay = new JDateChooser();
 	
-//	private JLabel guestGender = new JLabel();
-//	private JPanel genderGroup = new JPanel();
-//	private ButtonGroup groupRadioButton = new ButtonGroup();
-//	private JRadioButton genderMale = new JRadioButton();
-//	private JRadioButton genderFemale = new JRadioButton();
-	
 	private JCheckBox vipCheckBox = new JCheckBox("VIP");
 	
 	private JButton submitButton = new Button();
@@ -142,33 +136,6 @@ public class AddGuestView extends JDialog{
 		vipCheckBox.setFocusable(false);
 		vipCheckBox.setBorder(null);
 		
-//		guestGender.setBounds(50,310,70,30);
-//		guestGender.setText("Gender");
-//		guestGender.setFont(new Font("Arial",Font.BOLD,14));
-//		guestGender.setForeground(Color.BLACK);
-//		guestGender.setBackground(Color.WHITE);
-//		guestGender.setBorder(null);
-//		
-//		genderGroup.setBounds(45,330,128,30);
-//		genderGroup.setForeground(Color.BLACK);
-//		genderGroup.setBackground(Color.WHITE);
-//		genderGroup.setBorder(null);
-//		genderGroup.add(genderMale);
-//		genderGroup.add(genderFemale);
-//		
-//		groupRadioButton.add(genderMale);
-//		groupRadioButton.add(genderFemale);
-//		
-//		genderMale.setBounds(0,0,10,30);
-//		genderMale.setText("Male");
-//		genderMale.setBackground(Color.WHITE);
-//		genderMale.setFocusable(false);
-//		
-//		genderFemale.setBounds(0,80,10,30);
-//		genderFemale.setText("Female");
-//		genderFemale.setBackground(Color.WHITE);
-//		genderFemale.setFocusable(false);
-		
 		submitButton.setBounds(50, 400, 80, 40);
 		submitButton.setText("Submit");
 		submitButton.setFont(new Font("Arial",Font.BOLD,14));
@@ -198,10 +165,6 @@ public class AddGuestView extends JDialog{
 	public JCheckBox getVipCheckBox() {
 		return vipCheckBox;
 	}
-
-//	public GuestView getParentView() {
-//		return parentView;
-//	}
 
 	public void addGuestAction () {
 		String id = identificationNumberField.getText();
