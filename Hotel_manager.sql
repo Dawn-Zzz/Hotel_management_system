@@ -106,6 +106,25 @@ CREATE TABLE HoaDonPhong(
     MaPhong CHAR(10) NOT NULL
 );
 
+DELIMITER //
+CREATE TRIGGER update_phongcothietbi
+AFTER UPDATE ON PhongCoThietBi
+FOR EACH ROW
+BEGIN
+    DECLARE count_hong INT;
+    DECLARE count_tot INT;
+    SET count_hong = (SELECT COUNT(*) FROM PhongCoThietBi WHERE MaPhong = NEW.MaPhong AND HienTrang = 'Hỏng');
+    SET count_tot = (SELECT COUNT(*) FROM PhongCoThietBi WHERE MaPhong = NEW.MaPhong AND HienTrang = 'Tốt');
+
+    IF count_hong > 0 THEN
+        UPDATE Phong SET HienTrang = '2' WHERE MaPhong = NEW.MaPhong;
+    ELSE
+        IF (SELECT COUNT(*) FROM PhongCoThietBi WHERE MaPhong = NEW.MaPhong AND HienTrang != 'Tốt') = 0 THEN
+            UPDATE Phong SET HienTrang = '0' WHERE MaPhong = NEW.MaPhong;
+        END IF;
+    END IF;
+END //
+DELIMITER ;
 -- CREATE TABLE HinhThucThue(
 -- 	MaHinhThucThue CHAR(10) NOT NULL,
 -- 	TenHinhThucThue NVARCHAR(50) NOT NULL,
