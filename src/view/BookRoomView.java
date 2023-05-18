@@ -417,15 +417,28 @@ public class BookRoomView extends JDialog {
 			JOptionPane.showMessageDialog(this, "ID khách hàng không tồn tại. Hãy thêm khách hàng", "Lỗi",
 					JOptionPane.ERROR_MESSAGE);
 		else {
-			ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(), (String) roomBox.getSelectedItem(), checkInTime, checkOutTime, (int) questQuantityBox.getSelectedItem(), null);
-			 this.dispose();
+			if (directBooking.isSelected()) {
+				ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(), (String) roomBox.getSelectedItem(), checkInTime, checkOutTime, (int) questQuantityBox.getSelectedItem(), null);
+				this.dispose();
+			}
+			else {
+				if (deposit.getText().isEmpty())
+					JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+				else {
+					Double depositAmount = Double.parseDouble(depositField.getText().trim());
+					if(depositAmount != null) {
+			            ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(), (String) roomBox.getSelectedItem(), checkInTime, checkOutTime, (int) questQuantityBox.getSelectedItem(), depositAmount);
+						this.dispose();
+			        } else 
+			            JOptionPane.showMessageDialog(this, "Giá trị cọc không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		}
 	}
 	
 	public Timestamp setTime(int minute, int hour, Date date) {
 		// Chuyển đổi từ java.util.Date sang java.time.LocalDateTime
 		LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-
 		// Thiết lập giờ và phút cho LocalDateTime
 		localDateTime = localDateTime.withHour(hour).withMinute(minute);
 

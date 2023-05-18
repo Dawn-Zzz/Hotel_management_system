@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import DAO.GuestDAO;
 import DAO.ReservationDAO;
 import DAO.RoomDAO;
 import controller.RoomController;
@@ -258,7 +259,6 @@ public class RoomView extends JPanel{
 	JScrollPane jScrollPane1 = new JScrollPane();
 	
 	private JButton roomButtonList[] = new JButton[36];
-//	String CurrentStatus[] = new String[36];
 	private ArrayList<Room> roomList = new RoomDAO().getInstance().selectAll();
 
 	private void SearchTable(JTable table, JTextField textField) {
@@ -274,6 +274,11 @@ public class RoomView extends JPanel{
 				}
 			}
 		});
+	}
+	
+	public void resetRoomTable() {
+		((DefaultTableModel) roomTable.getModel()).setRowCount(0);
+		ReservationDAO.getInstance().selectAll(roomTable);
 	}
 	
 	public JPanel getMainRoomList() {
