@@ -27,6 +27,7 @@ import view.RoomView;
 
 public class BookRoomController implements ActionListener, ItemListener, PropertyChangeListener {
 	private BookRoomView bookRoomView;
+	private RoomView roomView = RoomView.getInstance();
 	private boolean isSettingTime = false;
 
 	public BookRoomController(BookRoomView bookRoomView) {
@@ -39,6 +40,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("Submit")) {
 			this.bookRoomView.addGuestAction();
+			roomView.resetRoomTable();
 		} else if (e.getSource() == bookRoomView.getQuestQuantityBox()) {
 			bookRoomView.addItemComboboxRoom();
 			bookRoomView.getRoomBox().setEnabled(true);
