@@ -6,14 +6,17 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -30,15 +33,14 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 import DAO.GuestDAO;
+import DAO.ReservationDAO;
 import controller.BookRoomController;
+import model.Reservation;
+import model.Room;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
 
 public class BookRoomView extends JDialog {
-	private ActionListener actionListener = new BookRoomController(this);
-	private ItemListener itemListener = new BookRoomController(this);
-	private PropertyChangeListener propertyChangeListener = new BookRoomController(this);
-
 	ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 	private JLabel registrationForm = new JLabel();
 
@@ -52,7 +54,7 @@ public class BookRoomView extends JDialog {
 	private Combobox<Integer> questQuantityBox = new Combobox<>();
 
 	private JLabel rentalType = new JLabel();
-	String RentalType[] = { "Rent By The Hour", "Rent For The Day", "Overnight Rental" };
+	String RentalType[] = { "Giờ", "Ngày", "Đêm" };
 	private Combobox<String> rentalTypeBox = new Combobox<>();
 
 	private JLabel room = new JLabel();
@@ -83,7 +85,14 @@ public class BookRoomView extends JDialog {
 	private JLabel currencyUnit = new JLabel();
 
 	private JButton submitButton = new Button();
+	
+	private RoomView roomView = RoomView.getInstance();
+	
+	private ActionListener actionListener = new BookRoomController(this);
+	private ItemListener itemListener = new BookRoomController(this);
+	private PropertyChangeListener propertyChangeListener = new BookRoomController(this);
 
+	
 	public BookRoomView() {
 		// khá»Ÿi táº¡o giÃ¡ trá»‹ cÃ¡c phÃ²ng
 
@@ -92,7 +101,7 @@ public class BookRoomView extends JDialog {
 		for (int i = 0; i < 24; i++) {
 			hours[i] = String.format("%02d", i);
 		}
-
+		
 		// Khá»Ÿi táº¡o máº£ng phÃºt
 		String[] minutes = { "00", "30" };
 
@@ -392,6 +401,12 @@ public class BookRoomView extends JDialog {
 	}
 
 	public void addGuestAction() {
+		Timestamp checkInTime = setTime(Integer.parseInt(minuteCIn.getSelectedItem().toString()),
+				Integer.parseInt(hourCIn.getSelectedItem().toString()),
+				dayCIn.getDate());
+		Timestamp checkOutTime = setTime(Integer.parseInt(minuteCOut.getSelectedItem().toString()),
+				Integer.parseInt(hourCOut.getSelectedItem().toString()),
+				dayCOut.getDate());
 		String id = identificationNumberField.getText();
 		if (id.isEmpty() || questQuantityBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null
 				|| roomBox.getSelectedItem() == null)
@@ -401,9 +416,96 @@ public class BookRoomView extends JDialog {
 		else if (GuestDAO.getInstance().getGuestById(id) == null)
 			JOptionPane.showMessageDialog(this, "ID khách hàng không tồn tại. Hãy thêm khách hàng", "Lỗi",
 					JOptionPane.ERROR_MESSAGE);
-		// this.dispose();
+		else {
+			ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(), (String) roomBox.getSelectedItem(), checkInTime, checkOutTime, (int) questQuantityBox.getSelectedItem(), null);
+			 this.dispose();
+		}
+	}
+	
+	public Timestamp setTime(int minute, int hour, Date date) {
+		// Chuyển đổi từ java.util.Date sang java.time.LocalDateTime
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+
+		// Thiết lập giờ và phút cho LocalDateTime
+		localDateTime = localDateTime.withHour(hour).withMinute(minute);
+
+		// Chuyển đổi từ java.time.LocalDateTime sang java.sql.Timestamp
+		Timestamp timestamp = Timestamp.valueOf(localDateTime);
+		return timestamp;
+	}
+	
+	public boolean isBookingTimeAvailable(Reservation reservation, Timestamp checkInTime, Timestamp checkOutTime) {
+		Timestamp startTime = reservation.getCheckIn();
+		Timestamp endTime = reservation.getCheckOut();
+		// Kiểm tra nếu thời gian đặt trước nằm ngoài khoảng thời gian check-in và
+		// check-out
+		if (checkInTime.after(endTime)) {
+			long diff = startTime.getTime() - checkOutTime.getTime();
+			long diffHours = diff / (60 * 60 * 1000);
+			return (diffHours < 1);
+		}
+		if (checkOutTime.before(startTime)) {
+			// Kiểm tra thời gian checkout phải trước thời gian start time một tiếng
+			long diff = startTime.getTime() - checkOutTime.getTime();
+			long diffHours = diff / (60 * 60 * 1000);
+			return (diffHours < 1);
+		}
+		return false;
+	}
+	
+	public void checkReservation(List<String> roomValues, ArrayList<Room> rooms, int begin, int end) {
+		Timestamp checkInTime = setTime(Integer.parseInt(minuteCIn.getSelectedItem().toString()),
+				Integer.parseInt(hourCIn.getSelectedItem().toString()),
+				dayCIn.getDate());
+		Timestamp checkOutTime = setTime(Integer.parseInt(minuteCOut.getSelectedItem().toString()),
+				Integer.parseInt(hourCOut.getSelectedItem().toString()),
+				dayCOut.getDate());
+		for (Room room : rooms) {
+			String roomName = room.getNumberRoom();
+			int roomNumber = Integer.parseInt(roomName);
+
+			if ((roomNumber % 100 >= begin) && (roomNumber % 100 <= end)) {
+				ArrayList<Reservation> reservations = ReservationDAO.getInstance()
+						.getReservationNotCheckInByIDRoom(roomName);
+				if (reservations == null) {
+					roomValues.add(roomName);
+				} else {
+					boolean isAvailable = true;
+					for (Reservation reservation : reservations) {
+						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime)) {
+							isAvailable = false;
+							break;
+						}
+					}
+					if (isAvailable) {
+						roomValues.add(roomName);
+					}
+				}
+			}
+		}
 	}
 
+	public void addItemComboboxRoom() {
+		int amount = 0;
+		if (questQuantityBox.getSelectedItem() != null)
+			amount = (int) questQuantityBox.getSelectedItem();
+		List<String> roomValues = new ArrayList<>();
+		if (amount == 1) {
+			checkReservation(roomValues, roomView.getRoomList(), 1, 2);
+		} else if (amount == 2) {
+			checkReservation(roomValues, roomView.getRoomList(), 2, 4);
+		} else if (amount == 3) {
+			checkReservation(roomValues, roomView.getRoomList(), 4, 5);
+		} else if (amount == 4) {
+			checkReservation(roomValues, roomView.getRoomList(), 4, 6);
+		} else if (amount > 4 && amount < 7) {
+			checkReservation(roomValues, roomView.getRoomList(), 5, 6);
+		} else {
+			checkReservation(roomValues, roomView.getRoomList(), 6, 6);
+		}
+		roomBox.setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
+	}
+	
 	public void setInitialTime() {
 		if (dayCIn.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(toDay)) {
 			boolean check = false;

@@ -27,7 +27,6 @@ import view.RoomView;
 
 public class BookRoomController implements ActionListener, ItemListener, PropertyChangeListener {
 	private BookRoomView bookRoomView;
-	private RoomView roomView = RoomView.getInstance();
 	private boolean isSettingTime = false;
 
 	public BookRoomController(BookRoomView bookRoomView) {
@@ -41,13 +40,13 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 		if (e.getActionCommand().equals("Submit")) {
 			this.bookRoomView.addGuestAction();
 		} else if (e.getSource() == bookRoomView.getQuestQuantityBox()) {
-			addItemComboboxRoom();
+			bookRoomView.addItemComboboxRoom();
 			bookRoomView.getRoomBox().setEnabled(true);
 			bookRoomView.getRoomBox().setSelectedIndex(-1);
 		} else if (e.getSource() == bookRoomView.getRentalTypeBox()) {
-			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Rent For The Day")) {
+			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Ngày")) {
 				bookRoomView.setComboBoxRentForTheDay();
-			} else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Overnight Rental")) {
+			} else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Đêm")) {
 				bookRoomView.setComboBoxOvernightRental();
 				bookRoomView.getDayCOut()
 						.setDate(Date.from(bookRoomView.getDayCIn().getDate().toInstant().atZone(ZoneId.systemDefault())
@@ -68,7 +67,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 				bookRoomView.setTimeOneHourAfterCheckin();
 			}
 		} else if (e.getSource() == bookRoomView.getMinuteCIn() || e.getSource() == bookRoomView.getHourCIn()) {
-			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Rent By The Hour"))
+			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Giờ"))
 				if (bookRoomView.getHourCIn().getSelectedItem() != null && bookRoomView.getMinuteCIn().getSelectedItem() != null) {
 					bookRoomView.updateMinuteComboBox();
 					bookRoomView.setTimeOneHourAfterCheckin();
@@ -90,90 +89,6 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 		}
 	}
 
-	public void addItemComboboxRoom() {
-		int amount = 0;
-		if (bookRoomView.getQuestQuantityBox().getSelectedItem() != null)
-			amount = (int) bookRoomView.getQuestQuantityBox().getSelectedItem();
-		List<String> roomValues = new ArrayList<>();
-		if (amount == 1) {
-			checkReservation(roomValues, roomView.getRoomList(), 1, 2);
-		} else if (amount == 2) {
-			checkReservation(roomValues, roomView.getRoomList(), 2, 4);
-		} else if (amount == 3) {
-			checkReservation(roomValues, roomView.getRoomList(), 4, 5);
-		} else if (amount == 4) {
-			checkReservation(roomValues, roomView.getRoomList(), 4, 6);
-		} else if (amount > 4 && amount < 7) {
-			checkReservation(roomValues, roomView.getRoomList(), 5, 6);
-		} else {
-			checkReservation(roomValues, roomView.getRoomList(), 6, 6);
-		}
-		bookRoomView.getRoomBox().setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
-	}
-
-	public void checkReservation(List<String> roomValues, ArrayList<Room> rooms, int begin, int end) {
-		Timestamp checkInTime = setTime(Integer.parseInt(bookRoomView.getMinuteCIn().getSelectedItem().toString()),
-				Integer.parseInt(bookRoomView.getHourCIn().getSelectedItem().toString()),
-				bookRoomView.getDayCIn().getDate());
-		Timestamp checkOutTime = setTime(Integer.parseInt(bookRoomView.getMinuteCOut().getSelectedItem().toString()),
-				Integer.parseInt(bookRoomView.getHourCOut().getSelectedItem().toString()),
-				bookRoomView.getDayCOut().getDate());
-		for (Room room : rooms) {
-			String roomName = room.getNumberRoom();
-			int roomNumber = Integer.parseInt(roomName);
-
-			if ((roomNumber % 100 >= begin) && (roomNumber % 100 <= end)) {
-				ArrayList<Reservation> reservations = ReservationDAO.getInstance()
-						.getReservationNotCheckInByIDRoom(roomName);
-				if (reservations == null) {
-					roomValues.add(roomName);
-				} else {
-					boolean isAvailable = true;
-					for (Reservation reservation : reservations) {
-						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime)) {
-							isAvailable = false;
-							break;
-						}
-					}
-					if (isAvailable) {
-						roomValues.add(roomName);
-					}
-				}
-			}
-		}
-	}
-
-	public boolean isBookingTimeAvailable(Reservation reservation, Timestamp checkInTime, Timestamp checkOutTime) {
-		Timestamp startTime = reservation.getCheckIn();
-		Timestamp endTime = reservation.getCheckOut();
-		// Kiểm tra nếu thời gian đặt trước nằm ngoài khoảng thời gian check-in và
-		// check-out
-		if (checkInTime.after(endTime)) {
-			long diff = startTime.getTime() - checkOutTime.getTime();
-			long diffHours = diff / (60 * 60 * 1000);
-			return (diffHours < 1);
-		}
-		if (checkOutTime.before(startTime)) {
-			// Kiểm tra thời gian checkout phải trước thời gian start time một tiếng
-			long diff = startTime.getTime() - checkOutTime.getTime();
-			long diffHours = diff / (60 * 60 * 1000);
-			return (diffHours < 1);
-		}
-		return false;
-	}
-
-	public Timestamp setTime(int minute, int hour, Date date) {
-		// Chuyển đổi từ java.util.Date sang java.time.LocalDateTime
-		LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-
-		// Thiết lập giờ và phút cho LocalDateTime
-		localDateTime = localDateTime.withHour(hour).withMinute(minute);
-
-		// Chuyển đổi từ java.time.LocalDateTime sang java.sql.Timestamp
-		Timestamp timestamp = Timestamp.valueOf(localDateTime);
-		return timestamp;
-	}
-
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (isSettingTime) {
@@ -185,7 +100,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 			bookRoomView.getDayCOut().setMinSelectableDate(bookRoomView.getDayCIn().getDate());
 			bookRoomView.getDayCOut().setMaxSelectableDate(null);
 			// Nếu đang là theo ngày
-			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Rent For The Day")) {
+			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Ngày")) {
 				if (evt.getSource() == bookRoomView.getDayCIn())
 					bookRoomView.getDayCOut().setDate(
 							Date.from(bookRoomView.getDayCIn().getDate().toInstant().plus(1, ChronoUnit.DAYS)));
@@ -194,7 +109,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 						Date.from(bookRoomView.getDayCIn().getDate().toInstant().plus(1, ChronoUnit.DAYS)));
 			}
 			// Nếu đang là theo đêm
-			else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Overnight Rental")) {
+			else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Đêm")) {
 				if (evt.getSource() == bookRoomView.getDayCIn()) {
 					bookRoomView.getDayCOut()
 							.setDate(Date.from(bookRoomView.getDayCIn().getDate().toInstant()
@@ -207,7 +122,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 				}
 			}
 			// Nếu đang là theo giờ
-			else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Rent By The Hour")) {
+			else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Giờ")) {
 				isSettingTime = true;
 				if (evt.getSource() == bookRoomView.getDayCIn()) {
 					bookRoomView.setInitialTime();
