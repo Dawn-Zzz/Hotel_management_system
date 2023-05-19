@@ -86,11 +86,11 @@ public class ReservationDAO {
 		ArrayList<Reservation> arrResult = new ArrayList<>();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT *"
-					+ "FROM khachhang kh "
-					+ "INNER JOIN phieuthuephong ptp ON kh.MaKhachHang = ptp.MaKhachHang "
+			String sql = "SELECT * "
+					+ "FROM phieuthuephong ptp "
 					+ "INNER JOIN phong p ON ptp.MaPhong = p.MaPhong "
-					+ "WHERE p.MaPhong LIKE ? AND (ptp.HienTrang LIKE N'Đã nhận phòng' OR ptp.HienTrang LIKE N'Chưa nhận phòng') ";
+					+ "WHERE p.MaPhong = ? "
+					+ "    AND (p.HienTrang = '2' OR (ptp.HienTrang LIKE N'Chưa nhận phòng' OR ptp.HienTrang LIKE N'Đã nhận phòng')) ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();

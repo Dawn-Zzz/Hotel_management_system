@@ -51,37 +51,38 @@ CREATE TABLE Phong(
 );
 
 CREATE TABLE ThietBi(
-	MaThietBi CHAR(10) NOT NULL,
-    TenThietBi NVARCHAR(50) NOT NULL,
-    PRIMARY KEY (MaThietBi)
+	MaThietBi CHAR(10) NOT NULL, 
+    TenThietBi NVARCHAR(50) NOT NULL, 
+    PRIMARY KEY (MaThietBi) 
 );
 
 CREATE TABLE DichVu(
-	MaDichVu CHAR(10) NOT NULL,
-    TenDichVu NVARCHAR(50) NOT NULL,
-    GiaDichVu FLOAT NOT NULL,
+	MaDichVu CHAR(10) NOT NULL, 
+    TenDichVu NVARCHAR(50) NOT NULL, 
+    GiaDichVu FLOAT NOT NULL, 
     PRIMARY KEY (MaDichVu)
 );
 
 CREATE TABLE HoaDon(
-	MaHoaDon CHAR(10) NOT NULL,
-    NgayLapHoaDon DATE NOT NULL,
-    TongTienPhong FLOAT NOT NULL,
-    TongTienDichVu FLOAT,
-    TongTien FLOAT NOT NULL,
-    MaKhachHang INT NOT NULL,
-    MaNhanVien INT NOT NULL,
+	MaHoaDon CHAR(10) NOT NULL, 
+    NgayLapHoaDon DATE NOT NULL, 
+    TongTienPhong FLOAT NOT NULL, 
+    TongTienDichVu FLOAT, 
+    TongTien FLOAT NOT NULL, 
+    MaKhachHang INT NOT NULL, 
+    MaNhanVien INT NOT NULL, 
     PRIMARY KEY (MaHoaDon)
 );
 
-CREATE TABLE PhongCoThietBi(
-	MaThietBi CHAR(10) NOT NULL,
-    MaPhong CHAR(10) NOT NULL,
-    HienTrang NVARCHAR(20) NOT NULL
+CREATE TABLE PhongCoThietBi( 
+	MaThietBi CHAR(10) NOT NULL, 
+    MaPhong CHAR(10) NOT NULL, 
+    HienTrang NVARCHAR(20) NOT NULL, 
+    PRIMARY KEY (MaThietBi, MaPhong)
 );
 
 CREATE TABLE PhieuThuePhong(
-	MaPhieu INT AUTO_INCREMENT,
+    MaPhieu INT AUTO_INCREMENT,
     NgayLap DATE NOT NULL,
     ThoiGianNhanPhong DATETIME NOT NULL,
     ThoiGianTraPhong DATETIME NOT NULL,
@@ -90,22 +91,23 @@ CREATE TABLE PhieuThuePhong(
     HinhThucThue NVARCHAR(50) NOT NULL,
     HienTrang NVARCHAR(50) NOT NULL,
     MaKhachHang INT NOT NULL,
-    MaNhanVien INT NOT NULL, 
-    MaPhong CHAR(10) NOT NULL, 
-    PRIMARY KEY (MaPhieu)
+    MaNhanVien INT NOT NULL,
+    MaPhong CHAR(10) NOT NULL,
+    PRIMARY KEY (MaPhieu, MaKhachHang, MaNhanVien, MaPhong)
 );
 
 CREATE TABLE HoaDonDichVu(
 	SoLuong INT NOT NULL,
 	MaHoaDon CHAR(10) NOT NULL,
-    MaDichVu CHAR(10) NOT NULL
+    MaDichVu CHAR(10) NOT NULL,
+    PRIMARY KEY (MaHoaDon, MaDichVu)
 );
 
 CREATE TABLE HoaDonPhong(
 	MaHoaDon CHAR(10) NOT NULL,
-    MaPhong CHAR(10) NOT NULL
+    MaPhong CHAR(10) NOT NULL,
+    PRIMARY KEY (MaHoaDon, MaPhong)
 );
-
 
 DELIMITER //
 CREATE TRIGGER update_Phong_HienTrang
@@ -114,6 +116,8 @@ FOR EACH ROW
 BEGIN
     IF NEW.HienTrang = 'Đã nhận phòng' THEN
         UPDATE Phong SET HienTrang = '1' WHERE MaPhong = NEW.MaPhong;
+    ELSEIF NEW.HienTrang = 'Đã trả phòng' THEN
+        UPDATE Phong SET HienTrang = '0' WHERE MaPhong = NEW.MaPhong;
     END IF;
 END;
 
@@ -134,60 +138,58 @@ BEGIN
         END IF;
     END IF;
 END //
+
+
+CREATE TRIGGER create_invoice AFTER UPDATE ON PhieuThuePhong 
+FOR EACH ROW
+BEGIN
+    DECLARE invoiceID CHAR(10);
+
+    IF NEW.HienTrang = 'Đã trả phòng' THEN
+        SET invoiceID = (SELECT MaHoaDon FROM HoaDonPhong WHERE MaPhong = NEW.MaPhong);
+
+        IF invoiceID IS NULL THEN
+            SET invoiceID = CONCAT('HD', LPAD((SELECT COUNT(*) FROM HoaDon) + 1, 5, '0'));
+            INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien)
+            SELECT invoiceID, CURDATE(), 0, 0, 0, NEW.MaKhachHang, NEW.MaNhanVien;
+        END IF;
+
+        UPDATE HoaDon
+        SET TongTienPhong = (
+            SELECT
+                CASE
+                    WHEN NEW.HinhThucThue = 'Giờ' THEN (TIMESTAMPDIFF(HOUR, NEW.ThoiGianNhanPhong, NEW.ThoiGianTraPhong) * LoaiPhong.GiaTheoGio)
+                    WHEN NEW.HinhThucThue = 'Ngày' THEN (TIMESTAMPDIFF(DAY, NEW.ThoiGianNhanPhong, NEW.ThoiGianTraPhong) * LoaiPhong.GiaTheoNgay)
+                    WHEN NEW.HinhThucThue = 'Đêm' THEN (TIMESTAMPDIFF(DAY, NEW.ThoiGianNhanPhong, NEW.ThoiGianTraPhong) * LoaiPhong.GiaQuaDem)
+                END
+            FROM Phong
+            JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
+            WHERE Phong.MaPhong = NEW.MaPhong
+        )
+        WHERE MaHoaDon = invoiceID;
+
+        IF EXISTS (SELECT 1 FROM HoaDonDichVu WHERE MaHoaDon = invoiceID) THEN
+            UPDATE HoaDon
+            SET TongTienDichVu = (SELECT SUM(SoLuong * GiaDichVu)
+                                  FROM HoaDonDichVu
+                                  JOIN DichVu ON HoaDonDichVu.MaDichVu = DichVu.MaDichVu
+                                  WHERE MaHoaDon = invoiceID)
+            WHERE MaHoaDon = invoiceID;
+        END IF;
+
+        UPDATE HoaDon
+        SET TongTien = TongTienPhong + COALESCE(TongTienDichVu, 0)
+        WHERE MaHoaDon = invoiceID;
+
+        INSERT INTO HoaDonPhong (MaHoaDon, MaPhong)
+        VALUES (invoiceID, NEW.MaPhong);
+
+        UPDATE PhieuThuePhong
+        SET MaHoaDon = invoiceID
+        WHERE MaPhieu = NEW.MaPhieu;
+    END IF;
+END //
 DELIMITER ;
-
--- DELIMITER //
--- CREATE TRIGGER create_invoice AFTER UPDATE ON PhieuThuePhong
--- FOR EACH ROW
--- BEGIN
--- 	DECLARE invoiceID CHAR(10);
---     IF NEW.HienTrang = 'đã trả phòng' THEN
---         SET invoiceID = (SELECT MaHoaDon FROM HoaDon WHERE NgayLapHoaDon = CURDATE());
-
---         IF invoiceID IS NULL THEN
---             SET invoiceID = CONCAT('HD', LPAD((SELECT COUNT(*) FROM HoaDon) + 1, 5, '0'));
---             INSERT INTO HoaDon (MaHoaDon, NgayLapHoaDon, TongTienPhong, TongTienDichVu, TongTien, MaKhachHang, MaNhanVien)
---             SELECT invoiceID, CURDATE(), 0, 0, 0, MaKhachHang, MaNhanVien
---             FROM PhieuThuePhong
---             WHERE MaPhieu = NEW.MaPhieu;
---         END IF;
-
---         UPDATE HoaDon
---         SET TongTienPhong = (SELECT
---                                 CASE
---                                     WHEN HinhThucThue = 'theo giờ' THEN (TIMESTAMPDIFF(HOUR, ThoiGianNhanPhong, ThoiGianTraPhong) * LoaiPhong.GiaTheoGio)
---                                     WHEN HinhThucThue = 'theo ngày' THEN (TIMESTAMPDIFF(DAY, ThoiGianNhanPhong, ThoiGianTraPhong) * LoaiPhong.GiaTheoNgay)
---                                     WHEN HinhThucThue = 'qua đêm' THEN (TIMESTAMPDIFF(DAY, ThoiGianNhanPhong, ThoiGianTraPhong) * LoaiPhong.GiaQuaDem)
---                                 END
---                             FROM PhieuThuePhong
---                             JOIN Phong ON PhieuThuePhong.MaPhong = Phong.MaPhong
---                             JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong
---                             WHERE MaPhieu = NEW.MaPhieu)
---         WHERE MaHoaDon = invoiceID;
-
---         IF EXISTS (SELECT 1 FROM HoaDonDichVu WHERE MaHoaDon = invoiceID) THEN
---             UPDATE HoaDon
---             SET TongTienDichVu = (SELECT SUM(SoLuong * GiaDichVu)
---                                   FROM HoaDonDichVu
---                                   JOIN DichVu ON HoaDonDichVu.MaDichVu = DichVu.MaDichVu
---                                   WHERE MaHoaDon = invoiceID)
---             WHERE MaHoaDon = invoiceID;
---         END IF;
-
---         UPDATE HoaDon
---         SET TongTien = TongTienPhong + COALESCE(TongTienDichVu, 0)
---         WHERE MaHoaDon = invoiceID;
-
---         INSERT INTO HoaDonPhong (MaHoaDon, MaPhong)
---         VALUES (invoiceID, NEW.MaPhong);
-
---         UPDATE PhieuThuePhong
---         SET MaHoaDon = invoiceID
---         WHERE MaPhieu = NEW.MaPhieu;
---     END IF;
--- END //
--- DELIMITER ;-- 
-
 -- CREATE TABLE HinhThucThue(
 -- 	MaHinhThucThue CHAR(10) NOT NULL,
 -- 	TenHinhThucThue NVARCHAR(50) NOT NULL,
@@ -244,10 +246,16 @@ ADD FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong);
 
 -- Thêm dữ liệu cho bảng 
 
-INSERT INTO `User` (ID, Pass) VALUES ('TK001', 'gd001');
-INSERT INTO `User` (ID, Pass) VALUES ('TK002', 'lt002');
-INSERT INTO `User` (ID, Pass) VALUES ('TK003', 'pv003');
-INSERT INTO `User` (ID, Pass) VALUES ('TK004', 'kt004');
+INSERT INTO `User` (ID, Pass) VALUES ('TK001', 'tk001');
+INSERT INTO `User` (ID, Pass) VALUES ('TK002', 'tk002');
+INSERT INTO `User` (ID, Pass) VALUES ('TK003', 'tk003');
+INSERT INTO `User` (ID, Pass) VALUES ('TK004', 'tk004');
+INSERT INTO `User` (ID, Pass) VALUES ('TK005', 'tk005');
+INSERT INTO `User` (ID, Pass) VALUES ('TK006', 'tk006');
+INSERT INTO `User` (ID, Pass) VALUES ('TK007', 'tk007');
+INSERT INTO `User` (ID, Pass) VALUES ('TK008', 'tk008');
+INSERT INTO `User` (ID, Pass) VALUES ('TK009', 'tk009');
+INSERT INTO `User` (ID, Pass) VALUES ('TK010', 'tk010'); 
 
 INSERT INTO ChucDanh (MaChucDanh, TenChucDanh) VALUE ('CD001', 'Giám đốc');
 INSERT INTO ChucDanh (MaChucDanh, TenChucDanh) VALUE ('CD002', 'Nhân viên lễ tân');
@@ -256,14 +264,14 @@ INSERT INTO ChucDanh (MaChucDanh, TenChucDanh) VALUE ('CD004', 'Nhân viên kế
 
 INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('312848541545', '0384845484', 'Nguyễn Thanh Tùng', '2014-12-03','TK001', 'CD001');
 INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('325484544487', '0352819756', 'Nguyễn Linh Chi', '2001-11-09','TK002', 'CD002');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('338897894465', '0335852676', 'Lê Trung Kiên', '2002-10-08','TK002', 'CD002');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('348784867879', '0359518415', 'Trần Thị Linh', '2003-07-11','TK002', 'CD002');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('358998746564', '0341595625', 'Lê Thanh Hoa', '2002-07-12','TK003', 'CD003');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('368965568995', '0348485156', 'Trương Tịnh Nghi', '1987-04-04','TK003', 'CD003');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('374556446545', '0384876557', 'Hồ Minh Hải', '1997-01-14','TK003', 'CD003');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('386262316515', '0347847846', 'Phạm Hoài Sơn', '1999-05-03','TK004', 'CD004');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('394985151561', '0359597166', 'Trần Thanh Khoa', '2000-09-11','TK004', 'CD004');
-INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('303265315155', '0384898448', 'Phạm Minh Hùng', '2000-08-07','TK004', 'CD004');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('338897894465', '0335852676', 'Lê Trung Kiên', '2002-10-08','TK003', 'CD002');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('348784867879', '0359518415', 'Trần Thị Linh', '2003-07-11','TK004', 'CD002');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('358998746564', '0341595625', 'Lê Thanh Hoa', '2002-07-12','TK005', 'CD003');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('368965568995', '0348485156', 'Trương Tịnh Nghi', '1987-04-04','TK006', 'CD003');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('374556446545', '0384876557', 'Hồ Minh Hải', '1997-01-14','TK007', 'CD003');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('386262316515', '0347847846', 'Phạm Hoài Sơn', '1999-05-03','TK008', 'CD004');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('394985151561', '0359597166', 'Trần Thanh Khoa', '2000-09-11','TK009', 'CD004');
+INSERT INTO NhanVien (CCCD, SoDienThoai, TenNhanVien, NgaySinh, ID, MaChucDanh) VALUES ('303265315155', '0384898448', 'Phạm Minh Hùng', '2000-08-07','TK010', 'CD004');
 
 INSERT INTO LoaiPhong (MaLoaiPhong, TenLoaiPhong, GiaTheoGio, GiaTheoNgay, GiaQuaDem) VALUES ('LP001', 'Phòng đơn', '150000', '350000', '270000');
 INSERT INTO LoaiPhong (MaLoaiPhong, TenLoaiPhong, GiaTheoGio, GiaTheoNgay, GiaQuaDem) VALUES ('LP002', 'Phòng đơn cao câp', '225000', '525000', '405000');

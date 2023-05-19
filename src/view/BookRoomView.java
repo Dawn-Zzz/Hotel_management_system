@@ -485,7 +485,7 @@ public class BookRoomView extends JDialog {
 				} else {
 					boolean isAvailable = true;
 					for (Reservation reservation : reservations) {
-						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime)) {
+						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime) || reservation.getRoom().getCurrentStatus().equals("2")) {
 							isAvailable = false;
 							break;
 						}
