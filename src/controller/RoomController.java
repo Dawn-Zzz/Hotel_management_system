@@ -133,7 +133,13 @@ public class RoomController implements ActionListener, MouseListener {
 			JMenuItem menuItem1 = new JMenuItem("Nhận phòng");
 			JMenuItem menuItem2 = new JMenuItem("Trả phòng");
 			JMenuItem menuItem3 = new JMenuItem("Huỷ phòng");
-
+			
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
+			
 			menuItem1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String checkInTime = roomView.getRoomTable().getValueAt(row, 4).toString();
@@ -158,6 +164,16 @@ public class RoomController implements ActionListener, MouseListener {
 			            ((DefaultTableModel) roomView.getRoomTable().getModel()).setRowCount(0);
 			            ReservationDAO.getInstance().selectAll(roomView.getRoomTable());
 			        }
+				}
+			});
+			
+			menuItem2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// Chuyển đổi giờ check-in thành đối tượng Date
+			        // Thực hiện cập nhật trạng thái nhận phòng
+			        ReservationDAO.getInstance().updateStatusReservation(roomView.getRoomTable().getValueAt(row, 0).toString(), "Đã trả phòng");
+			        ((DefaultTableModel) roomView.getRoomTable().getModel()).setRowCount(0);
+			        ReservationDAO.getInstance().selectAll(roomView.getRoomTable());
 				}
 			});
 			
