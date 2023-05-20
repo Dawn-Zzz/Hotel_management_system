@@ -13,4 +13,13 @@ public class Person {
 		this.numberPhone = numberPhone;
 		this.birth = birth;
 	}
+	public String getName() {
+		return name;
+	}
+	public String getNumberPhone() {
+		return numberPhone;
+	}
+	public Date getBirth() {
+		return birth;
+	}
 }

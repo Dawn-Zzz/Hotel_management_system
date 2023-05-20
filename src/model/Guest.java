@@ -10,5 +10,11 @@ public class Guest extends Person {
 		super(name, numberPhone, birth);
 		this.idNumber = idNumber;
 		this.type = type;
-	}	
+	}
+	public String getIdNumber() {
+		return idNumber;
+	}
+	public String getType() {
+		return type;
+	}
 }
