@@ -64,14 +64,7 @@ public class RoomController implements ActionListener, MouseListener {
 			for (int i = 0; i < roomView.getRoomButtonList().length; i++) {
 				JButton button = roomView.getRoomButtonList()[i];
 				if (e.getSource() == button) {
-					String roomNumber = button.getText();
-					RoomInfor roomInfor;
-					if (roomView.getRoomList().get(i).getCurrentStatus().equals("0"))
-						roomInfor = new RoomInfor(roomNumber, null, null, "Trống", null);
-					else if (roomView.getRoomList().get(i).getCurrentStatus().equals("1"))
-						roomInfor = new RoomInfor(roomNumber, null, null, "Đã cho thuê", null);
-					else
-						roomInfor = new RoomInfor(roomNumber, null, null, "Phòng không được phép sử dụng", null);
+					RoomInfor roomInfor = new RoomInfor(roomView.getRoomList().get(i), null);
 					roomInfor.setVisible(true);
 					break;
 				}

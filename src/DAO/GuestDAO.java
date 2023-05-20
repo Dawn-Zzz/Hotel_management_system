@@ -106,4 +106,49 @@ public class GuestDAO {
 	    }
 		return result;
 	}
+	
+	public static String getMaKhachHangByCCCD(String cccd) {
+	    String id = "";
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT MaKhachHang FROM KhachHang WHERE CCCD = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, cccd);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        if (resultSet.next()) {
+	            id = resultSet.getString("MaKhachHang");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return id;
+	}
+	
+	public static Guest getGuestByRoomID(String id) {
+	    Guest guest = null;
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT *"
+	        		+ "FROM PhieuThuePhong ptp "
+	        		+ "INNER JOIN KhachHang kh ON ptp.MaKhachHang = kh.MaKhachHang "
+	        		+ "WHERE ptp.MaPhong = ? AND ptp.HienTrang = 'Đã nhận phòng' ";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, id);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        if (resultSet.next()) {
+	        	String idGuest = resultSet.getString("CCCD");
+	        	String name = resultSet.getString("TenKhachHang");
+	            Date birth = resultSet.getDate("NgaySinh");
+	            String phoneNumber = resultSet.getString("SoDienThoai");
+	            String type = resultSet.getString("LoaiKhachHang");
+	            guest = new Guest(idGuest, name, phoneNumber, birth, type);
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return guest;
+	}
+	
 }

@@ -71,6 +71,7 @@ public class NavController implements ActionListener{
 			equipmentView.setVisible(false);
 			billView.setVisible(true);
 			billView.setIndexComboBox();
+			billView.resetTable();
 		}
 	}
 }

@@ -31,10 +31,9 @@ public class OrderRoomDAO {
 					+ "            ELSE NULL "
 					+ "       END AS Gia "
 					+ "FROM hoadon hd "
-					+ "INNER JOIN hoadonphong hdp ON hd.MaHoaDon = hdp.MaHoaDon "
-					+ "INNER JOIN phong p ON hdp.MaPhong = p.MaPhong "
+					+ "INNER JOIN phieuthuephong ptp ON hd.MaPhieu = ptp.MaPhieu "
+					+ "INNER JOIN phong p ON ptp.MaPhong = p.MaPhong "
 					+ "INNER JOIN loaiphong lp ON p.MaLoaiPhong = lp.MaLoaiPhong "
-					+ "INNER JOIN phieuthuephong ptp ON p.MaPhong = ptp.MaPhong "
 					+ "WHERE hd.MaHoaDon = ? ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
