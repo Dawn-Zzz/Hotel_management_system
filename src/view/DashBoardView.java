@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DAO.RoomDAO;
 import calendar.DateChooser;
 import chart.Chart;
 import chart.ModelChart;
@@ -142,11 +143,12 @@ public class DashBoardView extends JPanel{
 	}
 	private RoomView roomView = RoomView.getInstance();
 	private GuestView guestView = GuestView.getInstance();
-	int countAvailable = 0;
-	int countDamaged = 0;
+	int countAvailable;
+	int countDamaged;
 	private Calendar calendar;
 	
 	private int getCountAvailable() {
+		countAvailable = 0;
 		for(int i = 0; i < 36; i++) {
 			if(roomView.getRoomList().get(i).getCurrentStatus().equals("0")) {
 				countAvailable++;
@@ -156,6 +158,7 @@ public class DashBoardView extends JPanel{
 	}
 	
 	private int getCountDamaged() {
+		countDamaged = 0;
 		for(int i = 0; i < 36; i++) {
 			if(roomView.getRoomList().get(i).getCurrentStatus().equals("2")) {
 				countDamaged++;
@@ -165,13 +168,12 @@ public class DashBoardView extends JPanel{
 	}
 	
 	public void resetDashBoard() {
-		totalGuestQuantity.setText(""+guestView.getCountGuests());
+		roomView.setRoomList(new RoomDAO().getInstance().selectAll());
+		totalGuestQuantity.setText("" + guestView.getCountGuests());
+		damagedRoomQuantity.setText("" + getCountDamaged());
+		availableRoomQuantity.setText("" + getCountAvailable());
 	}
-	
-	private String AvailableQuantity = "" + getCountAvailable();
-	private String DamagedQuantity = "" + getCountDamaged();
-	private String GuestQuantity = "" + guestView.getCountGuests();
-	
+		
 	private JPanel mainContent = new JPanel();
 	private JPanel searchBar = new JPanel();
 	
@@ -181,15 +183,15 @@ public class DashBoardView extends JPanel{
 	
 	private JPanel availableroomParameter = new PanelRound();
 	private JLabel availableRooms = new JLabel("Available Rooms");
-	private JLabel availableRoomQuantity = new JLabel(AvailableQuantity);
+	private JLabel availableRoomQuantity = new JLabel("" + getCountAvailable());
 	
 	private JPanel damagedRoomParameter = new PanelRound();
 	private JLabel damagedRooms = new JLabel("Damaged Rooms");
-	private JLabel damagedRoomQuantity = new JLabel(DamagedQuantity);
+	private JLabel damagedRoomQuantity = new JLabel( "" + getCountDamaged());
 	
 	private JPanel guestParameter = new PanelRound();
 	private JLabel totalGuest = new JLabel("Guest");
-	private JLabel totalGuestQuantity = new JLabel(GuestQuantity);
+	private JLabel totalGuestQuantity = new JLabel("" + guestView.getCountGuests());
 	
 	private JPanel dartTable = new PanelRound();	
 	private JPanel inforTableTop = new PanelRound();

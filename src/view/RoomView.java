@@ -7,9 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
@@ -22,14 +19,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
-import DAO.GuestDAO;
 import DAO.ReservationDAO;
 import DAO.RoomDAO;
 import controller.RoomController;
@@ -316,6 +308,9 @@ public class RoomView extends JPanel{
 		return roomList;
 	}
 
+	public void setRoomList(ArrayList<Room> roomList) {
+		this.roomList = roomList;
+	}
 	public void addRoom(JPanel mainRoomList) {
 		roomList = new RoomDAO().getInstance().selectAll();
 		for(int i = 0; i < roomList.size(); i++) {
