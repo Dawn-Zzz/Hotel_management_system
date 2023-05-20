@@ -26,17 +26,22 @@ public class View extends JFrame{
 	private JButton serviceButton = new JButton("4");
 	private JButton billButton = new JButton("5");
 	private ActionListener actionListener = new NavController(this);
-//	private static View instance;
-//	public static View getInstance() {
-//		if (instance==null) {
-//			instance = new View();
-//		}
-//		return instance;
-//	}
-	
-	public View() {
-		initView();
-	}
+//	private static volatile View instance;
+//
+//    public static View getInstance() {
+//        if (instance == null) {
+//            synchronized (View.class) {
+//                if (instance == null) {
+//                    instance = new View();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
+//
+    public View() {
+        initView();
+    }
 
 	public void initView( ) {
 		ImageIcon image = new ImageIcon("./Images/Logo.png");
@@ -61,6 +66,10 @@ public class View extends JFrame{
 
 	public void setOtherBar(JPanel otherBar) {
 		this.otherBar = otherBar;
+	}
+	
+	public JButton getLogOutButton() {
+		return logOutButton;
 	}
 
 	public void leftBarSection() {

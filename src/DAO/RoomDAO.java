@@ -20,7 +20,8 @@ public class RoomDAO {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT * "
 					+ "FROM phong p "
-					+ "INNER JOIN loaiphong lp ON p.MaLoaiPhong = lp.MaLoaiPhong ";
+					+ "INNER JOIN loaiphong lp ON p.MaLoaiPhong = lp.MaLoaiPhong "
+					+ "ORDER BY p.MaPhong ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
