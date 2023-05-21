@@ -22,7 +22,8 @@ public class BillDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT hd.MaHoaDon, hd.NgayLapHoaDon, kh.TenKhachHang, hd.TongTien, nv.TenNhanVien FROM HoaDon hd "
+			String sql = "SELECT hd.MaHoaDon, hd.NgayLapHoaDon, kh.TenKhachHang, (hd.TongTienPhong + IFNULL(hd.TongTienDichVu, 0)) AS TongTien, nv.TenNhanVien "
+					+ "FROM HoaDon hd "
 					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
 					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -50,7 +51,7 @@ public class BillDAO {
 		Bill bill = null;
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT kh.TenKhachHang, nv.TenNhanVien, hd.TongTien, hd.TongTienPhong, hd.TongTienDichVu, hd.NgayLapHoaDon FROM HoaDon hd "
+			String sql = "SELECT kh.TenKhachHang, nv.TenNhanVien, (hd.TongTienPhong + IFNULL(hd.TongTienDichVu, 0)) AS TongTien, hd.TongTienPhong, hd.TongTienDichVu, hd.NgayLapHoaDon FROM HoaDon hd "
 					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
 					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien "
 					+ "WHERE hd.MaHoaDon = ?";
@@ -58,12 +59,8 @@ public class BillDAO {
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-//				DecimalFormat df = new DecimalFormat("#,###");
 				String nameGuest = resultSet.getString("TenKhachHang");
 				String nameStaff = resultSet.getString("TenNhanVien");
-//				String total = df.format(resultSet.getFloat("TongTien"));
-//				String totalRoom = df.format(resultSet.getFloat("TongTienPhong"));
-//				String totalService = df.format(resultSet.getFloat("TongTienDichVu"));
 				Double total = (double) resultSet.getFloat("TongTien");
 				Double totalRoom = (double) resultSet.getFloat("TongTienPhong");
 				Double totalService = (double) resultSet.getFloat("TongTienDichVu");

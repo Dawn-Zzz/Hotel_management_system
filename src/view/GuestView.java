@@ -35,7 +35,7 @@ public class GuestView extends JPanel {
 	private static GuestView instance;
 	public static GuestView getInstance() {
 		if (instance==null) {
-			instance = new GuestView();
+			instance = new GuestView(); 
 		}
 		return instance;
 	}
@@ -232,6 +232,7 @@ public class GuestView extends JPanel {
 	public void resetGuestTable() {
 		((DefaultTableModel) guestTable.getModel()).setRowCount(0);
 		GuestDAO.getInstance().selectAll(guestTable);
+		System.out.println("reset1");
 		guestsCount = guestTable.getModel().getRowCount();
 	}
 	

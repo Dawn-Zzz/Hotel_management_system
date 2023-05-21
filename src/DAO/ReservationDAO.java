@@ -1,14 +1,11 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -26,9 +23,9 @@ public class ReservationDAO {
 	public int insert(String idGuest, String rentalType, String idRoom, Timestamp checkin, Timestamp checkout, int guestQuantity, Double deposit) {
 		int result = 0;
 		try {
-			String id = getMaKhachHangByCCCD(idGuest);
+			String id = GuestDAO.getInstance().getMaKhachHangByCCCD(idGuest);
 			Connection connection = ConnectDatabase.connection();
-			String sql = "INSERT INTO phieuthuephong (MaKhachHang,HinhThucThue,MaPhong,ThoiGianNhanPhong,ThoiGianTraPhong,SoNguoiO,TienCoc,NgayLap,HienTrang,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO phieuthuephong (MaKhachHang,HinhThucThue,MaPhong,ThoiGianNhanPhong,ThoiGianTraPhong,SoNguoiO,NgayLap,HienTrang,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 			preparedStatement.setString(2, rentalType);
@@ -36,14 +33,9 @@ public class ReservationDAO {
 			preparedStatement.setTimestamp(4, checkin);
 			preparedStatement.setTimestamp(5, checkout);
 			preparedStatement.setInt(6, guestQuantity);
-			if (deposit != null) {
-	            preparedStatement.setDouble(7, deposit);
-	        } else {
-	            preparedStatement.setNull(7, Types.DOUBLE);
-	        }
-			preparedStatement.setDate(8, java.sql.Date.valueOf(LocalDate.now()));
-			preparedStatement.setString(9, "Chưa nhận phòng");
-			preparedStatement.setInt(10, 1);
+			preparedStatement.setDate(7, java.sql.Date.valueOf(LocalDate.now()));
+			preparedStatement.setString(8, "Chưa nhận phòng");
+			preparedStatement.setInt(9, 1);
 			result = preparedStatement.executeUpdate();
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
@@ -57,12 +49,13 @@ public class ReservationDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT kh.TenKhachHang, ptp.MaPhong, ptp.HinhThucThue, ptp.ThoiGianNhanPhong, ptp.ThoiGianTraPhong, ptp.SoNguoiO, ptp.HienTrang "
+			String sql = "SELECT ptp.MaPhieu, kh.TenKhachHang, ptp.MaPhong, ptp.HinhThucThue, ptp.ThoiGianNhanPhong, ptp.ThoiGianTraPhong, ptp.SoNguoiO, ptp.HienTrang "
 					+ "FROM phieuthuephong ptp "
 					+ "INNER JOIN khachhang kh ON ptp.MaKhachHang = kh.MaKhachHang;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
+				String idReservation = resultSet.getString("MaPhieu");
 				String guestName = resultSet.getString("TenKhachHang");
 				String room = resultSet.getString("MaPhong");
 				String rentalType = resultSet.getString("HinhThucThue");
@@ -70,7 +63,7 @@ public class ReservationDAO {
 				String checkOut = resultSet.getString("ThoiGianTraPhong");
 				String roomOccupancy = resultSet.getString("SoNguoiO");
 				String status = resultSet.getString("HienTrang");
-				Object[] object = {guestName, room,rentalType,checkIn,checkOut,roomOccupancy,status};
+				Object[] object = {idReservation,guestName, room,rentalType,checkIn,checkOut,roomOccupancy,status};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
@@ -85,11 +78,11 @@ public class ReservationDAO {
 		ArrayList<Reservation> arrResult = new ArrayList<>();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT *"
-					+ "FROM khachhang kh "
-					+ "INNER JOIN phieuthuephong ptp ON kh.MaKhachHang = ptp.MaKhachHang "
+			String sql = "SELECT * "
+					+ "FROM phieuthuephong ptp "
 					+ "INNER JOIN phong p ON ptp.MaPhong = p.MaPhong "
-					+ "WHERE p.MaPhong LIKE ? AND (ptp.HienTrang LIKE N'Đã nhận phòng' OR ptp.HienTrang LIKE N'Chưa nhận phòng') ";
+					+ "WHERE p.MaPhong = ? "
+					+ "    AND (p.HienTrang = '2' OR (ptp.HienTrang LIKE N'Chưa nhận phòng' OR ptp.HienTrang LIKE N'Đã nhận phòng')) ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -108,22 +101,19 @@ public class ReservationDAO {
 		return arrResult;
 	}
 	
-	public static String getMaKhachHangByCCCD(String cccd) {
-	    String id = "";
-	    try {
+	public int updateStatusReservation (String id, String status) {
+		int result = 0;
+		try {
 	        Connection connection = ConnectDatabase.connection();
-	        String sql = "SELECT MaKhachHang FROM KhachHang WHERE CCCD = ?";
+	        String sql = "UPDATE PhieuThuePhong SET HienTrang = ? WHERE MaPhieu = ?";
 	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-	        preparedStatement.setString(1, cccd);
-	        ResultSet resultSet = preparedStatement.executeQuery();
-	        if (resultSet.next()) {
-	            id = resultSet.getString("MaKhachHang");
-	        }
+	        preparedStatement.setString(1, status);
+	        preparedStatement.setString(2, id);
+	        result = preparedStatement.executeUpdate();
 	        ConnectDatabase.disconnection(connection);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-	    return id;
+		return result;
 	}
-
 }

@@ -2,18 +2,23 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DAO.DashBoardDAO;
+import DAO.RoomDAO;
 import calendar.DateChooser;
 import chart.Chart;
 import chart.ModelChart;
@@ -129,6 +134,30 @@ public class DashBoardView extends JPanel{
 		
 		inforTableTop.setBounds(600,260,307,160);
 		inforTableTop.setBackground(Color.WHITE);
+		inforTableTop.setLayout(null);
+//		inforTableTop.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		inforTableTop.add(totalIncomeTitle);
+		inforTableTop.add(totalIncome);
+		inforTableTop.add(totalIncomeWeeklyTitle);
+		inforTableTop.add(totalIncomeWeekly);
+		
+		totalIncomeTitle.setBounds(25,15,160,15);
+		totalIncomeTitle.setFont(new Font("Arial",Font.BOLD,12));
+		totalIncomeTitle.setForeground(new Color(150,150,150));
+//		totalIncomeTitle.setAlignmentX(10);
+		
+		totalIncome.setBounds(25,43,200,25);
+		totalIncome.setFont(new Font("Arial",Font.BOLD,22));
+		totalIncome.setText(DashBoardDAO.getInstance().selectAll() + " VND");
+		
+		totalIncomeWeeklyTitle.setBounds(25,85,160,15);
+		totalIncomeWeeklyTitle.setFont(new Font("Arial",Font.BOLD,12));
+		totalIncomeWeeklyTitle.setForeground(new Color(150,150,150));
+//		totalIncomeWeeklyTitle.setAlignmentX(10);
+		
+		totalIncomeWeekly.setBounds(25,113,200,25);
+		totalIncomeWeekly.setFont(new Font("Arial",Font.BOLD,22));
+		totalIncomeWeekly.setText(DashBoardDAO.getInstance().selectWeek() + " VND");
 		
 		inforTableBottom.setBounds(600,440,307,220);
 		inforTableBottom.setBackground(Color.WHITE);
@@ -142,17 +171,19 @@ public class DashBoardView extends JPanel{
 	}
 	private RoomView roomView = RoomView.getInstance();
 	private GuestView guestView = GuestView.getInstance();
-	int countAvailable = 0;
-	int countDamaged = 0;
+	int countAvailable;
+	int countDamaged;
 	private Calendar calendar;
 	
 	private int getCountAvailable() {
+		countAvailable = 0;
 		for(int i = 0; i < 36; i++) {
 			if(roomView.getRoomList().get(i).getCurrentStatus().equals("0")) {
 				countAvailable++;
 			}
 		}
 		return countAvailable;
+//		return roomView.getAvailable();
 	}
 	
 	private int getCountDamaged() {
@@ -165,12 +196,11 @@ public class DashBoardView extends JPanel{
 	}
 	
 	public void resetDashBoard() {
-		totalGuestQuantity.setText(""+guestView.getCountGuests());
+		roomView.setRoomList(new RoomDAO().getInstance().selectAll());
+		totalGuestQuantity.setText("" + guestView.getCountGuests());
+		damagedRoomQuantity.setText("" + getCountDamaged());
+		availableRoomQuantity.setText("" + getCountAvailable());
 	}
-	
-	private String AvailableQuantity = "" + getCountAvailable();
-	private String DamagedQuantity = "" + getCountDamaged();
-	private String GuestQuantity = "" + guestView.getCountGuests();
 	
 	private JPanel mainContent = new JPanel();
 	private JPanel searchBar = new JPanel();
@@ -181,18 +211,23 @@ public class DashBoardView extends JPanel{
 	
 	private JPanel availableroomParameter = new PanelRound();
 	private JLabel availableRooms = new JLabel("Available Rooms");
-	private JLabel availableRoomQuantity = new JLabel(AvailableQuantity);
+	private JLabel availableRoomQuantity = new JLabel("" + getCountAvailable());
 	
 	private JPanel damagedRoomParameter = new PanelRound();
 	private JLabel damagedRooms = new JLabel("Damaged Rooms");
-	private JLabel damagedRoomQuantity = new JLabel(DamagedQuantity);
+	private JLabel damagedRoomQuantity = new JLabel( "" + getCountDamaged());
 	
 	private JPanel guestParameter = new PanelRound();
 	private JLabel totalGuest = new JLabel("Guest");
-	private JLabel totalGuestQuantity = new JLabel(GuestQuantity);
+	private JLabel totalGuestQuantity = new JLabel("" + guestView.getCountGuests());
 	
 	private JPanel dartTable = new PanelRound();	
 	private JPanel inforTableTop = new PanelRound();
+	private JLabel totalIncomeTitle = new JLabel("Total Income");
+	private JLabel totalIncome = new JLabel("100,000,000 VND");
+	private JLabel totalIncomeWeeklyTitle = new JLabel("Total Weekly Income");
+	private JLabel totalIncomeWeekly = new JLabel("10,000,000 VND");
+	
 	private JPanel inforTableBottom = new PanelRound();
 	
 	private Chart chart = new Chart();

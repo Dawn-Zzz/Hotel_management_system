@@ -54,7 +54,6 @@ public class AddGuestView extends JDialog{
 	private ActionListener actionListener = new AddGuestController(this);
 	
 	public AddGuestView() {
-//		this.parentView = parentView;
 		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
@@ -67,8 +66,6 @@ public class AddGuestView extends JDialog{
 		this.add(guestPhoneField);
 		this.add(identificationNumber);
 		this.add(identificationNumberField);
-//		this.add(guestGender);
-//		this.add(genderGroup);
 		this.add(vipCheckBox);
 		this.add(guestBirth);
 		this.add(birthDay);

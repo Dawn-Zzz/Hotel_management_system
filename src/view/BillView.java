@@ -237,6 +237,11 @@ public class BillView extends JPanel{
 		monthList.setEnabled(false);
 		dayList.setEnabled(false);
 	}
+	
+	public void resetTable() {
+		((DefaultTableModel) billTable.getModel()).setRowCount(0);
+		BillDAO.getInstance().selectAll(billTable);
+	}
 	//sub bar
 	private JPanel subBar = new JPanel();
 	private JPanel staffSearch = new JPanel();

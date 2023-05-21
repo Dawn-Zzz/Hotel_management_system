@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.NavController;
@@ -20,19 +21,14 @@ public class View extends JFrame{
 	private JPanel leftBar = new JPanel();
 	private JPanel otherBar = new JPanel();
 	private JButton logOutButton = new Button();
+	private JLabel userName = new JLabel("Phan Tấn Trung");
 	private JButton dashBoardButton = new JButton("1");
 	private JButton guestButton = new JButton("2");
 	private JButton roomButton = new JButton("3");
 	private JButton serviceButton = new JButton("4");
 	private JButton billButton = new JButton("5");
-	private ActionListener actionListener = new NavController(this);
-//	private static View instance;
-//	public static View getInstance() {
-//		if (instance==null) {
-//			instance = new View();
-//		}
-//		return instance;
-//	}
+	private JButton adminButton = new JButton("6");
+	private ActionListener actionListener;
 	
 	public View() {
 		initView();
@@ -50,9 +46,9 @@ public class View extends JFrame{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.add(otherBar);
-		this.add(leftBar);
 		this.setVisible(true);
+		this.add(leftBar);
+		this.add(otherBar);
 	}
 	
 	public JPanel getOtherBar() {
@@ -62,7 +58,11 @@ public class View extends JFrame{
 	public void setOtherBar(JPanel otherBar) {
 		this.otherBar = otherBar;
 	}
-
+	
+	public JButton getLogOutButton() {
+		return logOutButton;
+	}
+	
 	public void leftBarSection() {
 		//Left bar section
 
@@ -74,6 +74,7 @@ public class View extends JFrame{
 		leftBar.add(roomButton);
 		leftBar.add(serviceButton);
 		leftBar.add(billButton);
+		leftBar.add(adminButton);
 
 		dashBoardButton.setBounds(0, 30, 64, 40);
 		dashBoardButton.setLayout(null);
@@ -134,19 +135,39 @@ public class View extends JFrame{
 		billButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		billButton.setFocusable(false);
 		billButton.addActionListener(actionListener);
+		
+		adminButton.setBounds(0, 330, 64, 40);
+		adminButton.setLayout(null);
+		adminButton.setBorder(null);
+		adminButton.setBackground(new Color(39,162,187));
+		adminButton.setForeground(new Color(39,162,187));
+		adminButton.setIcon(new ImageIcon("./Images/admin.png"));
+		adminButton.setHorizontalTextPosition(0);
+		adminButton.setFont(new Font("Arial", Font.PLAIN, 0));
+		adminButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		adminButton.setFocusable(false);
+		adminButton.addActionListener(actionListener);
 	}
 	
 	public void otherSection() {
+		otherBar.setVisible(true);
 		otherBar.setLayout(null);
 		otherBar.setBounds(64,0,1020-84,720);
+		
 		logOutButton.setText("Log Out");
 		logOutButton.setForeground(Color.WHITE);
-		logOutButton.setBounds(1020-174,25,80,40);
+		logOutButton.setBounds(1020-174,23,80,40);
 		logOutButton.setLayout(null);
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
 		
-		otherBar.add(logOutButton,0);
+		userName.setBounds(750,23,100,40);
+		userName.setFont(new Font("Arial", Font.BOLD, 12));
+		userName.setForeground(new Color(170,170,170));
+		
+		otherBar.add(logOutButton);
+		otherBar.add(userName);
+		actionListener = new NavController(this);
 	}
 }

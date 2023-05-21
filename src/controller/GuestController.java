@@ -65,8 +65,8 @@ public class GuestController implements ActionListener, MouseListener {
 				guestView.getDayList().setSelectedIndex(-1);
 		        guestView.getDayList().setEnabled(true);
 			}
-			searchEvent(guestView.getGuestTable(),guestView.getSearchBox());
 		}
+		searchEvent(guestView.getGuestTable(),guestView.getSearchBox());
     }
 
 	private void updateDayComboBox() {

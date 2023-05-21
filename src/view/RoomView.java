@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -39,6 +41,7 @@ import view.editComponent.TextField;
 
 public class RoomView extends JPanel{
 	private ActionListener actionListener = new RoomController(this);
+	private MouseListener mouseListener = new RoomController(this);
 	private static RoomView instance;
 	public static RoomView getInstance() {
 		if (instance==null) {
@@ -86,7 +89,7 @@ public class RoomView extends JPanel{
 		roomSearch.add(roomType);
 		roomSearch.add(vipRoom);
 		roomSearch.add(popularRoom);
-		roomSearch.add(bedList);
+		roomSearch.add(rentalTypeList);
 		roomSearch.setVisible(false);
 		
 		roomType.setBounds(0,0,32,100);
@@ -105,11 +108,12 @@ public class RoomView extends JPanel{
 		popularRoom.setBackground(new Color(241,243,255));
 		popularRoom.setPreferredSize(new Dimension(137,25));
 		
-		bedList.setBounds(0,30,20,20);
-		bedList.setModel(new DefaultComboBoxModel(bedType));
-		bedList.setPreferredSize(new Dimension(129,25));
-		bedList.setBackground(Color.WHITE);
-		bedList.setFocusable(false);
+		rentalTypeList.setBounds(0,30,20,20);
+		rentalTypeList.setModel(new DefaultComboBoxModel(rentalType));
+		rentalTypeList.setPreferredSize(new Dimension(129,25));
+		rentalTypeList.setBackground(Color.WHITE);
+		rentalTypeList.setFocusable(false);
+		rentalTypeList.addActionListener(actionListener);
 		
 		statusSearch.setBounds(10, 270, 129, 150);
 		statusSearch.setForeground(Color.WHITE);
@@ -132,6 +136,7 @@ public class RoomView extends JPanel{
 		statusList.setPreferredSize(new Dimension(129,25));
 		statusList.setBackground(Color.WHITE);
 		statusList.setFocusable(false);
+		statusList.addActionListener(actionListener);
 		
 		addRoom(mainRoomList);
 		
@@ -195,26 +200,29 @@ public class RoomView extends JPanel{
         roomTable.setCellAlignment(5, JLabel.CENTER);
         roomTable.setColumnAlignment(6, JLabel.CENTER);
         roomTable.setCellAlignment(6, JLabel.CENTER);
+        roomTable.setColumnAlignment(7, JLabel.CENTER);
+        roomTable.setCellAlignment(7, JLabel.CENTER);
         roomTable.setFont(new Font("Arial",Font.BOLD,12));
-		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Guest Name", "Room", "Rental Type", "Check In", "Check Out", "Room Occupancy","Status"}) {
+		roomTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"NC","Guest Name", "Room", "Rental Type", "Check In", "Check Out", "Headcount","Status"}) {
 	            boolean[] canEdit = new boolean [] {
-	                false, false, false, false, false,false,false
+	                false, false, false, false, false, false, false, false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
 	                return canEdit [columnIndex];
 	            }
 	        });
-		roomTable.setColumnWidth(0,220);
-		roomTable.setColumnWidth(1,60);
-		roomTable.setColumnWidth(2,100);
-		roomTable.setColumnWidth(3,180);
+		roomTable.setColumnWidth(0,35);
+		roomTable.setColumnWidth(1,215);
+		roomTable.setColumnWidth(2,65);
+		roomTable.setColumnWidth(3,95);
 		roomTable.setColumnWidth(4,180);
-		roomTable.setColumnWidth(5,140);
-		roomTable.setColumnWidth(6,140);
+		roomTable.setColumnWidth(5,180);
+		roomTable.setColumnWidth(6,110);
+		roomTable.setColumnWidth(7,150);
 		
 		ReservationDAO.getInstance().selectAll(roomTable);
-		SearchTable(roomTable, searchBox);
+		roomTable.addMouseListener(mouseListener);
 		
 		searchBar.setBounds(0,0,1020-150-64,85);
 		searchBar.setLayout(null);
@@ -225,11 +233,13 @@ public class RoomView extends JPanel{
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
 		searchBox.setVisible(false);
+		
+//		getAvailable = RoomView.get
 
 		this.setVisible(false);
 	}
 	
-	String bedType[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
+	String rentalType[] = {"All" ,"Giờ", "Ngày", "Đêm"};
 	String statusType[] = {"All", "Đã Nhận Phòng", "Đã Trả Phòng", "Đã Huỷ Phòng" , "Chưa Nhận Phòng"};
 
 	//sub bar
@@ -240,7 +250,7 @@ public class RoomView extends JPanel{
 	private JLabel roomType = new JLabel();
 	private JCheckBox vipRoom = new JCheckBox("Vip");
 	private JCheckBox popularRoom = new JCheckBox("Popular");
-	private JComboBox bedList = new Combobox();
+	private JComboBox rentalTypeList = new Combobox();
 	
 	private JPanel statusSearch = new JPanel();
 	private JLabel currentsStatus = new JLabel();
@@ -259,68 +269,47 @@ public class RoomView extends JPanel{
 	JScrollPane jScrollPane1 = new JScrollPane();
 	
 	private JButton roomButtonList[] = new JButton[36];
-	private ArrayList<Room> roomList = new RoomDAO().getInstance().selectAll();
 
-	private void SearchTable(JTable table, JTextField textField) {
-		TableRowSorter<TableModel> sorter1 = new TableRowSorter<>(table.getModel());
-		table.setRowSorter(sorter1);
-		textField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-				String input = textField.getText().trim();
-				if (input.length() == 0) {
-					sorter1.setRowFilter(null);
-				} else {
-					sorter1.setRowFilter(RowFilter.regexFilter("(?i)" + input));
-				}
-			}
-		});
-	}
+	private ArrayList<Room> roomList;
 	
 	public void resetRoomTable() {
 		((DefaultTableModel) roomTable.getModel()).setRowCount(0);
 		ReservationDAO.getInstance().selectAll(roomTable);
 	}
 	
+	
+	public JComboBox getRentalTypeList() {
+		return rentalTypeList;
+	}
+	public JComboBox getStatusList() {
+		return statusList;
+	}
+	public Table getRoomTable() {
+		return roomTable;
+	}
 	public JPanel getMainRoomList() {
 		return mainRoomList;
-	}
-
-	public void setMainRoomList(JPanel mainRoomList) {
-		this.mainRoomList = mainRoomList;
 	}
 
 	public JPanel getHistoryRoomList() {
 		return historyRoomList;
 	}
 
-	public void setHistoryRoomList(JPanel historyRoomList) {
-		this.historyRoomList = historyRoomList;
-	}
-
 	public JPanel getRoomSearch() {
 		return roomSearch;
-	}
-
-	public void setRoomSearch(JPanel roomSearch) {
-		this.roomSearch = roomSearch;
 	}
 
 	public JPanel getStatusSearch() {
 		return statusSearch;
 	}
 
-	public void setStatusSearch(JPanel statusSearch) {
-		this.statusSearch = statusSearch;
-	}
-
 	public JTextField getSearchBox() {
 		return searchBox;
 	}
-
-	public void setSearchBox(JTextField searchBox) {
-		this.searchBox = searchBox;
-	}
 	
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
 	public JButton[] getRoomButtonList() {
 		return roomButtonList;
 	}
@@ -328,8 +317,31 @@ public class RoomView extends JPanel{
 	public ArrayList<Room> getRoomList() {
 		return roomList;
 	}
-
+	public int getAvailable() {
+		int a = 0;
+		for(int i = 0; i < roomList.size(); i++) {
+			if(roomList.get(i).getCurrentStatus().equals("0")) {
+				a++;
+			}
+		}
+		return a;
+	}
+	public int getDamaged() {
+		int a = 0;
+		for(int i = 0; i < roomList.size(); i++) {
+			if(roomList.get(i).getCurrentStatus().equals("2")) {
+				a++;
+			}
+		}
+		return a;
+	}
+	int getAvailable = 0;
+	
+	public void setRoomList(ArrayList<Room> roomList) {
+		this.roomList = roomList;
+	}
 	public void addRoom(JPanel mainRoomList) {
+		roomList = new RoomDAO().getInstance().selectAll();
 		for(int i = 0; i < roomList.size(); i++) {
 			roomButtonList[i] = new JButton(roomList.get(i).getNumberRoom());
 			if(roomList.get(i).getCurrentStatus().equals("0")) {
@@ -340,10 +352,10 @@ public class RoomView extends JPanel{
 				roomButtonList[i].setBackground(new Color(216,251,219));
 				roomButtonList[i].setForeground(new Color(0,139,2));
 			}
-//			else if(CurrentStatus[i] == "Book In Advance") {
-//				RoomList[i].setBackground(new Color(253,247,218));
-//				RoomList[i].setForeground(new Color(194,157,5));
-//			}
+			else if(roomList.get(i).getCurrentStatus().equals("2")) {
+				roomButtonList[i].setBackground(new Color(253,247,218));
+				roomButtonList[i].setForeground(new Color(194,157,5));
+			}
 			else {
 				roomButtonList[i].setBackground(new Color(225,185,183));
 				roomButtonList[i].setForeground(new Color(184,0,0));

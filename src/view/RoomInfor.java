@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,17 +17,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.GuestDAO;
+import model.Guest;
+import model.Room;
 import view.editComponent.Button;
 import view.editComponent.Table;
 
 public class RoomInfor extends JDialog{
-	public RoomInfor(String number, String type, String bed, String status, String guest) {
+	public RoomInfor(Room room, String bed) {
 		this.setUndecorated(true);
-		this.setNumber(number);
-		this.setType(type);
-		this.setBed(bed);
-		this.setStatus(status);
-		this.setGuest(guest);
+		this.room = room;
+		this.bed = bed;
+		this.guest = GuestDAO.getInstance().getGuestByRoomID(room.getNumberRoom());
 		ImageIcon image = new ImageIcon("./Images/whiteLogo.png");
 		this.setIconImage(image.getImage());
 		this.getContentPane().setBackground(Color.WHITE);
@@ -55,7 +58,7 @@ public class RoomInfor extends JDialog{
 		imageSection.setBounds(-10,0,390,520);
 		
 		roomNumber.setBounds(410,20,220,30);
-		roomNumber.setText("Room " + this.number);
+		roomNumber.setText("Room " + room.getNumberRoom());
 		roomNumber.setPreferredSize(new Dimension(250,30));
 		roomNumber.setFont(new Font("Arial",Font.BOLD,24));
 		roomNumber.setForeground(Color.BLACK);
@@ -69,16 +72,21 @@ public class RoomInfor extends JDialog{
 		roomInforTitle.setBackground(Color.WHITE);
 		roomInforTitle.setBorder(null);
 		
-		roomType.setBounds(410,130,250,30);
-		roomType.setText("Room Type: " + type);
-		roomType.setPreferredSize(new Dimension(250,30));
+		roomType.setBounds(410,130,350,30);
+		roomType.setText("Room Type: " + room.getTypeRoom());
+		roomType.setPreferredSize(new Dimension(350,30));
 		roomType.setFont(new Font("Arial",Font.BOLD,14));
 		roomType.setForeground(Color.BLACK);
 		roomType.setBackground(Color.WHITE);
 		roomType.setBorder(null);
 		
 		currentStatus.setBounds(410,160,250,30);
-		currentStatus.setText("Current Status: " + status);
+		if (room.getCurrentStatus().equals("0"))
+			currentStatus.setText("Current Status: " + "Trống");
+		else if (room.getCurrentStatus().equals("1"))
+			currentStatus.setText("Current Status: " + "Đã cho thuê");
+		else
+			currentStatus.setText("Current Status: " + "Đang sửa chữa");
 		currentStatus.setPreferredSize(new Dimension(250,30));
 		currentStatus.setFont(new Font("Arial",Font.BOLD,14));
 		currentStatus.setForeground(Color.BLACK);
@@ -95,7 +103,7 @@ public class RoomInfor extends JDialog{
 		
 		
 		guestQuantity.setBounds(590,190,250,30);
-		guestQuantity.setText("Guest Quantity: " + guest);
+		guestQuantity.setText("Guest Quantity: ");
 		guestQuantity.setPreferredSize(new Dimension(250,30));
 		guestQuantity.setFont(new Font("Arial",Font.BOLD,14));
 		guestQuantity.setForeground(Color.BLACK);
@@ -110,7 +118,10 @@ public class RoomInfor extends JDialog{
 		guestInforTitle.setBorder(null);
 		
 		guestName.setBounds(410,300,250,30);
-		guestName.setText("Guest Name: " );
+		if (guest == null)
+			guestName.setText("Guest Name: " + "~");
+		else
+			guestName.setText("Guest Name: " + guest.getName());
 		guestName.setPreferredSize(new Dimension(250,30));
 		guestName.setFont(new Font("Arial",Font.BOLD,14));
 		guestName.setForeground(Color.BLACK);
@@ -118,7 +129,10 @@ public class RoomInfor extends JDialog{
 		guestName.setBorder(null);
 		
 		guestGender.setBounds(410,330,250,30);
-		guestGender.setText("Gender: " );
+		if (guest == null)
+			guestGender.setText("Type: " + "~");
+		else
+			guestGender.setText("Type: " + guest.getType());
 		guestGender.setPreferredSize(new Dimension(250,30));
 		guestGender.setFont(new Font("Arial",Font.BOLD,14));
 		guestGender.setForeground(Color.BLACK);
@@ -126,7 +140,10 @@ public class RoomInfor extends JDialog{
 		guestGender.setBorder(null);
 		
 		guestBirthday.setBounds(410,360,250,30);
-		guestBirthday.setText("Birthday: 02/07/2003");
+		if (guest == null)
+			guestBirthday.setText("Birthday: " + "~");
+		else
+			guestBirthday.setText("Birthday: " + guest.getBirth());
 		guestBirthday.setPreferredSize(new Dimension(250,30));
 		guestBirthday.setFont(new Font("Arial",Font.BOLD,14));
 		guestBirthday.setForeground(Color.BLACK);
@@ -134,7 +151,10 @@ public class RoomInfor extends JDialog{
 		guestBirthday.setBorder(null);
 		
 		guestId.setBounds(590,360,250,30);
-		guestId.setText("Guest ID: 0123456789012" );
+		if (guest == null)
+			guestId.setText("Guest ID: " + "~");
+		else
+			guestId.setText("Guest ID: " + guest.getIdNumber());
 		guestId.setPreferredSize(new Dimension(250,30));
 		guestId.setFont(new Font("Arial",Font.BOLD,14));
 		guestId.setForeground(Color.BLACK);
@@ -142,7 +162,10 @@ public class RoomInfor extends JDialog{
 		guestId.setBorder(null);
 		
 		guestPhone.setBounds(590,330,250,30);
-		guestPhone.setText("Phone Number: 0912345678");
+		if (guest == null)
+			guestPhone.setText("Phone Number: "+ "~");
+		else
+			guestPhone.setText("Phone Number: "+ guest.getNumberPhone());
 		guestPhone.setPreferredSize(new Dimension(250,30));
 		guestPhone.setFont(new Font("Arial",Font.BOLD,14));
 		guestPhone.setForeground(Color.BLACK);
@@ -156,42 +179,25 @@ public class RoomInfor extends JDialog{
 		exitButton.setLayout(null);
 		exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		exitButton.setFocusable(false);
+		exitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+		});
 		this.setVisible(false);
 	}
 	
-	private String number;
-	private String type;
+	private Room room;
 	private String bed;
-	private String status;
-	private String guest;
-	
-	public String getNumber() {
-		return number;
-	}
-	public void setNumber(String number) {
-		this.number = number;
-	}
+	private Guest guest;
 
-	public void setType(String type) {
-		this.type = type;
-	}
 	public String getBed() {
 		return bed;
 	}
 	public void setBed(String bed) {
 		this.bed = bed;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getGuest() {
-		return guest;
-	}
-	public void setGuest(String guest) {
-		this.guest = guest;
 	}
 	
 	private JPanel inforSection = new JPanel();
@@ -199,13 +205,13 @@ public class RoomInfor extends JDialog{
 	
 	private JLabel roomNumber = new JLabel();
 	
-	private JLabel roomInforTitle = new JLabel("Room Information: ");
+	private JLabel roomInforTitle = new JLabel("Room Information");
 	private JLabel roomType = new JLabel();
 	private JLabel bedQuantity = new JLabel();
 	private JLabel currentStatus = new JLabel();
 	private JLabel guestQuantity = new JLabel();
 	
-	private JLabel guestInforTitle = new JLabel("Guest Information:");
+	private JLabel guestInforTitle = new JLabel("Guest Information");
 	
 	private JPanel guestListSection = new JPanel();
 	private Table guestInforTable = new Table();
