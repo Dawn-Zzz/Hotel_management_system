@@ -112,7 +112,7 @@ public class BillDetailController implements ActionListener {
 			PdfPTable pdfTable1 = new PdfPTable(roomInforTable.getColumnCount());
 			pdfTable1.setSpacingBefore(50);
 			pdfTable1.setWidthPercentage(100);
-			float[] columnWidths = {80,100,130,130,100};
+			float[] columnWidths = {80,100,100,130,130};
 			pdfTable1.setWidths(columnWidths);
 			
 			// Thêm tiêu đề cột
