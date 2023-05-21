@@ -97,7 +97,7 @@ public class AdminController implements ActionListener, MouseListener {
 		      adminView.getStaffTable().setRowSelectionInterval(row, row); // chọn dòng được nhấn chuột
 		      JPopupMenu popupMenu = new JPopupMenu();
 		      JMenuItem menuItem = new JMenuItem("Chỉnh sửa thông tin");
-		      String selectedRole = adminView.getStaffTable().getValueAt(row, 3).toString();
+		      String selectedRole = adminView.getStaffTable().getValueAt(row, 4).toString();
 		      String selectedName = adminView.getStaffTable().getValueAt(row, 0).toString();
 		      menuItem.addActionListener(new ActionListener() {
 		         public void actionPerformed(ActionEvent e) {
