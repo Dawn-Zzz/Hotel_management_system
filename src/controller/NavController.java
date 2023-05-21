@@ -19,7 +19,7 @@ public class NavController implements ActionListener{
 	private RoomView roomView = RoomView.getInstance();
 	private EquipmentView equipmentView = new EquipmentView();
 	private BillView billView = BillView.getInstance();
-	private AdminView adminView = new AdminView();
+	private AdminView adminView = AdminView.getInstance();
 
 	public NavController(View buttonView) {
 		this.buttonView = buttonView;

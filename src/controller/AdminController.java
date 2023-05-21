@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -73,7 +74,7 @@ public class AdminController implements ActionListener, MouseListener {
         table.setRowSorter(sorter);
 //        List<RowFilter<Object,Object>> filters = new ArrayList<>();
 
-        RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + role,3);
+        RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + role,4);
 		filters.add(filter1);
 		sorter.setRowFilter(RowFilter.andFilter(filters));
 		textField.setText("");

@@ -98,7 +98,7 @@ public class GuestView extends JPanel {
 		guestType.setFont(new Font("Arial",Font.BOLD,14));
 		guestType.setForeground(Color.BLACK);
 		guestType.setBackground(new Color(241,243,255));
-		guestType.setBorder(null);
+		guestType.setBorder(null); 
 		
 		guestList.setLocation(0, 40);
 		guestList.setModel(new DefaultComboBoxModel(GuestType));

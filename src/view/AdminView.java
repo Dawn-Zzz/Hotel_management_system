@@ -41,7 +41,7 @@ public class AdminView extends JPanel {
 	}
 	private int staffsCount;
 	
-	public AdminView() {
+	private AdminView() {
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(subBar);
@@ -133,7 +133,7 @@ public class AdminView extends JPanel {
         staffTable.setFont(new Font("Arial",Font.BOLD,12));
 		staffTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Staff Name", "Indentification Number", "Phone Number","Birthday", "Staff Role"}) {
 	            boolean[] canEdit = new boolean [] {
-	                false, false, false, false
+	                false, false, false, false, false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,7 +148,7 @@ public class AdminView extends JPanel {
 //		System.out.println(staffTable.getModel().getRowCount());
 	}
 	
-	public int getCountstaffs() {
+	public int getCountStaffs() {
 		return staffsCount;
 	}
 
@@ -157,6 +157,7 @@ public class AdminView extends JPanel {
 		StaffDAO.getInstance().selectAll(staffTable);
 		System.out.println("reset2");
 		staffsCount = staffTable.getModel().getRowCount();
+		((DefaultTableModel) staffTable.getModel()).fireTableDataChanged();
 	}
 	
 	public JTextField getSearchBox() {
