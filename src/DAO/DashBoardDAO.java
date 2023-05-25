@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class DashBoardDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT SUM(hd.TongTienPhong + IFNULL(hd.TongTienDichVu, 0)) AS Tong FROM hotel_management.hoadon hd;" );
+			ResultSet resultSet = statement.executeQuery("SELECT SUM(hd.TienPhong + IFNULL(hd.TienDichVu, 0)) AS Tong FROM hotel_management.hoadon hd;" );
 			while (resultSet.next()) {
 				DecimalFormat df = new DecimalFormat("#,###");
 				selectTotal = df.format(resultSet.getInt("Tong"));
@@ -97,7 +98,7 @@ public class DashBoardDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			Statement statement = connection.createStatement();
-			String sql = "SELECT SUM(hd.TongTienPhong + IFNULL(hd.TongTienDichVu, 0)) AS Tong FROM hotel_management.hoadon hd "
+			String sql = "SELECT SUM(hd.TienPhong + IFNULL(hd.TienDichVu, 0)) AS Tong FROM hotel_management.hoadon hd "
 					+ "WHERE NgayLapHoaDon >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) "
 					+ "AND NgayLapHoaDon <= CURDATE()";
 			ResultSet resultSet = statement.executeQuery(sql);
@@ -113,6 +114,28 @@ public class DashBoardDAO {
 		}
 		return selectTotal;
 	}
+	
+
+	
+	public int selectCheckIn(LocalDate today) {
+	    int checkIn = 0;
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT COUNT(*) AS checkIn FROM PhieuThue WHERE DATE(ThoiGianNhanPhong) = ?";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setDate(1, java.sql.Date.valueOf(today));
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	            checkIn = resultSet.getInt("checkIn");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Lỗi checkIn");
+	    }
+	    return checkIn;
+	}
+
 	
 	public Staff getStaffById(String id) {
 	    Staff staff = null;

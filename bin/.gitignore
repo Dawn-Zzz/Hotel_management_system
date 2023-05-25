@@ -1,5 +1,10 @@
-/controller/
-/view/
 /DAO/
-/model/
+/GraphicsUtilities/
+/calendar/
+/chart/
+/controller/
 /database/
+/fonts/
+/model/
+/testProject/
+/view/

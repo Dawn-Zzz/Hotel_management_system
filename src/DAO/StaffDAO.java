@@ -29,16 +29,15 @@ public class StaffDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT nv.TenNhanVien, nv.CCCD, nv.SoDienThoai, nv.MaNhanVien, cd.TenChucDanh, nv.NgaySinh "
-					+ "FROM NhanVien nv INNER JOIN ChucDanh cd "
-					+ "ON cd.MaChucDanh = nv.MaChucDanh" ;
+			String sql = "SELECT nv.TenNhanVien, nv.CCCD, nv.SoDienThoai, nv.MaNhanVien, nv.ChucDanh, nv.NgaySinh "
+					+ "FROM NhanVien nv;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String nameStaff = resultSet.getString("TenNhanVien");
 				String cccdStaff = resultSet.getString("CCCD");
 				String phoneStaff = resultSet.getString("SoDienThoai");
-				String roleStaff = resultSet.getString("TenChucDanh");
+				String roleStaff = resultSet.getString("ChucDanh");
 				int idStaff = resultSet.getInt("MaNhanVien");
 				Date birthStaff = resultSet.getDate("NgaySinh");
 //				Timestamp timestamp = resultSet.getTimestamp("NgaySinh");
@@ -110,7 +109,7 @@ public class StaffDAO {
 //			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 //			ResultSet resultSet = preparedStatement.executeQuery();
 			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT TenChucDanh FROM hotel_management.ChucDanh WHERE MaChucDanh != 'CD001'" );
+			ResultSet resultSet = statement.executeQuery("SELECT TenChucDanh FROM hotel_management.NhanVien WHERE MaChucDanh != 'CD001'" );
 			while (resultSet.next()) {
 				String roleStaff = resultSet.getString("TenChucDanh");
 				list.add(roleStaff);
@@ -137,7 +136,7 @@ public class StaffDAO {
 	            Date birth = resultSet.getDate("NgaySinh");
 	            String idStaff = resultSet.getString("CCCD");
 	            String phoneNumber = resultSet.getString("SoDienThoai");
-	            String role = resultSet.getString("MaChucDanh");
+	            String role = resultSet.getString("TenChucDanh");
 	            staff = new Staff(idStaff, name, phoneNumber, birth, role);
 	        }
 	        ConnectDatabase.disconnection(connection);
@@ -152,9 +151,8 @@ public class StaffDAO {
 		try { 
 		    Connection connection = ConnectDatabase.connection();
 		    String sql = "UPDATE NhanVien nv "
-		        + "INNER JOIN ChucDanh cd ON nv.MaChucDanh = cd.MaChucDanh "
 		        + "SET TenNhanVien = ?, SoDienThoai = ?, NgaySinh = ?, "
-		        + "nv.MaChucDanh = (SELECT MaChucDanh FROM ChucDanh WHERE TenChucDanh = ?) "
+		        + "nv.ChucDanh = ?) "
 		        + "WHERE nv.CCCD = ?";
 		    PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		    preparedStatement.setString(1, name);

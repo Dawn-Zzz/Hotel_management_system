@@ -124,13 +124,13 @@ public class DashBoardView extends JPanel{
 	    chart.addLegend("Check Out", new Color(139, 229, 222));
 	    chart.addLegend("Book Room", new Color(189, 135, 245));
 //	    chart.addLegend("Cost", new Color(135, 189, 245));
-	    chart.addData(new ModelChart("" + today.minusDays(6).getDayOfMonth() + "/" + today.minusDays(6).getMonthValue(), new double[]{5, 2, 8,8}));
-	    chart.addData(new ModelChart("" + today.minusDays(5).getDayOfMonth() + "/" + today.minusDays(5).getMonthValue(), new double[]{6, 7, 9,15}));
-	    chart.addData(new ModelChart("" + today.minusDays(4).getDayOfMonth() + "/" + today.minusDays(4).getMonthValue(), new double[]{20, 3, 4, 4}));
-	    chart.addData(new ModelChart("" + today.minusDays(3).getDayOfMonth() + "/" + today.minusDays(3).getMonthValue(), new double[]{4, 15, 7,70}));
-	    chart.addData(new ModelChart("" + today.minusDays(2).getDayOfMonth() + "/" + today.minusDays(2).getMonthValue(), new double[]{16, 5, 3,10}));
-	    chart.addData(new ModelChart("" + today.minusDays(1).getDayOfMonth() + "/" + today.minusDays(1).getMonthValue(), new double[]{19, 2, 11,0}));
-	    chart.addData(new ModelChart("" + today.getDayOfMonth() + "/" + today.getMonthValue(), new double[]{10, 8, 1,20}));
+	    chart.addData(new ModelChart("" + today.minusDays(6).getDayOfMonth() + "/" + today.minusDays(6).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(6)), 2, 8,8}));
+	    chart.addData(new ModelChart("" + today.minusDays(5).getDayOfMonth() + "/" + today.minusDays(5).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(5)), 7, 9,15}));
+	    chart.addData(new ModelChart("" + today.minusDays(4).getDayOfMonth() + "/" + today.minusDays(4).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(4)), 3, 4, 4}));
+	    chart.addData(new ModelChart("" + today.minusDays(3).getDayOfMonth() + "/" + today.minusDays(3).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(3)), 15, 7,70}));
+	    chart.addData(new ModelChart("" + today.minusDays(2).getDayOfMonth() + "/" + today.minusDays(2).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(2)), 5, 3,10}));
+	    chart.addData(new ModelChart("" + today.minusDays(1).getDayOfMonth() + "/" + today.minusDays(1).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(1)), 2, 11,0}));
+	    chart.addData(new ModelChart("" + today.getDayOfMonth() + "/" + today.getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today), 8, 1,20}));
 		
 		inforTableTop.setBounds(600,260,307,160);
 		inforTableTop.setBackground(Color.WHITE);
