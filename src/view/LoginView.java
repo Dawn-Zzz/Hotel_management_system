@@ -21,6 +21,7 @@ import model.User;
 import view.editComponent.Button;
 
 public class LoginView extends JFrame{
+	private View view;
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
 	private JLabel labelLeft = new JLabel();
@@ -138,8 +139,12 @@ public class LoginView extends JFrame{
 				check = true;
 				break;
 			}
-		if (check) 
+		if (check) {
 			JOptionPane.showMessageDialog(this, "Success");
+			view = new View();
+			view.setUser(UserDAO.getInstance().getUserByID(user));
+			dispose();
+		}
 		else 
 			JOptionPane.showMessageDialog(this, "Fail");
 	}

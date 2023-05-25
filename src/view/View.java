@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.NavController;
+import model.Staff;
 import view.editComponent.Button;
 
 public class View extends JFrame{	
@@ -21,7 +22,7 @@ public class View extends JFrame{
 	private JPanel leftBar = new JPanel();
 	private JPanel otherBar = new JPanel();
 	private JButton logOutButton = new Button();
-	private JLabel userName = new JLabel("Phan Tấn Trung");
+
 	private JButton dashBoardButton = new JButton("1");
 	private JButton guestButton = new JButton("2");
 	private JButton roomButton = new JButton("3");
@@ -29,8 +30,9 @@ public class View extends JFrame{
 	private JButton billButton = new JButton("5");
 
 	private JButton adminButton = new JButton("6");
-	private ActionListener actionListener;
-
+	private ActionListener actionListener= new NavController(this);;
+	private Staff staff;
+	private JLabel userName = new JLabel();
 //	private ActionListener actionListener = new NavController(this);
 //	private static volatile View instance;
 //
@@ -175,13 +177,16 @@ public class View extends JFrame{
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
-		
+		logOutButton.addActionListener(actionListener);
 		userName.setBounds(750,23,100,40);
 		userName.setFont(new Font("Arial", Font.BOLD, 12));
 		userName.setForeground(new Color(170,170,170));
 		
-		otherBar.add(logOutButton);
+		otherBar.add(logOutButton,0);
 		otherBar.add(userName);
-		actionListener = new NavController(this);
 	}
+
+	public void setUser(Staff staff) {
+		this.staff = staff;
+	}	
 }
