@@ -15,8 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import DAO.AccessPersonnelDAO;
 import DAO.UserDAO;
 import controller.LoginController;
+import model.AccessPersonnel;
 import model.User;
 import view.editComponent.Button;
 
@@ -141,10 +143,8 @@ public class LoginView extends JFrame{
 			}
 		if (check) {
 			JOptionPane.showMessageDialog(this, "Success");
-			View view = new View(UserDAO.getInstance().getUserByID(user));
-//			view.setUser(UserDAO.getInstance().getUserByID(user));
-//			view.getUserName
-			System.out.println(UserDAO.getInstance().getUserByID(user));
+			AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
+			View.getInstance();
 			dispose();
 		}
 		else 

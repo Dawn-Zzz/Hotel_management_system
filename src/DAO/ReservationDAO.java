@@ -12,8 +12,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConnectDatabase;
+import model.AccessPersonnel;
 import model.Reservation;
 import model.Room;
+import view.View;
 
 public class ReservationDAO {
 	public static ReservationDAO getInstance () {
@@ -37,7 +39,7 @@ public class ReservationDAO {
 			preparedStatement.setInt(6, guestQuantity);
 			preparedStatement.setDate(7, java.sql.Date.valueOf(LocalDate.now()));
 			preparedStatement.setString(8, "Chưa nhận phòng");
-			preparedStatement.setInt(9, 1);
+			preparedStatement.setString(9,AccessPersonnel.getInstance().getStaff().getIdNumber().toString());
 			result = preparedStatement.executeUpdate();
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
