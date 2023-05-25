@@ -26,6 +26,8 @@ import javax.swing.table.TableRowSorter;
 
 import DAO.ReservationDAO;
 import DAO.RoomDAO;
+import view.AddGuestView;
+import view.AddServiceView;
 import view.BookRoomView;
 import view.RoomInfor;
 import view.RoomView;
@@ -126,6 +128,7 @@ public class RoomController implements ActionListener, MouseListener {
 			JMenuItem menuItem1 = new JMenuItem("Nhận phòng");
 			JMenuItem menuItem2 = new JMenuItem("Trả phòng");
 			JMenuItem menuItem3 = new JMenuItem("Huỷ phòng");
+			JMenuItem menuItem4 = new JMenuItem("Thêm dịch vụ");
 			
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -177,12 +180,26 @@ public class RoomController implements ActionListener, MouseListener {
 		            ReservationDAO.getInstance().selectAll(roomView.getRoomTable());
 				}
 			});
+			menuItem4.addActionListener(new ActionListener() {
+				 public void actionPerformed(ActionEvent e) {
+		        	 AddServiceView addServiceView = new AddServiceView();
+//		        	 addServiceView.getGuestNameField().setText((String) guestView.getGuestTable().getValueAt(row, 0));
+//		        	 addServiceView.getIdentificationNumberField().setText((String) guestView.getGuestTable().getValueAt(row, 1));
+//		        	 addServiceView.getIdentificationNumberField().setEnabled(false);
+//		        	 addServiceView.getBirthDay().setDate((Date) guestView.getGuestTable().getValueAt(row, 3));
+//		        	 addServiceView.getGuestPhoneField().setText((String) guestView.getGuestTable().getValueAt(row, 4));
+//		        	 if (guestView.getGuestTable().getValueAt(row, 2) != null) 
+//		        		 addGuestView.getVipCheckBox().setSelected(true);
+//		        	 addGuestView.setVisible(true);
+		         }
+			});
 			if (roomView.getRoomTable().getValueAt(row, 7).equals("Chưa nhận phòng")) {
 				popupMenu.add(menuItem);
 				popupMenu.add(menuItem1);
 				popupMenu.add(menuItem3);
 			} else if (roomView.getRoomTable().getValueAt(row, 7).equals("Đã nhận phòng")) {
 				popupMenu.add(menuItem2);
+				popupMenu.add(menuItem4);
 			}
 			popupMenu.show(roomView.getRoomTable(), e.getX(), e.getY()); // hiển thị menu
 		}

@@ -135,6 +135,42 @@ public class DashBoardDAO {
 	    }
 	    return checkIn;
 	}
+	public int selectCheckOut(LocalDate today) {
+	    int checkIn = 0;
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT COUNT(*) AS checkOut FROM PhieuThue WHERE DATE(ThoiGianTraPhong) = ?";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setDate(1, java.sql.Date.valueOf(today));
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	            checkIn = resultSet.getInt("checkOut");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Lỗi checkOut");
+	    }
+	    return checkIn;
+	}
+	public int selectBookRoom(LocalDate today) {
+	    int checkIn = 0;
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT COUNT(*) AS bookRoom FROM PhieuThue WHERE DATE(NgayLap) = ?";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setDate(1, java.sql.Date.valueOf(today));
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	            checkIn = resultSet.getInt("bookRoom");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Lỗi bookRoom");
+	    }
+	    return checkIn;
+	}
 
 	
 	public Staff getStaffById(String id) {

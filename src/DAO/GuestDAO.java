@@ -130,7 +130,7 @@ public class GuestDAO {
 	    try {
 	        Connection connection = ConnectDatabase.connection();
 	        String sql = "SELECT *"
-	        		+ "FROM PhieuThuePhong ptp "
+	        		+ "FROM PhieuThue ptp "
 	        		+ "INNER JOIN KhachHang kh ON ptp.MaKhachHang = kh.MaKhachHang "
 	        		+ "WHERE ptp.MaPhong = ? AND ptp.HienTrang = 'Đã nhận phòng' ";
 	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
