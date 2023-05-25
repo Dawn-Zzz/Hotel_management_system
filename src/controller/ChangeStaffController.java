@@ -19,14 +19,7 @@ public class ChangeStaffController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		this.changeStaffView.changeStaffAction();
-//		((DefaultTableModel) this.adminView.getStaffTable().getModel()).setRowCount(0);
-//		try {
 		this.adminView.resetStaffTable();
-//		} catch (Exception e2) {
-//			e2.printStackTrace();
-			System.out.println("Loi");
-//		}
 	}	
 }

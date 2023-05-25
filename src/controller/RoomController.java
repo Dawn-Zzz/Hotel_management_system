@@ -35,6 +35,7 @@ import view.RoomView;
 public class RoomController implements ActionListener, MouseListener {
 	private RoomView roomView;
 	private BookRoomView addRoomView;
+	private AddServiceView addServiceView;
 
 	public RoomController(RoomView roomView) {
 		super();
@@ -184,6 +185,10 @@ public class RoomController implements ActionListener, MouseListener {
 			menuItem4.addActionListener(new ActionListener() {
 				 public void actionPerformed(ActionEvent e) {
 		        	 AddServiceView addServiceView = new AddServiceView();
+//		        	 System.out.println("aaa");
+		        	 addServiceView.getGuestName().setText("Guest Name: " + roomView.getRoomTable().getValueAt(row, 1));
+		        	 addServiceView.getRoomNumber().setText("Room Number: " + roomView.getRoomTable().getValueAt(row, 2));
+		        	 addServiceView.setVisible(true);
 //		        	 addServiceView.getGuestNameField().setText((String) guestView.getGuestTable().getValueAt(row, 0));
 //		        	 addServiceView.getIdentificationNumberField().setText((String) guestView.getGuestTable().getValueAt(row, 1));
 //		        	 addServiceView.getIdentificationNumberField().setEnabled(false);
@@ -193,6 +198,7 @@ public class RoomController implements ActionListener, MouseListener {
 //		        		 addGuestView.getVipCheckBox().setSelected(true);
 //		        	 addGuestView.setVisible(true);
 		         }
+//			      popupMenu.show(guestView.getGuestTable(), e.getX(), e.getY()); // hiển thị menu
 			});
 			if (roomView.getRoomTable().getValueAt(row, 7).equals("Chưa nhận phòng")) {
 				popupMenu.add(menuItem);

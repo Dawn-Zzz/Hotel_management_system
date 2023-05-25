@@ -185,7 +185,7 @@ public class BookRoomView extends JDialog {
 		hourCIn.setBounds(50, 270, 70, 30);
 		hourCIn.setModel(new DefaultComboBoxModel(hours));
 		hourCIn.setBackground(Color.WHITE);
-		hourCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+		hourCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(204, 204, 204)));
 		hourCIn.setFocusable(false);
 
 		decorationThing1.setBounds(128, 270, 10, 30);
@@ -199,12 +199,12 @@ public class BookRoomView extends JDialog {
 		minuteCIn.setBounds(140, 270, 70, 30);
 		minuteCIn.setModel(new DefaultComboBoxModel(minutes));
 		minuteCIn.setBackground(Color.WHITE);
-		minuteCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+		minuteCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(220, 220, 220)));
 		minuteCIn.setFocusable(false);
 
 		dayCIn.setBounds(230, 270, 160, 30);
 		dayCIn.setBackground(Color.WHITE);
-		dayCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+//		dayCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		dayCIn.setDate(java.sql.Date.valueOf(toDay));
 
 		checkOut.setBounds(420, 240, 150, 30);
@@ -218,7 +218,7 @@ public class BookRoomView extends JDialog {
 		hourCOut.setBounds(420, 270, 70, 30);
 		hourCOut.setModel(new DefaultComboBoxModel(hours));
 		hourCOut.setBackground(Color.WHITE);
-		hourCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+		hourCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(220, 220, 220)));
 		hourCOut.setFocusable(false);
 
 		decorationThing2.setBounds(498, 270, 10, 30);
@@ -232,12 +232,12 @@ public class BookRoomView extends JDialog {
 		minuteCOut.setBounds(510, 270, 70, 30);
 		minuteCOut.setModel(new DefaultComboBoxModel(minutes));
 		minuteCOut.setBackground(Color.WHITE);
-		minuteCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+		minuteCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(220, 220, 220)));
 		minuteCOut.setFocusable(false);
 
 		dayCOut.setBounds(600, 270, 160, 30);
 		dayCOut.setBackground(Color.WHITE);
-		dayCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+//		dayCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		dayCOut.setDate(java.sql.Date.valueOf(toDay));
 
 		bookingGroup1.setBounds(45, 340, 140, 30);
@@ -277,7 +277,7 @@ public class BookRoomView extends JDialog {
 
 		depositField.setBounds(480, 340, 180, 30);
 		depositField.setBackground(Color.WHITE);
-		depositField.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+//		depositField.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		depositField.setEnabled(false);
 		depositField.setBackground(new Color(240, 240, 240));
 
