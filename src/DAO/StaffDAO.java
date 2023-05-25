@@ -152,7 +152,7 @@ public class StaffDAO {
 		    Connection connection = ConnectDatabase.connection();
 		    String sql = "UPDATE NhanVien nv "
 		        + "SET TenNhanVien = ?, SoDienThoai = ?, NgaySinh = ?, "
-		        + "nv.ChucDanh = ?) "
+		        + "nv.ChucDanh = ? "
 		        + "WHERE nv.CCCD = ?";
 		    PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		    preparedStatement.setString(1, name);

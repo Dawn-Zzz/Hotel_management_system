@@ -135,7 +135,7 @@ public class ChangeStaffView extends JDialog{
 		staffRoleList.setBorder(null);
 		
 		staffRole.setBounds(50,315,330,40);
-		staffRole.setModel(new DefaultComboBoxModel(StaffDAO.getInstance().selectIndex(roleList).toArray()));
+		staffRole.setModel(new DefaultComboBoxModel(roleList));
 		staffRole.setSelectedIndex(-1);
 		staffRole.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204,204,204)));
 		staffRole.setFocusable(false);
@@ -264,8 +264,8 @@ public class ChangeStaffView extends JDialog{
 	
 	private ActionListener actionListener = new ChangeStaffController(this);
 	
-//	String roleList[] = {"Nhân viên lễ tân", "Nhân viên kế toán", "Nhân viên phục vụ"};
+	String roleList[] = {"Nhân viên lễ tân", "Nhân viên kế toán", "Nhân viên phục vụ"};
 	List<String> nameList = null;
-	List<String> roleList = null;
+//	List<String> roleList = null;
 	
 }
