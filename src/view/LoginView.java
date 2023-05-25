@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import DAO.AccessPersonnelDAO;
 import DAO.UserDAO;
 import controller.LoginController;
-import model.AccessPersonnel;
 import model.User;
 import view.editComponent.Button;
 

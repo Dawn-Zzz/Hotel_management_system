@@ -172,4 +172,22 @@ public class StaffDAO {
 		}
 		return result;
 	}
+	
+	public static String getMaKhachHangByCCCD(String cccd) {
+	    String id = "";
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT MaNhanVien FROM NhanVien WHERE CCCD = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, cccd);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        if (resultSet.next()) {
+	            id = resultSet.getString("MaNhanVien");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return id;
+	}
 }

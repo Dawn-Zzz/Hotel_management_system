@@ -25,13 +25,12 @@ public class ReservationDAO {
 	public int insert(String idGuest, String rentalType, String idRoom, Timestamp checkin, Timestamp checkout, int guestQuantity, Double deposit) {
 		int result = 0;
 		try {
-			String id = GuestDAO.getInstance().getMaKhachHangByCCCD(idGuest);
 			Connection connection = ConnectDatabase.connection();
 
 			String sql = "INSERT INTO phieuthue (MaKhachHang,HinhThucThue,MaPhong,ThoiGianNhanPhong,ThoiGianTraPhong,SoNguoiO,NgayLap,HienTrang,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, id);
+			preparedStatement.setString(1, GuestDAO.getMaKhachHangByCCCD(idGuest));
 			preparedStatement.setString(2, rentalType);
 			preparedStatement.setString(3, idRoom);
 			preparedStatement.setTimestamp(4, checkin);
@@ -39,7 +38,7 @@ public class ReservationDAO {
 			preparedStatement.setInt(6, guestQuantity);
 			preparedStatement.setDate(7, java.sql.Date.valueOf(LocalDate.now()));
 			preparedStatement.setString(8, "Chưa nhận phòng");
-			preparedStatement.setString(9,AccessPersonnel.getInstance().getStaff().getIdNumber().toString());
+			preparedStatement.setString(9, StaffDAO.getMaKhachHangByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
 			result = preparedStatement.executeUpdate();
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
@@ -135,7 +134,7 @@ public class ReservationDAO {
 	        Connection connection = ConnectDatabase.connection();
 
 	        String sql = "UPDATE phieuthue SET HienTrang = ? WHERE MaPhieu = ?";
-
+	        System.out.println(status);
 	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 	        preparedStatement.setString(1, status);
 	        preparedStatement.setString(2, id);
