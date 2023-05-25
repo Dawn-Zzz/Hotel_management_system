@@ -142,6 +142,7 @@ public class RoomView extends JPanel{
 		mainContent.add(historyRoomList);
 		mainContent.add(buttonPanel);
 		mainContent.add(searchBar);
+		mainContent.setComponentZOrder(searchBar, 1);
 		
 		mainRoomList.setBounds(0,85,1020-150-84,720-120);
 		mainRoomList.setLayout(new GridLayout(6,6));
