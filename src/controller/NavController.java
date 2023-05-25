@@ -7,6 +7,7 @@ import view.AdminView;
 import view.BillView;
 import view.DashBoardView;
 import view.GuestView;
+import view.LoginView;
 import view.RoomView;
 import view.EquipmentView;
 import view.View;
@@ -95,6 +96,10 @@ public class NavController implements ActionListener{
 			billView.setVisible(false);
 			adminView.setVisible(true);
 			System.out.println("6");
+		} 
+		else {
+			buttonView.dispose();
+			LoginView loginView = new LoginView(); 
 		}
 	}
 }

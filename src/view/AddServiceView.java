@@ -103,7 +103,7 @@ public class AddServiceView extends JDialog{
 		guestInforTitle.setFont(new Font("Arial",Font.BOLD,16));
 		
 		guestName.setBounds(50,120,250,15);
-		guestName.setText("Name: " + getGuestName());
+//		guestName.setText("Name: " + getGuestName());
 		guestName.setFont(new Font("Arial",Font.BOLD,14));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
