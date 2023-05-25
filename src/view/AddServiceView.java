@@ -28,7 +28,11 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import DAO.GuestDAO;
+import DAO.ReservationDAO;
+import DAO.RoomDAO;
 import DAO.ServiceDAO;
+import DAO.StaffDAO;
 import controller.ServiceController;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
@@ -52,11 +56,11 @@ public class AddServiceView extends JDialog{
 	private JLabel service4 = new JLabel("Gym (50K)");
 	private JLabel service5 = new JLabel("Giặt, ủi (100K)");
 	
-	private Combobox serviceList1 = new Combobox();
-	private Combobox serviceList2 = new Combobox();
-	private Combobox serviceList3 = new Combobox();
-	private Combobox serviceList4 = new Combobox();
-	private Combobox serviceList5 = new Combobox();
+	private JTextField serviceList1 = new JTextField();
+	private JTextField serviceList2 = new JTextField();
+	private JTextField serviceList3 = new JTextField();
+	private JTextField serviceList4 = new JTextField();
+	private JTextField serviceList5 = new JTextField();
 	
 	private JButton submitButton = new Button();
 	
@@ -103,67 +107,58 @@ public class AddServiceView extends JDialog{
 		guestInforTitle.setFont(new Font("Arial",Font.BOLD,16));
 		
 		guestName.setBounds(50,120,250,15);
-//		guestName.setText("Name: " + getGuestName());
 		guestName.setFont(new Font("Arial",Font.BOLD,14));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
 		guestName.setBorder(null);
 		
-		guestPhone.setBounds(410,120,250,15);
-		guestPhone.setText("Phone number: 0987654321");
-		guestPhone.setFont(new Font("Arial",Font.BOLD,14));
-		guestPhone.setForeground(Color.BLACK);
-		guestPhone.setBackground(Color.WHITE);
-		guestPhone.setBorder(null);
-		
-		roomNumber.setBounds(50,150,150,15);
-		roomNumber.setText("Room Number: " + getGuestPhone());
+		roomNumber.setBounds(410,120,250,15);
 		roomNumber.setFont(new Font("Arial",Font.BOLD,14));
 		roomNumber.setForeground(Color.BLACK);
 		roomNumber.setBackground(Color.WHITE);
 		roomNumber.setBorder(null);
 
-		serviceListTitle.setBounds(50,200,150,15);
+		serviceListTitle.setBounds(50,170,150,15);
 		serviceListTitle.setText("Service List:");
 		serviceListTitle.setFont(new Font("Arial",Font.BOLD,16));
 		serviceListTitle.setForeground(Color.BLACK);
 		serviceListTitle.setBackground(Color.blue);
 		serviceListTitle.setBorder(null);
 		
-		service1.setBounds(50,240,120,15);
+		service1.setBounds(50,210,120,15);
 		service1.setFont(new Font("Arial",Font.BOLD,14));
 			
-		serviceList1.setBounds(200,237,100,23);
-		serviceList1.setModel(new DefaultComboBoxModel(serviceQuantity));
-		serviceList1.setBorder(BorderFactory.createMatteBorder(1,1,0,1,new Color(220,220,220)));
+		serviceList1.setBounds(200,207,100,23);
+//		serviceList1.setModel(new DefaultComboBoxModel(serviceQuantity));
+		serviceList1.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(220,220,220)));
 		
-		service2.setBounds(50,270,100,15);
+		service2.setBounds(50,240,100,15);
 		service2.setFont(new Font("Arial",Font.BOLD,14));
 		
-		serviceList2.setBounds(200,267,100,23);
-		serviceList2.setModel(new DefaultComboBoxModel(serviceQuantity));
-		serviceList2.setBorder(BorderFactory.createMatteBorder(1,1,0,1,new Color(220,220,220)));
+		serviceList2.setBounds(200,237,100,23);
+//		serviceList2.setModel(new DefaultComboBoxModel(serviceQuantity));
+		serviceList2.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(220,220,220)));
 		
-		service3.setBounds(50,300,100,15);
+		service3.setBounds(50,270,100,15);
 		service3.setFont(new Font("Arial",Font.BOLD,14));
 		
-		serviceList3.setBounds(200,297,100,23);
-		serviceList3.setModel(new DefaultComboBoxModel(serviceQuantity));
-		serviceList3.setBorder(BorderFactory.createMatteBorder(1,1,0,1,new Color(220,220,220)));
+		serviceList3.setBounds(200,267,100,23);
+//		serviceList3.setModel(new DefaultComboBoxModel(serviceQuantity));
+		serviceList3.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(220,220,220)));
 		
-		service4.setBounds(410,240,100,15);
+		service4.setBounds(410,210,100,15);
 		service4.setFont(new Font("Arial",Font.BOLD,14));
 		
-		serviceList4.setBounds(560,237,100,23);
-		serviceList4.setModel(new DefaultComboBoxModel(serviceQuantity));
-		serviceList4.setBorder(BorderFactory.createMatteBorder(1,1,0,1,new Color(220,220,220)));
+		serviceList4.setBounds(560,207,100,23);
+//		serviceList4.setModel(new DefaultComboBoxModel(serviceQuantity));
+		serviceList4.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(220,220,220)));
 		
-		service5.setBounds(410,270,100,15);
+		service5.setBounds(410,240,100,15);
 		service5.setFont(new Font("Arial",Font.BOLD,14));
 		
-		serviceList5.setBounds(560,267,100,23);
-		serviceList5.setModel(new DefaultComboBoxModel(serviceQuantity));
-		serviceList5.setBorder(BorderFactory.createMatteBorder(1,1,0,1,new Color(220,220,220)));
+		serviceList5.setBounds(560,237,100,23);
+//		serviceList5.setModel(new DefaultComboBoxModel(serviceQuantity));
+		serviceList5.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(220,220,220)));
 		
 		submitButton.setBounds(50, 350, 80, 40);
 		submitButton.setText("Submit");
@@ -173,18 +168,18 @@ public class AddServiceView extends JDialog{
 		submitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		submitButton.setFocusable(false);
 //		submitButton.addActionListener(actionListener);
-		this.setVisible(true);
+//		this.setVisible(true);
 	}
 	
-//	public void setGuestName(String name) {
-//		guestName = name;
-//	}
+	public JLabel getGuestName() {
+		return guestName;
+	}
 
 	public JLabel getGuestPhone() {
 		return guestPhone;
 	}
 
-	public JLabel getroomNumberField() {
+	public JLabel getRoomNumber() {
 		return roomNumber;
 	}
 //

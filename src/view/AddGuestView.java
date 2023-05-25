@@ -124,7 +124,7 @@ public class AddGuestView extends JDialog{
 		
 		birthDay.setBounds(410,240,330,40);
 		birthDay.setBackground(Color.WHITE);
-		birthDay.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
+//		birthDay.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		
 		vipCheckBox.setBounds(50,310,70,30);
 		vipCheckBox.setFont(new Font("Arial",Font.BOLD,14));

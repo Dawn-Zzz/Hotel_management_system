@@ -39,6 +39,31 @@ public class RoomDAO {
 		return arrResult;
 	}
 	
+	public ArrayList<Room> selectName () {
+		ArrayList<Room> arrResult = new ArrayList<>();
+		try {
+			Connection connection = ConnectDatabase.connection();
+			String sql = "SELECT  "
+					+ "FROM phong p "
+					+ "INNER JOIN loaiphong lp ON p.MaLoaiPhong = lp.MaLoaiPhong "
+					+ "ORDER BY p.MaPhong ";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				String id = resultSet.getString("MaPhong");
+				String status = resultSet.getString("HienTrang");
+				String type = resultSet.getString("TenLoaiPhong");
+				Room room = new Room(id,status,type);
+				arrResult.add(room);
+			}
+			ConnectDatabase.disconnection(connection);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return arrResult;
+	}
+	
 	public Room getRoomByID (String id) {
 		Room room = null;
 	    try {
