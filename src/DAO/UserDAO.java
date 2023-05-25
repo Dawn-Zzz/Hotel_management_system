@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.ConnectDatabase;
-import model.Staff;
 import model.User;
 
 public class UserDAO {
@@ -51,30 +50,5 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return arrResult;
-	}
-	
-	public Staff getUserByID (String id) {
-		Staff staff = null;
-		try {
-			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT * "
-					+ "FROM NhanVien nv "
-					+ "INNER JOIN NguoiDung u ON nv.TaiKhoan = u.TaiKhoan "
-					+ "WHERE u.TaiKhoan LIKE ? ";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, id);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				String idStaff = resultSet.getString("MaNhanVien");
-				String nameStaff = resultSet.getString("TenNhanVien");
-				String role = resultSet.getString("Quyen");
-				staff = new Staff(nameStaff,idStaff,null,null,role);
-			}
-			ConnectDatabase.disconnection(connection);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return staff;
 	}
 }

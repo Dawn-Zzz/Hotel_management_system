@@ -13,6 +13,9 @@ public class Person {
 		this.numberPhone = numberPhone;
 		this.birth = birth;
 	}
+	public Person() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getName() {
 		return name;
 	}
@@ -21,5 +24,14 @@ public class Person {
 	}
 	public Date getBirth() {
 		return birth;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setNumberPhone(String numberPhone) {
+		this.numberPhone = numberPhone;
+	}
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 }

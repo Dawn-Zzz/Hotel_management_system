@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.NavController;
+import model.AccessPersonnel;
 import model.Staff;
 import view.editComponent.Button;
 
@@ -31,23 +32,24 @@ public class View extends JFrame{
 
 	private JButton adminButton = new JButton("6");
 	private ActionListener actionListener= new NavController(this);;
-	private Staff staff;
-	private JLabel userName = new JLabel();
-//	private ActionListener actionListener = new NavController(this);
-//	private static volatile View instance;
-//
-//    public static View getInstance() {
-//        if (instance == null) {
-//            synchronized (View.class) {
-//                if (instance == null) {
-//                    instance = new View();
-//                }
-//            }
-//        }
-//        return instance;
-//    }
-//
-    public View() {
+
+	private JLabel staffName = new JLabel();
+
+	private static volatile View instance;
+
+    public static View getInstance() {
+        if (instance == null) {
+            synchronized (View.class) {
+                if (instance == null) {
+                    instance = new View();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private View() {
+    	System.out.println(AccessPersonnel.getInstance().getStaff().getName());
         initView();
     }
 
@@ -178,15 +180,12 @@ public class View extends JFrame{
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
 		logOutButton.addActionListener(actionListener);
-		userName.setBounds(750,23,100,40);
-		userName.setFont(new Font("Arial", Font.BOLD, 12));
-		userName.setForeground(new Color(170,170,170));
+		staffName.setBounds(750,23,100,40);
+		staffName.setText(AccessPersonnel.getInstance().getStaff().getName());
+		staffName.setFont(new Font("Arial", Font.BOLD, 12));
+		staffName.setForeground(new Color(170,170,170));
 		
 		otherBar.add(logOutButton,0);
-		otherBar.add(userName);
+		otherBar.add(staffName,1);
 	}
-
-	public void setUser(Staff staff) {
-		this.staff = staff;
-	}	
 }
