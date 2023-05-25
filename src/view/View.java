@@ -27,12 +27,27 @@ public class View extends JFrame{
 	private JButton roomButton = new JButton("3");
 	private JButton serviceButton = new JButton("4");
 	private JButton billButton = new JButton("5");
+
 	private JButton adminButton = new JButton("6");
 	private ActionListener actionListener;
-	
-	public View() {
-		initView();
-	}
+
+//	private ActionListener actionListener = new NavController(this);
+//	private static volatile View instance;
+//
+//    public static View getInstance() {
+//        if (instance == null) {
+//            synchronized (View.class) {
+//                if (instance == null) {
+//                    instance = new View();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
+//
+    public View() {
+        initView();
+    }
 
 	public void initView( ) {
 		ImageIcon image = new ImageIcon("./Images/Logo.png");
@@ -62,7 +77,6 @@ public class View extends JFrame{
 	public JButton getLogOutButton() {
 		return logOutButton;
 	}
-	
 	public void leftBarSection() {
 		//Left bar section
 

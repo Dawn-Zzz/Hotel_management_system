@@ -25,5 +25,5 @@ public class Room {
 	}
 	public String getTypeRoom() {
 		return typeRoom;
-	}	
+	}
 }

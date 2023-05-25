@@ -45,7 +45,7 @@ public class OrderRoomDAO {
 				String checkout = resultSet.getTimestamp("ThoiGianTraPhong").toLocalDateTime().format(formatter);
 				Double price = (double) resultSet.getFloat("Gia");
 				int amount = resultSet.getInt("SoNguoiO");
-				Object[] object = {nameRoom,rentalOption,checkin,checkout,df.format(price)};
+				Object[] object = {nameRoom,rentalOption,df.format(price),checkin,checkout};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);

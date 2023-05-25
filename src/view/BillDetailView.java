@@ -55,11 +55,7 @@ public class BillDetailView extends JDialog {
 	
 	public BillDetailView() {
 		
-//		panel.setBounds(0,0,700,600);
-//		panel.setBackground(Color.WHITE);
-		
 		billID.setBounds(50,20,250,30);
-//		billID.setText("Bill ID: BO1");
 		billID.setPreferredSize(new Dimension(250,30));
 		billID.setFont(new Font("Arial",Font.BOLD,24));
 		billID.setForeground(Color.BLACK);
@@ -74,35 +70,31 @@ public class BillDetailView extends JDialog {
 		exportPDFButton.setFocusable(false);
 		exportPDFButton.addActionListener(actionListener);
 		
-		guestName.setBounds(50,90,220,30);
-//		guestName.setText("Guest: Nguyen Van B");
+		guestName.setBounds(50,90,250,30);
 		guestName.setFont(new Font("Arial",Font.BOLD,14));
 		guestName.setForeground(Color.BLACK);
 		guestName.setBackground(Color.WHITE);
 		guestName.setBorder(null);
 		
 		date.setBounds(50,130,180,30);
-//		date.setText("Date: 10/04/2022");
 		date.setFont(new Font("Arial",Font.BOLD,14));
 		date.setForeground(Color.BLACK);
 		date.setBackground(Color.WHITE);
 		date.setBorder(null);
 		
 		invoicingStaff.setBounds(400,90,320,30);
-//		invoicingStaff.setText("Invoicing Staff: Nguyen Van A");
 		invoicingStaff.setFont(new Font("Arial",Font.BOLD,14));
 		invoicingStaff.setForeground(Color.BLACK);
 		invoicingStaff.setBackground(Color.WHITE);
 		invoicingStaff.setBorder(null);
 		
-		totalMoney.setBounds(400,130,250,30);
-//		totalMoney.setText("Total Money: 1.000.000");
+		totalMoney.setBounds(400,140,250,30);
 		totalMoney.setFont(new Font("Arial",Font.BOLD,14));
 		totalMoney.setForeground(Color.BLACK);
 		totalMoney.setBackground(Color.WHITE);
 		totalMoney.setBorder(null);
 	
-		mainTable1.setBounds(50,190,600,127);
+		mainTable1.setBounds(50,220,600,67);
 		mainTable1.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		mainTable1.setLayout(new BorderLayout());
 		mainTable1.add(roomInforTable.getTableHeader(), BorderLayout.NORTH);
@@ -127,7 +119,7 @@ public class BillDetailView extends JDialog {
 		roomInforTable.setColumnAlignment(4, JLabel.CENTER);
 		roomInforTable.setCellAlignment(4, JLabel.CENTER);
 		roomInforTable.setFont(new Font("Arial",Font.BOLD,12));
-		roomInforTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Rental Option", "Check In", "Check Out", "Room Fee"}) {
+		roomInforTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Rental Option", "Unit Price", "Check In", "Check Out"}) {
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
@@ -138,18 +130,17 @@ public class BillDetailView extends JDialog {
         });
 		roomInforTable.setColumnWidth(0,100);
 		roomInforTable.setColumnWidth(1,100);
-		roomInforTable.setColumnWidth(2,150);
+		roomInforTable.setColumnWidth(2,100);
 		roomInforTable.setColumnWidth(3,150);
-		roomInforTable.setColumnWidth(4,100);
+		roomInforTable.setColumnWidth(4,150);
         
-        totalRoom.setBounds(510,320,150,30);
-        //totalRoom.setText("Total: 600.000");
+        totalRoom.setBounds(510,290,150,30);
         totalRoom.setFont(new Font("Arial",Font.BOLD,14));
         totalRoom.setForeground(Color.BLACK);
         totalRoom.setBackground(Color.WHITE);
         
         //service
-        mainTable2.setBounds(50,370,600,127);
+        mainTable2.setBounds(50,360,600,127);
 		mainTable2.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
 		mainTable2.setLayout(new BorderLayout());
 		mainTable2.add(serviceInforTable.getTableHeader(), BorderLayout.NORTH);
@@ -183,7 +174,7 @@ public class BillDetailView extends JDialog {
             }
         });
         
-        totalService.setBounds(510,500,150,30);
+        totalService.setBounds(510,490,150,30);
         //totalService.setText("Total: 200.000");
         totalService.setFont(new Font("Arial",Font.BOLD,14));
         totalService.setForeground(Color.BLACK);

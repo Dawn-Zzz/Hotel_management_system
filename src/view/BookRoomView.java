@@ -122,7 +122,7 @@ public class BookRoomView extends JDialog {
 		dateTime.setBorder(null);
 
 		questQuantity.setBounds(50, 80, 150, 30);
-		questQuantity.setText("Quest Quantity");
+		questQuantity.setText("Guest Count");
 		questQuantity.setFont(new Font("Arial", Font.BOLD, 14));
 		questQuantity.setForeground(Color.BLACK);
 		questQuantity.setBackground(Color.WHITE);
@@ -485,7 +485,7 @@ public class BookRoomView extends JDialog {
 				} else {
 					boolean isAvailable = true;
 					for (Reservation reservation : reservations) {
-						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime)) {
+						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime) || reservation.getRoom().getCurrentStatus().equals("2")) {
 							isAvailable = false;
 							break;
 						}

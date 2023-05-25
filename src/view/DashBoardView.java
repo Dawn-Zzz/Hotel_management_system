@@ -187,6 +187,7 @@ public class DashBoardView extends JPanel{
 	}
 	
 	private int getCountDamaged() {
+		countDamaged = 0;
 		for(int i = 0; i < 36; i++) {
 			if(roomView.getRoomList().get(i).getCurrentStatus().equals("2")) {
 				countDamaged++;
@@ -201,7 +202,6 @@ public class DashBoardView extends JPanel{
 		damagedRoomQuantity.setText("" + getCountDamaged());
 		availableRoomQuantity.setText("" + getCountAvailable());
 	}
-	
 	private JPanel mainContent = new JPanel();
 	private JPanel searchBar = new JPanel();
 	

@@ -22,7 +22,9 @@ public class BillDAO {
 		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
 		try {
 			Connection connection = ConnectDatabase.connection();
+
 			String sql = "SELECT hd.MaHoaDon, hd.NgayLapHoaDon, kh.TenKhachHang, (hd.TienPhong + IFNULL(hd.TienDichVu, 0)) AS TongTien, nv.TenNhanVien "
+
 					+ "FROM HoaDon hd "
 					+ "INNER JOIN KhachHang kh ON kh.MaKhachHang = hd.MaKhachHang "
 					+ "INNER JOIN NhanVien nv ON nv.MaNhanVien = hd.MaNhanVien ";
