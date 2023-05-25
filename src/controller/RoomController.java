@@ -152,8 +152,9 @@ public class RoomController implements ActionListener, MouseListener {
 			        } else if (!(RoomDAO.getInstance().getRoomByID(roomView.getRoomTable().getValueAt(row, 2).toString()).getCurrentStatus().equals("0"))) 
 			        	JOptionPane.showMessageDialog(null, "Không thể nhận phòng vì phòng đang chưa sẵn sàng cho thuê!");
 					else {
-			            // Thực hiện cập nhật trạng thái nhận phòng
+//			             Thực hiện cập nhật trạng thái nhận phòng
 			            ReservationDAO.getInstance().updateStatusReservation(roomView.getRoomTable().getValueAt(row, 0).toString(), "Đã nhận phòng");
+			            
 			            ((DefaultTableModel) roomView.getRoomTable().getModel()).setRowCount(0);
 			            ReservationDAO.getInstance().selectAll(roomView.getRoomTable());
 			        }
