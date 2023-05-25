@@ -143,9 +143,9 @@ public class LoginView extends JFrame{
 		if (check) {
 			JOptionPane.showMessageDialog(this, "Success");
 			AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
-			View.getInstance();
-//			dispose();
-//			this.setVisible(false);
+			View.getInstance().updateLoginInfo(); // cập nhật thông tin đăng nhập trên cửa sổ màn hình chính
+			View.getInstance().setVisible(true);
+			dispose();
 		}
 		else 
 			JOptionPane.showMessageDialog(this, "Fail");

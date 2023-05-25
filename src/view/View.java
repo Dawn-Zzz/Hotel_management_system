@@ -189,4 +189,8 @@ public class View extends JFrame{
 		otherBar.add(logOutButton,0);
 		otherBar.add(staffName,1);
 	}
+	public void updateLoginInfo() {
+	    // cập nhật tên người dùng hiển thị trên cửa sổ màn hình chính
+	    staffName.setText(AccessPersonnel.getInstance().getStaff().getName());
+	}
 }
