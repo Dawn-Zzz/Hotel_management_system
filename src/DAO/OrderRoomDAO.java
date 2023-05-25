@@ -31,7 +31,7 @@ public class OrderRoomDAO {
 					+ "            ELSE NULL "
 					+ "       END AS Gia "
 					+ "FROM hoadon hd "
-					+ "INNER JOIN phieuthuephong ptp ON hd.MaPhieu = ptp.MaPhieu "
+					+ "INNER JOIN phieuthue ptp ON hd.MaPhieu = ptp.MaPhieu "
 					+ "INNER JOIN phong p ON ptp.MaPhong = p.MaPhong "
 					+ "INNER JOIN loaiphong lp ON p.MaLoaiPhong = lp.MaLoaiPhong "
 					+ "WHERE hd.MaHoaDon = ? ";

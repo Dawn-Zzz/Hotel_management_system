@@ -491,6 +491,7 @@ public class BookRoomView extends JDialog {
 						}
 					}
 					if (isAvailable) {
+						
 						roomValues.add(roomName);
 					}
 				}
