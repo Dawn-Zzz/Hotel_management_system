@@ -9,7 +9,8 @@ import view.View;
 public class Test {
 	public static void main(String[] args) {
 //		LoginView loginView = new LoginView();
-		View v = new View();
+		String a = "jjj";
+		View v = new View(a);
 //		System.out.println(v.temp);
 		//new BillDetailView();
 //		AddServiceView sv = new AddServiceView();
