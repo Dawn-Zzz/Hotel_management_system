@@ -111,7 +111,7 @@ public class StaffDAO {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT TenChucDanh FROM hotel_management.NhanVien WHERE MaChucDanh != 'CD001'" );
 			while (resultSet.next()) {
-				String roleStaff = resultSet.getString("TenChucDanh");
+				String roleStaff = resultSet.getString("ChucDanh");
 				list.add(roleStaff);
 			}
 			ConnectDatabase.disconnection(connection);

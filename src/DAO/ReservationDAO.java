@@ -83,9 +83,7 @@ public class ReservationDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT * "
-
 					+ "FROM phieuthue ptp "
-
 					+ "INNER JOIN phong p ON ptp.MaPhong = p.MaPhong "
 					+ "WHERE p.MaPhong = ? "
 					+ "    AND (p.HienTrang = '2' OR (ptp.HienTrang LIKE N'Chưa nhận phòng' OR ptp.HienTrang LIKE N'Đã nhận phòng')) ";

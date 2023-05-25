@@ -23,7 +23,7 @@ public class OrderServiceDAO {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT dv.TenDichVu, hddv.SoLuong, dv.GiaDichVu "
 					+ "FROM hoadon hd "
-					+ "INNER JOIN hoadondichvu hddv ON hd.MaHoaDon = hddv.MaHoaDon "
+					+ "INNER JOIN chitiethoadondichvu hddv ON hd.MaHoaDon = hddv.MaHoaDon "
 					+ "INNER JOIN dichvu dv ON hddv.MaDichVu = dv.MaDichVu "
 					+ "WHERE hd.MaHoaDon = ? ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
