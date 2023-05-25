@@ -19,6 +19,7 @@ import view.editComponent.Button;
 
 public class View extends JFrame{	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private String name;
 	private JPanel leftBar = new JPanel();
 	private JPanel otherBar = new JPanel();
 	private JButton logOutButton = new Button();
@@ -47,7 +48,8 @@ public class View extends JFrame{
 //        return instance;
 //    }
 //
-    public View() {
+    public View(Staff staff) {
+    	this.staff = staff;
         initView();
     }
 
@@ -179,14 +181,11 @@ public class View extends JFrame{
 		logOutButton.setFocusable(false);
 		logOutButton.addActionListener(actionListener);
 		userName.setBounds(750,23,100,40);
+		userName.setText(staff.getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 12));
 		userName.setForeground(new Color(170,170,170));
 		
 		otherBar.add(logOutButton,0);
-		otherBar.add(userName);
+		otherBar.add(userName,1);
 	}
-
-	public void setUser(Staff staff) {
-		this.staff = staff;
-	}	
 }

@@ -24,6 +24,6 @@ public class LoginController implements ActionListener{
 			if (this.signupView.isVisible() == false) {
 				this.signupView.setVisible(true);
 				this.signupView.resetFormSignup();
-		} 
+			} 
 	}
 }
