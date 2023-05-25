@@ -75,11 +75,11 @@ CREATE TABLE PhieuThue(
 
 CREATE TABLE HoaDon(
 	MaHoaDon CHAR(10) NOT NULL, 
-    NgayLapHoaDon DATE NOT NULL, 
-    TienPhong FLOAT NOT NULL, 
+    NgayLapHoaDon DATE, 
+    TienPhong FLOAT, 
     TienDichVu FLOAT, 
     MaKhachHang INT NOT NULL, 
-    MaNhanVien INT NOT NULL, 
+    MaNhanVien INT, 
     MaPhieu INT NOT NULL,
     PRIMARY KEY (MaHoaDon)
 );
@@ -147,9 +147,8 @@ BEGIN
         
         -- Tạo mã hoá đơn
         SET maHoaDon = CONCAT('HD', LPAD(soLuongHoaDon + 1, 3, '0'));
-        
          -- Update MaHoaDon và MaPhieu cho dòng cập nhật
-        INSERT INTO HoaDon (MaHoaDon, MaPhieu) VALUES (maHoaDon, NEW.MaPhieu);
+        INSERT INTO HoaDon (MaHoaDon, MaPhieu, MaKhachHang) VALUES (maHoaDon, NEW.MaPhieu, New.MaKhachHang);
     ELSEIF NEW.HienTrang = 'Đã trả phòng' THEN
 		-- Lấy mã hoá đơn từ bảng HoaDon dựa trên Mã Phiếu
 		SELECT MaHoaDon INTO maHoaDon FROM HoaDon WHERE MaPhieu = NEW.MaPhieu;
@@ -172,9 +171,9 @@ BEGIN
         
         -- Tính tổng tiền dịch vụ từ bảng HoaDonDichVu
         SELECT SUM(SoLuong * dv.GiaDichVu) INTO tienDichVu
-        FROM HoaDonDichVu hdv
-        INNER JOIN DichVu dv ON hdv.MaDichVu = dv.MaDichVu
-        WHERE hdv.MaHoaDon = maHoaDon;
+        FROM ChiTietHoaDonDichVu cthdv
+        INNER JOIN DichVu dv ON cthdv.MaDichVu = dv.MaDichVu
+        WHERE cthdv.MaHoaDon = maHoaDon;
         
 		UPDATE HoaDon
         SET NgayLapHoaDon = ngayLapHoaDon,
@@ -565,4 +564,4 @@ INSERT INTO ChiTietHoaDonDichVu (SoLuong, MaHoaDon, MaDichVu) VALUES ('3', 'HD01
 INSERT INTO ChiTietHoaDonDichVu (SoLuong, MaHoaDon, MaDichVu) VALUES ('2', 'HD020', 'DV003');
 INSERT INTO ChiTietHoaDonDichVu (SoLuong, MaHoaDon, MaDichVu) VALUES ('3', 'HD020', 'DV005');
 INSERT INTO ChiTietHoaDonDichVu (SoLuong, MaHoaDon, MaDichVu) VALUES ('1', 'HD021', 'DV001');
-INSERT INTO ChiTietHoaDonDichVu (SoLuong, MaHoaDon, MaDichVu) VALUES ('4', 'HD021', 'DV003');-- 
+INSERT INTO ChiTietHoaDonDichVu (SoLuong, MaHoaDon, MaDichVu) VALUES ('4', 'HD021', 'DV003');

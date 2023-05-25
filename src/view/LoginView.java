@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import DAO.AccessPersonnelDAO;
 import DAO.UserDAO;
 import controller.LoginController;
-import model.AccessPersonnel;
 import model.User;
 import view.editComponent.Button;
 
@@ -145,7 +144,8 @@ public class LoginView extends JFrame{
 			JOptionPane.showMessageDialog(this, "Success");
 			AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
 			View.getInstance();
-			dispose();
+//			dispose();
+//			this.setVisible(false);
 		}
 		else 
 			JOptionPane.showMessageDialog(this, "Fail");
