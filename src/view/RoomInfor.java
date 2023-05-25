@@ -72,9 +72,9 @@ public class RoomInfor extends JDialog{
 		roomInforTitle.setBackground(Color.WHITE);
 		roomInforTitle.setBorder(null);
 		
-		roomType.setBounds(410,130,250,30);
+		roomType.setBounds(410,130,350,30);
 		roomType.setText("Room Type: " + room.getTypeRoom());
-		roomType.setPreferredSize(new Dimension(250,30));
+		roomType.setPreferredSize(new Dimension(350,30));
 		roomType.setFont(new Font("Arial",Font.BOLD,14));
 		roomType.setForeground(Color.BLACK);
 		roomType.setBackground(Color.WHITE);

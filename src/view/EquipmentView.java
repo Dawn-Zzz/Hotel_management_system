@@ -24,6 +24,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import DAO.EquipmentDAO;
+import DAO.GuestDAO;
 import controller.EquipmentController;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
@@ -165,6 +166,15 @@ public class EquipmentView extends JPanel {
 		EquipmentDAO.getInstance().selectAll(equipmentTable);
 		equipmentTable.addMouseListener(mouseListener);
 		this.setVisible(false);
+	}
+	
+//	int 
+	
+	public void resetEquipmentTable() {
+		((DefaultTableModel) equipmentTable.getModel()).setRowCount(0);
+		GuestDAO.getInstance().selectAll(equipmentTable);
+		System.out.println("reset1");
+//		guestsCount = equipmentTable.getModel().getRowCount();
 	}
 	
 	public JComboBox getBedList() {

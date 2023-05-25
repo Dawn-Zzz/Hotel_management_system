@@ -35,7 +35,7 @@ public class GuestView extends JPanel {
 	private static GuestView instance;
 	public static GuestView getInstance() {
 		if (instance==null) {
-			instance = new GuestView();
+			instance = new GuestView(); 
 		}
 		return instance;
 	}
@@ -98,7 +98,7 @@ public class GuestView extends JPanel {
 		guestType.setFont(new Font("Arial",Font.BOLD,14));
 		guestType.setForeground(Color.BLACK);
 		guestType.setBackground(new Color(241,243,255));
-		guestType.setBorder(null);
+		guestType.setBorder(null); 
 		
 		guestList.setLocation(0, 40);
 		guestList.setModel(new DefaultComboBoxModel(GuestType));
@@ -232,6 +232,7 @@ public class GuestView extends JPanel {
 	public void resetGuestTable() {
 		((DefaultTableModel) guestTable.getModel()).setRowCount(0);
 		GuestDAO.getInstance().selectAll(guestTable);
+		System.out.println("reset1");
 		guestsCount = guestTable.getModel().getRowCount();
 	}
 	

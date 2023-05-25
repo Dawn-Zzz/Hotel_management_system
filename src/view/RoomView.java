@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
@@ -225,6 +228,8 @@ public class RoomView extends JPanel{
 		searchBox.setBounds(30,25,300,40);	
 		searchBox.setBackground(Color.WHITE);
 		searchBox.setVisible(false);
+		
+//		getAvailable = RoomView.get
 
 		this.setVisible(false);
 	}
@@ -307,7 +312,26 @@ public class RoomView extends JPanel{
 	public ArrayList<Room> getRoomList() {
 		return roomList;
 	}
-
+	public int getAvailable() {
+		int a = 0;
+		for(int i = 0; i < roomList.size(); i++) {
+			if(roomList.get(i).getCurrentStatus().equals("0")) {
+				a++;
+			}
+		}
+		return a;
+	}
+	public int getDamaged() {
+		int a = 0;
+		for(int i = 0; i < roomList.size(); i++) {
+			if(roomList.get(i).getCurrentStatus().equals("2")) {
+				a++;
+			}
+		}
+		return a;
+	}
+	int getAvailable = 0;
+	
 	public void setRoomList(ArrayList<Room> roomList) {
 		this.roomList = roomList;
 	}
