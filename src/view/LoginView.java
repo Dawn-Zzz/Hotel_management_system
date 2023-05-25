@@ -23,7 +23,7 @@ import model.User;
 import view.editComponent.Button;
 
 public class LoginView extends JFrame{
-	private View view;
+//	private View view;
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
 	private JLabel labelLeft = new JLabel();

@@ -20,6 +20,7 @@ import view.editComponent.Button;
 
 public class View extends JFrame{	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private String name;
 	private JPanel leftBar = new JPanel();
 	private JPanel otherBar = new JPanel();
 	private JButton logOutButton = new Button();
@@ -49,7 +50,6 @@ public class View extends JFrame{
     }
 
     private View() {
-    	System.out.println(AccessPersonnel.getInstance().getStaff().getName());
         initView();
     }
 
@@ -180,6 +180,7 @@ public class View extends JFrame{
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
 		logOutButton.addActionListener(actionListener);
+
 		staffName.setBounds(750,23,100,40);
 		staffName.setText(AccessPersonnel.getInstance().getStaff().getName());
 		staffName.setFont(new Font("Arial", Font.BOLD, 12));
