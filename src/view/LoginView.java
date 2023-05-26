@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -92,6 +93,7 @@ public class LoginView extends JFrame{
 		login_button.setFont(new Font("Arial",Font.BOLD,20));
 		login_button.setFocusable(false);
 		login_button.setForeground(Color.white);
+		login_button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		login_button.setBackground(new Color(39,162,187));
 		
 		labelBotLine.setText("Don't have an account?");
@@ -105,6 +107,7 @@ public class LoginView extends JFrame{
 		signup_button.setFocusable(false);
 		signup_button.setForeground(new Color(39,162,187));
 		signup_button.setBackground(Color.white);
+		signup_button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		signup_button.setBorder(BorderFactory.createEmptyBorder());
 		
 		this.setTitle("HOTEL MANAGEMENT");
@@ -144,6 +147,11 @@ public class LoginView extends JFrame{
 			JOptionPane.showMessageDialog(this, "Success");
 			AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
 			View.getInstance().updateLoginInfo(); // cập nhật thông tin đăng nhập trên cửa sổ màn hình chính
+			if(AccessPersonnelDAO.getInstance().selectLevel(user,pass) == 1) 
+				View.getInstance().getAdminButton().setVisible(true);
+			else
+				View.getInstance().getAdminButton().setVisible(false);
+			System.out.println(AccessPersonnelDAO.getInstance().selectLevel(user,pass));
 			View.getInstance().setVisible(true);
 			dispose();
 		}

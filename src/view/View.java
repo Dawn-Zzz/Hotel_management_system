@@ -165,6 +165,7 @@ public class View extends JFrame{
 		adminButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		adminButton.setFocusable(false);
 		adminButton.addActionListener(actionListener);
+//		adminButton.setVisible(false);
 	}
 	
 	public void otherSection() {
@@ -192,5 +193,8 @@ public class View extends JFrame{
 	public void updateLoginInfo() {
 	    // cập nhật tên người dùng hiển thị trên cửa sổ màn hình chính
 	    staffName.setText(AccessPersonnel.getInstance().getStaff().getName());
+	}
+	public JButton getAdminButton() {
+		return this.adminButton;
 	}
 }
