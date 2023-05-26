@@ -41,4 +41,23 @@ public class AccessPersonnelDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public int selectLevel(String taikhoan, String matkhau) {
+		int level = 0;
+		try {
+		    Connection connection = ConnectDatabase.connection();
+		    String sql = "SELECT Quyen FROM hotel_management.nguoidung WHERE TaiKhoan = ? AND MatKhau = ?";
+		    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		    preparedStatement.setString(1, taikhoan);
+		    preparedStatement.setString(2, matkhau);
+		    ResultSet resultSet = preparedStatement.executeQuery();
+		    if (resultSet.next()) {
+		        level = resultSet.getInt("Quyen");
+		    }
+		    ConnectDatabase.disconnection(connection);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
+		return level;
+	}
 }

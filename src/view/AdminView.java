@@ -155,7 +155,6 @@ public class AdminView extends JPanel {
 	public void resetStaffTable() {
 		((DefaultTableModel) staffTable.getModel()).setRowCount(0);
 		StaffDAO.getInstance().selectAll(staffTable);
-		System.out.println("reset2");
 		staffsCount = staffTable.getModel().getRowCount();
 		((DefaultTableModel) staffTable.getModel()).fireTableDataChanged();
 	}

@@ -75,14 +75,9 @@ public class GuestDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				name = resultSet.getString("TenKhachHang");
-//				Timestamp timestamp = resultSet.getTimestamp("NgaySinh");
-//				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//				String birth = timestamp.toLocalDateTime().format(formatter);
-//				Object[] object = {nameGuest};
 			}
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return name;
