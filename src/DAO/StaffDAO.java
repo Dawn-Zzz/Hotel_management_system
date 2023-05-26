@@ -9,16 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 //import com.mysql.cj.xdevapi.Statement;
 
 import database.ConnectDatabase;
-import model.Guest;
 import model.Staff;
-import view.editComponent.Combobox;
 
 public class StaffDAO {
 	public static StaffDAO getInstance () {

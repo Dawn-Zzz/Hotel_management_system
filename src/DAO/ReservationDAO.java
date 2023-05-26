@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +14,6 @@ import database.ConnectDatabase;
 import model.AccessPersonnel;
 import model.Reservation;
 import model.Room;
-import view.View;
 
 public class ReservationDAO {
 	public static ReservationDAO getInstance () {
@@ -101,8 +99,8 @@ public class ReservationDAO {
 		return name;
 	}
 	
-	public ArrayList<Reservation> getReservationNotCheckInByIDRoom (String id) {
-		ArrayList<Reservation> arrResult = new ArrayList<>();
+	public Reservation getReservationNotCheckInByIDRoom (String id) {
+		Reservation reservation = null;
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT * "
@@ -113,19 +111,18 @@ public class ReservationDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			if(resultSet.next()) {
 				String statusRoom = resultSet.getString("p.HienTrang");
 				Timestamp checkIn = resultSet.getTimestamp("ThoiGianNhanPhong");
 				Timestamp checkOut = resultSet.getTimestamp("ThoiGianTraPhong");
-				Reservation reservation = new Reservation(new Room(id,statusRoom),checkIn,checkOut);
-				arrResult.add(reservation);
+				reservation = new Reservation(new Room(id,statusRoom),checkIn,checkOut);
 			}
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return arrResult;
+		return reservation;
 	}
 	
 	public int updateStatusReservation (String id, String status) {

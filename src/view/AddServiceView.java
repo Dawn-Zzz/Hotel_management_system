@@ -1,41 +1,18 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.logging.Handler;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JDateChooser;
-
-import DAO.GuestDAO;
-import DAO.ReservationDAO;
-import DAO.RoomDAO;
-import DAO.ServiceDAO;
-import DAO.StaffDAO;
-import controller.ServiceController;
 import view.editComponent.Button;
-import view.editComponent.Combobox;
 
 public class AddServiceView extends JDialog{
 	

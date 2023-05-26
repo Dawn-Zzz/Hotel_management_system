@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 
 import controller.NavController;
 import model.AccessPersonnel;
-import model.Staff;
 import view.editComponent.Button;
 
 public class View extends JFrame{	

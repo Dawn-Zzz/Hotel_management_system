@@ -99,7 +99,7 @@ public class NavController implements ActionListener{
 		} 
 		else {
 			buttonView.dispose();
-//			LoginView loginView = new LoginView();
+			LoginView loginView = new LoginView();
 		}
 	}
 }

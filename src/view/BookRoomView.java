@@ -85,14 +85,13 @@ public class BookRoomView extends JDialog {
 	private JLabel currencyUnit = new JLabel();
 
 	private JButton submitButton = new Button();
-	
+
 	private RoomView roomView = RoomView.getInstance();
-	
+
 	private ActionListener actionListener = new BookRoomController(this);
 	private ItemListener itemListener = new BookRoomController(this);
 	private PropertyChangeListener propertyChangeListener = new BookRoomController(this);
 
-	
 	public BookRoomView() {
 		// khá»Ÿi táº¡o giÃ¡ trá»‹ cÃ¡c phÃ²ng
 
@@ -101,7 +100,7 @@ public class BookRoomView extends JDialog {
 		for (int i = 0; i < 24; i++) {
 			hours[i] = String.format("%02d", i);
 		}
-		
+
 		// Khá»Ÿi táº¡o máº£ng phÃºt
 		String[] minutes = { "00", "30" };
 
@@ -329,8 +328,8 @@ public class BookRoomView extends JDialog {
 		this.setModal(true);
 		this.setVisible(false);
 
-		setInitialTime();
 		updateMinuteComboBox();
+//		setInitialTime();
 		setTimeOneHourAfterCheckin();
 
 		questQuantityBox.addActionListener(actionListener);
@@ -402,11 +401,9 @@ public class BookRoomView extends JDialog {
 
 	public void addGuestAction() {
 		Timestamp checkInTime = setTime(Integer.parseInt(minuteCIn.getSelectedItem().toString()),
-				Integer.parseInt(hourCIn.getSelectedItem().toString()),
-				dayCIn.getDate());
+				Integer.parseInt(hourCIn.getSelectedItem().toString()), dayCIn.getDate());
 		Timestamp checkOutTime = setTime(Integer.parseInt(minuteCOut.getSelectedItem().toString()),
-				Integer.parseInt(hourCOut.getSelectedItem().toString()),
-				dayCOut.getDate());
+				Integer.parseInt(hourCOut.getSelectedItem().toString()), dayCOut.getDate());
 		String id = identificationNumberField.getText();
 		if (id.isEmpty() || questQuantityBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null
 				|| roomBox.getSelectedItem() == null)
@@ -418,24 +415,28 @@ public class BookRoomView extends JDialog {
 					JOptionPane.ERROR_MESSAGE);
 		else {
 			if (directBooking.isSelected()) {
-				ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(), (String) roomBox.getSelectedItem(), checkInTime, checkOutTime, (int) questQuantityBox.getSelectedItem(), null);
+				ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(),
+						(String) roomBox.getSelectedItem(), checkInTime, checkOutTime,
+						(int) questQuantityBox.getSelectedItem(), null);
 				this.dispose();
-			}
-			else {
+			} else {
 				if (deposit.getText().isEmpty())
 					JOptionPane.showMessageDialog(this, "Không được bỏ trống");
 				else {
 					Double depositAmount = Double.parseDouble(depositField.getText().trim());
-					if(depositAmount != null) {
-			            ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(), (String) roomBox.getSelectedItem(), checkInTime, checkOutTime, (int) questQuantityBox.getSelectedItem(), depositAmount);
+					if (depositAmount != null) {
+						ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(),
+								(String) roomBox.getSelectedItem(), checkInTime, checkOutTime,
+								(int) questQuantityBox.getSelectedItem(), depositAmount);
 						this.dispose();
-			        } else 
-			            JOptionPane.showMessageDialog(this, "Giá trị cọc không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					} else
+						JOptionPane.showMessageDialog(this, "Giá trị cọc không hợp lệ", "Lỗi",
+								JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
 	}
-	
+
 	public Timestamp setTime(int minute, int hour, Date date) {
 		// Chuyển đổi từ java.util.Date sang java.time.LocalDateTime
 		LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
@@ -446,7 +447,7 @@ public class BookRoomView extends JDialog {
 		Timestamp timestamp = Timestamp.valueOf(localDateTime);
 		return timestamp;
 	}
-	
+
 	public boolean isBookingTimeAvailable(Reservation reservation, Timestamp checkInTime, Timestamp checkOutTime) {
 		Timestamp startTime = reservation.getCheckIn();
 		Timestamp endTime = reservation.getCheckOut();
@@ -465,33 +466,24 @@ public class BookRoomView extends JDialog {
 		}
 		return false;
 	}
-	
+
 	public void checkReservation(List<String> roomValues, ArrayList<Room> rooms, int begin, int end) {
 		Timestamp checkInTime = setTime(Integer.parseInt(minuteCIn.getSelectedItem().toString()),
-				Integer.parseInt(hourCIn.getSelectedItem().toString()),
-				dayCIn.getDate());
+				Integer.parseInt(hourCIn.getSelectedItem().toString()), dayCIn.getDate());
 		Timestamp checkOutTime = setTime(Integer.parseInt(minuteCOut.getSelectedItem().toString()),
-				Integer.parseInt(hourCOut.getSelectedItem().toString()),
-				dayCOut.getDate());
+				Integer.parseInt(hourCOut.getSelectedItem().toString()), dayCOut.getDate());
 		for (Room room : rooms) {
 			String roomName = room.getNumberRoom();
 			int roomNumber = Integer.parseInt(roomName);
 
 			if ((roomNumber % 100 >= begin) && (roomNumber % 100 <= end)) {
-				ArrayList<Reservation> reservations = ReservationDAO.getInstance()
-						.getReservationNotCheckInByIDRoom(roomName);
-				if (reservations == null) {
+				if (room.getCurrentStatus().equals("2"))
+					continue;
+				Reservation reservation = ReservationDAO.getInstance().getReservationNotCheckInByIDRoom(roomName);
+				if (reservation == null) {
 					roomValues.add(roomName);
 				} else {
-					boolean isAvailable = true;
-					for (Reservation reservation : reservations) {
-						if (!isBookingTimeAvailable(reservation, checkInTime, checkOutTime) || reservation.getRoom().getCurrentStatus().equals("2")) {
-							isAvailable = false;
-							break;
-						}
-					}
-					if (isAvailable) {
-						
+					if (isBookingTimeAvailable(reservation, checkInTime, checkOutTime)) {
 						roomValues.add(roomName);
 					}
 				}
@@ -519,31 +511,51 @@ public class BookRoomView extends JDialog {
 		}
 		roomBox.setModel(new DefaultComboBoxModel(roomValues.toArray(new String[0])));
 	}
-	
+
 	public void setInitialTime() {
 		if (dayCIn.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(toDay)) {
-			boolean check = false;
 			LocalTime currentTime = LocalTime.now(); // Thời gian hiện tại
 			int currentHour = currentTime.getHour();
-			int currentMinute = currentTime.getMinute();
-
-			if (currentMinute >= 0 && currentMinute < 30) {
-				currentMinute = 30;
-			} else {
-				currentHour++;
-				if (currentHour == 24) {
-					currentHour = 0;
-					check = true;
+			int selectedHour = Integer.parseInt(hourCIn.getSelectedItem().toString());
+			if (currentHour == selectedHour) {
+				int currentMinute = currentTime.getMinute();
+				if (currentMinute >= 0 && currentMinute < 30) {
+					currentMinute = 30;
+				} else {
+					currentHour++;
+					if (currentHour == 24) {
+						currentHour = 0;
+					}
+					currentMinute = 0;
 				}
-				currentMinute = 0;
+				minuteCIn.removeAllItems();
+				if (currentMinute == 30) {
+					if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1
+							|| !minuteCIn.getItemAt(0).equals("30"))
+						minuteCIn.addItem("30");
+				} else {
+					if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1
+							|| !minuteCIn.getItemAt(0).equals("00"))
+						minuteCIn.addItem("00");
+					if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1
+							|| !minuteCIn.getItemAt(1).equals("30"))
+						minuteCIn.addItem("30");
+				}
+				minuteCIn.setSelectedItem(String.format("%02d", currentMinute));
+			} else {
+				minuteCIn.removeAllItems();
+				if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1
+						|| !minuteCIn.getItemAt(0).equals("00"))
+					minuteCIn.addItem("00");
+				if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1
+						|| !minuteCIn.getItemAt(1).equals("30"))
+					minuteCIn.addItem("30");
+				minuteCIn.setSelectedItem(String.format("%02d", 0));
 			}
-			if (check) 
-				dayCIn.setDate(Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-			hourCIn.setSelectedItem(String.format("%02d", currentHour));
-			minuteCIn.setSelectedItem(String.format("%02d", currentMinute));
 		}
 	}
+
+
 
 	public void setTimeOneHourAfterCheckin() {
 		// Lấy ngày từ startDateChooser
@@ -587,6 +599,11 @@ public class BookRoomView extends JDialog {
 	public void setComboBoxOvernightRental() {
 		hourCIn.setEnabled(true);
 		minuteCIn.setEnabled(true);
+		minuteCIn.removeAllItems();
+		if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(0).equals("00"))
+			minuteCIn.addItem("00");
+		if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(1).equals("30"))
+			minuteCIn.addItem("30");
 		hourCOut.addItem(String.format("%02d", 8));
 		hourCOut.setSelectedItem("08");
 		minuteCOut.setSelectedItem("00");
@@ -599,6 +616,11 @@ public class BookRoomView extends JDialog {
 		hourCIn.addItem(String.format("%02d", 12));
 		hourCOut.removeAllItems();
 		hourCOut.addItem(String.format("%02d", 11));
+		minuteCIn.removeAllItems();
+		if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(0).equals("00"))
+			minuteCIn.addItem("00");
+		if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1 || !minuteCIn.getItemAt(1).equals("30"))
+			minuteCIn.addItem("30");
 		hourCIn.setEnabled(false);
 		minuteCIn.setEnabled(false);
 		hourCOut.setEnabled(false);
@@ -613,26 +635,38 @@ public class BookRoomView extends JDialog {
 	public void updateMinuteComboBox() {
 		if (LocalTime.now().isAfter(LocalTime.of(23, 30))) {
 			if (hourCIn.getItemCount() != 24) {
-		        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-		        for (int hour = 0; hour <= 23; hour++) {
-		            String hourString = String.format("%02d", hour);
-		            model.addElement(hourString);
-		        }
-		        hourCIn.setModel(model);
+				DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+				for (int hour = 0; hour <= 23; hour++) {
+					String hourString = String.format("%02d", hour);
+					model.addElement(hourString);
+				}
+				hourCIn.setModel(model);
 			}
-		}
-		else {
+		} else {
 			if (dayCIn.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(toDay)) {
+				boolean check = false;
 				LocalTime currentTime = LocalTime.now(); // Thời gian hiện tại
 				int currentHour = currentTime.getHour();
 				int currentMinute = currentTime.getMinute();
-				
-				int selectedHour = Integer.parseInt(hourCIn.getSelectedItem().toString());
-	
+
+				if (currentMinute >= 0 && currentMinute < 30) {
+					currentMinute = 30;
+				} else {
+					currentHour++;
+					if (currentHour == 24) {
+						currentHour = 0;
+						check = true;
+					}
+					currentMinute = 0;
+				}
+				if (check)
+					dayCIn.setDate(
+							Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
 				minuteCIn.removeAllItems();
-				if (selectedHour == currentHour) {
-					if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1
-							|| !minuteCIn.getItemAt(1).equals("30"))
+				if (currentMinute == 30) {
+					if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1
+							|| !minuteCIn.getItemAt(0).equals("30"))
 						minuteCIn.addItem("30");
 				} else {
 					if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1
@@ -642,15 +676,9 @@ public class BookRoomView extends JDialog {
 							|| !minuteCIn.getItemAt(1).equals("30"))
 						minuteCIn.addItem("30");
 				}
-				
-				if (currentMinute >= 0 && currentMinute < 30) {
-					currentMinute = 30;
-				} else {
-					currentHour++;
-					if (currentHour == 24) currentHour = 0;
-					currentMinute = 0;
-				}
-				
+
+				minuteCIn.setSelectedItem(String.format("%02d", currentMinute));
+
 				if (hourCIn.getItemCount() != (23 - currentHour + 1)) {
 					hourCIn.removeAllItems();
 					for (int hour = currentHour; hour <= 23; hour++) {
@@ -658,6 +686,8 @@ public class BookRoomView extends JDialog {
 						hourCIn.addItem(hourString);
 					}
 				}
+
+				hourCIn.setSelectedItem(String.format("%02d", currentHour));
 			} else {
 				minuteCIn.removeAllItems();
 				if (minuteCIn.getItemCount() == 0 || minuteCIn.getSelectedIndex() == -1
@@ -666,11 +696,11 @@ public class BookRoomView extends JDialog {
 				if (minuteCIn.getItemCount() == 1 || minuteCIn.getSelectedIndex() == -1
 						|| !minuteCIn.getItemAt(1).equals("30"))
 					minuteCIn.addItem("30");
-					
-					hourCIn.removeAllItems();
-					for (int hour = 0; hour <= 23; hour++) {
-						String hourString = String.format("%02d", hour);
-						hourCIn.addItem(hourString);
+
+				hourCIn.removeAllItems();
+				for (int hour = 0; hour <= 23; hour++) {
+					String hourString = String.format("%02d", hour);
+					hourCIn.addItem(hourString);
 				}
 			}
 		}

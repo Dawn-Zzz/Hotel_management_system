@@ -133,57 +133,62 @@ CREATE TRIGGER Trg_TaoHoaDon
 AFTER UPDATE ON PhieuThue
 FOR EACH ROW
 BEGIN
-    DECLARE maHoaDon CHAR(10);
-    DECLARE ngayLapHoaDon DATE;
-    DECLARE tienPhong FLOAT;
-    DECLARE tienDichVu FLOAT;
-    DECLARE maKhachHang INT;
-    DECLARE maNhanVien INT;
-    DECLARE soLuongHoaDon INT;
+    -- Biến tạm thời
+    SET @maHoaDon = NULL;
+    SET @ngayLapHoaDon = NULL;
+    SET @tienPhong = NULL;
+    SET @tienDichVu = NULL;
+    SET @maKhachHang = NULL;
+    SET @maNhanVien = NULL;
+    SET @soLuongHoaDon = NULL;
     
     IF NEW.HienTrang = 'Đã nhận phòng' THEN
         -- Đếm số lượng hoá đơn hiện có trong bảng HoaDon
-        SELECT COUNT(*) INTO soLuongHoaDon FROM HoaDon;
+        SELECT COUNT(*) INTO @soLuongHoaDon FROM HoaDon;
         
         -- Tạo mã hoá đơn
-        SET maHoaDon = CONCAT('HD', LPAD(soLuongHoaDon + 1, 3, '0'));
-         -- Update MaHoaDon và MaPhieu cho dòng cập nhật
-        INSERT INTO HoaDon (MaHoaDon, MaPhieu, MaKhachHang) VALUES (maHoaDon, NEW.MaPhieu, New.MaKhachHang);
-    ELSEIF NEW.HienTrang = 'Đã trả phòng' THEN
-		-- Lấy mã hoá đơn từ bảng HoaDon dựa trên Mã Phiếu
-		SELECT MaHoaDon INTO maHoaDon FROM HoaDon WHERE MaPhieu = NEW.MaPhieu;
+        SET @maHoaDon = CONCAT('HD', LPAD(@soLuongHoaDon + 1, 3, '0'));
+        -- Update MaHoaDon và MaPhieu cho dòng cập nhật
+		INSERT INTO HoaDon (MaHoaDon, MaPhieu, MaKhachHang) VALUES (@maHoaDon, NEW.MaPhieu, NEW.MaKhachHang);
+	END IF;
+    
+    IF NEW.HienTrang = 'Đã trả phòng' THEN
+        -- Lấy mã hoá đơn từ bảng HoaDon dựa trên Mã Phiếu
+        SELECT MaHoaDon INTO @maHoaDon FROM HoaDon WHERE MaPhieu = NEW.MaPhieu;
         
         -- Gán các giá trị khác từ dòng được cập nhật
-        SET ngayLapHoaDon = CURDATE();
-        SET maKhachHang = NEW.MaKhachHang;
-        SET maNhanVien = NEW.MaNhanVien;
+        SET @ngayLapHoaDon = CURDATE();
+        SET @maKhachHang = NEW.MaKhachHang;
+        SET @maNhanVien = NEW.MaNhanVien;
         
         -- Tính tổng tiền phòng từ bảng PhieuThuePhong
         SELECT CASE NEW.HinhThucThue
             WHEN N'Đêm' THEN lp.GiaQuaDem
             WHEN N'Ngày' THEN lp.GiaTheoNgay * TIMESTAMPDIFF(DAY, NEW.ThoiGianNhanPhong, NEW.ThoiGianTraPhong)
             WHEN N'Giờ' THEN lp.GiaTheoGio * TIMESTAMPDIFF(HOUR, NEW.ThoiGianNhanPhong, NEW.ThoiGianTraPhong)
-        END INTO tienPhong
+        END INTO @tienPhong
         FROM PhieuThue ptp
         INNER JOIN Phong p ON ptp.MaPhong = p.MaPhong
         INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong
         WHERE ptp.MaPhieu = NEW.MaPhieu;
         
         -- Tính tổng tiền dịch vụ từ bảng HoaDonDichVu
-        SELECT SUM(SoLuong * dv.GiaDichVu) INTO tienDichVu
+        SELECT SUM(SoLuong * dv.GiaDichVu) INTO @tienDichVu
         FROM ChiTietHoaDonDichVu cthdv
         INNER JOIN DichVu dv ON cthdv.MaDichVu = dv.MaDichVu
-        WHERE cthdv.MaHoaDon = maHoaDon;
+        WHERE cthdv.MaHoaDon = @maHoaDon;
         
-		UPDATE HoaDon
-        SET NgayLapHoaDon = ngayLapHoaDon,
-            tienPhong = tienPhong,
-            tienDichVu = tienDichVu,
-            MaKhachHang = maKhachHang,
-            MaNhanVien = maNhanVien
-        WHERE MaHoaDon = maHoaDon;
+        -- Cập nhật thông tin hoá đơn
+        UPDATE HoaDon
+        SET NgayLapHoaDon = @ngayLapHoaDon,
+            TienPhong = @tienPhong,
+            TienDichVu = @tienDichVu,
+            MaKhachHang = @maKhachHang,
+            MaNhanVien = @maNhanVien
+        WHERE MaHoaDon = @maHoaDon;
     END IF;
 END //
+
 DELIMITER ;
 
 

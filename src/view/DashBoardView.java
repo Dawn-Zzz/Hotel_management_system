@@ -1,19 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,7 +15,6 @@ import DAO.RoomDAO;
 import calendar.DateChooser;
 import chart.Chart;
 import chart.ModelChart;
-import view.editComponent.Button;
 import view.editComponent.PanelRound;
 
 public class DashBoardView extends JPanel{
