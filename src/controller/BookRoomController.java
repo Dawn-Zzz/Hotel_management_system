@@ -7,21 +7,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
-import javax.swing.DefaultComboBoxModel;
 
-import DAO.ReservationDAO;
-import model.Reservation;
-import model.Room;
 import view.BookRoomView;
 import view.RoomView;
 
@@ -48,6 +40,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 		} else if (e.getSource() == bookRoomView.getRentalTypeBox()) {
 			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Ngày")) {
 				bookRoomView.setComboBoxRentForTheDay();
+				bookRoomView.getDayCOut().setMaxSelectableDate(null);
 			} else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Đêm")) {
 				bookRoomView.setComboBoxOvernightRental();
 				bookRoomView.getDayCOut()
@@ -64,14 +57,14 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 				}
 			} else {
 				bookRoomView.setComboBoxRentByTheHour();
-				bookRoomView.setInitialTime();
 				bookRoomView.updateMinuteComboBox();
 				bookRoomView.setTimeOneHourAfterCheckin();
 			}
 		} else if (e.getSource() == bookRoomView.getMinuteCIn() || e.getSource() == bookRoomView.getHourCIn()) {
 			if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Giờ"))
 				if (bookRoomView.getHourCIn().getSelectedItem() != null && bookRoomView.getMinuteCIn().getSelectedItem() != null) {
-					bookRoomView.updateMinuteComboBox();
+					if (e.getSource() == bookRoomView.getHourCIn())
+						bookRoomView.setInitialTime();
 					bookRoomView.setTimeOneHourAfterCheckin();
 				}
 					
@@ -127,7 +120,6 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 			else if (bookRoomView.getRentalTypeBox().getSelectedItem().equals("Giờ")) {
 				isSettingTime = true;
 				if (evt.getSource() == bookRoomView.getDayCIn()) {
-					bookRoomView.setInitialTime();
 					bookRoomView.updateMinuteComboBox();
 					bookRoomView.setTimeOneHourAfterCheckin();
 				}

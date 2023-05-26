@@ -21,11 +21,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import DAO.EquipmentDAO;
-import DAO.GuestDAO;
 import DAO.RoomDAO;
-import view.AddGuestView;
 import view.EquipmentView;
-import view.RoomView;
 
 public class EquipmentController implements ActionListener,MouseListener {
 	private EquipmentView equipmentView;

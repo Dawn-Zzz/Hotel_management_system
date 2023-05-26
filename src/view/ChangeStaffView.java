@@ -14,18 +14,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
-import DAO.GuestDAO;
 import DAO.StaffDAO;
-import controller.AddGuestController;
 import controller.ChangeStaffController;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
