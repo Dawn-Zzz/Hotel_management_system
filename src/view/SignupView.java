@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import DAO.StaffDAO;
 import DAO.UserDAO;
 import controller.SignupController;
 import view.editComponent.Button;
@@ -152,16 +153,18 @@ public class SignupView extends JDialog{
 		String pass = new String(userPassWord.getPassword());
 		String confirmPass = new String(userConFirmPassWord.getPassword());
 		if (firstName.isEmpty() || lastName.isEmpty() || user.isEmpty() || pass.isEmpty() || confirmPass.isEmpty())
-			JOptionPane.showMessageDialog(this, "Khong duoc bo trong");
+			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
 		else if (pass.length() < 8 | pass.length() > 16)
-			JOptionPane.showMessageDialog(this, "Do dai mat khau phai tu 8 - 16");
+			JOptionPane.showMessageDialog(this, "Độ dài mật khẩu từ 8 - 16");
 		else if (user.matches(".*"+" "+".*"))
-			JOptionPane.showMessageDialog(this, "Tai khoang khong duoc co khoang trang");
+			JOptionPane.showMessageDialog(this, "Tài khoản không được có khoảng trắng");
 		else if (!pass.equals(confirmPass)) {
-			JOptionPane.showMessageDialog(this, "Mat khau khong trung");
+			JOptionPane.showMessageDialog(this, "Mật khẩu không trùng khớp");
 		} 
 		else {
+			String fullName = firstName + " " + lastName;
 			UserDAO.getInstance().insert(user, pass);
+			StaffDAO.getInstance().insert(fullName, user);
 			JOptionPane.showMessageDialog(this, "Success");
 			this.dispose();
 		}

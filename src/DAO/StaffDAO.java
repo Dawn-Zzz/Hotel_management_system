@@ -170,7 +170,7 @@ public class StaffDAO {
 		return result;
 	}
 	
-	public static String getMaKhachHangByCCCD(String cccd) {
+	public static String getMaNhanVienByCCCD(String cccd) {
 	    String id = "";
 	    try {
 	        Connection connection = ConnectDatabase.connection();
@@ -186,5 +186,22 @@ public class StaffDAO {
 	        e.printStackTrace();
 	    }
 	    return id;
+	}
+	
+	public int insert(String name, String user) {
+		int result = 0;
+		try {
+			Connection connection = ConnectDatabase.connection();
+			String sql = "INSERT INTO NhanVien (TenNhanVien, TaiKhoan) VALUES (?,?)";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, name);
+			preparedStatement.setString(2, user);
+			result = preparedStatement.executeUpdate();
+			ConnectDatabase.disconnection(connection);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

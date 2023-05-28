@@ -28,7 +28,7 @@ public class ReservationDAO {
 			String sql = "INSERT INTO phieuthue (MaKhachHang,HinhThucThue,MaPhong,ThoiGianNhanPhong,ThoiGianTraPhong,SoNguoiO,NgayLap,HienTrang,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, GuestDAO.getMaKhachHangByCCCD(idGuest));
+			preparedStatement.setString(1, GuestDAO.getInstance().getMaKhachHangByCCCD(idGuest));
 			preparedStatement.setString(2, rentalType);
 			preparedStatement.setString(3, idRoom);
 			preparedStatement.setTimestamp(4, checkin);
@@ -36,7 +36,7 @@ public class ReservationDAO {
 			preparedStatement.setInt(6, guestQuantity);
 			preparedStatement.setDate(7, java.sql.Date.valueOf(LocalDate.now()));
 			preparedStatement.setString(8, "Chưa nhận phòng");
-			preparedStatement.setString(9, StaffDAO.getMaKhachHangByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
+			preparedStatement.setString(9, StaffDAO.getMaNhanVienByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
 			result = preparedStatement.executeUpdate();
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
@@ -51,9 +51,7 @@ public class ReservationDAO {
 		try {
 			Connection connection = ConnectDatabase.connection();
 			String sql = "SELECT ptp.MaPhieu, kh.TenKhachHang, ptp.MaPhong, ptp.HinhThucThue, ptp.ThoiGianNhanPhong, ptp.ThoiGianTraPhong, ptp.SoNguoiO, ptp.HienTrang "
-
 					+ "FROM phieuthue ptp "
-
 					+ "INNER JOIN khachhang kh ON ptp.MaKhachHang = kh.MaKhachHang;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -131,7 +129,6 @@ public class ReservationDAO {
 	        Connection connection = ConnectDatabase.connection();
 
 	        String sql = "UPDATE phieuthue SET HienTrang = ? WHERE MaPhieu = ?";
-	        System.out.println(status);
 	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 	        preparedStatement.setString(1, status);
 	        preparedStatement.setString(2, id);

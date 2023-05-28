@@ -5,17 +5,17 @@ USE Hotel_management;
 CREATE TABLE NguoiDung(
 	TaiKhoan NVARCHAR(50) NOT NULL,
     MatKhau NVARCHAR(50) NOT NULL,
-    Quyen INT NOT NULL,
+    Quyen INT,
     PRIMARY KEY (TaiKhoan)
 );
 
 CREATE TABLE NhanVien(
 	MaNhanVien INT AUTO_INCREMENT,
-	CCCD CHAR(12) NOT NULL,
+	CCCD CHAR(12),
     SoDienThoai CHAR (10),
     TenNhanVien NVARCHAR(50) NOT NULL,
     NgaySinh DATE,
-    ChucDanh NVARCHAR(50) NOT NULL,
+    ChucDanh NVARCHAR(50),
     TaiKhoan NVARCHAR(50) NOT NULL,
     PRIMARY KEY (MaNhanVien)
 );
@@ -159,7 +159,6 @@ BEGIN
         -- Gán các giá trị khác từ dòng được cập nhật
         SET @ngayLapHoaDon = CURDATE();
         SET @maKhachHang = NEW.MaKhachHang;
-        SET @maNhanVien = NEW.MaNhanVien;
         
         -- Tính tổng tiền phòng từ bảng PhieuThuePhong
         SELECT CASE NEW.HinhThucThue
@@ -183,8 +182,7 @@ BEGIN
         SET NgayLapHoaDon = @ngayLapHoaDon,
             TienPhong = @tienPhong,
             TienDichVu = @tienDichVu,
-            MaKhachHang = @maKhachHang,
-            MaNhanVien = @maNhanVien
+            MaKhachHang = @maKhachHang
         WHERE MaHoaDon = @maHoaDon;
     END IF;
 END //
@@ -320,6 +318,7 @@ INSERT INTO KhachHang (TenKhachHang, CCCD, NgaySinh, SoDienThoai, LoaiKhachHang)
 INSERT INTO KhachHang (TenKhachHang, CCCD, NgaySinh, SoDienThoai, LoaiKhachHang) VALUES ('Hồ Lê Trúc Vy', '438482959262', '1999-09-18', '0848946595', 'Vip');
 INSERT INTO KhachHang (TenKhachHang, CCCD, NgaySinh, SoDienThoai, LoaiKhachHang) VALUES ('Hồ Trọng Nghĩa', '448958598958', '2003-08-19', '0852959518', 'Vip');
 INSERT INTO KhachHang (TenKhachHang, CCCD, NgaySinh, SoDienThoai, LoaiKhachHang) VALUES ('Cao Việt Hoàng', '458865689484', '2003-05-23', '0868595166', NULL);
+INSERT INTO KhachHang (TenKhachHang, CCCD, NgaySinh, SoDienThoai, LoaiKhachHang) VALUES ('Cao Việt Hùng', '458865689483', '2003-05-23', '0868595166', NULL);
 
 INSERT INTO Phong (MaPhong, HienTrang, MaLoaiPhong) VALUES ('101', 0, 'LP001');
 INSERT INTO Phong (MaPhong, HienTrang, MaLoaiPhong) VALUES ('102', 0, 'LP003');

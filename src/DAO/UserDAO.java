@@ -31,24 +31,44 @@ public class UserDAO {
 		return result;
 	}
 	
-	public ArrayList<User> selectAll () {
-		ArrayList<User> arrResult = new ArrayList<>();
+//	public ArrayList<User> selectAll () {
+//		ArrayList<User> arrResult = new ArrayList<>();
+//		try {
+//			Connection connection = ConnectDatabase.connection();
+//			String sql = "SELECT * FROM NguoiDung";
+//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				String userName = resultSet.getString("TaiKhoan");
+//				String userPassword = resultSet.getString("MatKhau");
+//				User userModel = new User(userName, userPassword);
+//				arrResult.add(userModel);
+//			}
+//			ConnectDatabase.disconnection(connection);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return arrResult;
+//	}
+	
+	public User checkUser (String user, String pass) {
+		User userModel = null;
 		try {
 			Connection connection = ConnectDatabase.connection();
-			String sql = "SELECT * FROM NguoiDung";
+			String sql = "SELECT * FROM NguoiDung WHERE TaiKhoan = ? AND MatKhau = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, user);
+			preparedStatement.setString(2, pass);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				String userName = resultSet.getString("TaiKhoan");
-				String userPassword = resultSet.getString("MatKhau");
-				User userModel = new User(userName, userPassword);
-				arrResult.add(userModel);
+			if (resultSet.next()) {
+				userModel = new User(user, pass);
 			}
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return arrResult;
+		return userModel;
 	}
 }
