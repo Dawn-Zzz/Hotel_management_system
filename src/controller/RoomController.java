@@ -124,17 +124,17 @@ public class RoomController implements ActionListener, MouseListener {
 			roomView.getRoomTable().setRowSelectionInterval(row, row); // chọn dòng được nhấn chuột
 			JPopupMenu popupMenu = new JPopupMenu();
 
-			JMenuItem menuItem = new JMenuItem("Chỉnh sửa thông tin");
+//			JMenuItem menuItem = new JMenuItem("Chỉnh sửa thông tin");
 			JMenuItem menuItem1 = new JMenuItem("Nhận phòng");
 			JMenuItem menuItem2 = new JMenuItem("Trả phòng");
 			JMenuItem menuItem3 = new JMenuItem("Huỷ phòng");
 			JMenuItem menuItem4 = new JMenuItem("Thêm dịch vụ");
 			
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			});
+//			menuItem.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					
+//				}
+//			});
 			
 			menuItem1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -191,7 +191,7 @@ public class RoomController implements ActionListener, MouseListener {
 		         }
 			});
 			if (roomView.getRoomTable().getValueAt(row, 7).equals("Chưa nhận phòng")) {
-				popupMenu.add(menuItem);
+//				popupMenu.add(menuItem);
 				popupMenu.add(menuItem1);
 				popupMenu.add(menuItem3);
 			} else if (roomView.getRoomTable().getValueAt(row, 7).equals("Đã nhận phòng")) {

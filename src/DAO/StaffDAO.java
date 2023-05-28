@@ -37,9 +37,6 @@ public class StaffDAO {
 				String roleStaff = resultSet.getString("ChucDanh");
 				int idStaff = resultSet.getInt("MaNhanVien");
 				Date birthStaff = resultSet.getDate("NgaySinh");
-//				Timestamp timestamp = resultSet.getTimestamp("NgaySinh");
-//				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//				String birth = timestamp.toLocalDateTime().format(formatter);
 				Object[] object = {nameStaff,cccdStaff,phoneStaff,birthStaff,roleStaff,idStaff};
 				defaultTableModel.addRow(object);
 			}
