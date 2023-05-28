@@ -170,7 +170,7 @@ public class StaffDAO {
 		return result;
 	}
 	
-	public static String getMaNhanVienByCCCD(String cccd) {
+	public String getMaNhanVienByCCCD(String cccd) {
 	    String id = "";
 	    try {
 	        Connection connection = ConnectDatabase.connection();

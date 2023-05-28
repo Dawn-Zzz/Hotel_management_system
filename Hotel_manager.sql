@@ -1,4 +1,3 @@
-
 CREATE DATABASE Hotel_management;
 USE Hotel_management;
 
