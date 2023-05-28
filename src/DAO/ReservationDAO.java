@@ -36,7 +36,7 @@ public class ReservationDAO {
 			preparedStatement.setInt(6, guestQuantity);
 			preparedStatement.setDate(7, java.sql.Date.valueOf(LocalDate.now()));
 			preparedStatement.setString(8, "Chưa nhận phòng");
-			preparedStatement.setString(9, StaffDAO.getMaNhanVienByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
+			preparedStatement.setString(9, StaffDAO.getInstance().getMaNhanVienByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
 			result = preparedStatement.executeUpdate();
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {

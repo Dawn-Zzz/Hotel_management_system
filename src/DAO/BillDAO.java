@@ -97,7 +97,7 @@ public class BillDAO {
 
 	        String sql = "UPDATE HoaDon SET MaNhanVien = ? WHERE MaHoaDon = ?";
 	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-	        preparedStatement.setString(1, StaffDAO.getMaNhanVienByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
+	        preparedStatement.setString(1, StaffDAO.getInstance().getMaNhanVienByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
 	        preparedStatement.setString(2, id);
 	        result = preparedStatement.executeUpdate();
 	        ConnectDatabase.disconnection(connection);
