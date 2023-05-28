@@ -151,7 +151,6 @@ public class AdminView extends JPanel {
 		staffsCount = staffTable.getModel().getRowCount();
 		staffTable.addMouseListener(mouseListener);
 		this.setVisible(false);
-//		System.out.println(staffTable.getModel().getRowCount());
 	}
 	
 	public int getCountStaffs() {

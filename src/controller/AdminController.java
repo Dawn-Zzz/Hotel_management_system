@@ -87,7 +87,6 @@ public class AdminController implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int a = 0;
 		if (SwingUtilities.isRightMouseButton(e)) { // kiểm tra chuột phải
 		      int row = adminView.getStaffTable().rowAtPoint(e.getPoint()); // lấy chỉ số dòng được nhấn chuột
 		      adminView.getStaffTable().setRowSelectionInterval(row, row); // chọn dòng được nhấn chuột
@@ -96,15 +95,15 @@ public class AdminController implements ActionListener, MouseListener {
 		      
 		      menuItem.addActionListener(new ActionListener() {
 		         public void actionPerformed(ActionEvent e) {
-				     String selectedName = adminView.getStaffTable().getValueAt(row, 0).toString();
-			    	 int a;
+				     String selectedName = adminView.getStaffTable().getValueAt(row, 1).toString();
 		        	 ChangeStaffView changeStaffView = new ChangeStaffView();
+		        	 changeStaffView.setIdStaff(adminView.getStaffTable().getValueAt(row, 0).toString());
 		        	 changeStaffView.getStaffNameBox().setSelectedItem(selectedName);;
 		        	 changeStaffView.getStaffNameBox().setFocusable(false);
 		        	 changeStaffView.getStaffNameBox().setEnabled(false);
-		        	 if (adminView.getStaffTable().getValueAt(row, 4) != null) {
-		        		 String selectedRole = adminView.getStaffTable().getValueAt(row, 4).toString();
-			        	 changeStaffView.getIdentificationNumberField().setText((String) adminView.getStaffTable().getValueAt(row, 1));
+		        	 if (adminView.getStaffTable().getValueAt(row, 5) != null) {
+		        		 String selectedRole = adminView.getStaffTable().getValueAt(row, 5).toString();
+			        	 changeStaffView.getIdentificationNumberField().setText((String) adminView.getStaffTable().getValueAt(row, 2));
 			        	 changeStaffView.getIdentificationNumberField().setEnabled(false);
 			        	 changeStaffView.getStaffRole().setSelectedItem(selectedRole);
 			        	 if(selectedRole.equals("Giám đốc")) {
@@ -112,8 +111,8 @@ public class AdminController implements ActionListener, MouseListener {
 				        	 changeStaffView.getStaffRole().setSelectedItem("Giám đốc");
 			        		 changeStaffView.getStaffRole().setEnabled(false);
 			        	 }
-			        	 changeStaffView.getStaffPhoneField().setText((String) adminView.getStaffTable().getValueAt(row, 2));
-			        	 changeStaffView.getBirthDay().setDate((Date) adminView.getStaffTable().getValueAt(row, 3));
+			        	 changeStaffView.getStaffPhoneField().setText((String) adminView.getStaffTable().getValueAt(row, 3));
+			        	 changeStaffView.getBirthDay().setDate((Date) adminView.getStaffTable().getValueAt(row, 4));
 			        	 
 		        	 } 
 		        	 changeStaffView.setVisible(true);
