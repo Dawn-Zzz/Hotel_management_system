@@ -180,11 +180,9 @@ public class ChangeStaffView extends JDialog {
 		return staffRole;
 	}
 
-//	private JComboBox temp = new JComboBox();
-//	
-//	public JComboBox getTemp() {
-//		return temp;
-//	}
+	public void setIdStaff(String idStaff) {
+		this.idStaff = idStaff;
+	}
 
 	public void changeStaffAction() {
 		String cccd = identificationNumberField.getText();
@@ -220,14 +218,10 @@ public class ChangeStaffView extends JDialog {
 		else if (age < 18) 
 			JOptionPane.showMessageDialog(this, "Nhân viên phải đủ 18 tuổi", "Lỗi", JOptionPane.ERROR_MESSAGE);
 		else {
-			StaffDAO.getInstance().updateStaff(name, phoneNumber, role, birth, cccd);
+			StaffDAO.getInstance().updateStaff(idStaff, name, phoneNumber, role, birth, cccd);
 			JOptionPane.showMessageDialog(this, "Sửa thành công");
 			this.dispose();
 		}
-//		else {
-//			JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
-//			this.dispose();
-//		}
 	}
 
 	private JLabel staffInfor = new JLabel();
@@ -244,25 +238,17 @@ public class ChangeStaffView extends JDialog {
 	private JLabel staffBirth = new JLabel();
 	private JDateChooser birthDay = new JDateChooser();
 
-//	private JLabel guestGender = new JLabel();
-//	private JPanel genderGroup = new JPanel();
-//	private ButtonGroup groupRadioButton = new ButtonGroup();
-//	private JRadioButton genderMale = new JRadioButton();
-//	private JRadioButton genderFemale = new JRadioButton();
-
 	private JCheckBox genderCheckBox = new JCheckBox("Male");
 
 	private JLabel staffRoleList = new JLabel("Staff Role");
 	private Combobox staffRole = new Combobox();
-//	private Combobox comboBox = new Combobox();
 	private Combobox staffName = new Combobox();
 
 	private JButton submitButton = new Button();
 
 	private ActionListener actionListener = new ChangeStaffController(this);
 
+	private String idStaff;
 	String roleList[] = { "Nhân viên lễ tân", "Nhân viên kế toán", "Nhân viên phục vụ" };
 	List<String> nameList = null;
-//	List<String> roleList = null;
-
 }

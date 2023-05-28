@@ -141,14 +141,13 @@ public class StaffDAO {
 	    return staff;
 	}
 	
-	public int updateStaff (String name, String phoneNumber, String role, Date birth, String cccd) {
+	public int updateStaff (String id, String name, String phoneNumber, String role, Date birth, String cccd) {
 		int result = 0;
 		try { 
 		    Connection connection = ConnectDatabase.connection();
 		    String sql = "UPDATE NhanVien nv "
-		        + "SET TenNhanVien = ?, SoDienThoai = ?, NgaySinh = ?, "
-		        + "nv.ChucDanh = ? "
-		        + "WHERE nv.CCCD = ?";
+		        + "SET TenNhanVien = ?, SoDienThoai = ?, NgaySinh = ?, ChucDanh = ?, CCCD = ? "
+		        + "WHERE nv.MaNhanVien = ?";
 		    PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		    preparedStatement.setString(1, name);
 		    preparedStatement.setString(2, phoneNumber);
@@ -159,7 +158,7 @@ public class StaffDAO {
 		        System.out.println("Lỗi");
 		    }
 		    preparedStatement.setString(5, cccd);
-//		    preparedStatement.setInt(6, id);
+		    preparedStatement.setString(6, id);
 		    result = preparedStatement.executeUpdate();
 		    ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
