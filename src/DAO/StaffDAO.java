@@ -37,7 +37,8 @@ public class StaffDAO {
 				String roleStaff = resultSet.getString("ChucDanh");
 				int idStaff = resultSet.getInt("MaNhanVien");
 				Date birthStaff = resultSet.getDate("NgaySinh");
-				Object[] object = {nameStaff,cccdStaff,phoneStaff,birthStaff,roleStaff,idStaff};
+
+				Object[] object = {idStaff,nameStaff,cccdStaff,phoneStaff,birthStaff,roleStaff};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
