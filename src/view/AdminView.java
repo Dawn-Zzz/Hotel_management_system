@@ -128,16 +128,24 @@ public class AdminView extends JPanel {
         staffTable.setCellAlignment(3, JLabel.CENTER);
         staffTable.setColumnAlignment(4, JLabel.CENTER);
         staffTable.setCellAlignment(4, JLabel.CENTER);
+        staffTable.setColumnAlignment(5, JLabel.CENTER);
+        staffTable.setCellAlignment(5, JLabel.CENTER);
         staffTable.setFont(new Font("Arial",Font.BOLD,12));
-		staffTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Staff Name", "Indentification Number", "Phone Number","Birthday", "Staff Role"}) {
+		staffTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Staff ID","Staff Name", "Indentification Number", "Phone Number","Birthday", "Staff Role"}) {
 	            boolean[] canEdit = new boolean [] {
-	                false, false, false, false, false
+	                false, false, false, false, false, false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
 	                return canEdit [columnIndex];
 	            }
 	        });
+		staffTable.setColumnWidth(0,60);
+		staffTable.setColumnWidth(1,120);
+		staffTable.setColumnWidth(2,100);
+		staffTable.setColumnWidth(3,100);
+		staffTable.setColumnWidth(4,100);
+		staffTable.setColumnWidth(5,120);
 		
 		StaffDAO.getInstance().selectAll(staffTable);
 		staffsCount = staffTable.getModel().getRowCount();

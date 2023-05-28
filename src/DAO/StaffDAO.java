@@ -40,7 +40,7 @@ public class StaffDAO {
 //				Timestamp timestamp = resultSet.getTimestamp("NgaySinh");
 //				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //				String birth = timestamp.toLocalDateTime().format(formatter);
-				Object[] object = {nameStaff,cccdStaff,phoneStaff,birthStaff,roleStaff,idStaff};
+				Object[] object = {idStaff,nameStaff,cccdStaff,phoneStaff,birthStaff,roleStaff};
 				defaultTableModel.addRow(object);
 			}
 			ConnectDatabase.disconnection(connection);
