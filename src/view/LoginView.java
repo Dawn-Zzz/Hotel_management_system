@@ -134,16 +134,10 @@ public class LoginView extends JFrame{
 	}
 	
 	public void loginAction() {
-		ArrayList<User> arr = UserDAO.getInstance().selectAll();
+//		ArrayList<User> arr = UserDAO.getInstance().selectAll();
 		String user = new String(userTextField.getText());
 		String pass = new String(userPassWord.getPassword());
-		boolean check = false;
-		for (User userModel : arr) 
-			if (user.equals(userModel.getUserName()) && pass.equals(userModel.getPassword())) {
-				check = true;
-				break;
-			}
-		if (check) {
+		if (UserDAO.getInstance().checkUser(user, pass) != null) {
 			JOptionPane.showMessageDialog(this, "Success");
 			AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
 			View.getInstance().updateLoginInfo(); // cập nhật thông tin đăng nhập trên cửa sổ màn hình chính

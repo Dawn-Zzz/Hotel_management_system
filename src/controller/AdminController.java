@@ -93,27 +93,29 @@ public class AdminController implements ActionListener, MouseListener {
 		      adminView.getStaffTable().setRowSelectionInterval(row, row); // chọn dòng được nhấn chuột
 		      JPopupMenu popupMenu = new JPopupMenu();
 		      JMenuItem menuItem = new JMenuItem("Chỉnh sửa thông tin");
-		      String selectedRole = adminView.getStaffTable().getValueAt(row, 4).toString();
-		      String selectedName = adminView.getStaffTable().getValueAt(row, 0).toString();
+		      
 		      menuItem.addActionListener(new ActionListener() {
 		         public void actionPerformed(ActionEvent e) {
+				     String selectedName = adminView.getStaffTable().getValueAt(row, 0).toString();
 			    	 int a;
 		        	 ChangeStaffView changeStaffView = new ChangeStaffView();
 		        	 changeStaffView.getStaffNameBox().setSelectedItem(selectedName);;
 		        	 changeStaffView.getStaffNameBox().setFocusable(false);
 		        	 changeStaffView.getStaffNameBox().setEnabled(false);
-		        	 changeStaffView.getIdentificationNumberField().setText((String) adminView.getStaffTable().getValueAt(row, 1));
-		        	 changeStaffView.getIdentificationNumberField().setEnabled(false);
-		        	 changeStaffView.getStaffRole().setSelectedItem(selectedRole);
-		        	 if(row == 0) {
-			        	 changeStaffView.getStaffRole().addItem("Giám đốc");
-			        	 changeStaffView.getStaffRole().setSelectedItem("Giám đốc");
-		        	 }
-		        	 if(selectedRole.equals("Giám đốc")) {
-		        		 changeStaffView.getStaffRole().setEnabled(false);
-		        	 }
-		        	 changeStaffView.getStaffPhoneField().setText((String) adminView.getStaffTable().getValueAt(row, 2));
-		        	 changeStaffView.getBirthDay().setDate((Date) adminView.getStaffTable().getValueAt(row, 3));
+		        	 if (adminView.getStaffTable().getValueAt(row, 4) != null) {
+		        		 String selectedRole = adminView.getStaffTable().getValueAt(row, 4).toString();
+			        	 changeStaffView.getIdentificationNumberField().setText((String) adminView.getStaffTable().getValueAt(row, 1));
+			        	 changeStaffView.getIdentificationNumberField().setEnabled(false);
+			        	 changeStaffView.getStaffRole().setSelectedItem(selectedRole);
+			        	 if(selectedRole.equals("Giám đốc")) {
+			        		 changeStaffView.getStaffRole().addItem("Giám đốc");
+				        	 changeStaffView.getStaffRole().setSelectedItem("Giám đốc");
+			        		 changeStaffView.getStaffRole().setEnabled(false);
+			        	 }
+			        	 changeStaffView.getStaffPhoneField().setText((String) adminView.getStaffTable().getValueAt(row, 2));
+			        	 changeStaffView.getBirthDay().setDate((Date) adminView.getStaffTable().getValueAt(row, 3));
+			        	 
+		        	 } 
 		        	 changeStaffView.setVisible(true);
 		         }
 		      });

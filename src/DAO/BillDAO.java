@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import database.ConnectDatabase;
+import model.AccessPersonnel;
 import model.Bill;
 public class BillDAO {
 	public static BillDAO getInstance () {
@@ -69,5 +70,40 @@ public class BillDAO {
 			e.printStackTrace();
 		}
 		return bill;
+	}
+	
+	public String getMaHoaDonByMaPhieu(String idReservation) {
+	    String id = "";
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT MaHoaDon FROM HoaDon WHERE MaPhieu = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, idReservation);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        if (resultSet.next()) {
+	            id = resultSet.getString("MaHoaDon");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return id;
+	}
+	
+	public int updateIdStaff (String id) {
+		int result = 0;
+		try {
+	        Connection connection = ConnectDatabase.connection();
+
+	        String sql = "UPDATE HoaDon SET MaNhanVien = ? WHERE MaHoaDon = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, StaffDAO.getMaNhanVienByCCCD(AccessPersonnel.getInstance().getStaff().getIdNumber().toString()));
+	        preparedStatement.setString(2, id);
+	        result = preparedStatement.executeUpdate();
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return result;
 	}
 }

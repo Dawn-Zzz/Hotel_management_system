@@ -124,7 +124,7 @@ public class GuestDAO {
 		return result;
 	}
 	
-	public static String getMaKhachHangByCCCD(String cccd) {
+	public String getMaKhachHangByCCCD(String cccd) {
 	    String id = "";
 	    try {
 	        Connection connection = ConnectDatabase.connection();
@@ -142,7 +142,7 @@ public class GuestDAO {
 	    return id;
 	}
 	
-	public static Guest getGuestByRoomID(String id) {
+	public Guest getGuestByRoomID(String id) {
 	    Guest guest = null;
 	    try {
 	        Connection connection = ConnectDatabase.connection();

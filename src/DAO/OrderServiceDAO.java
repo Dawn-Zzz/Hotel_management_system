@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,5 +44,40 @@ public class OrderServiceDAO {
 			e.printStackTrace();
 		}
 		return table;
+	}
+	
+	public String getMaDichVuByNameService(String name) {
+	    String id = "";
+	    try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "SELECT MaDichVu FROM DichVu WHERE TenDichVu = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, name);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+	        if (resultSet.next()) {
+	            id = resultSet.getString("MaDichVu");
+	        }
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return id;
+	}
+	
+	public int insertOrderService (String idBill, String idService, int amount) {
+		int result = 0;
+		try {
+	        Connection connection = ConnectDatabase.connection();
+	        String sql = "INSERT INTO ChiTietHoaDonDichVU(MaHoaDon,MaDichVu,SoLuong) VALUES (?,?,?)";
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, idBill);
+	        preparedStatement.setString(2, idService);
+	        preparedStatement.setInt(3, amount);
+	        result = preparedStatement.executeUpdate();
+	        ConnectDatabase.disconnection(connection);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return result;
 	}
 }
