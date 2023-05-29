@@ -110,6 +110,17 @@ BEGIN
     END IF;
 END;
 
+CREATE TRIGGER update_TaiKhoan_Quyen
+AFTER UPDATE ON NhanVien
+FOR EACH ROW 
+BEGIN
+    IF NEW.ChucDanh LIKE 'Nhân viên%' THEN
+        UPDATE NguoiDung SET Quyen = '2' WHERE TaiKhoan = NEW.TaiKhoan;
+--     ELSEIF NEW. = 'Đã trả phòng' THEN
+--         UPDATE Phong SET HienTrang = '0' WHERE MaPhong = NEW.MaPhong;-- 
+    END IF;
+END;
+
 CREATE TRIGGER update_phongcothietbi
 AFTER UPDATE ON PhongCoThietBi
 FOR EACH ROW

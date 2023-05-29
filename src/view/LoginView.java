@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,11 +18,9 @@ import javax.swing.JTextField;
 import DAO.AccessPersonnelDAO;
 import DAO.UserDAO;
 import controller.LoginController;
-import model.User;
 import view.editComponent.Button;
 
 public class LoginView extends JFrame{
-//	private View view;
 	private JPanel leftPanel = new JPanel();
 	private JPanel rightPanel = new JPanel();
 	private JLabel labelLeft = new JLabel();
@@ -134,20 +131,23 @@ public class LoginView extends JFrame{
 	}
 	
 	public void loginAction() {
-//		ArrayList<User> arr = UserDAO.getInstance().selectAll();
 		String user = new String(userTextField.getText());
 		String pass = new String(userPassWord.getPassword());
 		if (UserDAO.getInstance().checkUser(user, pass) != null) {
-			JOptionPane.showMessageDialog(this, "Success");
-			AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
-			View.getInstance().updateLoginInfo(); // cập nhật thông tin đăng nhập trên cửa sổ màn hình chính
-			if(AccessPersonnelDAO.getInstance().selectLevel(user,pass) == 1) 
-				View.getInstance().getAdminButton().setVisible(true);
-			else
-				View.getInstance().getAdminButton().setVisible(false);
-			System.out.println(AccessPersonnelDAO.getInstance().selectLevel(user,pass));
-			View.getInstance().setVisible(true);
-			dispose();
+			if (AccessPersonnelDAO.getInstance().selectLevel(user,pass) == 0) {
+				JOptionPane.showMessageDialog(this, "Tài khoản của bạn chưa được xét duyệt, hãy chờ hoặc báo lại cho admin xét duyệt");
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Success");
+				AccessPersonnelDAO.getInstance().setAccessPersonnelByAccount(user);
+				View.getInstance().updateLoginInfo(); // cập nhật thông tin đăng nhập trên cửa sổ màn hình chính
+				if(AccessPersonnelDAO.getInstance().selectLevel(user,pass) == 1) 
+					View.getInstance().getAdminButton().setVisible(true);
+				else
+					View.getInstance().getAdminButton().setVisible(false);
+				View.getInstance().setVisible(true);
+				dispose();
+			}
 		}
 		else 
 			JOptionPane.showMessageDialog(this, "Fail");
