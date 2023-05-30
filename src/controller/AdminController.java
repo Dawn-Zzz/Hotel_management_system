@@ -38,17 +38,10 @@ public class AdminController implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-//		if (e.getActionCommand().equals("Staff Infor")) {
-//			addStaffView = new ChangeStaffView();
-//			addStaffView.setVisible(true);
-//		}
-//		else {
-			searchEvent(adminView.getStaffTable(),adminView.getSearchBox());
-//		}
+		searchEvent(adminView.getStaffTable(),adminView.getSearchBox());
     }
 
 	private void searchEvent(JTable table, JTextField textField) {
-
 		String role = "";
 		if (adminView.getStaffList().getSelectedItem() != null) {
 			if (adminView.getStaffList().getSelectedItem() == "All")
@@ -59,17 +52,10 @@ public class AdminController implements ActionListener, MouseListener {
 		}
 		List<RowFilter<Object, Object>> filters = new ArrayList<>();
 
-//		// Tạo một điều kiện lọc khởi đầu (với vai trò là rỗng)
-//		RowFilter<Object, Object> roleFilter = RowFilter.regexFilter("(?i)");
-//
-//		// Thêm điều kiện lọc khởi đầu vào danh sách
-//		filters.add(roleFilter);
-		
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(sorter);
-//        List<RowFilter<Object,Object>> filters = new ArrayList<>();
 
-        RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + role,4);
+        RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + role,5);
 		filters.add(filter1);
 		sorter.setRowFilter(RowFilter.andFilter(filters));
 		textField.setText("");
@@ -77,7 +63,7 @@ public class AdminController implements ActionListener, MouseListener {
 			public void keyReleased(KeyEvent e) {
 				String input = textField.getText().trim();
 				filters.clear();
-				RowFilter<Object,Object> filter2 = RowFilter.regexFilter("(?i)" + input,0,1,2);
+				RowFilter<Object,Object> filter2 = RowFilter.regexFilter("(?i)" + input,0,1,2,3,4);
 				filters.add(filter1);
 				filters.add(filter2);
 				sorter.setRowFilter(RowFilter.andFilter(filters));

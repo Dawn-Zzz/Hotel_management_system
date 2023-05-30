@@ -40,27 +40,6 @@ public class EquipmentView extends JPanel {
 		subBar.add(equipmentTypeSearch);
 		subBar.add(equipmentStatusSearch);
 		
-//		roomSearch.setBounds(10,85,129,60);
-//		roomSearch.setForeground(Color.WHITE);
-//		roomSearch.setBackground(new Color(241,243,255));
-//		roomSearch.setBorder(null);
-//		roomSearch.add(roomType);
-//		roomSearch.add(bedList);
-		
-//		roomType.setBounds(0,0,32,100);
-//		roomType.setText("Room");
-//		roomType.setPreferredSize(new Dimension(129,25));
-//		roomType.setFont(new Font("Arial",Font.BOLD,14));
-//		roomType.setForeground(Color.BLACK);
-//		roomType.setBackground(new Color(241,243,255));
-//		roomType.setBorder(null);
-//		
-//		bedList.setBounds(0,30,20,20);
-//		bedList.setModel(new DefaultComboBoxModel(RoomList));
-//		bedList.setPreferredSize(new Dimension(129,25));
-//		bedList.setBackground(Color.WHITE);
-//		bedList.addActionListener(actionListener);
-		
 		equipmentTypeSearch.setBounds(10, 100, 129, 70);
 		equipmentTypeSearch.setForeground(Color.WHITE);
 		equipmentTypeSearch.setBackground(new Color(241,243,255));
@@ -141,10 +120,6 @@ public class EquipmentView extends JPanel {
         equipmentTable.setCellAlignment(1, JLabel.CENTER);
         equipmentTable.setColumnAlignment(2, JLabel.CENTER);
         equipmentTable.setCellAlignment(2, JLabel.CENTER);
-//        equipmentTable.setColumnAlignment(3, JLabel.CENTER);
-//        equipmentTable.setCellAlignment(3, JLabel.CENTER);
-//        equipmentTable.setColumnAlignment(4, JLabel.CENTER);
-//        equipmentTable.setCellAlignment(4, JLabel.CENTER);
         equipmentTable.setFont(new Font("Arial",Font.BOLD,12));
 		equipmentTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][] {}, new String [] {"Room", "Equipment","Status"}) {
 	            boolean[] canEdit = new boolean [] {
@@ -160,18 +135,10 @@ public class EquipmentView extends JPanel {
 		this.setVisible(false);
 	}
 	
-//	int 
-	
 	public void resetEquipmentTable() {
 		((DefaultTableModel) equipmentTable.getModel()).setRowCount(0);
 		GuestDAO.getInstance().selectAll(equipmentTable);
-		System.out.println("reset1");
-//		guestsCount = equipmentTable.getModel().getRowCount();
 	}
-	
-//	public JComboBox getBedList() {
-//		return bedList;
-//	}
 
 	public JComboBox getEquipmentList() {
 		return equipmentList;
@@ -190,20 +157,16 @@ public class EquipmentView extends JPanel {
 	}
 
 	public void selcetIndexCombobox() {
-		//bedList.setSelectedIndex(0);
 		equipmentList.setSelectedIndex(0);
 		statusList.setSelectedIndex(0);
 	}
 	
-	//String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
 	String EquipmentList[] = {"All", "Tủ lạnh", "Ti vi", "Máy lạnh"};
 	String StatusList[] = {"All","Tốt", "Hỏng"};
 	
 	//sub bar
 	private JPanel subBar = new JPanel();
 	private JPanel roomSearch = new JPanel();
-//	private JLabel roomType = new JLabel();
-//	private JComboBox bedList = new Combobox();
 	
 	private JPanel equipmentTypeSearch = new JPanel();
 	private JLabel equipmentTypeList = new JLabel();
