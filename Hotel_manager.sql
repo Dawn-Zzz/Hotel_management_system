@@ -181,6 +181,11 @@ BEGIN
         INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong
         WHERE ptp.MaPhieu = NEW.MaPhieu;
         
+        SELECT LoaiKhachHang INTO @loaiKhach FROM KhachHang WHERE MaKhachHang = @maKhachHang;
+		IF @loaiKhach = 'Vip' THEN
+			SET @tienPhong = @tienPhong * 0.9; -- Giảm 10% cho tiền phòng
+		END IF;
+        
         -- Tính tổng tiền dịch vụ từ bảng HoaDonDichVu
         SELECT SUM(SoLuong * dv.GiaDichVu) INTO @tienDichVu
         FROM ChiTietHoaDonDichVu cthdv
