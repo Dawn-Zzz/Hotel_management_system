@@ -1,23 +1,13 @@
 package chart;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-
-import chart.BlankPlotChart;
-import chart.BlankPlotChatRender;
-import chart.LegendItem;
-import chart.ModelChart;
-import chart.ModelLegend;
-import chart.SeriesSize;
 
 public class Chart extends JPanel {
 
@@ -92,6 +82,11 @@ public class Chart extends JPanel {
             blankPlotChart.setMaxValues(max);
         }
     }
-    private BlankPlotChart blankPlotChart = new BlankPlotChart();
+    
+    public List<ModelChart> getModel() {
+		return model;
+	}
+
+	private BlankPlotChart blankPlotChart = new BlankPlotChart();
     private JPanel panelLegend = new JPanel();
 }

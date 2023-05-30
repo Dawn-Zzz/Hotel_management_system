@@ -20,9 +20,6 @@ import view.editComponent.PanelRound;
 public class DashBoardView extends JPanel{
 	public DashBoardView() {
 		calendar = Calendar.getInstance();
-		int currentDate = calendar.get(Calendar.DATE);
-		int currentMonth = calendar.get(Calendar.MONTH);
-		LocalDate today = LocalDate.now();
 		this.setBounds(0,0,1020-84,720);
 		this.setLayout(null);
 		this.add(mainContent);
@@ -46,28 +43,24 @@ public class DashBoardView extends JPanel{
 		roomParameter.setBounds(30,110,204,130);
 		roomParameter.setBackground(Color.WHITE);
 		roomParameter.setLayout(null);
-//		roomParameter.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(214,214,214)));
 		roomParameter.add(totalRooms);
 		roomParameter.add(roomQuantity);
 		
 		availableroomParameter.setBounds(254,110,204,130);
 		availableroomParameter.setBackground(Color.WHITE);
 		availableroomParameter.setLayout(null);
-//		availableroomParameter.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(214,214,214)));
 		availableroomParameter.add(availableRooms);
 		availableroomParameter.add(availableRoomQuantity);
 		
 		damagedRoomParameter.setBounds(478,110,204,130);
 		damagedRoomParameter.setBackground(Color.WHITE);
 		damagedRoomParameter.setLayout(null);
-//		damagedRoomParameter.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(214,214,214)));
 		damagedRoomParameter.add(damagedRooms);
 		damagedRoomParameter.add(damagedRoomQuantity);
 		
 		guestParameter.setBounds(702,110,204,130);
 		guestParameter.setBackground(Color.WHITE);
 		guestParameter.setLayout(null);
-//		guestParameter.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(214,214,214)));
 		guestParameter.add(totalGuest);
 		guestParameter.add(totalGuestQuantity);
 		
@@ -115,7 +108,6 @@ public class DashBoardView extends JPanel{
 	    chart.addLegend("Check In", new Color(245, 189, 135));
 	    chart.addLegend("Check Out", new Color(139, 229, 222));
 	    chart.addLegend("Book Room", new Color(189, 135, 245));
-//	    chart.addLegend("Cost", new Color(135, 189, 245));
 	    chart.addData(new ModelChart("" + today.minusDays(6).getDayOfMonth() + "/" + today.minusDays(6).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(6)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(6)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(6))}));
 	    chart.addData(new ModelChart("" + today.minusDays(5).getDayOfMonth() + "/" + today.minusDays(5).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(5)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(5)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(5))}));
 	    chart.addData(new ModelChart("" + today.minusDays(4).getDayOfMonth() + "/" + today.minusDays(4).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(4)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(4)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(4))}));
@@ -127,7 +119,6 @@ public class DashBoardView extends JPanel{
 		inforTableTop.setBounds(600,260,307,160);
 		inforTableTop.setBackground(Color.WHITE);
 		inforTableTop.setLayout(null);
-//		inforTableTop.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		inforTableTop.add(totalIncomeTitle);
 		inforTableTop.add(totalIncome);
 		inforTableTop.add(totalIncomeWeeklyTitle);
@@ -136,7 +127,6 @@ public class DashBoardView extends JPanel{
 		totalIncomeTitle.setBounds(25,15,160,15);
 		totalIncomeTitle.setFont(new Font("Arial",Font.BOLD,12));
 		totalIncomeTitle.setForeground(new Color(150,150,150));
-//		totalIncomeTitle.setAlignmentX(10);
 		
 		totalIncome.setBounds(25,43,200,25);
 		totalIncome.setFont(new Font("Arial",Font.BOLD,22));
@@ -145,7 +135,6 @@ public class DashBoardView extends JPanel{
 		totalIncomeWeeklyTitle.setBounds(25,85,160,15);
 		totalIncomeWeeklyTitle.setFont(new Font("Arial",Font.BOLD,12));
 		totalIncomeWeeklyTitle.setForeground(new Color(150,150,150));
-//		totalIncomeWeeklyTitle.setAlignmentX(10);
 		
 		totalIncomeWeekly.setBounds(25,113,200,25);
 		totalIncomeWeekly.setFont(new Font("Arial",Font.BOLD,22));
@@ -175,7 +164,6 @@ public class DashBoardView extends JPanel{
 			}
 		}
 		return countAvailable;
-//		return roomView.getAvailable();
 	}
 	
 	private int getCountDamaged() {
@@ -188,12 +176,28 @@ public class DashBoardView extends JPanel{
 		return countDamaged;
 	}
 	
+	public void updateChart() {
+		chart.getModel().clear();
+		chart.addData(new ModelChart("" + today.minusDays(5).getDayOfMonth() + "/" + today.minusDays(5).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(5)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(5)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(5))}));
+	    chart.addData(new ModelChart("" + today.minusDays(4).getDayOfMonth() + "/" + today.minusDays(4).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(4)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(4)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(4))}));
+	    chart.addData(new ModelChart("" + today.minusDays(3).getDayOfMonth() + "/" + today.minusDays(3).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(3)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(3)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(3))}));
+	    chart.addData(new ModelChart("" + today.minusDays(2).getDayOfMonth() + "/" + today.minusDays(2).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(2)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(2)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(2))}));
+	    chart.addData(new ModelChart("" + today.minusDays(1).getDayOfMonth() + "/" + today.minusDays(1).getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today.minusDays(1)), DashBoardDAO.getInstance().selectCheckOut(today.minusDays(1)), DashBoardDAO.getInstance().selectBookRoom(today.minusDays(1))}));
+	    chart.addData(new ModelChart("" + today.getDayOfMonth() + "/" + today.getMonthValue(), new double[]{DashBoardDAO.getInstance().selectCheckIn(today), DashBoardDAO.getInstance().selectCheckOut(today), DashBoardDAO.getInstance().selectBookRoom(today)}));
+	}
+	
 	public void resetDashBoard() {
-		roomView.setRoomList(new RoomDAO().getInstance().selectAll());
+		roomView.setRoomList(RoomDAO.getInstance().selectAll());
 		totalGuestQuantity.setText("" + guestView.getCountGuests());
 		damagedRoomQuantity.setText("" + getCountDamaged());
 		availableRoomQuantity.setText("" + getCountAvailable());
+		totalIncome.setText(DashBoardDAO.getInstance().selectAll() + " VND");
+		totalIncomeWeekly.setText(DashBoardDAO.getInstance().selectWeek() + " VND");
+		updateChart();
 	}
+	
+	LocalDate today = LocalDate.now();
+	
 	private JPanel mainContent = new JPanel();
 	private JPanel searchBar = new JPanel();
 	
@@ -216,9 +220,9 @@ public class DashBoardView extends JPanel{
 	private JPanel dartTable = new PanelRound();	
 	private JPanel inforTableTop = new PanelRound();
 	private JLabel totalIncomeTitle = new JLabel("Total Income");
-	private JLabel totalIncome = new JLabel("100,000,000 VND");
+	private JLabel totalIncome = new JLabel();
 	private JLabel totalIncomeWeeklyTitle = new JLabel("Total Weekly Income");
-	private JLabel totalIncomeWeekly = new JLabel("10,000,000 VND");
+	private JLabel totalIncomeWeekly = new JLabel();
 	
 	private JPanel inforTableBottom = new PanelRound();
 	

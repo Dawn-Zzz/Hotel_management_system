@@ -31,6 +31,7 @@ import view.AddServiceView;
 import view.BookRoomView;
 import view.RoomInfor;
 import view.RoomView;
+import view.View;
 
 public class RoomController implements ActionListener, MouseListener {
 	private RoomView roomView;
@@ -47,13 +48,16 @@ public class RoomController implements ActionListener, MouseListener {
 			addRoomView = new BookRoomView();
 			addRoomView.setVisible(true);
 		} else if (e.getActionCommand().equals("Room History")) {
+			View.getInstance().getLogOutButton().setVisible(false);
 			roomView.getButtonPanel().setVisible(true);
 			roomView.getHistoryRoomList().setVisible(true);
 			roomView.getMainRoomList().setVisible(false);
 			roomView.getRoomSearch().setVisible(true);
 			roomView.getStatusSearch().setVisible(true);
 			roomView.getSearchBox().setVisible(true);
+			View.getInstance().getLogOutButton().setVisible(true);
 		} else if (e.getActionCommand().equals("Back Button")) {
+			View.getInstance().getLogOutButton().setVisible(false);
 			roomView.getMainRoomList().removeAll();
 			roomView.addRoom(roomView.getMainRoomList());
 			roomView.getMainRoomList().setVisible(true);
@@ -62,6 +66,7 @@ public class RoomController implements ActionListener, MouseListener {
 			roomView.getRoomSearch().setVisible(false);
 			roomView.getStatusSearch().setVisible(false);
 			roomView.getSearchBox().setVisible(false);
+			View.getInstance().getLogOutButton().setVisible(true);
 		} else {
 			for (int i = 0; i < roomView.getRoomButtonList().length; i++) {
 				JButton button = roomView.getRoomButtonList()[i];

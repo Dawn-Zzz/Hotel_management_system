@@ -43,10 +43,6 @@ public class NavController implements ActionListener{
 			equipmentView.setVisible(false);
 			billView.setVisible(false);
 			adminView.setVisible(false);
-			
-			System.out.println(roomView.getAvailable());
-			System.out.println(roomView.getDamaged());
-			System.out.println("1");
 		}
 		else if(nguonSuKien.equals("2")) {
 			dashBoardView.setVisible(false);
@@ -56,7 +52,6 @@ public class NavController implements ActionListener{
 			equipmentView.setVisible(false);
 			billView.setVisible(false);
 			adminView.setVisible(false);
-			System.out.println("2");
 		}
 		else if(nguonSuKien.equals("3")) {
 			dashBoardView.setVisible(false);
@@ -75,7 +70,6 @@ public class NavController implements ActionListener{
 			equipmentView.setVisible(true);
 			equipmentView.selcetIndexCombobox();
 			billView.setVisible(false);
-			System.out.println("4");
 		}
 		else if(nguonSuKien.equals("5")) {
 			dashBoardView.setVisible(false);
@@ -86,7 +80,6 @@ public class NavController implements ActionListener{
 			billView.setIndexComboBox();
 			billView.resetTable();
 			adminView.setVisible(false);
-			System.out.println("5");
 		}
 		else if(nguonSuKien.equals("6")) {
 			dashBoardView.setVisible(false);
@@ -95,7 +88,6 @@ public class NavController implements ActionListener{
 			equipmentView.setVisible(false);
 			billView.setVisible(false);
 			adminView.setVisible(true);
-			System.out.println("6");
 		} 
 		else {
 			buttonView.dispose();
