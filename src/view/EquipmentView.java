@@ -40,28 +40,28 @@ public class EquipmentView extends JPanel {
 		subBar.add(equipmentTypeSearch);
 		subBar.add(equipmentStatusSearch);
 		
-		roomSearch.setBounds(10,85,129,60);
-		roomSearch.setForeground(Color.WHITE);
-		roomSearch.setBackground(new Color(241,243,255));
-		roomSearch.setBorder(null);
-		roomSearch.add(roomType);
-		roomSearch.add(bedList);
+//		roomSearch.setBounds(10,85,129,60);
+//		roomSearch.setForeground(Color.WHITE);
+//		roomSearch.setBackground(new Color(241,243,255));
+//		roomSearch.setBorder(null);
+//		roomSearch.add(roomType);
+//		roomSearch.add(bedList);
 		
-		roomType.setBounds(0,0,32,100);
-		roomType.setText("Room");
-		roomType.setPreferredSize(new Dimension(129,25));
-		roomType.setFont(new Font("Arial",Font.BOLD,14));
-		roomType.setForeground(Color.BLACK);
-		roomType.setBackground(new Color(241,243,255));
-		roomType.setBorder(null);
+//		roomType.setBounds(0,0,32,100);
+//		roomType.setText("Room");
+//		roomType.setPreferredSize(new Dimension(129,25));
+//		roomType.setFont(new Font("Arial",Font.BOLD,14));
+//		roomType.setForeground(Color.BLACK);
+//		roomType.setBackground(new Color(241,243,255));
+//		roomType.setBorder(null);
+//		
+//		bedList.setBounds(0,30,20,20);
+//		bedList.setModel(new DefaultComboBoxModel(RoomList));
+//		bedList.setPreferredSize(new Dimension(129,25));
+//		bedList.setBackground(Color.WHITE);
+//		bedList.addActionListener(actionListener);
 		
-		bedList.setBounds(0,30,20,20);
-		bedList.setModel(new DefaultComboBoxModel(RoomList));
-		bedList.setPreferredSize(new Dimension(129,25));
-		bedList.setBackground(Color.WHITE);
-		bedList.addActionListener(actionListener);
-		
-		equipmentTypeSearch.setBounds(10, 150, 129, 70);
+		equipmentTypeSearch.setBounds(10, 100, 129, 70);
 		equipmentTypeSearch.setForeground(Color.WHITE);
 		equipmentTypeSearch.setBackground(new Color(241,243,255));
 		equipmentTypeSearch.setBorder(null);
@@ -83,7 +83,7 @@ public class EquipmentView extends JPanel {
 		equipmentList.setFocusable(false);
 		equipmentList.addActionListener(actionListener);
 		
-		equipmentStatusSearch.setBounds(10, 215, 129, 150);
+		equipmentStatusSearch.setBounds(10, 165, 129, 150);
 		equipmentStatusSearch.setForeground(Color.WHITE);
 		equipmentStatusSearch.setBackground(new Color(241,243,255));
 		equipmentStatusSearch.setBorder(null);
@@ -169,9 +169,9 @@ public class EquipmentView extends JPanel {
 //		guestsCount = equipmentTable.getModel().getRowCount();
 	}
 	
-	public JComboBox getBedList() {
-		return bedList;
-	}
+//	public JComboBox getBedList() {
+//		return bedList;
+//	}
 
 	public JComboBox getEquipmentList() {
 		return equipmentList;
@@ -190,20 +190,20 @@ public class EquipmentView extends JPanel {
 	}
 
 	public void selcetIndexCombobox() {
-		bedList.setSelectedIndex(0);
+		//bedList.setSelectedIndex(0);
 		equipmentList.setSelectedIndex(0);
 		statusList.setSelectedIndex(0);
 	}
 	
-	String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
+	//String RoomList[] = {"All" ,"1 Single Bed", "1 Double Bed", "2 Single Bed", "2 Double Bed"};
 	String EquipmentList[] = {"All", "Tủ lạnh", "Ti vi", "Máy lạnh"};
 	String StatusList[] = {"All","Tốt", "Hỏng"};
 	
 	//sub bar
 	private JPanel subBar = new JPanel();
 	private JPanel roomSearch = new JPanel();
-	private JLabel roomType = new JLabel();
-	private JComboBox bedList = new Combobox();
+//	private JLabel roomType = new JLabel();
+//	private JComboBox bedList = new Combobox();
 	
 	private JPanel equipmentTypeSearch = new JPanel();
 	private JLabel equipmentTypeList = new JLabel();

@@ -38,13 +38,13 @@ public class AdminController implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getActionCommand().equals("Staff Infor")) {
-			addStaffView = new ChangeStaffView();
-			addStaffView.setVisible(true);
-		}
-		else {
+//		if (e.getActionCommand().equals("Staff Infor")) {
+//			addStaffView = new ChangeStaffView();
+//			addStaffView.setVisible(true);
+//		}
+//		else {
 			searchEvent(adminView.getStaffTable(),adminView.getSearchBox());
-		}
+//		}
     }
 
 	private void searchEvent(JTable table, JTextField textField) {

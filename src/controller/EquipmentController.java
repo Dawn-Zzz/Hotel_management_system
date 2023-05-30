@@ -39,10 +39,10 @@ public class EquipmentController implements ActionListener,MouseListener {
 	}
 	
 	private void searchEvent(JTable table, JTextField textField) {
-		String room = "";
-		if (equipmentView.getBedList().getSelectedItem() != "All") {
-			room = room + equipmentView.getBedList().getSelectedItem().toString();
-		}
+//		String room = "";
+//		if (equipmentView.getBedList().getSelectedItem() != "All") {
+//			room = room + equipmentView.getBedList().getSelectedItem().toString();
+//		}
 		String equipment = "";
 		if (equipmentView.getEquipmentList().getSelectedItem() != "All") {
 			equipment = equipment + equipmentView.getEquipmentList().getSelectedItem().toString();
@@ -55,10 +55,10 @@ public class EquipmentController implements ActionListener,MouseListener {
         table.setRowSorter(sorter);
         List<RowFilter<Object,Object>> filters = new ArrayList<>();
 
-        RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + room,0);
+        //RowFilter<Object,Object> filter1 = RowFilter.regexFilter("(?i)" + room,0);
 		RowFilter<Object,Object> filter2 = RowFilter.regexFilter("(?i)" + equipment,1);
 		RowFilter<Object,Object> filter3 = RowFilter.regexFilter("(?i)" + status,2);
-		filters.add(filter1);
+		//filters.add(filter1);
 		filters.add(filter2);
 		filters.add(filter3);
 		sorter.setRowFilter(RowFilter.andFilter(filters));
@@ -68,7 +68,7 @@ public class EquipmentController implements ActionListener,MouseListener {
 				String input = textField.getText().trim();
 	            filters.clear();
 	            RowFilter<Object,Object> filter4 = RowFilter.regexFilter("(?i)" + input);
-	            filters.add(filter1);
+	            //filters.add(filter1);
 	            filters.add(filter2);
 	            filters.add(filter3);
 	            filters.add(filter4);
