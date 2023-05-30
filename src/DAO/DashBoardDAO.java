@@ -17,59 +17,8 @@ public class DashBoardDAO {
 		return new DashBoardDAO();
 	}
 	
-//	public int insert(String name, String staffID, String phoneNumber, String role, Date birth) {
-//		int result = 0;
-//		try {
-//			Connection connection = ConnectDatabase.connection();
-//			String sql = "INSERT INTO NhanVien (TenNhanVien,MaNhanVien,SoDienThoai,MaChucDanh,NgaySinh) VALUES (?,?,?,?,?)";
-//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//			preparedStatement.setString(1, name);
-//			preparedStatement.setString(2, staffID);
-//			preparedStatement.setString(3, phoneNumber);
-//			preparedStatement.setString(4, role);
-//			preparedStatement.setDate(5, birth);
-//			result = preparedStatement.executeUpdate();
-//			ConnectDatabase.disconnection(connection);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("Loi1");
-//		}
-//		return result;
-//	}
-	
-//	public JTable selectAll (JTable table) {
-//		DefaultTableModel defaultTableModel = (DefaultTableModel) table.getModel();
-//		try {
-//			Connection connection = ConnectDatabase.connection();
-//			String sql = "SELECT nv.TenNhanVien, nv.CCCD, nv.SoDienThoai, cd.TenChucDanh "
-//					+ "FROM NhanVien nv INNER JOIN ChucDanh cd "
-//					+ "ON cd.MaChucDanh = nv.MaChucDanh" ;
-//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//			ResultSet resultSet = preparedStatement.executeQuery();
-//			while (resultSet.next()) {
-//				String nameStaff = resultSet.getString("TenNhanVien");
-//				String idStaff = resultSet.getString("CCCD");
-//				String phoneStaff = resultSet.getString("SoDienThoai");
-//				String roleStaff = resultSet.getString("TenChucDanh");
-////				Timestamp timestamp = resultSet.getTimestamp("NgaySinh");
-////				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-////				String birth = timestamp.toLocalDateTime().format(formatter);
-//				Object[] object = {nameStaff,idStaff,phoneStaff,roleStaff};
-//				defaultTableModel.addRow(object);
-//			}
-//			ConnectDatabase.disconnection(connection);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("Loi");
-//		}
-//		return table;
-//	}
-	
 	public String selectAll() {
 		String selectTotal = new String();
-//		list = new ArrayList<String>();
 		try {
 			Connection connection = ConnectDatabase.connection();
 			Statement statement = connection.createStatement();
@@ -89,7 +38,6 @@ public class DashBoardDAO {
 	
 	public String selectWeek() {
 		String selectTotal = new String();
-//		list = new ArrayList<String>();
 		try {
 			Connection connection = ConnectDatabase.connection();
 			Statement statement = connection.createStatement();

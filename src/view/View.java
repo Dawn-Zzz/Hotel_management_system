@@ -69,17 +69,6 @@ public class View extends JFrame{
 		this.add(otherBar);
 	}
 	
-	public JPanel getOtherBar() {
-		return otherBar;
-	}
-
-	public void setOtherBar(JPanel otherBar) {
-		this.otherBar = otherBar;
-	}
-	
-	public JButton getLogOutButton() {
-		return logOutButton;
-	}
 	public void leftBarSection() {
 		//Left bar section
 
@@ -164,11 +153,9 @@ public class View extends JFrame{
 		adminButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		adminButton.setFocusable(false);
 		adminButton.addActionListener(actionListener);
-//		adminButton.setVisible(false);
 	}
 	
 	public void otherSection() {
-		otherBar.setVisible(true);
 		otherBar.setLayout(null);
 		otherBar.setBounds(64,0,1020-84,720);
 		
@@ -179,12 +166,14 @@ public class View extends JFrame{
 		logOutButton.setBackground(new Color(39,162,187));
 		logOutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		logOutButton.setFocusable(false);
+		logOutButton.setVisible(true);
 		logOutButton.addActionListener(actionListener);
 
 		staffName.setBounds(750,23,100,40);
 		staffName.setText(AccessPersonnel.getInstance().getStaff().getName());
 		staffName.setFont(new Font("Arial", Font.BOLD, 12));
 		staffName.setForeground(new Color(170,170,170));
+		staffName.setVisible(true);
 		
 		otherBar.add(logOutButton,0);
 		otherBar.add(staffName,1);
@@ -195,5 +184,20 @@ public class View extends JFrame{
 	}
 	public JButton getAdminButton() {
 		return this.adminButton;
+	}
+
+	public JLabel getStaffName() {
+		return staffName;
+	}
+	public JPanel getOtherBar() {
+		return otherBar;
+	}
+
+	public void setOtherBar(JPanel otherBar) {
+		this.otherBar = otherBar;
+	}
+	
+	public JButton getLogOutButton() {
+		return logOutButton;
 	}
 }
