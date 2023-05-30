@@ -52,17 +52,17 @@ public class AdminView extends JPanel {
 		subBar.setLayout(null);
 		subBar.setBackground(new Color(241,243,255));
 		subBar.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(204,204,204)));
-		subBar.add(addStaffButton);
+//		subBar.add(addStaffButton);
 		subBar.add(staffSearch);
 
-		addStaffButton.setBounds(10,25,129,40);
-		addStaffButton.setText("Staff Infor");
-		addStaffButton.setForeground(Color.WHITE);
-		addStaffButton.setBackground(new Color(39,162,187));
-		addStaffButton.setLayout(null);
-		addStaffButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		addStaffButton.setFocusable(false);
-		addStaffButton.addActionListener(actionListener);
+//		addStaffButton.setBounds(10,25,129,40);
+//		addStaffButton.setText("Staff Infor");
+//		addStaffButton.setForeground(Color.WHITE);
+//		addStaffButton.setBackground(new Color(39,162,187));
+//		addStaffButton.setLayout(null);
+//		addStaffButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//		addStaffButton.setFocusable(false);
+//		addStaffButton.addActionListener(actionListener);
 		
 		staffSearch.setBounds(10,85,129,60);
 		staffSearch.setForeground(Color.WHITE);
@@ -180,7 +180,7 @@ public class AdminView extends JPanel {
 
 	//	//sub bar
 	JPanel subBar = new JPanel();
-	JButton addStaffButton = new Button();
+//	JButton addStaffButton = new Button();
 	
 	JPanel staffSearch = new JPanel();
 	JLabel staffType = new JLabel();

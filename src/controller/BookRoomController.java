@@ -33,7 +33,7 @@ public class BookRoomController implements ActionListener, ItemListener, Propert
 		if (e.getActionCommand().equals("Submit")) {
 			this.bookRoomView.addGuestAction();
 			roomView.resetRoomTable();
-		} else if (e.getSource() == bookRoomView.getQuestQuantityBox()) {
+		} else if (e.getSource() == bookRoomView.getGuestCountBox()) {
 			bookRoomView.addItemComboboxRoom();
 			bookRoomView.getRoomBox().setEnabled(true);
 			bookRoomView.getRoomBox().setSelectedIndex(-1);

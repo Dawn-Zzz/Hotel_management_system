@@ -74,40 +74,30 @@ public class RoomView extends JPanel{
 		historyRoomButton.setFocusable(false);
 		historyRoomButton.addActionListener(actionListener);
 		
-		roomSearch.setBounds(10,135,129,120);
+		roomSearch.setBounds(10,135,129,70);
 		roomSearch.setForeground(Color.WHITE);
 		roomSearch.setBackground(new Color(241,243,255));
 		roomSearch.setBorder(null);
-		roomSearch.add(roomType);
-		roomSearch.add(vipRoom);
-		roomSearch.add(popularRoom);
+		roomSearch.add(rentalType);
 		roomSearch.add(rentalTypeList);
 		roomSearch.setVisible(false);
 		
-		roomType.setBounds(0,0,32,100);
-		roomType.setText("Room Type");
-		roomType.setPreferredSize(new Dimension(129,25));
-		roomType.setFont(new Font("Arial",Font.BOLD,14));
-		roomType.setForeground(Color.BLACK);
-		roomType.setBackground(new Color(241,243,255));
-		roomType.setBorder(null);
-		
-		vipRoom.setBounds(00, 40, 20, 90);
-		vipRoom.setBackground(new Color(241,243,255));
-		vipRoom.setPreferredSize(new Dimension(137,25));
-		
-		popularRoom.setBounds(00, 60, 20, 90);
-		popularRoom.setBackground(new Color(241,243,255));
-		popularRoom.setPreferredSize(new Dimension(137,25));
+		rentalType.setBounds(0,0,32,60);
+		rentalType.setText("Rental Type");
+		rentalType.setPreferredSize(new Dimension(129,25));
+		rentalType.setFont(new Font("Arial",Font.BOLD,14));
+		rentalType.setForeground(Color.BLACK);
+		rentalType.setBackground(new Color(241,243,255));
+		rentalType.setBorder(null);
 		
 		rentalTypeList.setBounds(0,30,20,20);
-		rentalTypeList.setModel(new DefaultComboBoxModel(rentalType));
+		rentalTypeList.setModel(new DefaultComboBoxModel(rentalType1));
 		rentalTypeList.setPreferredSize(new Dimension(129,25));
 		rentalTypeList.setBackground(Color.WHITE);
 		rentalTypeList.setFocusable(false);
 		rentalTypeList.addActionListener(actionListener);
 		
-		statusSearch.setBounds(10, 270, 129, 150);
+		statusSearch.setBounds(10, 200, 129, 100);
 		statusSearch.setForeground(Color.WHITE);
 		statusSearch.setBackground(new Color(241,243,255));
 		statusSearch.setBorder(null);
@@ -115,7 +105,7 @@ public class RoomView extends JPanel{
 		statusSearch.add(statusList);
 		statusSearch.setVisible(false);
 		
-		currentsStatus.setBounds(0,0,32,100);
+		currentsStatus.setBounds(0,0,32,60);
 		currentsStatus.setText("Current Status");
 		currentsStatus.setPreferredSize(new Dimension(129,25));
 		currentsStatus.setFont(new Font("Arial",Font.BOLD,14));
@@ -232,7 +222,7 @@ public class RoomView extends JPanel{
 		this.setVisible(false);
 	}
 	
-	String rentalType[] = {"All" ,"Giờ", "Ngày", "Đêm"};
+	String rentalType1[] = {"All" ,"Giờ", "Ngày", "Đêm"};
 	String statusType[] = {"All", "Đã Nhận Phòng", "Đã Trả Phòng", "Đã Huỷ Phòng" , "Chưa Nhận Phòng"};
 
 	//sub bar
@@ -240,9 +230,7 @@ public class RoomView extends JPanel{
 	private JButton editRoomButton = new Button();
 	private JButton historyRoomButton = new Button();
 	private JPanel roomSearch = new JPanel();
-	private JLabel roomType = new JLabel();
-	private JCheckBox vipRoom = new JCheckBox("Vip");
-	private JCheckBox popularRoom = new JCheckBox("Popular");
+	private JLabel rentalType = new JLabel();
 	private JComboBox rentalTypeList = new Combobox();
 	
 	private JPanel statusSearch = new JPanel();

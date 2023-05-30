@@ -50,8 +50,8 @@ public class BookRoomView extends JDialog {
 	String date = toDay.format(formatter);
 	private JLabel dateTime = new JLabel();
 
-	private JLabel questQuantity = new JLabel();
-	private Combobox<Integer> questQuantityBox = new Combobox<>();
+	private JLabel guestCount = new JLabel();
+	private Combobox<Integer> guestCountBox = new Combobox<>();
 
 	private JLabel rentalType = new JLabel();
 	String RentalType[] = { "Giờ", "Ngày", "Đêm" };
@@ -104,7 +104,7 @@ public class BookRoomView extends JDialog {
 		// Khá»Ÿi táº¡o máº£ng phÃºt
 		String[] minutes = { "00", "30" };
 
-		registrationForm.setBounds(50, 10, 250, 30);
+		registrationForm.setBounds(50, 20, 250, 30);
 		registrationForm.setText("Registration Form");
 		registrationForm.setPreferredSize(new Dimension(250, 30));
 		registrationForm.setFont(new Font("Arial", Font.BOLD, 24));
@@ -112,7 +112,7 @@ public class BookRoomView extends JDialog {
 		registrationForm.setBackground(Color.WHITE);
 		registrationForm.setBorder(null);
 
-		dateTime.setBounds(675, 10, 90, 30);
+		dateTime.setBounds(675, 20, 90, 30);
 		dateTime.setText(date);
 		dateTime.setPreferredSize(new Dimension(250, 30));
 		dateTime.setFont(new Font("Arial", Font.BOLD, 16));
@@ -120,45 +120,45 @@ public class BookRoomView extends JDialog {
 		dateTime.setBackground(Color.WHITE);
 		dateTime.setBorder(null);
 
-		questQuantity.setBounds(50, 80, 150, 30);
-		questQuantity.setText("Guest Count");
-		questQuantity.setFont(new Font("Arial", Font.BOLD, 14));
-		questQuantity.setForeground(Color.BLACK);
-		questQuantity.setBackground(Color.WHITE);
-		questQuantity.setBorder(null);
+		guestCount.setBounds(50, 100, 150, 30);
+		guestCount.setText("Guest Count");
+		guestCount.setFont(new Font("Arial", Font.BOLD, 14));
+		guestCount.setForeground(Color.BLACK);
+		guestCount.setBackground(Color.WHITE);
+		guestCount.setBorder(null);
 
-		questQuantityBox.setBounds(50, 110, 340, 30);
-		questQuantityBox.setBackground(Color.WHITE);
-		questQuantityBox.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+		guestCountBox.setBounds(50, 130, 340, 30);
+		guestCountBox.setBackground(Color.WHITE);
+		guestCountBox.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
 		for (int i = 1; i <= 8; i++) {
-			questQuantityBox.addItem(i);
+			guestCountBox.addItem(i);
 		}
-		questQuantityBox.setSelectedIndex(-1);
+		guestCountBox.setSelectedIndex(-1);
 
-		rentalType.setBounds(50, 160, 120, 30);
+		rentalType.setBounds(50, 200, 120, 30);
 		rentalType.setText("Rental Type");
 		rentalType.setFont(new Font("Arial", Font.BOLD, 14));
 		rentalType.setForeground(Color.BLACK);
 		rentalType.setBackground(Color.WHITE);
 		rentalType.setBorder(null);
 
-		rentalTypeBox.setBounds(50, 190, 340, 30);
+		rentalTypeBox.setBounds(50, 230, 340, 30);
 		rentalTypeBox.setModel(new DefaultComboBoxModel(RentalType));
 		rentalTypeBox.setBackground(Color.WHITE);
 		rentalTypeBox.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
 		rentalTypeBox.setFocusable(false);
 
-		identificationNumber.setBounds(420, 80, 180, 30);
+		identificationNumber.setBounds(420, 100, 180, 30);
 		identificationNumber.setText("Identification Number");
 		identificationNumber.setFont(new Font("Arial", Font.BOLD, 14));
 		identificationNumber.setForeground(Color.BLACK);
 		identificationNumber.setBackground(Color.WHITE);
 
-		identificationNumberField.setBounds(420, 110, 340, 30);
+		identificationNumberField.setBounds(420, 130, 340, 30);
 		identificationNumberField.setBackground(Color.WHITE);
 		identificationNumberField.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
 
-		room.setBounds(420, 160, 150, 30);
+		room.setBounds(420, 200, 150, 30);
 		room.setText("Room");
 		room.setFont(new Font("Arial", Font.BOLD, 14));
 		room.setForeground(Color.BLACK);
@@ -167,13 +167,13 @@ public class BookRoomView extends JDialog {
 
 		roomBox = new Combobox();
 		roomBox.setMaximumRowCount(4);
-		roomBox.setBounds(420, 190, 340, 30);
+		roomBox.setBounds(420, 230, 340, 30);
 		roomBox.setBackground(Color.WHITE);
 		roomBox.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
 		roomBox.setEnabled(false);
 		roomBox.setFocusable(false);
 
-		checkIn.setBounds(50, 240, 150, 30);
+		checkIn.setBounds(50, 300, 150, 30);
 		checkIn.setText("Check In");
 		checkIn.setFont(new Font("Arial", Font.BOLD, 14));
 		checkIn.setForeground(Color.BLACK);
@@ -181,13 +181,13 @@ public class BookRoomView extends JDialog {
 
 		hourCIn = new Combobox();
 		hourCIn.setMaximumRowCount(4);
-		hourCIn.setBounds(50, 270, 70, 30);
+		hourCIn.setBounds(50, 330, 70, 30);
 		hourCIn.setModel(new DefaultComboBoxModel(hours));
 		hourCIn.setBackground(Color.WHITE);
 		hourCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(204, 204, 204)));
 		hourCIn.setFocusable(false);
 
-		decorationThing1.setBounds(128, 270, 10, 30);
+		decorationThing1.setBounds(128, 330, 10, 30);
 		decorationThing1.setText(":");
 		decorationThing1.setFont(new Font("Arial", Font.BOLD, 18));
 		decorationThing1.setForeground(Color.BLACK);
@@ -195,18 +195,18 @@ public class BookRoomView extends JDialog {
 
 		minuteCIn = new Combobox<>();
 		minuteCIn.setMaximumRowCount(4);
-		minuteCIn.setBounds(140, 270, 70, 30);
+		minuteCIn.setBounds(140, 330, 70, 30);
 		minuteCIn.setModel(new DefaultComboBoxModel(minutes));
 		minuteCIn.setBackground(Color.WHITE);
 		minuteCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(220, 220, 220)));
 		minuteCIn.setFocusable(false);
 
-		dayCIn.setBounds(230, 270, 160, 30);
+		dayCIn.setBounds(230, 330, 160, 30);
 		dayCIn.setBackground(Color.WHITE);
 //		dayCIn.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		dayCIn.setDate(java.sql.Date.valueOf(toDay));
 
-		checkOut.setBounds(420, 240, 150, 30);
+		checkOut.setBounds(420, 300, 150, 30);
 		checkOut.setText("Check Out");
 		checkOut.setFont(new Font("Arial", Font.BOLD, 14));
 		checkOut.setForeground(Color.BLACK);
@@ -214,13 +214,13 @@ public class BookRoomView extends JDialog {
 
 		hourCOut = new Combobox();
 		hourCOut.setMaximumRowCount(4);
-		hourCOut.setBounds(420, 270, 70, 30);
+		hourCOut.setBounds(420, 330, 70, 30);
 		hourCOut.setModel(new DefaultComboBoxModel(hours));
 		hourCOut.setBackground(Color.WHITE);
 		hourCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(220, 220, 220)));
 		hourCOut.setFocusable(false);
 
-		decorationThing2.setBounds(498, 270, 10, 30);
+		decorationThing2.setBounds(498, 330, 10, 30);
 		decorationThing2.setText(":");
 		decorationThing2.setFont(new Font("Arial", Font.BOLD, 18));
 		decorationThing2.setForeground(Color.BLACK);
@@ -228,24 +228,24 @@ public class BookRoomView extends JDialog {
 
 		minuteCOut = new Combobox<>();
 		minuteCOut.setMaximumRowCount(4);
-		minuteCOut.setBounds(510, 270, 70, 30);
+		minuteCOut.setBounds(510, 330, 70, 30);
 		minuteCOut.setModel(new DefaultComboBoxModel(minutes));
 		minuteCOut.setBackground(Color.WHITE);
 		minuteCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(220, 220, 220)));
 		minuteCOut.setFocusable(false);
 
-		dayCOut.setBounds(600, 270, 160, 30);
+		dayCOut.setBounds(600, 330, 160, 30);
 		dayCOut.setBackground(Color.WHITE);
 //		dayCOut.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		dayCOut.setDate(java.sql.Date.valueOf(toDay));
 
-		bookingGroup1.setBounds(45, 340, 140, 30);
+		bookingGroup1.setBounds(45, 400, 140, 30);
 		bookingGroup1.setForeground(Color.BLACK);
 		bookingGroup1.setBackground(Color.WHITE);
 		bookingGroup1.setBorder(null);
 		bookingGroup1.add(directBooking);
 
-		bookingGroup2.setBounds(230, 340, 140, 30);
+		bookingGroup2.setBounds(230, 400, 140, 30);
 		bookingGroup2.setForeground(Color.BLACK);
 		bookingGroup2.setBackground(Color.WHITE);
 		bookingGroup2.setBorder(null);
@@ -268,26 +268,26 @@ public class BookRoomView extends JDialog {
 		advanceBooking.setBackground(Color.WHITE);
 		advanceBooking.setFocusable(false);
 
-		deposit.setBounds(420, 340, 60, 30);
+		deposit.setBounds(420, 400, 60, 30);
 		deposit.setText("Deposit");
 		deposit.setFont(new Font("Arial", Font.BOLD, 14));
 		deposit.setForeground(Color.BLACK);
 		deposit.setBackground(Color.WHITE);
 
-		depositField.setBounds(480, 340, 180, 30);
+		depositField.setBounds(480, 400, 180, 30);
 		depositField.setBackground(Color.WHITE);
 //		depositField.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		depositField.setEnabled(false);
 		depositField.setBackground(new Color(240, 240, 240));
 
-		currencyUnit.setBounds(665, 340, 150, 30);
+		currencyUnit.setBounds(665, 400, 150, 30);
 		currencyUnit.setText("VND");
 		currencyUnit.setFont(new Font("Arial", Font.BOLD, 16));
 		currencyUnit.setForeground(Color.BLACK);
 		currencyUnit.setBackground(Color.WHITE);
 		registrationForm.setBorder(null);
 
-		submitButton.setBounds(50, 440, 100, 40);
+		submitButton.setBounds(360, 440, 100, 40);
 		submitButton.setText("Submit");
 		submitButton.setFont(new Font("Arial", Font.BOLD, 14));
 		submitButton.setForeground(Color.WHITE);
@@ -300,8 +300,8 @@ public class BookRoomView extends JDialog {
 		this.setLayout(null);
 		this.add(registrationForm);
 		this.add(dateTime);
-		this.add(questQuantity);
-		this.add(questQuantityBox);
+		this.add(guestCount);
+		this.add(guestCountBox);
 		this.add(rentalType);
 		this.add(rentalTypeBox);
 		this.add(room);
@@ -318,11 +318,11 @@ public class BookRoomView extends JDialog {
 		this.add(decorationThing2);
 		this.add(minuteCOut);
 		this.add(dayCOut);
-		this.add(bookingGroup1);
-		this.add(bookingGroup2);
-		this.add(deposit);
-		this.add(depositField);
-		this.add(currencyUnit);
+//		this.add(bookingGroup1);
+//		this.add(bookingGroup2);
+//		this.add(deposit);
+//		this.add(depositField);
+//		this.add(currencyUnit);
 		this.add(submitButton);
 		this.setLocationRelativeTo(null);
 		this.setModal(true);
@@ -332,7 +332,7 @@ public class BookRoomView extends JDialog {
 //		setInitialTime();
 		setTimeOneHourAfterCheckin();
 
-		questQuantityBox.addActionListener(actionListener);
+		guestCountBox.addActionListener(actionListener);
 		rentalTypeBox.addActionListener(actionListener);
 
 		hourCIn.addActionListener(actionListener);
@@ -359,8 +359,8 @@ public class BookRoomView extends JDialog {
 		return advanceBooking;
 	}
 
-	public Combobox<Integer> getQuestQuantityBox() {
-		return questQuantityBox;
+	public Combobox<Integer> getGuestCountBox() {
+		return guestCountBox;
 	}
 
 	public Combobox getRoomBox() {
@@ -405,7 +405,7 @@ public class BookRoomView extends JDialog {
 		Timestamp checkOutTime = setTime(Integer.parseInt(minuteCOut.getSelectedItem().toString()),
 				Integer.parseInt(hourCOut.getSelectedItem().toString()), dayCOut.getDate());
 		String id = identificationNumberField.getText();
-		if (id.isEmpty() || questQuantityBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null
+		if (id.isEmpty() || guestCountBox.getSelectedItem() == null || rentalTypeBox.getSelectedItem() == null
 				|| roomBox.getSelectedItem() == null)
 			JOptionPane.showMessageDialog(this, "Không được bỏ trống");
 		else if (!id.matches("\\d{12}"))
@@ -417,7 +417,7 @@ public class BookRoomView extends JDialog {
 			if (directBooking.isSelected()) {
 				ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(),
 						(String) roomBox.getSelectedItem(), checkInTime, checkOutTime,
-						(int) questQuantityBox.getSelectedItem(), null);
+						(int) guestCountBox.getSelectedItem(), null);
 				this.dispose();
 			} else {
 				if (deposit.getText().isEmpty())
@@ -427,7 +427,7 @@ public class BookRoomView extends JDialog {
 					if (depositAmount != null) {
 						ReservationDAO.getInstance().insert(id, (String) rentalTypeBox.getSelectedItem(),
 								(String) roomBox.getSelectedItem(), checkInTime, checkOutTime,
-								(int) questQuantityBox.getSelectedItem(), depositAmount);
+								(int) guestCountBox.getSelectedItem(), depositAmount);
 						this.dispose();
 					} else
 						JOptionPane.showMessageDialog(this, "Giá trị cọc không hợp lệ", "Lỗi",
@@ -493,8 +493,8 @@ public class BookRoomView extends JDialog {
 
 	public void addItemComboboxRoom() {
 		int amount = 0;
-		if (questQuantityBox.getSelectedItem() != null)
-			amount = (int) questQuantityBox.getSelectedItem();
+		if (guestCountBox.getSelectedItem() != null)
+			amount = (int) guestCountBox.getSelectedItem();
 		List<String> roomValues = new ArrayList<>();
 		if (amount == 1) {
 			checkReservation(roomValues, roomView.getRoomList(), 1, 2);
