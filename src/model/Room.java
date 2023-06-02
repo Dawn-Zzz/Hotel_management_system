@@ -1,29 +1,25 @@
 package model;
 
 public class Room {
-	private String numberRoom;
-	private String currentStatus;
-	private String typeRoom;
-	public Room(String numberRoom, String currentStatus,  String typeRoom) {
-		super();
-		this.numberRoom = numberRoom;
-		this.currentStatus = currentStatus;
-		this.typeRoom = typeRoom;
+	private String id;
+	private String status;
+	private RoomType type;
+	public String getId() {
+		return id;
 	}
-	
-	public Room(String numberRoom, String currentStatus) {
-		super();
-		this.numberRoom = numberRoom;
-		this.currentStatus = currentStatus;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	public String getNumberRoom() {
-		return numberRoom;
+	public String getStatus() {
+		return status;
 	}
-	public String getCurrentStatus() {
-		return currentStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public String getTypeRoom() {
-		return typeRoom;
+	public RoomType getType() {
+		return type;
+	}
+	public void setType(RoomType type) {
+		this.type = type;
 	}
 }

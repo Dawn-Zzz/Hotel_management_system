@@ -15,8 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import DAO.GuestDAO;
-import model.Guest;
-import model.Room;
+import ultils.Guest;
+import ultils.Room;
 import view.editComponent.Button;
 import view.editComponent.Table;
 

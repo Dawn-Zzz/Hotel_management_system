@@ -5,14 +5,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.Timestamp;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-import model.Guest;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConnectDatabase;
+import ultils.Guest;
 
 public class GuestDAO {
 	public static GuestDAO getInstance () {

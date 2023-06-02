@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.ConnectDatabase;
-import model.Room;
+import ultils.Room;
 
 public class RoomDAO {
 	public static RoomDAO getInstance () {

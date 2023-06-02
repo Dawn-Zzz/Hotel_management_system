@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import database.ConnectDatabase;
-import model.Staff;
+import ultils.Staff;
 
 public class DashBoardDAO {
 	public static DashBoardDAO getInstance () {

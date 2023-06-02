@@ -11,9 +11,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConnectDatabase;
-import model.AccessPersonnel;
-import model.Reservation;
-import model.Room;
+import ultils.AccessPersonnel;
+import ultils.Reservation;
+import ultils.Room;
 
 public class ReservationDAO {
 	public static ReservationDAO getInstance () {

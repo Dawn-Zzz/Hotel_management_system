@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import database.ConnectDatabase;
-import model.AccessPersonnel;
-import model.Bill;
+import ultils.AccessPersonnel;
+import ultils.Bill;
 public class BillDAO {
 	public static BillDAO getInstance () {
 		return new BillDAO();

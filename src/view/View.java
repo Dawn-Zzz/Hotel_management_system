@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.NavController;
-import model.AccessPersonnel;
+import ultils.AccessPersonnel;
 import view.editComponent.Button;
 
 public class View extends JFrame{	

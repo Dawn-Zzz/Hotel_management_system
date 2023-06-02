@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 //import com.mysql.cj.xdevapi.Statement;
 
 import database.ConnectDatabase;
-import model.Staff;
+import ultils.Staff;
 
 public class StaffDAO {
 	public static StaffDAO getInstance () {
@@ -54,10 +54,6 @@ public class StaffDAO {
 		list = new ArrayList<String>();
 		try {
 			Connection connection = ConnectDatabase.connection();
-//			String sql = "SELECT TenNhanVien FROM hotel_management.NhanVien"
-//					+ "WHERE MaNhanVien > 1" ;
-//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//			ResultSet resultSet = preparedStatement.executeQuery();
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT TenNhanVien FROM hotel_management.NhanVien" );
 			while (resultSet.next()) {
@@ -76,16 +72,10 @@ public class StaffDAO {
 	public int selectIndexRole(int a) {
 		try {
 			Connection connection = ConnectDatabase.connection();
-//			String sql = "SELECT TenNhanVien FROM hotel_management.NhanVien"
-//					+ "WHERE MaNhanVien > 1" ;
-//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//			ResultSet resultSet = preparedStatement.executeQuery();
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT MaChucDanh FROM hotel_management.ChucDanh " );
-//			while (resultSet.next()) {
 				int indexStaff = resultSet.getInt("MaChucDanh");
 				a = indexStaff;
-//			}
 			ConnectDatabase.disconnection(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -99,10 +89,6 @@ public class StaffDAO {
 		list = new ArrayList<String>();
 		try {
 			Connection connection = ConnectDatabase.connection();
-//			String sql = "SELECT TenNhanVien FROM hotel_management.NhanVien"
-//					+ "WHERE MaNhanVien > 1" ;
-//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//			ResultSet resultSet = preparedStatement.executeQuery();
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT TenChucDanh FROM hotel_management.NhanVien WHERE MaChucDanh != 'CD001'" );
 			while (resultSet.next()) {
