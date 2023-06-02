@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Date;
 
 import database.ConnectDatabase;
-import model.AccessPersonnel;
-import model.Staff;
-import model.User;
+import ultils.AccessPersonnel;
+import ultils.Staff;
+import ultils.User;
 
 public class AccessPersonnelDAO {
 	public static AccessPersonnelDAO getInstance () {

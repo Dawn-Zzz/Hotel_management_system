@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import DAO.ReservationDAO;
 import DAO.RoomDAO;
 import controller.RoomController;
-import model.Room;
+import ultils.Room;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
 import view.editComponent.Table;

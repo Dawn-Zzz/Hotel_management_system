@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.ConnectDatabase;
-import model.User;
+import ultils.User;
 
 public class UserDAO {
 	public static UserDAO getInstance () {

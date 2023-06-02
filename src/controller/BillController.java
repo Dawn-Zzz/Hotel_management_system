@@ -20,7 +20,7 @@ import javax.swing.table.TableRowSorter;
 import DAO.BillDAO;
 import DAO.OrderRoomDAO;
 import DAO.OrderServiceDAO;
-import model.Bill;
+import ultils.Bill;
 import view.BillDetailView;
 import view.BillView;
 

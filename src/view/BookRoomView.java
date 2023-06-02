@@ -35,8 +35,8 @@ import com.toedter.calendar.JDateChooser;
 import DAO.GuestDAO;
 import DAO.ReservationDAO;
 import controller.BookRoomController;
-import model.Reservation;
-import model.Room;
+import ultils.Reservation;
+import ultils.Room;
 import view.editComponent.Button;
 import view.editComponent.Combobox;
 

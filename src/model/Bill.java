@@ -1,41 +1,48 @@
 package model;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Bill {
-	private double total;
-	private double totalRoom;
-	private double totalService;
+	private String id;
+	private Double roomPrice;
+	private Double servicePrice;
 	private Date dateCreate;
-	private String nameGuest;
-	private String nameStaff;
-	private List<OrderService> services;
-	public Bill(String nameGuest, String nameStaff, double total, double toatalRoom, double totalService, Date dateCreate) {
-		super();
-		this.total = total;
-		this.totalRoom = toatalRoom;
-		this.totalService = totalService;
-		this.dateCreate = dateCreate;
-		this.nameGuest = nameGuest;
-		this.nameStaff = nameStaff;
+	private Staff staff;
+	private Reservation reservation;
+	public String getId() {
+		return id;
 	}
-	public double getTotal() {
-		return total;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public double getTotalRoom() {
-		return totalRoom;
+	public Double getRoomPrice() {
+		return roomPrice;
 	}
-	public double getTotalService() {
-		return totalService;
+	public void setRoomPrice(Double roomPrice) {
+		this.roomPrice = roomPrice;
+	}
+	public Double getServicePrice() {
+		return servicePrice;
+	}
+	public void setServicePrice(Double servicePrice) {
+		this.servicePrice = servicePrice;
 	}
 	public Date getDateCreate() {
 		return dateCreate;
 	}
-	public String getNameGuest() {
-		return nameGuest;
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
 	}
-	public String getNameStaff() {
-		return nameStaff;
+	public Staff getStaff() {
+		return staff;
+	}
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+	public Reservation getReservation() {
+		return reservation;
+	}
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 }

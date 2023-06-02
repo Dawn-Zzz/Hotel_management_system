@@ -1,4 +1,4 @@
-package model;
+package ultils;
 
 public class AccessPersonnel {
 	private User user;
