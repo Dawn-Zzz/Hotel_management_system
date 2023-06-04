@@ -18,7 +18,7 @@
 <h2> Giới thiệu </h2>
 <ul>
   <li>Đây là bài tập lớn môn Công nghệ Java của nhóm sinh viên trường Đại học Giao Thông Vận Tải phân hiệu tại Thành phố Hồ Chí Minh</li>
-  <li>Đề tài: Hotel management system</li>
+  <li>Đề tài: Ứng dụng quản lý khách sạn</li>
   <li>
     Thành viên nhóm:
     <ul type="none">
